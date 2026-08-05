@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Schema Definition Library - Envictica</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#e0e3e5",
+                        "on-tertiary-fixed-variant": "#3a485c",
+                        "secondary-fixed": "#dae2fd",
+                        "primary-container": "#10b981",
+                        "tertiary-container": "#95a4bb",
+                        "inverse-surface": "#e0e3e5",
+                        "surface-variant": "#323537",
+                        "primary-fixed": "#6ffbbe",
+                        "on-primary-fixed": "#002113",
+                        "primary-fixed-dim": "#4edea3",
+                        "on-surface": "#e0e3e5",
+                        "error-container": "#93000a",
+                        "inverse-primary": "#006c49",
+                        "surface-container": "#1d2022",
+                        "surface-container-low": "#191c1e",
+                        "secondary-container": "#3f465c",
+                        "outline": "#86948a",
+                        "on-primary-fixed-variant": "#005236",
+                        "on-surface-variant": "#bbcabf",
+                        "on-tertiary-container": "#2c3a4e",
+                        "surface-container-high": "#272a2c",
+                        "secondary": "#bec6e0",
+                        "surface-container-highest": "#323537",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary": "#283044",
+                        "surface-tint": "#4edea3",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "surface": "#101415",
+                        "on-primary-container": "#00422b",
+                        "outline-variant": "#3c4a42",
+                        "primary": "#4edea3",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "error": "#ffb4ab",
+                        "on-tertiary": "#233144",
+                        "surface-dim": "#101415",
+                        "on-secondary-container": "#adb4ce",
+                        "on-tertiary-fixed": "#0d1c2f",
+                        "tertiary": "#b9c7e0",
+                        "background": "#101415",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-error": "#690005",
+                        "surface-bright": "#363a3b",
+                        "inverse-on-surface": "#2d3133",
+                        "tertiary-fixed": "#d5e3fd",
+                        "on-primary": "#003824",
+                        "tertiary-fixed-dim": "#b9c7e0",
+                        "surface-container-lowest": "#0b0f10"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin": "24px",
+                        "density-regular": "8px",
+                        "unit": "4px",
+                        "gutter": "12px",
+                        "density-compact": "4px"
+                    },
+                    "fontFamily": {
+                        "data-mono": ["JetBrains Mono"],
+                        "body-sm": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "label-caps": ["JetBrains Mono"],
+                        "title-sm": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "data-mono": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "fontWeight": "700" }],
+                        "title-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                },
+            },
+        }
+    </script>
+</head>
+<body class="bg-background text-on-background font-body-md h-screen overflow-hidden flex flex-col antialiased">
+<!-- Official Module Banner -->
+<div class="bg-primary text-on-primary-fixed w-full py-2 px-margin text-center font-label-caps text-label-caps tracking-[0.2em] z-[60] relative font-bold border-b border-outline-variant">
+    OFFICIAL ENVICTICA MODULE: 9 OF 15
+</div>
+<!-- TopNavBar (Shared Component) -->
+<header class="bg-surface-container dark:bg-surface-container docked full-width top-0 border-b border-outline-variant flat no shadows flex justify-between items-center px-margin h-16 w-full z-50 shrink-0 hidden md:flex">
+<div class="flex items-center gap-gutter">
+<span class="font-headline-md text-headline-md text-primary dark:text-primary uppercase tracking-wider">Envictica</span>
+</div>
+<div class="flex-1 max-w-xl mx-margin hidden lg:block">
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
+<input class="w-full bg-surface-container-highest border border-outline-variant rounded text-on-surface placeholder:text-on-surface-variant font-data-mono text-data-mono pl-10 pr-4 py-2 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors" placeholder="Search resources..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-gutter text-on-surface-variant">
+<button class="w-10 h-10 flex items-center justify-center rounded hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">monitor_heart</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="w-10 h-10 flex items-center justify-center rounded hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80 relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-primary-container rounded-full"></span>
+</button>
+<div class="w-8 h-8 rounded overflow-hidden ml-2 border border-outline-variant">
+<img alt="Operator Profile" class="w-full h-full object-cover" data-alt="A macro shot of a sleek, dark metallic server blade component with subtle emerald green status lights reflecting off brushed steel. The aesthetic is highly technical, pristine, and industrial, fitting an enterprise data infrastructure theme. Deep shadows contrast with sharp highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtO20c_a8Kf3F6wipc0kHXy-GAK7KrsnyBx6EI3nPNsRsGpa8eWKdZI06414ObXppZ8-EHjoAti74cOZwdCJj5WvDiPVetJCo1FU3_AFuQSEhSioiDe_2tP7lUCyg54wOvaMs2QwnW1VAZUk0LiyGteOJfgxUhy7ahVkUFnw0mIgAB2Q-3dM_XczNInrBCv5ZASg_DybiuhprjacWi3RrxDp4HRtUbru6J0CCcfYo3o2-jzoC2myRNjQ"/>
+</div>
+</div>
+</header>
+<div class="flex flex-1 overflow-hidden relative">
+<!-- SideNavBar (Shared Component) -->
+<nav class="bg-surface dark:bg-surface text-primary dark:text-primary docked h-screen left-0 w-64 border-r border-outline-variant flat no shadows flex flex-col h-full py-density-regular shrink-0 hidden md:flex transition-all duration-150 ease-in-out z-40 relative">
+<div class="px-margin mb-6 mt-4">
+<h2 class="font-headline-md text-headline-md text-primary">Envictica Core</h2>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">V2.4.0-Stable</p>
+</div>
+<div class="flex-1 overflow-y-auto">
+<ul class="flex flex-col font-label-caps text-label-caps">
+<!-- Tab 1 -->
+<li>
+<a class="flex items-center gap-3 px-margin py-3 text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">dns</span>
+                            Infrastructure
+                        </a>
+</li>
+<!-- Tab 2 -->
+<li>
+<a class="flex items-center gap-3 px-margin py-3 text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">gavel</span>
+                            Governance
+                        </a>
+</li>
+<!-- Tab 3 -->
+<li>
+<a class="flex items-center gap-3 px-margin py-3 text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+                            Pipelines
+                        </a>
+</li>
+<!-- Tab 4 -->
+<li>
+<a class="flex items-center gap-3 px-margin py-3 text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+                            Data Validation
+                        </a>
+</li>
+<!-- Tab 5 -->
+<li>
+<a class="flex items-center gap-3 px-margin py-3 text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">build_circle</span>
+                            Data Debt Repair
+                        </a>
+</li>
+<!-- Tab 6 -->
+<li>
+<a class="flex items-center gap-3 px-margin py-3 text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+                            Audit Logs
+                        </a>
+</li>
+<!-- Tab 7 -->
+<li>
+<a class="flex items-center gap-3 px-margin py-3 text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+                            Risk Matrix
+                        </a>
+</li>
+<!-- Tab 8 (ACTIVE) -->
+<li>
+<a class="flex items-center gap-3 px-margin py-3 border-r-2 border-primary text-primary bg-primary-container/10 transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined">schema</span>
+                            Schema Library
+                        </a>
+</li>
+</ul>
+</div>
+<div class="mt-auto border-t border-outline-variant pt-density-regular px-margin">
+<div class="flex items-center gap-3 py-3 mb-2">
+<img alt="System Administrator" class="w-8 h-8 rounded object-cover" data-alt="A close up of abstract architectural concrete structures interwoven with glowing fiber optic cables in a dimly lit, highly technical server room environment. The color palette is dominated by slate grays and deep shadows with bright emerald green data pulses." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_YNGuKwzPRlPK5KORO5gsSpFg23mlsxZLS9NMtZCw0zxPDwdkjU3f13mgdJCU3IRsADrjElGT-p2L-T00OAoeFRN_uhcBBCesyT8FI6wao-iOp2ntatzvUFBr7ECP2lm3ilByiLZrggVmlOT4ZeZxbQI28S_ZWBMINrPLQzY1aeg-LjWhJst-GLzOUX_2hUj7HWypDIRvDnvb1PwPdCqLBV36dBN3UBIhVVgZzlCXEq-uiFmcNa6d-w"/>
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface">System Administrator</span>
+</div>
+</div>
+<ul class="flex flex-col font-label-caps text-label-caps pb-4">
+<li>
+<a class="flex items-center gap-3 py-2 text-on-surface-variant hover:text-on-surface transition-colors cursor-pointer" href="#">
+<span class="material-symbols-outlined text-[18px]">description</span>
+                            Docs
+                        </a>
+</li>
+<li>
+<a class="flex items-center gap-3 py-2 text-on-surface-variant hover:text-on-surface transition-colors cursor-pointer" href="#">
+<span class="material-symbols-outlined text-[18px]">help</span>
+                            Support
+                        </a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col md:flex-row overflow-hidden bg-background relative">
+<!-- Left Pane: Library List -->
+<div class="w-full md:w-1/2 lg:w-7/12 flex flex-col h-full border-r border-outline-variant">
+<!-- Toolbar -->
+<div class="p-margin border-b border-outline-variant flex flex-wrap items-center justify-between gap-4 bg-surface/50 backdrop-blur-sm z-10">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-surface">Schema Definition Library</h1>
+<div class="flex items-center gap-2 mt-2 font-data-mono text-data-mono text-on-surface-variant">
+<span>Root</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span>Definitions</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-primary">Master Templates</span>
+</div>
+</div>
+<button class="bg-primary text-on-primary-fixed font-title-sm text-title-sm px-6 py-2 rounded flex items-center gap-2 hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                        New Schema
+                    </button>
+</div>
+<!-- Filters -->
+<div class="px-margin py-3 border-b border-outline-variant flex items-center gap-4 bg-surface-container-lowest">
+<div class="flex-1 relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">filter_list</span>
+<input class="w-full bg-surface-container border border-outline-variant rounded font-data-mono text-data-mono pl-9 pr-3 py-1.5 focus:outline-none focus:border-primary transition-colors text-on-surface placeholder:text-on-surface-variant" placeholder="Filter schemas..." type="text"/>
+</div>
+<div class="flex gap-2">
+<button class="px-3 py-1.5 border border-primary text-primary font-label-caps text-label-caps rounded bg-primary-container/10">All</button>
+<button class="px-3 py-1.5 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps rounded hover:bg-surface-variant transition-colors">Court Docs</button>
+<button class="px-3 py-1.5 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps rounded hover:bg-surface-variant transition-colors">Contracts</button>
+</div>
+</div>
+<!-- Schema List -->
+<div class="flex-1 overflow-y-auto p-margin space-y-3 relative">
+<!-- Decorator grid background -->
+<div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(#3c4a42 1px, transparent 1px); background-size: 24px 24px; opacity: 0.2;"></div>
+<!-- Item 1 (Active) -->
+<div class="bg-surface-container border border-primary rounded p-4 relative overflow-hidden group cursor-pointer">
+<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary">description</span>
+<h3 class="font-title-sm text-title-sm text-on-surface">Court_Docket_v2.1</h3>
+</div>
+<span class="px-2 py-0.5 bg-primary-container/20 text-primary border border-primary/30 rounded font-label-caps text-label-caps flex items-center gap-1">
+<span class="w-1.5 h-1.5 bg-primary rounded-full inline-block"></span> Active
+                            </span>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-4 font-data-mono text-data-mono text-on-surface-variant">
+<div>
+<span class="block text-[10px] text-on-tertiary-fixed-variant mb-1 uppercase tracking-wider">Last Updated</span>
+<span class="text-on-surface">2023-10-24 14:32Z</span>
+</div>
+<div>
+<span class="block text-[10px] text-on-tertiary-fixed-variant mb-1 uppercase tracking-wider">Maintainer</span>
+<span class="text-on-surface">sys_admin_01</span>
+</div>
+</div>
+<div class="flex gap-3 mt-4 border-t border-outline-variant pt-3">
+<button class="text-primary font-label-caps text-label-caps flex items-center gap-1 hover:text-primary-fixed-dim transition-colors">
+<span class="material-symbols-outlined text-[16px]">visibility</span> View JSON
+                            </button>
+<button class="text-on-surface-variant font-label-caps text-label-caps flex items-center gap-1 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[16px]">edit</span> Edit Schema
+                            </button>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="bg-surface-container border border-outline-variant rounded p-4 relative overflow-hidden group cursor-pointer hover:border-outline transition-colors">
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary-container">policy</span>
+<h3 class="font-title-sm text-title-sm text-on-surface">Standard_NDA_Metadata</h3>
+</div>
+<span class="px-2 py-0.5 bg-surface-variant text-on-surface-variant border border-outline-variant rounded font-label-caps text-label-caps flex items-center gap-1">
+<span class="w-1.5 h-1.5 bg-on-surface-variant rounded-full inline-block"></span> Stable
+                            </span>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-4 font-data-mono text-data-mono text-on-surface-variant">
+<div>
+<span class="block text-[10px] text-on-tertiary-fixed-variant mb-1 uppercase tracking-wider">Last Updated</span>
+<span class="text-on-surface">2023-09-12 09:15Z</span>
+</div>
+<div>
+<span class="block text-[10px] text-on-tertiary-fixed-variant mb-1 uppercase tracking-wider">Maintainer</span>
+<span class="text-on-surface">legal_ops_bot</span>
+</div>
+</div>
+<div class="flex gap-3 mt-4 border-t border-outline-variant pt-3 opacity-60 group-hover:opacity-100 transition-opacity">
+<button class="text-on-surface-variant font-label-caps text-label-caps flex items-center gap-1 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[16px]">visibility</span> View JSON
+                            </button>
+<button class="text-on-surface-variant font-label-caps text-label-caps flex items-center gap-1 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[16px]">edit</span> Edit Schema
+                            </button>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="bg-surface-container border border-outline-variant rounded p-4 relative overflow-hidden group cursor-pointer hover:border-outline transition-colors">
+<div class="flex justify-between items-start mb-3">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-tertiary-container">map</span>
+<h3 class="font-title-sm text-title-sm text-on-surface">Trial_Transcript</h3>
+</div>
+<span class="px-2 py-0.5 bg-error-container/20 text-error border border-error/30 rounded font-label-caps text-label-caps flex items-center gap-1">
+<span class="w-1.5 h-1.5 bg-error rounded-full inline-block"></span> Draft
+                            </span>
+</div>
+<div class="grid grid-cols-2 gap-4 mb-4 font-data-mono text-data-mono text-on-surface-variant">
+<div>
+<span class="block text-[10px] text-on-tertiary-fixed-variant mb-1 uppercase tracking-wider">Last Updated</span>
+<span class="text-on-surface">2023-11-01 18:45Z</span>
+</div>
+<div>
+<span class="block text-[10px] text-on-tertiary-fixed-variant mb-1 uppercase tracking-wider">Maintainer</span>
+<span class="text-on-surface">nlp_pipeline_v3</span>
+</div>
+</div>
+<div class="flex gap-3 mt-4 border-t border-outline-variant pt-3 opacity-60 group-hover:opacity-100 transition-opacity">
+<button class="text-on-surface-variant font-label-caps text-label-caps flex items-center gap-1 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[16px]">visibility</span> View JSON
+                            </button>
+<button class="text-on-surface-variant font-label-caps text-label-caps flex items-center gap-1 hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-[16px]">edit</span> Edit Schema
+                            </button>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Pane: Code Preview -->
+<div class="w-full md:w-1/2 lg:w-5/12 h-full bg-surface-container-lowest flex flex-col">
+<div class="border-b border-outline-variant px-4 py-3 flex justify-between items-center bg-surface-container">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-[18px]">code</span>
+<span class="font-data-mono text-data-mono text-on-surface">Court_Docket_v2.1.json</span>
+</div>
+<div class="flex gap-2">
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[16px]">content_copy</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[16px]">download</span>
+</button>
+</div>
+</div>
+<div class="flex-1 p-4 overflow-auto font-data-mono text-[13px] leading-relaxed text-on-surface-variant bg-[#0b0f10]">
+<pre><code><span class="text-primary">{</span>
+  <span class="text-tertiary">"$schema"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"http://json-schema.org/draft-07/schema#"</span><span class="text-on-surface">,</span>
+  <span class="text-tertiary">"title"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"Court_Docket"</span><span class="text-on-surface">,</span>
+  <span class="text-tertiary">"type"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"object"</span><span class="text-on-surface">,</span>
+  <span class="text-tertiary">"properties"</span><span class="text-on-surface">:</span> <span class="text-primary">{</span>
+    <span class="text-tertiary">"docket_id"</span><span class="text-on-surface">:</span> <span class="text-primary">{</span>
+      <span class="text-tertiary">"type"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"string"</span><span class="text-on-surface">,</span>
+      <span class="text-tertiary">"description"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"Unique identifier for the court case."</span>
+    <span class="text-primary">}</span><span class="text-on-surface">,</span>
+    <span class="text-tertiary">"court_jurisdiction"</span><span class="text-on-surface">:</span> <span class="text-primary">{</span>
+      <span class="text-tertiary">"type"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"string"</span><span class="text-on-surface">,</span>
+      <span class="text-tertiary">"enum"</span><span class="text-on-surface">:</span> <span class="text-primary">[</span><span class="text-secondary-fixed">"FEDERAL"</span><span class="text-on-surface">,</span> <span class="text-secondary-fixed">"STATE"</span><span class="text-on-surface">,</span> <span class="text-secondary-fixed">"LOCAL"</span><span class="text-primary">]</span>
+    <span class="text-primary">}</span><span class="text-on-surface">,</span>
+    <span class="text-tertiary">"filing_date"</span><span class="text-on-surface">:</span> <span class="text-primary">{</span>
+      <span class="text-tertiary">"type"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"string"</span><span class="text-on-surface">,</span>
+      <span class="text-tertiary">"format"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"date-time"</span>
+    <span class="text-primary">}</span><span class="text-on-surface">,</span>
+    <span class="text-tertiary">"parties"</span><span class="text-on-surface">:</span> <span class="text-primary">{</span>
+      <span class="text-tertiary">"type"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"array"</span><span class="text-on-surface">,</span>
+      <span class="text-tertiary">"items"</span><span class="text-on-surface">:</span> <span class="text-primary">{</span>
+        <span class="text-tertiary">"type"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"object"</span><span class="text-on-surface">,</span>
+        <span class="text-tertiary">"properties"</span><span class="text-on-surface">:</span> <span class="text-primary">{</span>
+          <span class="text-tertiary">"role"</span><span class="text-primary">:</span> <span class="text-primary">{</span> <span class="text-tertiary">"type"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"string"</span> <span class="text-primary">}</span><span class="text-on-surface">,</span>
+          <span class="text-tertiary">"entity_name"</span><span class="text-on-surface">:</span> <span class="text-primary">{</span> <span class="text-tertiary">"type"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"string"</span> <span class="text-primary">}</span>
+        <span class="text-primary">}</span><span class="text-on-surface">,</span>
+        <span class="text-tertiary">"required"</span><span class="text-on-surface">:</span> <span class="text-primary">[</span><span class="text-secondary-fixed">"role"</span><span class="text-on-surface">,</span> <span class="text-secondary-fixed">"entity_name"</span><span class="text-primary">]</span>
+      <span class="text-primary">}</span>
+    <span class="text-primary">}</span>
+  <span class="text-primary">}</span><span class="text-on-surface">,</span>
+  <span class="text-tertiary">"required"</span><span class="text-on-surface">:</span> <span class="text-primary">[</span><span class="text-secondary-fixed">"docket_id"</span><span class="text-on-surface">,</span> <span class="text-secondary-fixed">"court_jurisdiction"</span><span class="text-on-surface">,</span> <span class="text-secondary-fixed">"filing_date"</span><span class="text-primary">]</span>
+<span class="text-primary">}</span></code></pre>
+</div>
+<div class="border-t border-outline-variant p-3 bg-surface-container flex items-center justify-between">
+<span class="font-data-mono text-[11px] text-on-surface-variant">Lines: 28 | Size: 1.2KB</span>
+<span class="px-2 py-1 bg-surface-variant rounded font-label-caps text-[10px] text-on-surface-variant">JSON Schema Draft 07</span>
+</div>
+</div>
+</main>
+</div>
+</body></html>
