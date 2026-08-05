@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Envictica</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-container-high": "#232c29",
+                        "on-tertiary-fixed-variant": "#574500",
+                        "on-tertiary": "#3c2f00",
+                        "tertiary-container": "#ffd651",
+                        "tertiary-fixed": "#ffe086",
+                        "outline": "#8b949e",
+                        "tertiary-fixed-dim": "#eac33f",
+                        "on-surface-variant": "#b9cac4",
+                        "on-primary-container": "#006c5c",
+                        "on-secondary": "#5f0019",
+                        "on-background": "#dbe5e0",
+                        "on-error": "#690005",
+                        "surface-dim": "#0d1513",
+                        "surface": "#0d1513",
+                        "background": "#0d1513",
+                        "inverse-on-surface": "#2a3230",
+                        "secondary-fixed-dim": "#ffb2b8",
+                        "surface-tint": "#00dfc1",
+                        "on-primary": "#00382f",
+                        "on-primary-fixed-variant": "#005144",
+                        "surface-container-low": "#151d1b",
+                        "surface-container-lowest": "#08100e",
+                        "surface-container": "#21262d",
+                        "secondary-container": "#ac0037",
+                        "on-surface": "#dbe5e0",
+                        "surface-container-highest": "#3b434b",
+                        "on-secondary-container": "#ffb7bc",
+                        "primary": "#d7fff3",
+                        "on-secondary-fixed": "#40000f",
+                        "secondary": "#ffb2b8",
+                        "on-primary-fixed": "#00201a",
+                        "error": "#ffb4ab",
+                        "outline-variant": "#3a4a46",
+                        "tertiary": "#fff5e4",
+                        "surface-bright": "#323b38",
+                        "on-error-container": "#ffdad6",
+                        "inverse-primary": "#006b5b",
+                        "surface-variant": "#2e3734",
+                        "secondary-fixed": "#ffdadb",
+                        "primary-container": "#005045",
+                        "inverse-surface": "#dbe5e0",
+                        "primary-fixed-dim": "#00dfc1",
+                        "error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#91002d",
+                        "on-tertiary-fixed": "#231b00",
+                        "primary-fixed": "#26fedc",
+                        "on-tertiary-container": "#745c00",
+                        "electric-teal": "#00f5d4",
+                        "burnt-crimson": "#ff4d6d"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1440px",
+                        "gutter": "16px",
+                        "margin-desktop": "24px",
+                        "unit": "4px",
+                        "margin-mobile": "16px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Sora"],
+                        "label-caps": ["Sora"],
+                        "title-md": ["Sora"],
+                        "body-md": ["Sora"],
+                        "headline-lg-mobile": ["Sora"],
+                        "headline-lg": ["Sora"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "label-caps": ["10px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .blueprint-grid {
+            background-size: 40px 40px;
+            background-image: linear-gradient(to right, rgba(58, 74, 70, 0.2) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(58, 74, 70, 0.2) 1px, transparent 1px);
+        }
+        .data-table-row {
+            height: 40px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background blueprint-grid min-h-screen flex flex-col font-body-md overflow-x-hidden">
+<!-- Prominent Teal Top Bar -->
+<div class="w-full bg-electric-teal text-on-primary-fixed font-label-caps text-label-caps font-bold py-1.5 text-center tracking-widest uppercase shadow-[0_0_15px_rgba(0,245,212,0.3)] z-[60] relative">
+    OFFICIAL ENVICTICA MODULE: 1 OF 15
+</div>
+<!-- TopNavBar -->
+<header class="w-full top-0 sticky bg-surface-container-lowest border-b border-outline-variant z-50">
+<div class="flex justify-between items-center w-full px-margin-desktop py-2 max-w-container-max mx-auto">
+<div class="flex items-center gap-4">
+<span class="font-headline-md text-headline-md font-bold text-primary">Envictica</span>
+<div class="hidden md:flex gap-4 ml-8">
+<a class="font-title-md text-title-md text-primary border-b-2 border-primary pb-1" href="#">Command</a>
+<a class="font-title-md text-title-md text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 px-2 rounded" href="#">Governance</a>
+<a class="font-title-md text-title-md text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 px-2 rounded" href="#">ACB</a>
+<a class="font-title-md text-title-md text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 px-2 rounded" href="#">Risk</a>
+<a class="font-title-md text-title-md text-on-surface-variant hover:bg-surface-container-high transition-colors duration-200 px-2 rounded" href="#">ROI</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="bg-burnt-crimson text-white px-4 py-1.5 rounded font-label-caps text-label-caps hover:opacity-80 scale-[0.99] transition-all flex items-center gap-2 shadow-[0_0_15px_rgba(255,77,109,0.3)]">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">warning</span>
+                    Emergency Intervention
+                </button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">settings</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors">
+<span class="material-symbols-outlined">notifications_active</span>
+</button>
+</div>
+</div>
+</header>
+<div class="flex flex-1 max-w-container-max mx-auto w-full">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-full py-6 px-4 w-64 left-0 sticky top-[65px] bg-surface-container-low border-r border-outline-variant" style="height: calc(100vh - 65px);">
+<div class="mb-8">
+<div class="w-12 h-12 rounded-full bg-surface-container-highest flex items-center justify-center mb-4">
+<img alt="System Operator" class="w-full h-full object-cover rounded-full border border-electric-teal shadow-[0_0_10px_rgba(0,245,212,0.2)]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA16-BLECCVQpPe0Jb4TewxR_XSyacc8pCLnM0zPn1CyHgZhtsk3luKrHjSDzq1qb3-BfrrZUaVxUCAnF6kv3iU64pjoiV6u9n50_lY1WZERRCIRPOIV5aYwpsveAnIhamXOX7i6mDfkAKUXE6EFE9Iv6ke8NwdWJKL13QQSr8wecucqgbr08xh_M3c7WBgoNZB6ffl7gDQ7UvRn7JQ3xmuj9GePU4xWYFJoW0CXjbgmQmhf9EXhxHWPw"/>
+</div>
+<h3 class="font-headline-md text-headline-md text-primary">Operator Alpha</h3>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">Level 4 Clearance</p>
+</div>
+<nav class="flex-1 flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg font-bold font-label-caps text-label-caps scale-95 transition-all shadow-[inset_0_0_10px_rgba(0,245,212,0.1)] border border-primary-container" href="#">
+<span class="material-symbols-outlined text-electric-teal">terminal</span> Command
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all rounded-lg font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">gavel</span> Governance
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all rounded-lg font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">policy</span> ACB Config
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all rounded-lg font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">warning</span> Risk Metrics
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all rounded-lg font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined">trending_up</span> ROI Analysis
+                </a>
+<a class="flex items-center gap-3 px-3 py-2 text-error hover:bg-error-container hover:text-on-error-container transition-all rounded-lg font-label-caps text-label-caps mt-auto border border-transparent hover:border-error/30" href="#">
+<span class="material-symbols-outlined">bolt</span> Kill Switch
+                </a>
+</nav>
+<div class="mt-8 border-t border-outline-variant pt-4">
+<div class="flex items-center gap-2 text-primary font-label-caps text-label-caps mb-4 bg-surface-container-lowest px-3 py-2 rounded border border-outline-variant shadow-inner">
+<div class="w-2 h-2 rounded-full bg-electric-teal animate-pulse shadow-[0_0_5px_rgba(0,245,212,0.8)]"></div>
+                    System Status: Nominal
+                </div>
+<div class="flex flex-col gap-2">
+<a class="flex items-center gap-3 px-3 py-1.5 text-on-surface-variant hover:text-on-surface transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-sm">description</span> Documentation
+                    </a>
+<a class="flex items-center gap-3 px-3 py-1.5 text-on-surface-variant hover:text-on-surface transition-all font-label-caps text-label-caps" href="#">
+<span class="material-symbols-outlined text-sm">help_outline</span> Support
+                    </a>
+</div>
+</div>
+</aside>
+<!-- Main Canvas -->
+<main class="flex-1 p-margin-desktop md:pl-8 flex flex-col gap-6">
+<!-- Top Section: Core Metrics & Kill Switch -->
+<div class="grid grid-cols-1 lg:grid-cols-4 gap-6">
+<!-- Global Kill Switch -->
+<div class="col-span-1 lg:col-span-1 bg-surface-container-low border border-outline-variant rounded p-6 flex flex-col items-center justify-center relative overflow-hidden shadow-md">
+<div class="absolute inset-0 bg-error/5 pointer-events-none"></div>
+<h2 class="font-title-md text-title-md text-error mb-2 text-center w-full uppercase tracking-wider flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">dangerous</span>
+                        Global Kill Switch
+                    </h2>
+<p class="text-on-surface-variant text-center mb-6 font-label-caps text-label-caps bg-surface-container px-2 py-1 rounded">Multi-Sig Verification</p>
+<div class="flex gap-3 mb-6">
+<div class="flex flex-col items-center group">
+<div class="w-10 h-10 rounded-full border border-electric-teal bg-primary-container flex items-center justify-center text-electric-teal mb-1 shadow-[0_0_10px_rgba(0,245,212,0.3)] transition-all">
+<span class="material-symbols-outlined text-sm">fingerprint</span>
+</div>
+<span class="text-[8px] font-bold tracking-widest text-primary uppercase">Alpha</span>
+</div>
+<div class="flex flex-col items-center opacity-70 group hover:opacity-100 transition-opacity cursor-pointer">
+<div class="w-10 h-10 rounded-full border border-outline-variant bg-surface-container-highest flex items-center justify-center text-on-surface-variant mb-1 hover:border-primary hover:text-primary transition-all">
+<span class="material-symbols-outlined text-sm">lock_open</span>
+</div>
+<span class="text-[8px] font-bold tracking-widest text-on-surface-variant uppercase group-hover:text-primary">Beta</span>
+</div>
+<div class="flex flex-col items-center opacity-40">
+<div class="w-10 h-10 rounded-full border border-outline-variant bg-surface-container flex items-center justify-center text-on-surface-variant mb-1">
+<span class="material-symbols-outlined text-sm">lock</span>
+</div>
+<span class="text-[8px] font-bold tracking-widest text-on-surface-variant uppercase">Gamma</span>
+</div>
+</div>
+<button class="w-full bg-surface-container-highest border border-burnt-crimson text-burnt-crimson font-headline-md text-[18px] font-bold py-3 rounded hover:bg-burnt-crimson hover:text-white transition-all uppercase tracking-widest relative overflow-hidden group shadow-[0_0_10px_rgba(255,77,109,0.1)] hover:shadow-[0_0_20px_rgba(255,77,109,0.5)]">
+<span class="relative z-10 flex items-center justify-center gap-2">
+<span class="material-symbols-outlined">power_settings_new</span> Initialize Abort
+                        </span>
+<div class="absolute inset-0 bg-burnt-crimson/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300"></div>
+</button>
+</div>
+<!-- Core Fiduciary Health -->
+<div class="col-span-1 lg:col-span-3 grid grid-cols-1 md:grid-cols-2 gap-6">
+<!-- Trust Score Calculus -->
+<div class="bg-surface-container-low border border-outline-variant rounded p-0 flex flex-col overflow-hidden">
+<div class="p-3 border-b border-outline-variant bg-surface-container-lowest flex justify-between items-center">
+<h2 class="font-title-md text-[14px] font-bold text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-electric-teal text-sm">verified_user</span> Trust Score Calculus
+                            </h2>
+<span class="text-[10px] font-mono text-electric-teal bg-primary-container/30 px-2 py-0.5 rounded border border-electric-teal/30">Stable</span>
+</div>
+<div class="p-4 flex-1 flex flex-col justify-center">
+<div class="flex items-end justify-between mb-2">
+<div class="text-4xl font-headline-md text-primary font-bold tracking-tight">94.2<span class="text-lg text-on-surface-variant font-normal">/100</span></div>
+<div class="text-electric-teal flex items-center text-sm"><span class="material-symbols-outlined text-sm">arrow_upward</span> 1.2%</div>
+</div>
+<div class="w-full bg-surface-container h-1.5 rounded-full overflow-hidden mb-4">
+<div class="bg-gradient-to-r from-primary-container via-electric-teal to-primary h-full w-[94.2%]"></div>
+</div>
+<div class="grid grid-cols-3 gap-2 text-center text-[10px] font-mono text-on-surface-variant uppercase tracking-wider">
+<div class="bg-surface-container-highest p-2 rounded">
+<div class="text-primary font-bold text-xs mb-1">99.8%</div>
+                                    Compliance
+                                </div>
+<div class="bg-surface-container-highest p-2 rounded">
+<div class="text-primary font-bold text-xs mb-1">0.1ms</div>
+                                    Latency
+                                </div>
+<div class="bg-surface-container-highest p-2 rounded border border-electric-teal/30 shadow-[inset_0_0_8px_rgba(0,245,212,0.1)]">
+<div class="text-electric-teal font-bold text-xs mb-1">Zero</div>
+                                    Breaches
+                                </div>
+</div>
+</div>
+</div>
+<!-- Data Debt Metric -->
+<div class="bg-surface-container-low border border-outline-variant rounded p-0 flex flex-col overflow-hidden relative">
+<div class="absolute top-0 right-0 w-24 h-24 bg-burnt-crimson/5 rounded-bl-full blur-2xl pointer-events-none"></div>
+<div class="p-3 border-b border-outline-variant bg-surface-container-lowest flex justify-between items-center z-10 relative">
+<h2 class="font-title-md text-[14px] font-bold text-error flex items-center gap-2">
+<span class="material-symbols-outlined text-burnt-crimson text-sm">warning_amber</span> Data Debt Accumulation
+                            </h2>
+<span class="text-[10px] font-mono text-burnt-crimson bg-error-container/30 px-2 py-0.5 rounded border border-burnt-crimson/30 animate-pulse">Monitoring</span>
+</div>
+<div class="p-4 flex-1 flex flex-col justify-center z-10 relative">
+<div class="flex items-end justify-between mb-4">
+<div class="text-3xl font-headline-md text-error font-bold tracking-tight">2.4<span class="text-lg text-on-surface-variant font-normal">TB</span></div>
+<div class="text-burnt-crimson flex items-center text-sm"><span class="material-symbols-outlined text-sm">trending_up</span> 0.3TB/d</div>
+</div>
+<!-- Sparkline representation -->
+<div class="h-12 w-full flex items-end gap-1 mb-2">
+<div class="w-1/12 bg-outline-variant h-[20%] rounded-t-sm"></div>
+<div class="w-1/12 bg-outline-variant h-[25%] rounded-t-sm"></div>
+<div class="w-1/12 bg-outline-variant h-[22%] rounded-t-sm"></div>
+<div class="w-1/12 bg-outline-variant h-[30%] rounded-t-sm"></div>
+<div class="w-1/12 bg-outline-variant h-[35%] rounded-t-sm"></div>
+<div class="w-1/12 bg-outline-variant h-[45%] rounded-t-sm"></div>
+<div class="w-1/12 bg-outline-variant h-[40%] rounded-t-sm"></div>
+<div class="w-1/12 bg-burnt-crimson/60 h-[60%] rounded-t-sm"></div>
+<div class="w-1/12 bg-burnt-crimson/70 h-[75%] rounded-t-sm"></div>
+<div class="w-1/12 bg-burnt-crimson/80 h-[85%] rounded-t-sm"></div>
+<div class="w-1/12 bg-burnt-crimson/90 h-[95%] rounded-t-sm"></div>
+<div class="w-1/12 bg-burnt-crimson h-[100%] rounded-t-sm shadow-[0_0_10px_rgba(255,77,109,0.5)]"></div>
+</div>
+<div class="flex justify-between text-[9px] font-mono text-on-surface-variant uppercase tracking-widest border-t border-outline-variant/50 pt-1">
+<span>T-12h</span>
+<span>Threshold: 3.0TB</span>
+<span>Now</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Middle Section: High-Density Telemetry -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+<!-- Model Drift Velocity -->
+<div class="bg-surface-container-low border border-outline-variant rounded p-0 flex flex-col">
+<div class="p-4 border-b border-outline-variant bg-surface-container-lowest flex justify-between items-center">
+<h2 class="font-title-md text-title-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-electric-teal">multiline_chart</span> Model Drift Velocity
+                    </h2>
+<div class="flex gap-2">
+<span class="flex items-center gap-1 text-[10px] font-mono text-on-surface-variant"><div class="w-2 h-2 bg-electric-teal rounded-full"></div> GPT-4</span>
+<span class="flex items-center gap-1 text-[10px] font-mono text-on-surface-variant"><div class="w-2 h-2 bg-primary rounded-full"></div> Claude</span>
+<span class="flex items-center gap-1 text-[10px] font-mono text-on-surface-variant"><div class="w-2 h-2 bg-burnt-crimson rounded-full"></div> Gemini</span>
+</div>
+</div>
+<div class="p-6 relative h-64 flex flex-col justify-end">
+<!-- SVG Graph Replacement -->
+<svg class="absolute inset-x-6 top-6 bottom-8 w-[calc(100%-3rem)] h-[calc(100%-3.5rem)]" preserveaspectratio="none" viewbox="0 0 100 100">
+<!-- Grid -->
+<line stroke="rgba(139, 148, 158, 0.2)" stroke-dasharray="2 2" stroke-width="0.5" x1="0" x2="100" y1="25" y2="25"></line>
+<line stroke="rgba(139, 148, 158, 0.2)" stroke-dasharray="2 2" stroke-width="0.5" x1="0" x2="100" y1="50" y2="50"></line>
+<line stroke="rgba(139, 148, 158, 0.2)" stroke-dasharray="2 2" stroke-width="0.5" x1="0" x2="100" y1="75" y2="75"></line>
+<!-- GPT-4 Line (Electric Teal) -->
+<path d="M0,80 C20,85 40,75 60,82 C80,88 90,78 100,80" fill="none" stroke="#00f5d4" stroke-width="1.5"></path>
+<!-- Claude Line (Primary) -->
+<path d="M0,60 C20,55 40,65 60,58 C80,50 90,62 100,55" fill="none" stroke="#d7fff3" stroke-width="1.5"></path>
+<!-- Gemini Line (Burnt Crimson - Spiking) -->
+<path d="M0,70 C20,72 40,68 60,75 C70,78 80,40 90,20 C95,10 100,5 100,5" fill="none" stroke="#ff4d6d" stroke-width="2"></path>
+<!-- Alert Dot on Gemini -->
+<circle cx="100" cy="5" fill="#ff4d6d" r="2">
+<animate attributename="r" dur="1s" repeatcount="indefinite" values="2;4;2"></animate>
+<animate attributename="opacity" dur="1s" repeatcount="indefinite" values="1;0.5;1"></animate>
+</circle>
+<!-- Threshold Zone -->
+<rect fill="rgba(255, 77, 109, 0.1)" height="30" width="100" x="0" y="0"></rect>
+<line stroke="#ff4d6d" stroke-dasharray="4 2" stroke-width="0.5" x1="0" x2="100" y1="30" y2="30"></line>
+</svg>
+<div class="absolute top-8 right-8 bg-surface-container-highest border border-burnt-crimson p-2 rounded shadow-lg z-10 flex flex-col gap-1">
+<span class="text-[10px] font-bold text-error uppercase tracking-wider">Drift Alert</span>
+<span class="text-[14px] font-mono text-white">Gemini &gt; 15%</span>
+<button class="bg-burnt-crimson text-white text-[8px] px-2 py-1 rounded mt-1 hover:bg-red-700 uppercase">Auto-Pivot Initiated</button>
+</div>
+<div class="flex justify-between text-[10px] font-mono text-on-surface-variant w-full border-t border-outline-variant/30 pt-2 mt-auto">
+<span>-60m</span>
+<span>-45m</span>
+<span>-30m</span>
+<span>-15m</span>
+<span class="text-primary font-bold">Now</span>
+</div>
+</div>
+</div>
+<!-- ACB Intercept Status -->
+<div class="bg-surface-container-low border border-outline-variant rounded p-0 flex flex-col">
+<div class="p-4 border-b border-outline-variant bg-surface-container-lowest flex justify-between items-center">
+<h2 class="font-title-md text-title-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-electric-teal">security</span> ACB Intercept Status
+                    </h2>
+<span class="bg-primary-container text-electric-teal px-2 py-0.5 rounded text-[10px] font-mono border border-electric-teal/30">Active Filtering</span>
+</div>
+<div class="p-6 grid grid-cols-1 md:grid-cols-2 gap-4 h-64 overflow-y-auto custom-scrollbar">
+<div class="col-span-1 md:col-span-2 bg-surface-container p-3 rounded border border-outline-variant flex justify-between items-center">
+<div class="flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Total Evaluated (24h)</span>
+<span class="text-xl font-headline-md text-primary font-bold">142,894</span>
+</div>
+<div class="flex flex-col text-right">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Intercept Rate</span>
+<span class="text-xl font-headline-md text-electric-teal font-bold">1.2%</span>
+</div>
+</div>
+<!-- Intercept Cards -->
+<div class="bg-surface-container-highest p-3 rounded border-l-2 border-electric-teal flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="text-[11px] font-mono text-primary bg-primary-container px-1.5 py-0.5 rounded">PII Redaction</span>
+<span class="material-symbols-outlined text-electric-teal text-[16px]">check_circle</span>
+</div>
+<div class="text-[10px] text-on-surface-variant mt-1">Rule: Reg-E-401</div>
+<div class="flex justify-between text-[12px] font-bold text-on-surface mt-1">
+<span>Blocked: 842</span>
+<span class="text-electric-teal">99.9% Acc</span>
+</div>
+</div>
+<div class="bg-surface-container-highest p-3 rounded border-l-2 border-burnt-crimson flex flex-col gap-2 shadow-[0_0_10px_rgba(255,77,109,0.1)]">
+<div class="flex justify-between items-start">
+<span class="text-[11px] font-mono text-error bg-error-container px-1.5 py-0.5 rounded">Toxicity Filter</span>
+<span class="material-symbols-outlined text-burnt-crimson text-[16px]">warning</span>
+</div>
+<div class="text-[10px] text-on-surface-variant mt-1">Rule: Saf-C-12</div>
+<div class="flex justify-between text-[12px] font-bold text-on-surface mt-1">
+<span>Blocked: 15</span>
+<span class="text-burnt-crimson">Flagged Review</span>
+</div>
+</div>
+<div class="bg-surface-container-highest p-3 rounded border-l-2 border-primary flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="text-[11px] font-mono text-primary bg-surface-container px-1.5 py-0.5 rounded border border-outline-variant">Competitor Mention</span>
+<span class="material-symbols-outlined text-primary text-[16px]">info</span>
+</div>
+<div class="text-[10px] text-on-surface-variant mt-1">Rule: Biz-M-04</div>
+<div class="flex justify-between text-[12px] font-bold text-on-surface mt-1">
+<span>Modified: 1,204</span>
+<span class="text-primary">Logged</span>
+</div>
+</div>
+<div class="bg-surface-container-highest p-3 rounded border-l-2 border-electric-teal flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="text-[11px] font-mono text-primary bg-primary-container px-1.5 py-0.5 rounded">Financial Advice</span>
+<span class="material-symbols-outlined text-electric-teal text-[16px]">check_circle</span>
+</div>
+<div class="text-[10px] text-on-surface-variant mt-1">Rule: Fid-A-01</div>
+<div class="flex justify-between text-[12px] font-bold text-on-surface mt-1">
+<span>Blocked: 34</span>
+<span class="text-electric-teal">100% Acc</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Bottom Section: Traffic Diverter & Ledger -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Traffic Diverter (Updated to be more compact) -->
+<div class="col-span-1 lg:col-span-2 bg-surface-container-low border border-outline-variant rounded p-0 flex flex-col">
+<div class="p-4 border-b border-outline-variant bg-surface-container-lowest flex justify-between items-center">
+<h2 class="font-title-md text-title-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-electric-teal">route</span> Orchestrator Traffic Diverter
+                        </h2>
+<div class="flex gap-2">
+<button class="bg-surface-container hover:bg-surface-container-highest text-on-surface px-3 py-1 text-xs font-mono rounded border border-outline-variant transition-colors shadow-sm">Force GPT-4</button>
+<button class="bg-surface-container hover:bg-surface-container-highest text-on-surface px-3 py-1 text-xs font-mono rounded border border-outline-variant transition-colors shadow-sm">Force Claude</button>
+</div>
+</div>
+<div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-4 relative">
+<!-- Flow Lines -->
+<div class="absolute inset-0 pointer-events-none hidden md:block z-0">
+<svg class="w-full h-full" style="stroke: rgba(139, 148, 158, 0.4); stroke-width: 1.5; fill: none; stroke-dasharray: 4;">
+<path d="M 250 100 Q 350 100 350 150 T 550 100">
+<animate attributename="stroke-dashoffset" dur="20s" from="1000" repeatcount="indefinite" to="0"></animate>
+</path>
+<path d="M 250 150 Q 350 150 350 100 T 550 150">
+<animate attributename="stroke-dashoffset" dur="20s" from="1000" repeatcount="indefinite" to="0"></animate>
+</path>
+</svg>
+</div>
+<div class="bg-surface-container p-4 rounded border border-outline-variant z-10 flex flex-col gap-3 shadow-md">
+<div class="flex justify-between items-center border-b border-outline-variant pb-2">
+<span class="font-label-caps text-label-caps text-primary font-bold">Ingress Gate</span>
+<span class="text-[10px] font-mono text-electric-teal bg-primary-container/20 px-1 rounded">8,432 req/s</span>
+</div>
+<div class="flex justify-between text-[11px] font-mono text-on-surface-variant"><span>Legal Query A</span><span class="text-electric-teal">Rerouting</span></div>
+<div class="flex justify-between text-[11px] font-mono text-on-surface-variant"><span>Contract Audit</span><span class="text-primary">Stable</span></div>
+<div class="flex justify-between text-[11px] font-mono text-on-surface-variant"><span>Compliance Check</span><span class="text-burnt-crimson font-bold">Drift Alert</span></div>
+</div>
+<div class="bg-surface-container p-4 rounded border border-electric-teal/50 z-10 flex flex-col gap-3 relative shadow-[0_0_15px_rgba(0,245,212,0.1)]">
+<div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-surface-container-lowest px-3 py-1 text-[9px] font-bold uppercase tracking-widest text-electric-teal rounded border border-electric-teal/50 shadow-sm">Orchestrator</div>
+<div class="flex justify-between items-center border-b border-outline-variant pb-2 mt-1">
+<span class="font-label-caps text-label-caps text-primary">Load Balancer</span>
+<span class="material-symbols-outlined text-electric-teal text-sm animate-spin" style="animation-duration: 4s;">sync</span>
+</div>
+<div class="flex flex-col gap-2 mt-2">
+<div class="w-full bg-surface-container-highest h-2.5 rounded-full overflow-hidden relative">
+<div class="bg-electric-teal h-full w-[60%] shadow-[0_0_5px_rgba(0,245,212,0.8)]"></div>
+<span class="absolute right-1 top-[1px] text-[6px] text-white font-mono leading-none">60%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2.5 rounded-full overflow-hidden relative">
+<div class="bg-primary h-full w-[30%]"></div>
+<span class="absolute right-1 top-[1px] text-[6px] text-white font-mono leading-none">30%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2.5 rounded-full overflow-hidden relative border border-burnt-crimson/50">
+<div class="bg-burnt-crimson h-full w-[10%] shadow-[0_0_5px_rgba(255,77,109,0.8)]"></div>
+<span class="absolute left-1 top-[1px] text-[6px] text-white font-mono leading-none">10%</span>
+</div>
+</div>
+</div>
+<div class="flex flex-col gap-3 z-10 justify-center">
+<div class="bg-surface-container p-2.5 rounded border border-outline-variant flex justify-between items-center hover:border-electric-teal/50 transition-colors">
+<div class="flex flex-col">
+<span class="font-label-caps text-[10px] text-primary font-bold">GPT-4 Node</span>
+<span class="text-[9px] font-mono text-on-surface-variant">Load: 60%</span>
+</div>
+<div class="w-2.5 h-2.5 rounded-full bg-electric-teal shadow-[0_0_5px_rgba(0,245,212,0.8)]"></div>
+</div>
+<div class="bg-surface-container p-2.5 rounded border border-outline-variant flex justify-between items-center hover:border-primary/50 transition-colors">
+<div class="flex flex-col">
+<span class="font-label-caps text-[10px] text-primary font-bold">Claude 3.5 Node</span>
+<span class="text-[9px] font-mono text-on-surface-variant">Load: 30%</span>
+</div>
+<div class="w-2.5 h-2.5 rounded-full bg-primary"></div>
+</div>
+<div class="bg-surface-container-highest p-2.5 rounded border border-burnt-crimson flex justify-between items-center shadow-[0_0_10px_rgba(255,77,109,0.2)] animate-pulse">
+<div class="flex flex-col">
+<span class="font-label-caps text-[10px] text-error font-bold">Gemini Node</span>
+<span class="text-[9px] font-mono text-burnt-crimson">Load: 10% - <span class="font-bold">DRIFT</span></span>
+</div>
+<div class="w-2.5 h-2.5 rounded-full bg-burnt-crimson shadow-[0_0_5px_rgba(255,77,109,0.8)]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Governance Pipeline Widget -->
+<div class="col-span-1 bg-surface-container-low border border-outline-variant rounded p-0 flex flex-col h-full">
+<div class="p-4 border-b border-outline-variant bg-surface-container-lowest flex justify-between items-center">
+<h2 class="font-title-md text-title-md text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-container text-sm">gavel</span> Governance Pipeline
+                        </h2>
+<span class="bg-surface-container-highest text-on-surface-variant px-2 py-0.5 rounded text-[10px] font-mono border border-outline-variant">3 Active</span>
+</div>
+<div class="flex-1 p-4 flex flex-col gap-4 overflow-y-auto custom-scrollbar">
+<!-- Request 1 -->
+<div class="bg-surface-container p-3 rounded border border-outline-variant flex flex-col gap-2">
+<div class="flex justify-between items-start">
+<span class="text-[11px] font-bold text-on-surface">Schema Migration v4.2</span>
+<span class="text-[9px] font-mono text-on-surface-variant">ID: REQ-092</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded-full overflow-hidden mt-1 mb-1">
+<div class="bg-tertiary-container h-full w-[66%]"></div>
+</div>
+<div class="flex gap-2">
+<div class="flex items-center gap-1 text-[9px] font-mono text-electric-teal bg-primary-container/20 px-1.5 py-0.5 rounded border border-electric-teal/20">
+<span class="material-symbols-outlined text-[10px]">check</span> Alpha
+                                </div>
+<div class="flex items-center gap-1 text-[9px] font-mono text-electric-teal bg-primary-container/20 px-1.5 py-0.5 rounded border border-electric-teal/20">
+<span class="material-symbols-outlined text-[10px]">check</span> Beta
+                                </div>
+<div class="flex items-center gap-1 text-[9px] font-mono text-on-surface-variant bg-surface-container-highest px-1.5 py-0.5 rounded border border-outline-variant border-dashed">
+<span class="material-symbols-outlined text-[10px]">pending</span> Gamma
+                                </div>
+</div>
+</div>
+<!-- Request 2 -->
+<div class="bg-surface-container p-3 rounded border border-burnt-crimson/50 flex flex-col gap-2 shadow-[0_0_8px_rgba(255,77,109,0.1)]">
+<div class="flex justify-between items-start">
+<span class="text-[11px] font-bold text-error flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">priority_high</span> Override: Drift Limits</span>
+<span class="text-[9px] font-mono text-error">URGENT</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded-full overflow-hidden mt-1 mb-1">
+<div class="bg-burnt-crimson h-full w-[33%]"></div>
+</div>
+<div class="flex gap-2">
+<div class="flex items-center gap-1 text-[9px] font-mono text-burnt-crimson bg-error-container/20 px-1.5 py-0.5 rounded border border-burnt-crimson/20">
+<span class="material-symbols-outlined text-[10px]">check</span> Alpha
+                                </div>
+<div class="flex items-center gap-1 text-[9px] font-mono text-on-surface-variant bg-surface-container-highest px-1.5 py-0.5 rounded border border-outline-variant border-dashed">
+<span class="material-symbols-outlined text-[10px]">pending</span> Beta
+                                </div>
+<div class="flex items-center gap-1 text-[9px] font-mono text-on-surface-variant bg-surface-container-highest px-1.5 py-0.5 rounded border border-outline-variant border-dashed">
+<span class="material-symbols-outlined text-[10px]">pending</span> Gamma
+                                </div>
+</div>
+</div>
+<!-- Request 3 -->
+<div class="bg-surface-container p-3 rounded border border-outline-variant flex flex-col gap-2 opacity-70">
+<div class="flex justify-between items-start">
+<span class="text-[11px] font-bold text-on-surface">New Tool Access: WebSearch</span>
+<span class="text-[9px] font-mono text-on-surface-variant">ID: REQ-088</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded-full overflow-hidden mt-1 mb-1">
+<div class="bg-outline-variant h-full w-[0%]"></div>
+</div>
+<div class="flex gap-2">
+<div class="flex items-center gap-1 text-[9px] font-mono text-on-surface-variant bg-surface-container-highest px-1.5 py-0.5 rounded border border-outline-variant border-dashed">
+<span class="material-symbols-outlined text-[10px]">pending</span> Alpha
+                                </div>
+<div class="flex items-center gap-1 text-[9px] font-mono text-on-surface-variant bg-surface-container-highest px-1.5 py-0.5 rounded border border-outline-variant border-dashed">
+<span class="material-symbols-outlined text-[10px]">pending</span> Beta
+                                </div>
+<div class="flex items-center gap-1 text-[9px] font-mono text-on-surface-variant bg-surface-container-highest px-1.5 py-0.5 rounded border border-outline-variant border-dashed">
+<span class="material-symbols-outlined text-[10px]">pending</span> Gamma
+                                </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Full Width: Intervention Ledger -->
+<div class="bg-surface-container-low border border-outline-variant rounded flex flex-col h-48 overflow-hidden mt-0">
+<div class="p-3 border-b border-outline-variant bg-surface-container-lowest sticky top-0 z-10 flex justify-between items-center">
+<h2 class="font-title-md text-[14px] text-primary flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">history</span> Intervention Ledger
+                    </h2>
+<div class="flex items-center gap-2">
+<div class="w-1.5 h-1.5 rounded-full bg-burnt-crimson animate-pulse"></div>
+<span class="text-[10px] font-mono text-on-surface-variant uppercase tracking-widest">Live Feed</span>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto bg-surface p-0 custom-scrollbar">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container sticky top-0">
+<tr>
+<th class="font-label-caps text-[9px] text-on-surface-variant p-2 border-b border-outline-variant w-24">Timestamp</th>
+<th class="font-label-caps text-[9px] text-on-surface-variant p-2 border-b border-outline-variant">Event Type</th>
+<th class="font-label-caps text-[9px] text-on-surface-variant p-2 border-b border-outline-variant">Target System</th>
+<th class="font-label-caps text-[9px] text-on-surface-variant p-2 border-b border-outline-variant">Operator ID</th>
+<th class="font-label-caps text-[9px] text-on-surface-variant p-2 border-b border-outline-variant text-right">Auth Status</th>
+</tr>
+</thead>
+<tbody class="font-mono text-[11px]">
+<tr class="data-table-row border-b border-outline-variant/50 hover:bg-surface-container-high transition-colors text-error bg-error-container/10">
+<td class="p-2">14:02:11.43</td>
+<td class="p-2 font-bold flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">gavel</span> FORCE PIVOT EXECUTION</td>
+<td class="p-2">Gemini Node</td>
+<td class="p-2">OP-ALPHA-4</td>
+<td class="p-2 text-right text-burnt-crimson font-bold flex items-center justify-end gap-1"><span class="material-symbols-outlined text-[12px]">fingerprint</span> VERIFIED</td>
+</tr>
+<tr class="data-table-row border-b border-outline-variant/50 hover:bg-surface-container-high transition-colors text-on-surface">
+<td class="p-2 text-on-surface-variant">14:00:55.12</td>
+<td class="p-2 text-primary">Traffic Reroute (Auto)</td>
+<td class="p-2 text-on-surface-variant">Ingress Gate</td>
+<td class="p-2 text-on-surface-variant">SYSTEM-ORCH</td>
+<td class="p-2 text-right text-on-surface-variant">N/A (Policy)</td>
+</tr>
+<tr class="data-table-row border-b border-outline-variant/50 hover:bg-surface-container-high transition-colors text-on-surface bg-primary-container/5">
+<td class="p-2 text-on-surface-variant">13:45:22.01</td>
+<td class="p-2 text-electric-teal flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">edit</span> Manual Override: Drift Threshold</td>
+<td class="p-2 text-on-surface-variant">Global Config</td>
+<td class="p-2">OP-BETA-3</td>
+<td class="p-2 text-right text-electric-teal flex items-center justify-end gap-1"><span class="material-symbols-outlined text-[12px]">verified_user</span> RETINA</td>
+</tr>
+<tr class="data-table-row border-b border-outline-variant/50 hover:bg-surface-container-high transition-colors text-on-surface">
+<td class="p-2 text-on-surface-variant">13:10:05.88</td>
+<td class="p-2 text-on-surface-variant">Parameter Update: ACB Ruleset</td>
+<td class="p-2 text-on-surface-variant">Filter Engine</td>
+<td class="p-2">OP-ALPHA-4</td>
+<td class="p-2 text-right text-electric-teal flex items-center justify-end gap-1"><span class="material-symbols-outlined text-[12px]">fingerprint</span> VERIFIED</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+</div>
+<style>
+    /* Custom scrollbar for a cleaner tech look */
+    .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+        background: rgba(33, 38, 45, 0.5);
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(139, 148, 158, 0.3);
+        border-radius: 3px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 245, 212, 0.5);
+    }
+</style>
+</body></html>
