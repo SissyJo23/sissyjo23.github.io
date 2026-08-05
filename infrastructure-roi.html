@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Envictica - Board ROI Report</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700&amp;family=Inter:wght@400;500&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "surface-bright": "#343b36",
+                        "on-tertiary-fixed-variant": "#3a485c",
+                        "inverse-surface": "#dde4dd",
+                        "on-error": "#690005",
+                        "tertiary-container": "#95a4bb",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "on-surface-variant": "#bbcabf",
+                        "secondary": "#bec6e0",
+                        "surface-container-low": "#161d19",
+                        "error-container": "#93000a",
+                        "surface-dim": "#0e1511",
+                        "on-secondary-fixed": "#131b2e",
+                        "tertiary-fixed": "#d5e3fd",
+                        "on-tertiary": "#233144",
+                        "on-secondary-container": "#adb4ce",
+                        "outline-variant": "#3c4a42",
+                        "on-primary-container": "#00422b",
+                        "on-primary": "#003824",
+                        "surface-container-highest": "#2f3632",
+                        "surface-variant": "#2f3632",
+                        "secondary-fixed": "#dae2fd",
+                        "inverse-on-surface": "#2b322d",
+                        "on-background": "#dde4dd",
+                        "background": "#0e1511",
+                        "primary-fixed": "#6ffbbe",
+                        "on-secondary": "#283044",
+                        "surface-tint": "#4edea3",
+                        "inverse-primary": "#006c49",
+                        "surface-container": "#1a211d",
+                        "on-primary-fixed-variant": "#005236",
+                        "tertiary-fixed-dim": "#b9c7e0",
+                        "tertiary": "#b9c7e0",
+                        "on-primary-fixed": "#002113",
+                        "surface-container-lowest": "#09100c",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-surface": "#dde4dd",
+                        "primary-fixed-dim": "#4edea3",
+                        "on-tertiary-container": "#2c3a4e",
+                        "secondary-container": "#3f465c",
+                        "on-tertiary-fixed": "#0d1c2f",
+                        "primary": "#4edea3",
+                        "surface-container-high": "#242c27",
+                        "on-error-container": "#ffdad6",
+                        "outline": "#86948a",
+                        "error": "#ffb4ab",
+                        "surface": "#0e1511",
+                        "primary-container": "#10b981"
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    spacing: {
+                        "gutter": "16px",
+                        "connector-gap": "2rem",
+                        "pipeline-margin": "3rem",
+                        "grid-unit": "4px",
+                        "node-padding": "1rem"
+                    },
+                    fontFamily: {
+                        "display-lg": ["Hanken Grotesk"],
+                        "data-numeral": ["JetBrains Mono"],
+                        "label-mono": ["JetBrains Mono"],
+                        "body-base": ["Inter"],
+                        "headline-md": ["Hanken Grotesk"]
+                    },
+                    fontSize: {
+                        "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
+                        "data-numeral": ["14px", { lineHeight: "20px", fontWeight: "600" }],
+                        "label-mono": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "500" }],
+                        "body-base": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        .grid-bg {
+            background-image: radial-gradient(theme('colors.outline-variant') 1px, transparent 1px);
+            background-size: 16px 16px;
+            background-position: -8px -8px;
+        }
+        .glow-active {
+            box-shadow: inset 0 0 20px 0 rgba(16, 185, 129, 0.1);
+        }
+    </style>
+</head>
+<body class="font-body-base text-body-base overflow-x-hidden min-h-screen grid-bg relative">
+<!-- Ambient Background Light -->
+<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
+<div class="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary/5 blur-[120px]"></div>
+<div class="absolute bottom-[-20%] right-[-10%] w-[40%] h-[40%] rounded-full bg-secondary-fixed/5 blur-[100px]"></div>
+</div>
+<!-- Layout Container -->
+<div class="relative z-10 flex flex-col w-full">
+<!-- Top Bar -->
+<div class="w-full bg-primary text-on-primary py-2 px-4 text-center font-label-mono text-label-mono font-bold tracking-widest uppercase">
+    OFFICIAL ENVICTICA MODULE: 14 OF 15
+</div>
+<div class="flex w-full">
+<!-- Main Content -->
+<main class="flex-1 min-h-screen px-gutter md:px-8 py-8 lg:py-12 max-w-7xl mx-auto flex flex-col gap-8 w-full">
+<!-- Header Section -->
+<header class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-outline-variant pb-6">
+<div>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-2">Infrastructure ROI &amp; Strategic Value Report</h1>
+<p class="font-body-base text-body-base text-on-surface-variant max-w-3xl">Executive summary of data debt mitigation, AI readiness, and operational resilience metrics for Envictica enterprise systems.</p>
+</div>
+<div class="flex items-center gap-3">
+<button class="bg-surface-container-high hover:bg-surface-container-highest text-on-surface px-4 py-2 rounded font-label-mono text-label-mono transition-colors flex items-center gap-2 border border-outline-variant">
+<span class="material-symbols-outlined" style="font-size: 16px;">download</span>
+                        Export PDF
+                    </button>
+<button class="bg-primary text-on-primary hover:bg-primary-fixed px-4 py-2 rounded font-label-mono text-label-mono transition-colors flex items-center gap-2 font-bold">
+<span class="material-symbols-outlined" style="font-size: 16px;">share</span>
+                        Share Report
+                    </button>
+</div>
+</header>
+<!-- Financial Impact Cards (Top Row) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<!-- Card 1 -->
+<div class="bg-surface-container border border-outline-variant rounded-lg p-6 flex flex-col relative overflow-hidden group">
+<div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
+<div class="flex justify-between items-start mb-4 relative z-10">
+<h3 class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider">Total Data Debt Mitigated</h3>
+<span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+</div>
+<div class="mt-auto relative z-10">
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg text-on-surface">$2.4M</span>
+<span class="font-data-numeral text-data-numeral text-primary flex items-center"><span class="material-symbols-outlined" style="font-size: 16px;">arrow_upward</span> 18% YoY</span>
+</div>
+<p class="font-body-base text-body-base text-on-surface-variant mt-2 text-sm">Estimated savings from prevented running repairs.</p>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container border border-outline-variant rounded-lg p-6 flex flex-col relative overflow-hidden group glow-active">
+<div class="flex justify-between items-start mb-4 relative z-10">
+<h3 class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider">AI Readiness ROI</h3>
+<span class="material-symbols-outlined text-primary">smart_toy</span>
+</div>
+<div class="mt-auto relative z-10">
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg text-primary">340%</span>
+<span class="font-data-numeral text-data-numeral text-on-surface-variant">multiplier</span>
+</div>
+<p class="font-body-base text-body-base text-on-surface-variant mt-2 text-sm">Calculated based on deployment speed vs legacy methods.</p>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container border border-outline-variant rounded-lg p-6 flex flex-col relative overflow-hidden group">
+<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-transparent opacity-50"></div>
+<div class="flex justify-between items-start mb-4 relative z-10">
+<h3 class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider">Vendor Lock-in Reduction</h3>
+<span class="material-symbols-outlined text-on-surface-variant">lock_open</span>
+</div>
+<div class="mt-auto relative z-10">
+<div class="flex items-baseline gap-2">
+<span class="font-display-lg text-display-lg text-on-surface">45%</span>
+<span class="font-data-numeral text-data-numeral text-primary flex items-center"><span class="material-symbols-outlined" style="font-size: 16px;">arrow_downward</span> cost</span>
+</div>
+<p class="font-body-base text-body-base text-on-surface-variant mt-2 text-sm">Savings realized from owning the data infrastructure.</p>
+</div>
+</div>
+</section>
+<!-- Main Content Grid (Bento Style) -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<!-- Primary Chart Area (Spans 2 columns) -->
+<section class="lg:col-span-2 bg-surface-container border border-outline-variant rounded-lg p-6 flex flex-col min-h-[400px]">
+<div class="flex justify-between items-start mb-6">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Hallucination Risk vs. Infrastructure Maturity</h2>
+<p class="font-body-base text-body-base text-on-surface-variant mt-1">Envictica's 98.4% accuracy rate correlation with lower litigation risk.</p>
+</div>
+<div class="flex items-center gap-2 bg-surface-container-highest rounded-full px-3 py-1 border border-outline-variant">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="font-label-mono text-label-mono text-on-surface">Live Data</span>
+</div>
+</div>
+<!-- Faux Technical Chart Area -->
+<div class="flex-1 relative w-full h-full bg-surface-dim rounded border border-outline-variant/50 overflow-hidden mt-4 p-4 flex flex-col justify-end">
+<!-- Chart Grid Lines -->
+<div class="absolute inset-0 flex flex-col justify-between py-8 opacity-20 pointer-events-none">
+<div class="w-full border-b border-outline-variant border-dashed"></div>
+<div class="w-full border-b border-outline-variant border-dashed"></div>
+<div class="w-full border-b border-outline-variant border-dashed"></div>
+<div class="w-full border-b border-outline-variant border-dashed"></div>
+<div class="w-full border-b border-outline-variant border-dashed"></div>
+</div>
+<!-- Y Axis Labels -->
+<div class="absolute left-2 top-8 bottom-8 flex flex-col justify-between font-label-mono text-[10px] text-on-surface-variant">
+<span>High Risk</span>
+<span>Med Risk</span>
+<span>Low Risk</span>
+</div>
+<!-- Data Visualization Elements -->
+<div class="relative w-full h-[80%] flex items-end justify-between px-8 z-10 gap-2">
+<!-- Maturity Line (Ascending) -->
+<svg class="absolute inset-0 w-full h-full preserve-3d" preserveaspectratio="none" viewbox="0 0 100 100">
+<path class="text-primary" d="M 0,90 Q 25,85 50,50 T 100,10" fill="none" stroke="currentColor" stroke-width="2"></path>
+<!-- Area under maturity -->
+<path d="M 0,90 Q 25,85 50,50 T 100,10 L 100,100 L 0,100 Z" fill="url(#primary-gradient)" opacity="0.1"></path>
+<!-- Risk Line (Descending) -->
+<path d="M 0,20 Q 30,30 60,70 T 100,95" fill="none" stroke="#EF4444" stroke-dasharray="4 4" stroke-width="2"></path>
+<defs>
+<lineargradient id="primary-gradient" x1="0%" x2="0%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="theme('colors.primary')"></stop>
+<stop offset="100%" stop-color="transparent"></stop>
+</lineargradient>
+</defs>
+</svg>
+<!-- Data Points/Markers -->
+<div class="absolute left-[20%] bottom-[80%] flex flex-col items-center group">
+<div class="w-3 h-3 rounded-full bg-error border-2 border-surface z-10 group-hover:scale-150 transition-transform"></div>
+<div class="absolute bottom-4 opacity-0 group-hover:opacity-100 bg-surface-container-highest border border-outline-variant p-2 rounded text-xs font-label-mono whitespace-nowrap z-20">Initial Audit: 85% Risk</div>
+</div>
+<div class="absolute left-[50%] bottom-[45%] flex flex-col items-center group">
+<div class="w-3 h-3 rounded-full bg-primary border-2 border-surface z-10 group-hover:scale-150 transition-transform"></div>
+<div class="absolute bottom-4 opacity-0 group-hover:opacity-100 bg-surface-container-highest border border-outline-variant p-2 rounded text-xs font-label-mono whitespace-nowrap z-20">Phase 1 Complete</div>
+</div>
+<div class="absolute left-[90%] bottom-[10%] flex flex-col items-center group">
+<div class="w-4 h-4 rounded-full bg-primary border-2 border-surface shadow-[0_0_10px_rgba(78,222,163,0.5)] z-10 group-hover:scale-125 transition-transform"></div>
+<div class="absolute top-6 opacity-100 bg-primary/10 border border-primary p-2 rounded text-xs font-label-mono text-primary whitespace-nowrap z-20">Current: 98.4% Acc</div>
+</div>
+</div>
+<!-- X Axis Labels -->
+<div class="flex justify-between w-full font-label-mono text-[10px] text-on-surface-variant mt-2 px-8 border-t border-outline-variant/30 pt-2">
+<span>Q1 '23</span>
+<span>Q3 '23</span>
+<span>Q1 '24</span>
+<span>Q3 '24</span>
+<span>Current</span>
+</div>
+</div>
+</section>
+<!-- Right Column: Strategic Value & Recommendations -->
+<div class="lg:col-span-1 flex flex-col gap-6">
+<!-- Strategic Value Breakdown -->
+<section class="bg-surface-container border border-outline-variant rounded-lg p-6">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-6 border-b border-outline-variant pb-2">Strategic Value</h2>
+<div class="space-y-6">
+<!-- Resilience Score -->
+<div>
+<div class="flex justify-between items-end mb-2">
+<h4 class="font-body-base text-body-base text-on-surface-variant">Operational Resilience</h4>
+<span class="font-data-numeral text-data-numeral text-primary">92/100</span>
+</div>
+<div class="w-full bg-surface-dim h-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[92%]"></div>
+</div>
+</div>
+<!-- Compliance Status -->
+<div class="bg-surface-dim border border-outline-variant p-4 rounded flex items-center justify-between">
+<div>
+<h4 class="font-label-mono text-label-mono text-on-surface-variant uppercase mb-1">Regulatory Audit</h4>
+<span class="font-body-base text-body-base text-on-surface font-medium">Fully Verified</span>
+</div>
+<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center border border-primary/50">
+<span class="material-symbols-outlined text-primary">verified</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Actionable Recommendation -->
+<section class="bg-gradient-to-br from-surface-container to-surface-container-high border border-outline-variant rounded-lg p-6 flex-1 flex flex-col">
+<div class="flex items-center gap-2 mb-4">
+<span class="material-symbols-outlined text-on-surface-variant">strategy</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Strategic Plan</h2>
+</div>
+<p class="font-body-base text-body-base text-on-surface-variant mb-6 flex-1">
+                            Recommend immediate authorization for Phase 3 rollout. Scale unified infrastructure across remaining EMEA legal departments to capture projected $1.2M additional savings.
+                        </p>
+<div class="space-y-3">
+<button class="w-full bg-primary text-on-primary hover:bg-primary-fixed py-3 rounded font-label-mono text-label-mono transition-colors font-bold text-center">
+                                Authorize Phase 3 Scaling
+                            </button>
+<button class="w-full bg-transparent border border-outline-variant text-on-surface hover:bg-surface-container-highest py-3 rounded font-label-mono text-label-mono transition-colors text-center">
+                                View Detailed Proposal
+                            </button>
+</div>
+</section>
+</div>
+</div>
+</main>
+</div>
+</div>
+</body></html>
