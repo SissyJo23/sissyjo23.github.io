@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Compliance Audit Logs - Envictica</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "error-container": "#93000a",
+                "on-secondary-fixed": "#131b2e",
+                "on-surface-variant": "#bbcabf",
+                "tertiary": "#b9c7e0",
+                "tertiary-container": "#95a4bb",
+                "secondary-container": "#3f465c",
+                "inverse-surface": "#e0e3e5",
+                "primary-fixed": "#6ffbbe",
+                "surface-container-low": "#191c1e",
+                "surface": "#101415",
+                "background": "#101415",
+                "surface-container-high": "#272a2c",
+                "secondary-fixed": "#dae2fd",
+                "inverse-on-surface": "#2d3133",
+                "outline": "#86948a",
+                "surface-variant": "#323537",
+                "secondary-fixed-dim": "#bec6e0",
+                "primary": "#4edea3",
+                "outline-variant": "#3c4a42",
+                "secondary": "#bec6e0",
+                "surface-tint": "#4edea3",
+                "error": "#ffb4ab",
+                "on-surface": "#e0e3e5",
+                "on-secondary": "#283044",
+                "primary-container": "#10b981",
+                "on-primary-fixed": "#002113",
+                "on-primary": "#003824",
+                "tertiary-fixed-dim": "#b9c7e0",
+                "on-tertiary-fixed-variant": "#3a485c",
+                "on-tertiary": "#233144",
+                "inverse-primary": "#006c49",
+                "on-error": "#690005",
+                "on-tertiary-fixed": "#0d1c2f",
+                "surface-bright": "#363a3b",
+                "on-background": "#e0e3e5",
+                "primary-fixed-dim": "#4edea3",
+                "on-tertiary-container": "#2c3a4e",
+                "on-primary-container": "#00422b",
+                "on-secondary-fixed-variant": "#3f465c",
+                "on-secondary-container": "#adb4ce",
+                "on-primary-fixed-variant": "#005236",
+                "on-error-container": "#ffdad6",
+                "surface-container": "#1d2022",
+                "surface-container-lowest": "#0b0f10",
+                "surface-dim": "#101415",
+                "surface-container-highest": "#323537",
+                "tertiary-fixed": "#d5e3fd"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {
+                "margin": "24px",
+                "density-regular": "8px",
+                "gutter": "12px",
+                "density-compact": "4px",
+                "unit": "4px"
+        },
+        "fontFamily": {
+                "title-sm": [
+                        "Hanken Grotesk"
+                ],
+                "display-lg": [
+                        "Hanken Grotesk"
+                ],
+                "data-mono": [
+                        "JetBrains Mono"
+                ],
+                "body-md": [
+                        "Hanken Grotesk"
+                ],
+                "body-sm": [
+                        "Hanken Grotesk"
+                ],
+                "label-caps": [
+                        "JetBrains Mono"
+                ],
+                "headline-md": [
+                        "Hanken Grotesk"
+                ]
+        },
+        "fontSize": {
+                "title-sm": [
+                        "18px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "600"
+                        }
+                ],
+                "display-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "data-mono": [
+                        "13px",
+                        {
+                                "lineHeight": "18px",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "body-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-caps": [
+                        "11px",
+                        {
+                                "lineHeight": "16px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "600"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700&amp;family=Inter:wght@400&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+</head>
+<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col">
+<!-- Top Banner -->
+<div class="bg-primary text-on-primary font-label-caps py-2 px-4 text-center z-50">
+    OFFICIAL ENVICTICA MODULE: 5 OF 15
+</div>
+<div class="flex flex-1 overflow-hidden">
+<!-- SideNavBar (Shared Component) -->
+<nav class="docked fixed-left w-[240px] h-full border-r border-outline dark:border-outline bg-surface-container-low dark:bg-surface-container-lowest flex flex-col py-stack-md z-40 fixed left-0 pt-6">
+<div class="px-6 mb-8">
+<h1 class="text-headline-md font-headline-md font-black tracking-tight text-primary dark:text-primary-fixed">Envictica</h1>
+<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Legal Knowledge Engineer</p>
+</div>
+<div class="px-4 mb-6">
+<button class="w-full bg-primary-container text-on-primary-container font-semibold py-2 px-4 rounded hover:bg-primary transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span> New System Audit
+            </button>
+</div>
+<ul class="flex-1 px-3 space-y-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-all group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">lan</span>
+<span class="text-body-md font-body-md">Infrastructure</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-all group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">gavel</span>
+<span class="text-body-md font-body-md">Governance</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-all group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">account_tree</span>
+<span class="text-body-md font-body-md">Pipelines</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-all group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">fact_check</span>
+<span class="text-body-md font-body-md">Data Validation</span>
+</a>
+</li>
+<li><a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-all group" href="#"><span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">grid_view</span><span class="text-body-md font-body-md">Risk Matrix</span></a></li><li><a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-all group" href="#"><span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">library_books</span><span class="text-body-md font-body-md">Schema Library</span></a></li><li>
+<a class="flex items-center gap-3 px-3 py-2 rounded bg-secondary-container text-on-secondary-container font-semibold opacity-80 transition-opacity" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="text-body-md font-body-md">Audit Logs</span>
+</a>
+</li>
+</ul>
+<div class="px-3 mt-auto pb-6 border-t border-outline-variant pt-4">
+<ul class="space-y-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-all group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">settings</span>
+<span class="text-body-md font-body-md">Settings</span>
+</a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-all group" href="#">
+<span class="material-symbols-outlined text-on-surface-variant group-hover:text-primary transition-colors">help</span>
+<span class="text-body-md font-body-md">Support</span>
+</a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 ml-[240px] p-8 flex flex-col h-full overflow-hidden">
+<!-- Top Section -->
+<header class="mb-8 flex-shrink-0">
+<div class="flex items-center justify-between mb-6">
+<h2 class="text-headline-md font-headline-md text-on-background">Compliance Audit Logs</h2>
+<div class="flex items-center gap-4"><button class="bg-secondary-container text-on-secondary-container font-semibold py-2 px-4 rounded hover:bg-primary hover:text-on-primary transition-colors flex items-center gap-2 text-body-md font-body-md"><span class="material-symbols-outlined text-sm">download</span> Export Compliance Report (PDF/CSV)</button>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="bg-[#1E293B] border border-outline-variant rounded-md py-2 pl-9 pr-4 text-data-mono font-data-mono text-on-background focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary w-80 placeholder-on-surface-variant transition-colors" placeholder="Search event hash, actor, or entity..." type="text"/>
+</div>
+</div>
+</div>
+<div class="flex gap-4 mb-6">
+<button class="px-4 py-1.5 rounded-full border border-outline-variant text-data-mono font-data-mono text-on-surface-variant hover:bg-surface-container hover:text-on-background transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">security</span> Security Logs
+                </button>
+<button class="px-4 py-1.5 rounded-full border border-outline-variant text-data-mono font-data-mono text-on-surface-variant hover:bg-surface-container hover:text-on-background transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">download</span> Data Ingestion Audit
+                </button>
+<button class="px-4 py-1.5 rounded-full border border-primary text-data-mono font-data-mono text-primary bg-primary/10 transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px]">psychology</span> LLM Drift Checks
+                </button>
+</div>
+<!-- Stats Summary -->
+<div class="grid grid-cols-3 gap-6">
+<div class="bg-surface-container rounded border border-outline-variant p-4 flex flex-col justify-between">
+<span class="text-data-mono font-data-mono text-on-surface-variant uppercase tracking-wider">Total Audit Events (24h)</span>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="text-display-lg font-display-lg text-primary">14,208</span>
+<span class="text-data-mono font-data-mono text-error flex items-center"><span class="material-symbols-outlined text-[14px]">arrow_downward</span> 2.4%</span>
+</div>
+</div>
+<div class="bg-surface-container rounded border border-outline-variant p-4 flex flex-col justify-between">
+<span class="text-data-mono font-data-mono text-on-surface-variant uppercase tracking-wider">Active Security Monitors</span>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="text-display-lg font-display-lg text-on-background">42</span>
+<span class="text-data-mono font-data-mono text-on-surface-variant">/ 42 online</span>
+</div>
+</div>
+<div class="bg-surface-container rounded border border-outline-variant p-4 flex flex-col justify-between">
+<span class="text-data-mono font-data-mono text-on-surface-variant uppercase tracking-wider">Last Verification Hash</span>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="text-title-sm font-title-sm text-tertiary-fixed truncate">0x9f8c...a1b2</span>
+<span class="text-data-mono font-data-mono text-primary flex items-center"><span class="material-symbols-outlined text-[14px] mr-1">check_circle</span> Valid</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Panel (The Ledger) -->
+<div class="flex-1 bg-surface-container rounded-lg border border-outline-variant overflow-hidden flex flex-col shadow-lg shadow-black/50">
+<div class="overflow-x-auto flex-1">
+<table class="w-full text-left border-collapse">
+<thead class="bg-[#1E293B] sticky top-0 z-10 border-b border-outline-variant">
+<tr>
+<th class="py-3 px-4 text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider font-semibold w-56">Timestamp</th>
+<th class="py-3 px-4 text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider font-semibold">Actor/Role</th>
+<th class="py-3 px-4 text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider font-semibold">Action Type</th>
+<th class="py-3 px-4 text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider font-semibold">Target Entity</th>
+<th class="py-3 px-4 text-label-caps font-label-caps text-on-surface-variant uppercase tracking-wider font-semibold text-right">Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant text-body-md font-body-md">
+<tr class="hover:bg-[#1E293B]/50 transition-colors group cursor-pointer">
+<td class="py-3 px-4 text-data-mono font-data-mono text-on-surface-variant whitespace-nowrap">2023-11-24 14:32:01.458</td>
+<td class="py-3 px-4 text-on-background">System Admin</td>
+<td class="py-3 px-4 text-on-background">Schema Definition Modified</td>
+<td class="py-3 px-4 text-primary hover:underline underline-offset-2">NDA_Playbook_v4.2</td>
+<td class="py-3 px-4 text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-label-caps font-label-caps bg-primary/20 text-primary border border-primary/30">
+<span class="material-symbols-outlined text-[14px] mr-1">verified</span> 100% Verified
+                                </span>
+</td>
+</tr>
+<tr class="hover:bg-[#1E293B]/50 transition-colors group cursor-pointer bg-error-container/10">
+<td class="py-3 px-4 text-data-mono font-data-mono text-on-surface-variant whitespace-nowrap">2023-11-24 14:31:45.102</td>
+<td class="py-3 px-4 text-on-background">RAG Pipeline Engine</td>
+<td class="py-3 px-4 text-on-background">Grounding Violation Intercepted</td>
+<td class="py-3 px-4 text-primary hover:underline underline-offset-2">State_vs_Lagerman_Dataset</td>
+<td class="py-3 px-4 text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-label-caps font-label-caps bg-error-container text-error border border-error/30">
+<span class="material-symbols-outlined text-[14px] mr-1">block</span> Access Blocked
+                                </span>
+</td>
+</tr>
+<tr class="hover:bg-[#1E293B]/50 transition-colors group cursor-pointer">
+<td class="py-3 px-4 text-data-mono font-data-mono text-on-surface-variant whitespace-nowrap">2023-11-24 14:28:19.883</td>
+<td class="py-3 px-4 text-on-background">Senior Prompt Auditor</td>
+<td class="py-3 px-4 text-on-background">Prompt Calibration Logged</td>
+<td class="py-3 px-4 text-primary hover:underline underline-offset-2">Contract_Extraction_V2</td>
+<td class="py-3 px-4 text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-label-caps font-label-caps bg-primary/20 text-primary border border-primary/30">
+<span class="material-symbols-outlined text-[14px] mr-1">verified</span> 100% Verified
+                                </span>
+</td>
+</tr>
+<tr class="hover:bg-[#1E293B]/50 transition-colors group cursor-pointer">
+<td class="py-3 px-4 text-data-mono font-data-mono text-on-surface-variant whitespace-nowrap">2023-11-24 14:15:02.001</td>
+<td class="py-3 px-4 text-on-background">Automated Watchdog</td>
+<td class="py-3 px-4 text-on-background">LLM Drift Check Initiated</td>
+<td class="py-3 px-4 text-primary hover:underline underline-offset-2">Global_Compliance_Model</td>
+<td class="py-3 px-4 text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-label-caps font-label-caps bg-yellow-500/20 text-yellow-500 border border-yellow-500/30">
+<span class="material-symbols-outlined text-[14px] mr-1">warning</span> Drift Warning
+                                </span>
+</td>
+</tr>
+<tr class="hover:bg-[#1E293B]/50 transition-colors group cursor-pointer">
+<td class="py-3 px-4 text-data-mono font-data-mono text-on-surface-variant whitespace-nowrap">2023-11-24 14:02:55.319</td>
+<td class="py-3 px-4 text-on-background">Data Engineer [T. Nguyen]</td>
+<td class="py-3 px-4 text-on-background">Vector DB Re-indexed</td>
+<td class="py-3 px-4 text-primary hover:underline underline-offset-2">CaseLaw_Archive_2023</td>
+<td class="py-3 px-4 text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-label-caps font-label-caps bg-primary/20 text-primary border border-primary/30">
+<span class="material-symbols-outlined text-[14px] mr-1">verified</span> 100% Verified
+                                </span>
+</td>
+</tr>
+<tr class="hover:bg-[#1E293B]/50 transition-colors group cursor-pointer">
+<td class="py-3 px-4 text-data-mono font-data-mono text-on-surface-variant whitespace-nowrap">2023-11-24 13:45:11.902</td>
+<td class="py-3 px-4 text-on-background">System Admin</td>
+<td class="py-3 px-4 text-on-background">API Key Revoked</td>
+<td class="py-3 px-4 text-primary hover:underline underline-offset-2">Legacy_Integration_App</td>
+<td class="py-3 px-4 text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-label-caps font-label-caps bg-primary/20 text-primary border border-primary/30">
+<span class="material-symbols-outlined text-[14px] mr-1">verified</span> 100% Verified
+                                </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination / Footer -->
+<div class="bg-[#1E293B] border-t border-outline-variant p-3 flex items-center justify-between">
+<span class="text-data-mono font-data-mono text-on-surface-variant">Showing 1-6 of 14,208 entries</span>
+<div class="flex gap-2">
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-background disabled:opacity-50">
+<span class="material-symbols-outlined text-sm">chevron_left</span>
+</button>
+<button class="px-2 py-1 rounded text-data-mono font-data-mono bg-primary/10 text-primary border border-primary/30">1</button>
+<button class="px-2 py-1 rounded text-data-mono font-data-mono text-on-surface-variant hover:bg-surface-container border border-transparent">2</button>
+<button class="px-2 py-1 rounded text-data-mono font-data-mono text-on-surface-variant hover:bg-surface-container border border-transparent">3</button>
+<span class="text-on-surface-variant self-center px-1">...</span>
+<button class="p-1 rounded text-on-surface-variant hover:bg-surface-container hover:text-on-background">
+<span class="material-symbols-outlined text-sm">chevron_right</span>
+</button>
+</div>
+</div>
+</div>
+</main>
+</div>
+</body></html>
