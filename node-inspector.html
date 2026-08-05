@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Knowledge Graph Explorer - ENVICTICA / INFRA / PIPELINE_04</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#005236",
+                        "inverse-surface": "#e0e3e5",
+                        "on-tertiary-fixed-variant": "#3a485c",
+                        "tertiary-fixed": "#d5e3fd",
+                        "tertiary-container": "#95a4bb",
+                        "surface-container-lowest": "#0b0f10",
+                        "inverse-on-surface": "#2d3133",
+                        "primary": "#4edea3",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "on-tertiary": "#233144",
+                        "on-error": "#690005",
+                        "surface-bright": "#363a3b",
+                        "outline": "#86948a",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-error-container": "#ffdad6",
+                        "inverse-primary": "#006c49",
+                        "tertiary": "#b9c7e0",
+                        "error-container": "#93000a",
+                        "surface-container-highest": "#323537",
+                        "on-secondary-container": "#adb4ce",
+                        "on-secondary": "#283044",
+                        "outline-variant": "#3c4a42",
+                        "surface-container-low": "#191c1e",
+                        "surface-dim": "#101415",
+                        "secondary-fixed": "#dae2fd",
+                        "primary-fixed-dim": "#4edea3",
+                        "on-primary-container": "#00422b",
+                        "on-secondary-fixed": "#131b2e",
+                        "surface-container-high": "#272a2c",
+                        "on-background": "#e0e3e5",
+                        "surface-variant": "#323537",
+                        "on-tertiary-fixed": "#0d1c2f",
+                        "error": "#ffb4ab",
+                        "secondary": "#bec6e0",
+                        "on-primary": "#003824",
+                        "primary-container": "#10b981",
+                        "on-primary-fixed": "#002113",
+                        "surface-tint": "#4edea3",
+                        "surface-container": "#1d2022",
+                        "on-tertiary-container": "#2c3a4e",
+                        "tertiary-fixed-dim": "#b9c7e0",
+                        "secondary-container": "#3f465c",
+                        "primary-fixed": "#6ffbbe",
+                        "on-surface": "#e0e3e5",
+                        "surface": "#101415",
+                        "on-surface-variant": "#bbcabf",
+                        "background": "#101415"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin": "24px",
+                        "density-regular": "8px",
+                        "unit": "4px",
+                        "gutter": "12px",
+                        "density-compact": "4px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["JetBrains Mono"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "data-mono": ["JetBrains Mono"],
+                        "title-sm": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "body-sm": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["11px", { "lineHeight": "16px", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "data-mono": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "title-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            background-color: #101415; /* background */
+            color: #e0e3e5; /* on-background */
+            font-family: 'Hanken Grotesk', sans-serif;
+            margin: 0;
+            overflow: hidden;
+        }
+        
+        .grid-bg {
+            background-image: 
+                linear-gradient(to right, #3c4a42 1px, transparent 1px), /* outline-variant */
+                linear-gradient(to bottom, #3c4a42 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: center center;
+            opacity: 0.2;
+        }
+
+        .node-pulse {
+            animation: pulse-emerald 2s infinite;
+        }
+
+        @keyframes pulse-emerald {
+            0% { box-shadow: 0 0 0 0 rgba(78, 222, 163, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(78, 222, 163, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(78, 222, 163, 0); }
+        }
+    </style>
+</head>
+<body class="flex h-screen w-full bg-background overflow-hidden text-on-background antialiased selection:bg-primary-container selection:text-on-primary-container">
+<!-- Official Module Top Bar -->
+<div class="fixed top-0 left-0 w-full h-8 bg-primary text-on-primary-fixed z-[60] flex items-center justify-center text-label-caps font-label-caps tracking-widest uppercase shadow-sm">
+    OFFICIAL ENVICTICA MODULE: 7 OF 15
+</div>
+<!-- TopAppBar (From JSON) -->
+<header class="fixed top-8 left-0 w-full z-50 flex justify-between items-center px-margin h-14 bg-surface dark:bg-surface-container-low border-b border-outline-variant dark:border-outline no shadows">
+<div class="flex items-center gap-4">
+<span class="text-headline-sm font-headline-sm font-bold text-primary dark:text-primary-fixed">ENVICTICA / INFRA / PIPELINE_04</span>
+</div>
+<div class="flex items-center gap-6">
+<div class="hidden md:flex items-center gap-2 px-3 py-1 bg-surface-container-highest rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-[16px] text-primary" data-icon="check_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="text-label-caps font-label-caps text-on-surface">System Healthy</span>
+</div>
+<div class="hidden md:flex items-center gap-2 px-3 py-1 bg-surface-container-highest rounded-full border border-outline-variant">
+<span class="material-symbols-outlined text-[16px] text-primary" data-icon="trending_up" data-weight="fill" style="font-variation-settings: 'FILL' 1;">trending_up</span>
+<span class="text-label-caps font-label-caps text-on-surface">ROI Tracking Active</span>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-full hover:bg-surface-container-highest transition-colors duration-150 text-primary dark:text-on-primary-fixed active:scale-[0.99] transition-transform">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-highest transition-colors duration-150 text-primary dark:text-on-primary-fixed active:scale-[0.99] transition-transform">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 rounded-full hover:bg-surface-container-highest transition-colors duration-150 text-primary font-bold border-b-2 border-primary active:scale-[0.99] transition-transform">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+</button>
+</div>
+</div>
+</header>
+<!-- SideNavBar (From JSON) -->
+<nav class="hidden md:flex flex-col py-stack-md z-40 bg-surface-container-low dark:bg-surface-container-lowest border-r border-outline-variant dark:border-outline no shadows w-[240px] h-full fixed left-0 top-[5.5rem] pt-6">
+<div class="px-margin mb-8">
+<div class="flex items-center gap-3 mb-2">
+<div class="w-10 h-10 rounded bg-surface-container-highest flex items-center justify-center border border-outline-variant">
+<span class="material-symbols-outlined text-primary" data-icon="account_balance">account_balance</span>
+</div>
+<div>
+<h1 class="text-title-sm font-title-sm text-primary dark:text-primary-fixed leading-tight">Envictica</h1>
+<p class="text-label-caps font-label-caps text-on-surface-variant">Legal Knowledge Engineer</p>
+</div>
+</div>
+<button class="w-full mt-4 bg-primary text-on-primary-fixed py-2 px-4 rounded text-label-caps font-label-caps flex items-center justify-center gap-2 hover:bg-primary-fixed transition-colors">
+<span class="material-symbols-outlined text-[16px]" data-icon="add">add</span>
+                New System Audit
+            </button>
+</div>
+<div class="flex-1 overflow-y-auto">
+<ul class="flex flex-col gap-1 px-3">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="lan">lan</span>
+                        Infrastructure
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+                        Governance
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded bg-secondary-container text-on-secondary-container font-semibold opacity-80 transition-opacity text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+                        Pipelines
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+                        Data Validation
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+                        Audit Logs
+                    </a>
+</li>
+</ul>
+</div>
+<div class="mt-auto px-3 pb-20 border-t border-outline-variant pt-4">
+<ul class="flex flex-col gap-1">
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+                        Settings
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-all text-label-md font-label-md" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+                        Support
+                    </a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Workspace -->
+<main class="flex-1 flex flex-col md:ml-[240px] mt-[5.5rem] relative w-full h-[calc(100vh-5.5rem)]">
+<!-- Graph Canvas Area -->
+<div class="absolute inset-0 z-0 bg-surface-dim overflow-hidden">
+<div class="absolute inset-0 grid-bg"></div>
+<!-- Connection Lines (SVG) -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" style="z-index: 1;">
+<!-- Confident Links (Emerald) -->
+<path d="M 300 250 L 500 150" fill="none" opacity="0.6" stroke="#4edea3" stroke-width="2"></path>
+<path d="M 500 150 L 700 300" fill="none" opacity="0.6" stroke="#4edea3" stroke-width="2"></path>
+<path d="M 700 300 L 450 450" fill="none" opacity="0.6" stroke="#4edea3" stroke-width="2"></path>
+<path d="M 300 250 L 450 450" fill="none" opacity="0.6" stroke="#4edea3" stroke-width="2"></path>
+<!-- Weak Links (Amber/Warning) -->
+<path d="M 700 300 L 900 200" fill="none" opacity="0.8" stroke="#ffb4ab" stroke-dasharray="4,4" stroke-width="2"></path>
+<path d="M 500 150 L 800 100" fill="none" opacity="0.8" stroke="#ffb4ab" stroke-dasharray="4,4" stroke-width="2"></path>
+</svg>
+<!-- Nodes -->
+<div class="absolute inset-0 pointer-events-none" style="z-index: 2;">
+<!-- Node 1: Corp Entity -->
+<div class="absolute top-[220px] left-[260px] pointer-events-auto cursor-pointer group transform hover:scale-105 transition-transform" onclick="toggleInspector()">
+<div class="w-20 h-20 bg-surface rounded-full border-2 border-primary flex items-center justify-center shadow-lg node-pulse">
+<span class="material-symbols-outlined text-primary text-[32px]" data-icon="domain">domain</span>
+</div>
+<div class="mt-2 bg-surface border border-outline-variant rounded px-2 py-1 text-center">
+<div class="text-label-caps font-label-caps text-on-surface">Alpha Holdings</div>
+<div class="text-data-mono font-data-mono text-primary text-[10px]">CORP-8821</div>
+</div>
+</div>
+<!-- Node 2: Jurisdiction -->
+<div class="absolute top-[120px] left-[460px] pointer-events-auto cursor-pointer group transform hover:scale-105 transition-transform">
+<div class="w-16 h-16 bg-surface rounded-full border border-primary flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-on-surface text-[24px]" data-icon="account_balance">account_balance</span>
+</div>
+<div class="mt-2 bg-surface border border-outline-variant rounded px-2 py-1 text-center">
+<div class="text-label-caps font-label-caps text-on-surface">Delaware</div>
+<div class="text-data-mono font-data-mono text-outline text-[10px]">JUR-DE</div>
+</div>
+</div>
+<!-- Node 3: Precedent -->
+<div class="absolute top-[270px] left-[660px] pointer-events-auto cursor-pointer group transform hover:scale-105 transition-transform">
+<div class="w-16 h-16 bg-surface rounded-full border border-error flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-error text-[24px]" data-icon="gavel">gavel</span>
+</div>
+<div class="mt-2 bg-surface border border-outline-variant rounded px-2 py-1 text-center">
+<div class="text-label-caps font-label-caps text-on-surface">Smith v. Jones</div>
+<div class="text-data-mono font-data-mono text-error text-[10px]">PREC-99x</div>
+</div>
+</div>
+<!-- Node 4: Party -->
+<div class="absolute top-[420px] left-[410px] pointer-events-auto cursor-pointer group transform hover:scale-105 transition-transform">
+<div class="w-16 h-16 bg-surface rounded-full border border-primary flex items-center justify-center shadow-lg">
+<span class="material-symbols-outlined text-on-surface text-[24px]" data-icon="person">person</span>
+</div>
+<div class="mt-2 bg-surface border border-outline-variant rounded px-2 py-1 text-center">
+<div class="text-label-caps font-label-caps text-on-surface">J. Doe</div>
+<div class="text-data-mono font-data-mono text-outline text-[10px]">PTY-001</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Floating Action / View Controls -->
+<div class="absolute top-4 left-4 z-10 flex gap-2">
+<div class="bg-surface border border-outline-variant rounded p-1 flex items-center shadow-md">
+<button class="p-2 rounded bg-surface-container-highest text-primary hover:bg-surface-container-high transition-colors" title="Zoom In">
+<span class="material-symbols-outlined text-[18px]" data-icon="zoom_in">zoom_in</span>
+</button>
+<button class="p-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-colors" title="Zoom Out">
+<span class="material-symbols-outlined text-[18px]" data-icon="zoom_out">zoom_out</span>
+</button>
+<div class="w-px h-6 bg-outline-variant mx-1"></div>
+<button class="p-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-colors" title="Reset View">
+<span class="material-symbols-outlined text-[18px]" data-icon="center_focus_strong">center_focus_strong</span>
+</button>
+</div>
+</div>
+<!-- Inspector Panel (Right Side) -->
+<aside class="absolute top-0 right-0 w-[360px] h-full bg-surface border-l border-outline-variant z-20 flex flex-col shadow-2xl transform translate-x-0 transition-transform duration-300" id="inspectorPanel">
+<!-- Header -->
+<div class="flex items-center justify-between p-4 border-b border-outline-variant bg-surface-container-lowest">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[20px]" data-icon="hub">hub</span>
+<h2 class="text-title-sm font-title-sm text-on-surface">Node Inspector</h2>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface transition-colors" onclick="toggleInspector()">
+<span class="material-symbols-outlined" data-icon="close">close</span>
+</button>
+</div>
+<!-- Content Scrollable -->
+<div class="flex-1 overflow-y-auto p-4 space-y-6">
+<!-- Entity Summary -->
+<div>
+<div class="text-label-caps font-label-caps text-on-surface-variant mb-1">Corporate Entity</div>
+<h3 class="text-headline-md font-headline-md text-primary mb-2">Alpha Holdings LLC</h3>
+<div class="flex items-center gap-2 mb-4">
+<span class="px-2 py-0.5 rounded-sm bg-primary/20 border border-primary text-primary text-data-mono font-data-mono text-[11px]">ACTIVE</span>
+<span class="text-data-mono font-data-mono text-outline text-[12px]">ID: CORP-8821</span>
+</div>
+</div>
+<!-- Metrics Grid -->
+<div class="grid grid-cols-2 gap-4">
+<div class="bg-surface-container-lowest border border-outline-variant p-3 rounded">
+<div class="text-label-caps font-label-caps text-on-surface-variant mb-2">Link Confidence</div>
+<div class="flex items-end gap-2">
+<span class="text-display-lg font-display-lg text-primary leading-none">98</span>
+<span class="text-body-sm font-body-sm text-outline mb-1">%</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 mt-2 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[98%]"></div>
+</div>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-3 rounded">
+<div class="text-label-caps font-label-caps text-on-surface-variant mb-2">Citation Strength</div>
+<div class="flex items-end gap-2">
+<span class="text-display-lg font-display-lg text-on-surface leading-none">4.2</span>
+<span class="text-body-sm font-body-sm text-outline mb-1">/ 5</span>
+</div>
+<div class="w-full bg-surface-container-high h-1 mt-2 rounded-full overflow-hidden">
+<div class="bg-outline h-full w-[84%]"></div>
+</div>
+</div>
+</div>
+<!-- Source Ingestion Audit -->
+<div>
+<h4 class="text-title-sm font-title-sm text-on-surface mb-3 flex items-center gap-2 border-b border-outline-variant pb-2">
+<span class="material-symbols-outlined text-[18px] text-outline" data-icon="policy">policy</span>
+                        Source Ingestion Audit
+                    </h4>
+<div class="space-y-3 relative before:absolute before:inset-0 before:ml-3 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-outline-variant before:to-transparent">
+<!-- Timeline Item 1 -->
+<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
+<div class="flex items-center justify-center w-6 h-6 rounded-full border border-primary bg-surface-container-lowest text-primary shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+<div class="w-2 h-2 rounded-full bg-primary"></div>
+</div>
+<div class="w-[calc(100%-3rem)] md:w-[calc(50%-1.5rem)] p-3 rounded border border-outline-variant bg-surface-container-low">
+<div class="flex justify-between mb-1">
+<span class="text-label-caps font-label-caps text-primary">SEC Filing 10-K</span>
+<span class="text-data-mono font-data-mono text-outline text-[10px]">10:42 AM</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Entity matched via CIK 0001234567. Address verified.</p>
+</div>
+</div>
+<!-- Timeline Item 2 -->
+<div class="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
+<div class="flex items-center justify-center w-6 h-6 rounded-full border border-outline-variant bg-surface-container-lowest text-outline shadow shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 z-10">
+<div class="w-2 h-2 rounded-full bg-outline"></div>
+</div>
+<div class="w-[calc(100%-3rem)] md:w-[calc(50%-1.5rem)] p-3 rounded border border-outline-variant bg-surface-container-lowest">
+<div class="flex justify-between mb-1">
+<span class="text-label-caps font-label-caps text-on-surface">Delaware State Reg</span>
+<span class="text-data-mono font-data-mono text-outline text-[10px]">09:15 AM</span>
+</div>
+<p class="text-body-sm font-body-sm text-on-surface-variant">Initial extraction. Name fuzzy match score: 0.95</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="p-4 border-t border-outline-variant bg-surface-container-lowest flex gap-2">
+<button class="flex-1 bg-surface border border-outline text-on-surface py-2 rounded text-label-caps font-label-caps hover:bg-surface-container-highest transition-colors">
+                    View Raw Data
+                </button>
+<button class="flex-1 bg-primary text-on-primary-fixed py-2 rounded text-label-caps font-label-caps hover:bg-primary-fixed transition-colors">
+                    Validate Node
+                </button>
+</div>
+</aside>
+</main>
+<script>
+        function toggleInspector() {
+            const inspector = document.getElementById('inspectorPanel');
+            if (inspector.classList.contains('translate-x-full')) {
+                inspector.classList.remove('translate-x-full');
+            } else {
+                inspector.classList.add('translate-x-full');
+            }
+        }
+        
+        // Ensure inspector is visible initially for the demo
+        document.addEventListener('DOMContentLoaded', () => {
+             const inspector = document.getElementById('inspectorPanel');
+             inspector.classList.remove('translate-x-full');
+        });
+    </script>
+</body></html>
