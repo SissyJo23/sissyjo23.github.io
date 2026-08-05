@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Risk Matrix Dashboard | Envictica</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&amp;family=Hanken+Grotesk:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#e0e3e5",
+                        "on-tertiary-fixed-variant": "#3a485c",
+                        "secondary-fixed": "#dae2fd",
+                        "primary-container": "#10b981",
+                        "tertiary-container": "#95a4bb",
+                        "inverse-surface": "#e0e3e5",
+                        "surface-variant": "#323537",
+                        "primary-fixed": "#6ffbbe",
+                        "on-primary-fixed": "#002113",
+                        "primary-fixed-dim": "#4edea3",
+                        "on-surface": "#e0e3e5",
+                        "error-container": "#93000a",
+                        "inverse-primary": "#006c49",
+                        "surface-container": "#1d2022",
+                        "surface-container-low": "#191c1e",
+                        "secondary-container": "#3f465c",
+                        "outline": "#86948a",
+                        "on-primary-fixed-variant": "#005236",
+                        "on-surface-variant": "#bbcabf",
+                        "on-tertiary-container": "#2c3a4e",
+                        "surface-container-high": "#272a2c",
+                        "secondary": "#bec6e0",
+                        "surface-container-highest": "#323537",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary": "#283044",
+                        "surface-tint": "#4edea3",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "surface": "#101415",
+                        "on-primary-container": "#00422b",
+                        "outline-variant": "#3c4a42",
+                        "primary": "#4edea3",
+                        "on-secondary-fixed-variant": "#3f465c",
+                        "error": "#ffb4ab",
+                        "on-tertiary": "#233144",
+                        "surface-dim": "#101415",
+                        "on-secondary-container": "#adb4ce",
+                        "on-tertiary-fixed": "#0d1c2f",
+                        "tertiary": "#b9c7e0",
+                        "background": "#101415",
+                        "on-secondary-fixed": "#131b2e",
+                        "on-error": "#690005",
+                        "surface-bright": "#363a3b",
+                        "inverse-on-surface": "#2d3133",
+                        "tertiary-fixed": "#d5e3fd",
+                        "on-primary": "#003824",
+                        "tertiary-fixed-dim": "#b9c7e0",
+                        "surface-container-lowest": "#0b0f10"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin": "24px",
+                        "density-regular": "8px",
+                        "unit": "4px",
+                        "gutter": "12px",
+                        "density-compact": "4px"
+                    },
+                    "fontFamily": {
+                        "data-mono": ["JetBrains Mono"],
+                        "body-sm": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "label-caps": ["JetBrains Mono"],
+                        "title-sm": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"]
+                    },
+                    "fontSize": {
+                        "data-mono": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "label-caps": ["11px", { "lineHeight": "16px", "fontWeight": "700" }],
+                        "title-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .heat-cell-safe { @apply bg-primary-container text-on-primary-container; }
+        .heat-cell-warning { @apply bg-tertiary-container text-on-tertiary-container; }
+        .heat-cell-danger { @apply bg-error-container text-on-error-container; }
+        .metric-card { @apply bg-surface-container border border-outline-variant p-gutter rounded; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex font-body-md overflow-hidden">
+<!-- SideNavBar Component -->
+<nav class="bg-surface dark:bg-surface font-label-caps text-label-caps docked h-screen left-0 w-64 border-r border-outline-variant flat no shadows transition-all duration-150 ease-in-out flex flex-col h-full py-density-regular shrink-0 hidden md:flex z-40">
+<div class="px-margin mb-margin flex items-center gap-gutter">
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center overflow-hidden border border-outline-variant">
+<img alt="System Administrator" class="w-full h-full object-cover" data-alt="A macro close-up of a glowing fiber optic nexus in a sterile, dark server room. The aesthetic is hyper-technical, industrial, and precise, reflecting the core engine's systemic complexity. Deep slates and emerald green accents dominate the composition, representing data flow." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXFNPEgJuNA0JsYGN8bhPiTvunHYg3wBhDh6uP0GN4l2q-X76MpLbcmJMJG7kL9DZkUy-sDMYwBaZoHdGOPMHAsaDnurUBMHZs-wimrXVSqFYubVy0IF1uOPbV2AEA7pFlfLblzUlam42WSr0cs5KTDPqv0I_B9i4lWeRhykGBu_TADMexJ1MDK_9AmBxFIIaXBlZLpIcnEPWZDaCo8BM8Rl9xzE9Zn01YiuSSscVrB_hJlYGIupg8fg"/>
+</div>
+<div>
+<div class="font-headline-md text-headline-md text-primary truncate">Core Engine</div>
+<div class="text-on-surface-variant text-data-mono font-data-mono">V2.4.0-Stable</div>
+</div>
+</div>
+<div class="flex-1 overflow-y-auto px-gutter space-y-density-compact">
+<a class="flex items-center gap-gutter px-gutter py-density-regular rounded text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined" data-icon="dns">dns</span>
+<span>Infrastructure</span>
+</a>
+<a class="flex items-center gap-gutter px-gutter py-density-regular rounded text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+<span>Governance</span>
+</a>
+<a class="flex items-center gap-gutter px-gutter py-density-regular rounded text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
+<span>Pipelines</span>
+</a>
+<a class="flex items-center gap-gutter px-gutter py-density-regular rounded text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined" data-icon="fact_check">fact_check</span>
+<span>Data Validation</span>
+</a>
+<a class="flex items-center gap-gutter px-gutter py-density-regular rounded text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined" data-icon="build_circle">build_circle</span>
+<span>Data Debt Repair</span>
+</a>
+<a class="flex items-center gap-gutter px-gutter py-density-regular rounded text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined" data-icon="history_edu">history_edu</span>
+<span>Audit Logs</span>
+</a>
+<a class="flex items-center gap-gutter px-gutter py-density-regular rounded border-r-2 border-primary text-primary bg-primary-container/10" href="#">
+<span class="material-symbols-outlined" data-icon="grid_view" style="font-variation-settings: 'FILL' 1;">grid_view</span>
+<span>Risk Matrix</span>
+</a>
+<a class="flex items-center gap-gutter px-gutter py-density-regular rounded text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined" data-icon="schema">schema</span>
+<span>Schema Library</span>
+</a>
+</div>
+<div class="px-gutter pt-margin border-t border-outline-variant space-y-density-compact mt-auto">
+<a class="flex items-center gap-gutter px-gutter py-density-regular rounded text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined" data-icon="description">description</span>
+<span>Docs</span>
+</a>
+<a class="flex items-center gap-gutter px-gutter py-density-regular rounded text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="flex-1 flex flex-col h-screen overflow-hidden">
+<div class="bg-primary text-on-primary font-label-caps text-label-caps text-center py-density-regular w-full z-50 shrink-0 tracking-wider">
+    OFFICIAL ENVICTICA MODULE: 13 OF 15
+</div>
+<!-- TopNavBar Component -->
+<header class="bg-surface-container dark:bg-surface-container text-primary dark:text-primary font-title-sm text-title-sm docked full-width top-0 border-b border-outline-variant flat no shadows flex justify-between items-center px-margin h-16 w-full z-40 shrink-0">
+<div class="flex items-center gap-margin">
+<button class="md:hidden text-on-surface-variant hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80 p-unit rounded">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<div class="font-headline-md text-headline-md text-primary dark:text-primary uppercase tracking-wider">Envictica</div>
+</div>
+<div class="flex-1 flex justify-start pl-margin">
+<div class="relative w-64 hidden sm:block">
+<span class="material-symbols-outlined absolute left-density-regular top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="w-full bg-surface-container-highest border border-outline-variant rounded pl-8 pr-density-regular py-unit text-body-sm font-body-sm text-on-surface focus:border-primary focus:ring-1 focus:ring-primary outline-none placeholder:text-on-surface-variant" placeholder="Search parameters..." type="text"/>
+</div>
+</div>
+<div class="flex items-center gap-gutter">
+<button class="text-on-surface-variant hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80 p-unit rounded relative">
+<span class="material-symbols-outlined" data-icon="monitor_heart">monitor_heart</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80 p-unit rounded">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<button class="text-on-surface-variant hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80 p-unit rounded relative">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+<span class="absolute top-1 right-1 w-2 h-2 bg-primary rounded-full"></span>
+</button>
+<div class="w-8 h-8 rounded-full ml-density-regular overflow-hidden border border-outline-variant cursor-pointer">
+<img alt="Operator Profile" class="w-full h-full object-cover" data-alt="A macro close-up of a glowing fiber optic nexus in a sterile, dark server room. The aesthetic is hyper-technical, industrial, and precise, reflecting the core engine's systemic complexity. Deep slates and emerald green accents dominate the composition, representing data flow." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX3BikU_192cMC3qQ8XbUGEghaE3snSkxaBQDJcyBg0VYKK0D3-dnfQItus9paU3bxak6nq9VZMJRVeMrtF5_2n8K2jCeak9FHXRydUwmjA-W9tSxzolq1UxdvoXAxT9p65Zlo_ibbE5NbmvHp-vM9rgo53OrS8wkDIPVDxsPJkJW6zPaV9_a1pwgxt5itolkww0KDeO46UWwBPOcpu1kyakZsjM0QjhLwBLHkfBEurASspLxaCmuMfQ"/>
+</div>
+</div>
+</header>
+<!-- Canvas -->
+<div class="flex-1 overflow-y-auto bg-background p-margin space-y-margin">
+<!-- Context Header -->
+<div class="flex justify-between items-end">
+<div>
+<div class="flex items-center gap-unit text-on-surface-variant font-data-mono text-data-mono mb-unit">
+<span>Infrastructure</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span>Risk Matrix</span>
+</div>
+<h1 class="font-display-lg text-display-lg text-on-surface">Hallucination Propensity vs. Data Drift</h1>
+</div>
+<div class="flex gap-gutter">
+<button class="flex items-center gap-unit px-gutter py-density-regular border border-outline-variant rounded text-on-surface font-label-caps text-label-caps hover:bg-surface-container transition-colors">
+<span class="material-symbols-outlined text-[16px]">download</span>
+                        EXPORT CSV
+                    </button>
+<button class="flex items-center gap-unit px-gutter py-density-regular bg-primary text-on-primary-fixed rounded font-label-caps text-label-caps hover:bg-primary-fixed transition-colors border border-transparent">
+<span class="material-symbols-outlined text-[16px]">refresh</span>
+                        FORCE SYNC
+                    </button>
+</div>
+</div>
+<!-- Metrics Bar -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter">
+<div class="metric-card flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-unit uppercase">Avg Node Temperature</span>
+<div class="flex items-end gap-gutter mt-auto">
+<span class="font-headline-md text-headline-md text-on-surface font-data-mono">42.8°C</span>
+<span class="text-primary font-data-mono text-data-mono flex items-center"><span class="material-symbols-outlined text-[14px]">arrow_downward</span> 1.2°</span>
+</div>
+</div>
+<div class="metric-card flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-unit uppercase">Total Anomaly Intercepts</span>
+<div class="flex items-end gap-gutter mt-auto">
+<span class="font-headline-md text-headline-md text-error font-data-mono">1,492</span>
+<span class="text-error font-data-mono text-data-mono flex items-center"><span class="material-symbols-outlined text-[14px]">arrow_upward</span> 14%</span>
+</div>
+</div>
+<div class="metric-card flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-unit uppercase">Drift Velocity (Avg)</span>
+<div class="flex items-end gap-gutter mt-auto">
+<span class="font-headline-md text-headline-md text-on-surface font-data-mono">0.042 µ/s</span>
+<span class="text-tertiary font-data-mono text-data-mono flex items-center"><span class="material-symbols-outlined text-[14px]">horizontal_rule</span> 0%</span>
+</div>
+</div>
+<div class="metric-card flex flex-col">
+<span class="font-label-caps text-label-caps text-on-surface-variant mb-unit uppercase">System Integrity</span>
+<div class="flex items-end gap-gutter mt-auto">
+<span class="font-headline-md text-headline-md text-primary font-data-mono">98.9%</span>
+<div class="flex-1 h-1 bg-surface-variant rounded-full ml-gutter mb-density-regular overflow-hidden">
+<div class="h-full bg-primary w-[98.9%]"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Heat Map Container -->
+<div class="bg-surface-container border border-outline-variant rounded overflow-hidden">
+<div class="p-gutter border-b border-outline-variant bg-surface-container-high flex justify-between items-center">
+<h2 class="font-title-sm text-title-sm text-on-surface">Node Analysis Heat-Map</h2>
+<div class="flex items-center gap-margin font-label-caps text-label-caps">
+<div class="flex items-center gap-unit"><div class="w-3 h-3 bg-primary-container rounded-sm border border-outline-variant"></div><span class="text-on-surface-variant">SAFE (&lt; 2% Drift)</span></div>
+<div class="flex items-center gap-unit"><div class="w-3 h-3 bg-tertiary-container rounded-sm border border-outline-variant"></div><span class="text-on-surface-variant">AMBER (2-5% Drift)</span></div>
+<div class="flex items-center gap-unit"><div class="w-3 h-3 bg-error-container rounded-sm border border-outline-variant"></div><span class="text-on-surface-variant">CRITICAL (&gt; 5% Drift)</span></div>
+</div>
+</div>
+<div class="p-gutter overflow-x-auto">
+<!-- High-density Grid -->
+<div class="min-w-[800px] grid grid-cols-6 gap-[2px] bg-outline-variant border border-outline-variant">
+<!-- Header Row -->
+<div class="bg-surface-container-highest p-density-regular font-label-caps text-label-caps text-on-surface-variant uppercase">Business Unit</div>
+<div class="bg-surface-container-highest p-density-regular font-label-caps text-label-caps text-on-surface-variant uppercase text-right">Hallucination Index</div>
+<div class="bg-surface-container-highest p-density-regular font-label-caps text-label-caps text-on-surface-variant uppercase text-right">Data Drift (%)</div>
+<div class="bg-surface-container-highest p-density-regular font-label-caps text-label-caps text-on-surface-variant uppercase text-right">Intercepts (24h)</div>
+<div class="bg-surface-container-highest p-density-regular font-label-caps text-label-caps text-on-surface-variant uppercase text-center">Status</div>
+<div class="bg-surface-container-highest p-density-regular font-label-caps text-label-caps text-on-surface-variant uppercase text-center">Action</div>
+<!-- Data Row 1 - Critical -->
+<div class="bg-surface p-density-regular text-body-sm font-body-sm text-on-surface flex items-center font-bold">Corporate M&amp;A</div>
+<div class="bg-surface p-density-regular text-data-mono font-data-mono text-error text-right flex items-center justify-end">0.89</div>
+<div class="heat-cell-danger p-density-regular text-data-mono font-data-mono text-right flex items-center justify-end">7.2%</div>
+<div class="bg-surface p-density-regular text-data-mono font-data-mono text-on-surface text-right flex items-center justify-end">412</div>
+<div class="bg-surface p-density-regular flex items-center justify-center">
+<span class="px-2 py-[2px] rounded-full border border-error text-error text-[10px] font-bold uppercase tracking-wider">High Risk</span>
+</div>
+<div class="bg-surface p-density-regular flex items-center justify-center gap-gutter">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="text-on-surface-variant hover:text-error transition-colors"><span class="material-symbols-outlined text-[18px]">stop_circle</span></button>
+</div>
+<!-- Data Row 2 - Safe -->
+<div class="bg-surface p-density-regular text-body-sm font-body-sm text-on-surface flex items-center font-bold">Global Litigation</div>
+<div class="bg-surface p-density-regular text-data-mono font-data-mono text-primary text-right flex items-center justify-end">0.12</div>
+<div class="heat-cell-safe p-density-regular text-data-mono font-data-mono text-right flex items-center justify-end">0.4%</div>
+<div class="bg-surface p-density-regular text-data-mono font-data-mono text-on-surface text-right flex items-center justify-end">14</div>
+<div class="bg-surface p-density-regular flex items-center justify-center">
+<span class="px-2 py-[2px] rounded-full border border-primary text-primary text-[10px] font-bold uppercase tracking-wider">Nominal</span>
+</div>
+<div class="bg-surface p-density-regular flex items-center justify-center gap-gutter">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="text-on-surface-variant hover:text-error transition-colors opacity-50 cursor-not-allowed"><span class="material-symbols-outlined text-[18px]">stop_circle</span></button>
+</div>
+<!-- Data Row 3 - Warning -->
+<div class="bg-surface p-density-regular text-body-sm font-body-sm text-on-surface flex items-center font-bold">IP Compliance</div>
+<div class="bg-surface p-density-regular text-data-mono font-data-mono text-tertiary-container text-right flex items-center justify-end">0.45</div>
+<div class="heat-cell-warning p-density-regular text-data-mono font-data-mono text-right flex items-center justify-end">3.1%</div>
+<div class="bg-surface p-density-regular text-data-mono font-data-mono text-on-surface text-right flex items-center justify-end">89</div>
+<div class="bg-surface p-density-regular flex items-center justify-center">
+<span class="px-2 py-[2px] rounded-full border border-tertiary-container text-tertiary-container text-[10px] font-bold uppercase tracking-wider">Drift</span>
+</div>
+<div class="bg-surface p-density-regular flex items-center justify-center gap-gutter">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="text-on-surface-variant hover:text-error transition-colors"><span class="material-symbols-outlined text-[18px]">stop_circle</span></button>
+</div>
+<!-- Data Row 4 - Safe -->
+<div class="bg-surface p-density-regular text-body-sm font-body-sm text-on-surface flex items-center font-bold">HR Analytics</div>
+<div class="bg-surface p-density-regular text-data-mono font-data-mono text-primary text-right flex items-center justify-end">0.05</div>
+<div class="heat-cell-safe p-density-regular text-data-mono font-data-mono text-right flex items-center justify-end">1.1%</div>
+<div class="bg-surface p-density-regular text-data-mono font-data-mono text-on-surface text-right flex items-center justify-end">3</div>
+<div class="bg-surface p-density-regular flex items-center justify-center">
+<span class="px-2 py-[2px] rounded-full border border-primary text-primary text-[10px] font-bold uppercase tracking-wider">Nominal</span>
+</div>
+<div class="bg-surface p-density-regular flex items-center justify-center gap-gutter">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="text-on-surface-variant hover:text-error transition-colors opacity-50 cursor-not-allowed"><span class="material-symbols-outlined text-[18px]">stop_circle</span></button>
+</div>
+<!-- Data Row 5 - Critical -->
+<div class="bg-surface p-density-regular text-body-sm font-body-sm text-on-surface flex items-center font-bold">Financial Auditing</div>
+<div class="bg-surface p-density-regular text-data-mono font-data-mono text-error text-right flex items-center justify-end">0.72</div>
+<div class="heat-cell-danger p-density-regular text-data-mono font-data-mono text-right flex items-center justify-end">6.8%</div>
+<div class="bg-surface p-density-regular text-data-mono font-data-mono text-on-surface text-right flex items-center justify-end">275</div>
+<div class="bg-surface p-density-regular flex items-center justify-center">
+<span class="px-2 py-[2px] rounded-full border border-error text-error text-[10px] font-bold uppercase tracking-wider">High Risk</span>
+</div>
+<div class="bg-surface p-density-regular flex items-center justify-center gap-gutter">
+<button class="text-on-surface-variant hover:text-primary transition-colors"><span class="material-symbols-outlined text-[18px]">visibility</span></button>
+<button class="text-on-surface-variant hover:text-error transition-colors"><span class="material-symbols-outlined text-[18px]">stop_circle</span></button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
