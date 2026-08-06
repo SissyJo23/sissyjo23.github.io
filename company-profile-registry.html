@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Envictica: The Procurement Cascade</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700;800&amp;family=Sora:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "on-tertiary-fixed": "#3f0019",
+                      "on-error-container": "#ffdad6",
+                      "on-primary-container": "#006970",
+                      "background": "#121318",
+                      "on-tertiary-container": "#bb0058",
+                      "secondary-fixed-dim": "#abd600",
+                      "outline-variant": "#3b494b",
+                      "surface-container-highest": "#34343a",
+                      "on-primary-fixed": "#002022",
+                      "primary-container": "#00f0ff",
+                      "primary-fixed-dim": "#00dbe9",
+                      "surface-tint": "#00dbe9",
+                      "inverse-surface": "#e3e1e9",
+                      "tertiary-fixed": "#ffd9e0",
+                      "primary": "#dbfcff",
+                      "on-surface-variant": "#b9cacb",
+                      "tertiary-fixed-dim": "#ffb1c3",
+                      "inverse-primary": "#006970",
+                      "surface-container-high": "#292a2f",
+                      "error": "#ffb4ab",
+                      "on-error": "#690005",
+                      "outline": "#849495",
+                      "on-primary": "#00363a",
+                      "surface-container-lowest": "#0d0e13",
+                      "on-background": "#e3e1e9",
+                      "surface-variant": "#34343a",
+                      "on-secondary-container": "#556d00",
+                      "surface-bright": "#38393f",
+                      "tertiary-container": "#ffccd6",
+                      "primary-fixed": "#7df4ff",
+                      "on-surface": "#e3e1e9",
+                      "on-tertiary-fixed-variant": "#8f0041",
+                      "secondary-fixed": "#c3f400",
+                      "secondary-container": "#c3f400",
+                      "inverse-on-surface": "#2f3036",
+                      "surface-container-low": "#1a1b21",
+                      "surface-dim": "#121318",
+                      "on-primary-fixed-variant": "#004f54",
+                      "on-secondary": "#283500",
+                      "secondary": "#ffffff",
+                      "on-tertiary": "#66002c",
+                      "tertiary": "#fff3f4",
+                      "on-secondary-fixed-variant": "#3c4d00",
+                      "surface-container": "#1e1f25",
+                      "surface": "#121318",
+                      "error-container": "#93000a",
+                      "on-secondary-fixed": "#161e00"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "base": "8px",
+                      "gutter": "16px",
+                      "container-margin": "24px",
+                      "stack-lg": "32px",
+                      "stack-md": "12px",
+                      "stack-sm": "4px"
+              },
+              "fontFamily": {
+                      "label-caps": [
+                              "jetbrainsMono"
+                      ],
+                      "display-lg-mobile": [
+                              "sora"
+                      ],
+                      "display-lg": [
+                              "sora"
+                      ],
+                      "data-numeral": [
+                              "jetbrainsMono"
+                      ],
+                      "body-md": [
+                              "inter"
+                      ],
+                      "headline-md": [
+                              "sora"
+                      ]
+              },
+              "fontSize": {
+                      "label-caps": [
+                              "12px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0.1em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "display-lg-mobile": [
+                              "32px",
+                              {
+                                      "lineHeight": "1.2",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "display-lg": [
+                              "48px",
+                              {
+                                      "lineHeight": "1.1",
+                                      "letterSpacing": "-0.04em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "data-numeral": [
+                              "14px",
+                              {
+                                      "lineHeight": "1",
+                                      "letterSpacing": "0",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "1.6",
+                                      "letterSpacing": "0",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "1.3",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+<style>
+          .glass-panel {
+              background: rgba(18, 19, 24, 0.7);
+              backdrop-filter: blur(12px);
+              -webkit-backdrop-filter: blur(12px);
+              border: 1px solid rgba(255, 255, 255, 0.2);
+          }
+          
+          .glass-panel-active {
+              background: rgba(18, 19, 24, 0.7);
+              backdrop-filter: blur(12px);
+              -webkit-backdrop-filter: blur(12px);
+              border: 1px solid rgba(255, 255, 255, 0.2);
+              box-shadow: 0 0 16px 0px rgba(0, 240, 255, 0.3);
+          }
+
+          .edge-light-primary {
+              border-top: 1px solid #7df4ff;
+          }
+          
+          .edge-light-error {
+              border-top: 1px solid #ffb4ab;
+          }
+
+          .pulse-dot {
+              animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+          }
+
+          @keyframes pulse {
+              0%, 100% { opacity: 1; transform: scale(1); }
+              50% { opacity: .5; transform: scale(1.5); }
+          }
+          
+          .scan-line {
+              position: relative;
+              overflow: hidden;
+          }
+          .scan-line::after {
+              content: '';
+              position: absolute;
+              top: 0;
+              left: -100%;
+              width: 50%;
+              height: 100%;
+              background: linear-gradient(90deg, transparent, rgba(125, 244, 255, 0.2), transparent);
+              animation: scan 3s infinite linear;
+          }
+          @keyframes scan {
+              100% { left: 200%; }
+          }
+      </style>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md h-screen w-screen overflow-hidden flex">
+<!-- Background Shader -->
+<!-- STITCH_SHADER_START:ANIMATION_123 class="absolute inset-0 w-full h-full z-0 pointer-events-none opacity-80" -->
+<div class="absolute inset-0 w-full h-full z-0 pointer-events-none opacity-80" style="display:block;">
+<canvas id="shader-canvas-ANIMATION_123" style="display:block;width:100%;height:100%"></canvas>
+<script>
+(function() {
+  const canvas = document.getElementById('shader-canvas-ANIMATION_123');
+
+  // Sync the WebGL drawing-buffer size with the CSS-driven layout size.
+  // This fires on initial layout and whenever the element is resized.
+  function syncSize() {
+    const w = canvas.clientWidth  || 1280;
+    const h = canvas.clientHeight || 720;
+    if (canvas.width !== w || canvas.height !== h) {
+      canvas.width  = w;
+      canvas.height = h;
+    }
+  }
+  if (typeof ResizeObserver !== 'undefined') {
+    new ResizeObserver(syncSize).observe(canvas);
+  }
+  syncSize();
+
+  const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+  if (!gl) return;
+  const vs = `attribute vec2 a_position;
+varying vec2 v_texCoord;
+void main() {
+  v_texCoord = a_position * 0.5 + 0.5;
+  gl_Position = vec4(a_position, 0.0, 1.0);
+}`;
+  const fs = `precision highp float;
+
+uniform float u_time;
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+
+varying vec2 v_texCoord;
+
+// Simplex 2D noise
+vec3 permute(vec3 x) { return mod(((x*34.0)+1.0)*x, 289.0); }
+float snoise(vec2 v){
+  const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+           -0.577350269189626, 0.024390243902439);
+  vec2 i  = floor(v + dot(v, C.yy) );
+  vec2 x0 = v -   i + dot(i, C.xx);
+  vec2 i1;
+  i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+  vec4 x12 = x0.xyxy + C.xxzz;
+  x12.xy -= i1;
+  i = mod(i, 289.0);
+  vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 ))
+  + i.x + vec3(0.0, i1.x, 1.0 ));
+  vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy),
+    dot(x12.zw,x12.zw)), 0.0);
+  m = m*m ;
+  m = m*m ;
+  vec3 x = 2.0 * fract(p * C.www) - 1.0;
+  vec3 h = abs(x) - 0.5;
+  vec3 a0 = x - floor(x + 0.5);
+  float m1 = 1.79284291400159 - 0.85373472095314 * ( a0.x*a0.x + h.x*h.x );
+  float m2 = 1.79284291400159 - 0.85373472095314 * ( a0.y*a0.y + h.y*h.y );
+  float m3 = 1.79284291400159 - 0.85373472095314 * ( a0.z*a0.z + h.z*h.z );
+  vec3 g;
+  g.x  = a0.x  * x0.x  + h.x  * x0.y;
+  g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+  return 130.0 * dot(m, g);
+}
+
+void main() {
+    vec2 uv = v_texCoord;
+    vec2 center = vec2(0.5, 0.5);
+    float dist = distance(uv, center);
+    
+    // Base colors from Envictica palette (Electric Teal and Deep Slate)
+    vec3 deepSlate = vec3(0.047, 0.051, 0.063); // #0c0d10-ish
+    vec3 electricTeal = vec3(0.0, 0.96, 0.83); // #00F5D4
+    vec3 burntCrimson = vec3(1.0, 0.3, 0.42); // #FF4D6D
+    
+    // Neural circuit patterns using noise
+    float n1 = snoise(uv * 10.0 + u_time * 0.1);
+    float n2 = snoise(uv * 20.0 - u_time * 0.2);
+    float circuit = smoothstep(0.4, 0.5, n1 * n2);
+    
+    // The "Eye" aperture effect
+    float eyeInner = smoothstep(0.3, 0.28, dist);
+    float eyeOuter = smoothstep(0.45, 0.43, dist);
+    float eyeIris = eyeOuter - eyeInner;
+    
+    // Scanning pulses
+    float pulse = sin(dist * 20.0 - u_time * 5.0) * 0.5 + 0.5;
+    pulse *= smoothstep(0.5, 0.4, dist);
+    
+    // Risk "Crimson" artifacts entering from edges
+    float edgeRisk = snoise(uv * 3.0 + vec2(u_time * 0.5)) * 0.5 + 0.5;
+    edgeRisk *= smoothstep(0.4, 0.6, dist);
+    
+    // Composing the final color
+    vec3 color = deepSlate;
+    
+    // Add teal circuit glow
+    color = mix(color, electricTeal, circuit * 0.3);
+    
+    // Add the Minds Eye aperture
+    color = mix(color, electricTeal, eyeIris * 0.8);
+    
+    // Add scanning pulse
+    color += electricTeal * pulse * 0.2;
+    
+    // Add risk artifacts (Procurement Cascade inputs)
+    color = mix(color, burntCrimson, edgeRisk * 0.4 * (sin(u_time * 2.0) * 0.5 + 0.5));
+    
+    // Center glow
+    float glow = exp(-dist * 8.0);
+    color += electricTeal * glow * 0.5;
+    
+    gl_FragColor = vec4(color, 1.0);
+}`;
+  function cs(type, src) {
+    const s = gl.createShader(type);
+    gl.shaderSource(s, src);
+    gl.compileShader(s);
+    return s;
+  }
+  const prog = gl.createProgram();
+  gl.attachShader(prog, cs(gl.VERTEX_SHADER, vs));
+  gl.attachShader(prog, cs(gl.FRAGMENT_SHADER, fs));
+  gl.linkProgram(prog);
+  gl.useProgram(prog);
+  const buf = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,-1, 1,-1, -1,1, 1,1]), gl.STATIC_DRAW);
+  const pos = gl.getAttribLocation(prog, 'a_position');
+  gl.enableVertexAttribArray(pos);
+  gl.vertexAttribPointer(pos, 2, gl.FLOAT, false, 0, 0);
+  const uTime = gl.getUniformLocation(prog, 'u_time');
+  const uRes = gl.getUniformLocation(prog, 'u_resolution');
+  const uMouse = gl.getUniformLocation(prog, 'u_mouse');
+
+  // u_mouse is in pixel coordinates matching u_resolution (ShaderToy convention).
+  // Shaders that need normalized coords should use: u_mouse / u_resolution.
+  let mouse = { x: canvas.width / 2, y: canvas.height / 2 };
+  window.addEventListener('mousemove', (event) => {
+    const rect = canvas.getBoundingClientRect();
+    if (rect.width && rect.height) {
+      const nx = (event.clientX - rect.left) / rect.width;
+      const ny = 1.0 - (event.clientY - rect.top) / rect.height;
+      mouse.x = nx * canvas.width;
+      mouse.y = ny * canvas.height;
+    }
+  });
+
+  function render(t) {
+    if (typeof ResizeObserver === 'undefined') syncSize();
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    if (uTime) gl.uniform1f(uTime, t * 0.001);
+    if (uRes) gl.uniform2f(uRes, canvas.width, canvas.height);
+    if (uMouse) gl.uniform2f(uMouse, mouse.x, mouse.y);
+    gl.drawArrays(gl.TRIANGLE_STRIP, 0, 4);
+    requestAnimationFrame(render);
+  }
+  render(0);
+})();
+</script>
+</div>
+<!-- STITCH_SHADER_END:ANIMATION_123 -->
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface dark:bg-surface border-b border-outline-variant bg-surface/40 backdrop-blur-md">
+<div class="flex items-center gap-gutter">
+<span class="font-headline-md text-headline-md font-bold text-primary-fixed tracking-tight">Envictica</span>
+<nav class="hidden md:flex gap-container-margin ml-stack-lg">
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Network</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Assets</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-80" href="#">Compliance</a>
+</nav>
+</div>
+<div class="flex items-center gap-gutter">
+<div class="hidden md:flex relative text-on-surface-variant hover:text-primary-fixed transition-colors">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
+<input class="bg-surface-container-high border-b border-outline-variant focus:border-primary-fixed focus:ring-0 text-body-md font-body-md py-1 pl-8 pr-2 w-48 text-on-surface placeholder-on-surface-variant bg-transparent transition-all focus:shadow-[0_1px_0_0_rgba(125,244,255,1)]" placeholder="Search parameters..." type="text"/>
+</div>
+<button class="text-primary-fixed dark:text-primary-fixed hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-primary-fixed dark:text-primary-fixed hover:text-primary transition-colors duration-200 cursor-pointer active:opacity-80">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant ml-2">
+<img alt="Chief Financial Officer" class="object-cover w-full h-full" data-alt="A detailed headshot of a cybernetic Chief Financial Officer in a dark, high-contrast digital environment. The lighting is harsh and directional, emphasizing sharp features and neon blue accents on their attire. The mood is intense, professional, and slightly ominous." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA3zmVZIKFm528RzUm9KyzAIGSxiodSPsH73xbxFOjX2G9O9wZPnwP9PPFn3Yk0Ttcopmu6Kz3dxe77VKx4k6gmm7lJgPL4UG-2DpSgv5YfUkL-lLDGZF3RypqzqqtU-5wH3B9HSH9_5s4_WEhdS1vRHkr1lHd1472eUQDhrvaFl4k5VK90LcvHJz6lF9hIBAXLlba90gTysCvj_0NkLCQs29qex2oIJHGUpIMWuw5QyZTk8jQd4_Js0Q"/>
+</div>
+</div>
+</header>
+<!-- SideNavBar -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] w-64 flex flex-col py-4 px-2 z-40 bg-surface-container dark:bg-surface-container border-r border-outline-variant">
+<div class="mb-stack-lg px-2 flex items-center gap-base">
+<div class="w-10 h-10 rounded bg-surface-container-high border border-outline-variant flex items-center justify-center relative overflow-hidden">
+<img alt="System Status Indicator" class="object-cover w-full h-full opacity-50" data-alt="A glowing abstract geometric status indicator, pulsing with electric teal light against a deep black background. The visual style is highly technical, sharp, and reminiscent of high-end cyber-security interfaces." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBG3tUWI4VEovNqTISdz7-JynUrHokETb1htZcfensZZ43xE0StdN7Amd7jn2VWMFyQ-_WKHStWn5W5JobXdiOvYrrI67ac31uDW7HB2ECKDHwlvtklQoBWNDbHAYTQcZ-QMT_xZXUYGa5O4W24kV5eZ8ScC5YCtWpey_B5d5Mi4rpV1In4XAcoWvmGYU7rt2shzliuuzSzFbUputkefcBrNmm95cAJN7VtqhPhcj06HtdvpLXkUVE_w"/>
+<div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+<div class="w-2 h-2 rounded-full bg-secondary-fixed pulse-dot shadow-[0_0_8px_rgba(195,244,0,0.8)]"></div>
+</div>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary font-bold">System Alpha</h2>
+<p class="font-label-caps text-label-caps text-secondary-fixed">Operational</p>
+</div>
+</div>
+<nav class="flex-1 flex flex-col gap-stack-sm">
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg font-bold transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
+<span class="font-label-md text-label-md">Command</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="gavel">gavel</span>
+<span class="font-label-md text-label-md">Governance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="query_stats">query_stats</span>
+<span class="font-label-md text-label-md">Stress-Test</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="monitoring">monitoring</span>
+<span class="font-label-md text-label-md">Analytics</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="history">history</span>
+<span class="font-label-md text-label-md">History</span>
+</a>
+</nav>
+<div class="mt-auto flex flex-col gap-stack-sm">
+<button class="w-full py-2 bg-primary-fixed text-on-primary-fixed font-label-caps text-label-caps rounded font-bold hover:bg-primary transition-colors mb-stack-md flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[16px]">bolt</span>
+                 Execute Audit
+             </button>
+<div class="border-t border-outline-variant pt-stack-md flex flex-col gap-stack-sm">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span class="font-label-md text-label-md">Support</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
+<span class="material-symbols-outlined" data-icon="logout">logout</span>
+<span class="font-label-md text-label-md">Sign Out</span>
+</a>
+</div>
+</div>
+</aside>
+<!-- Main Content Canvas -->
+<main class="flex-1 ml-64 mt-16 p-container-margin relative z-10 overflow-y-auto flex flex-col gap-stack-lg">
+<!-- Metrics Bar -->
+<div class="flex justify-between items-center gap-gutter w-full">
+<div class="glass-panel px-4 py-2 rounded-lg flex items-center gap-3 w-1/3 scan-line">
+<span class="material-symbols-outlined text-primary-fixed text-xl">speed</span>
+<div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">Shadow Ingestion Latency</div>
+<div class="font-data-numeral text-data-numeral text-primary-fixed text-lg font-bold">0.8ms</div>
+</div>
+</div>
+<div class="glass-panel px-4 py-2 rounded-lg flex items-center gap-3 w-1/3">
+<span class="material-symbols-outlined text-secondary-fixed text-xl">waves</span>
+<div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">Cascade Pressure</div>
+<div class="font-data-numeral text-data-numeral text-secondary-fixed text-lg font-bold">14.2 GB/s</div>
+</div>
+</div>
+<div class="glass-panel px-4 py-2 rounded-lg flex items-center gap-3 w-1/3">
+<span class="material-symbols-outlined text-primary text-xl">shield</span>
+<div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">Interception Rate</div>
+<div class="font-data-numeral text-data-numeral text-primary text-lg font-bold">99.98%</div>
+</div>
+</div>
+</div>
+<!-- Hero Section: Minds Eye -->
+<section class="glass-panel-active rounded-xl p-8 edge-light-primary flex flex-col items-center justify-center min-h-[300px] relative overflow-hidden">
+<div class="absolute inset-0 bg-gradient-to-b from-primary-fixed/5 to-transparent pointer-events-none"></div>
+<h1 class="font-display-lg text-display-lg text-on-surface mb-2 relative z-10">The Procurement Cascade</h1>
+<p class="font-body-md text-body-md text-on-surface-variant mb-6 relative z-10">Neural Sub-System Unlidded // Filtering Active</p>
+<div class="relative w-48 h-48 flex items-center justify-center z-10">
+<!-- Abstract 'Eye' visualization -->
+<div class="absolute w-full h-full border-2 border-primary-fixed rounded-full opacity-20 animate-ping"></div>
+<div class="absolute w-3/4 h-3/4 border border-secondary-fixed rounded-full animate-spin [animation-duration:10s]"></div>
+<div class="absolute w-1/2 h-1/2 bg-surface-container rounded-full shadow-[0_0_30px_rgba(125,244,255,0.4)] flex items-center justify-center overflow-hidden border border-primary-fixed/30">
+<span class="material-symbols-outlined text-6xl text-primary-fixed pulse-dot">visibility</span>
+</div>
+</div>
+</section>
+<!-- Main Panel: Procurement Cascade Control -->
+<section class="glass-panel rounded-xl flex flex-col overflow-hidden relative">
+<div class="p-4 border-b border-outline-variant/30 flex justify-between items-center bg-surface-container-high/50">
+<h3 class="font-headline-md text-headline-md text-on-surface font-bold">External Model Ingestion Stream</h3>
+<div class="flex gap-2">
+<button class="bg-surface-variant hover:bg-surface-bright text-on-surface font-label-caps text-label-caps px-3 py-1 rounded transition-colors border border-outline-variant">Pause Stream</button>
+<button class="bg-primary-fixed/10 hover:bg-primary-fixed/20 text-primary-fixed font-label-caps text-label-caps px-3 py-1 rounded transition-colors border border-primary-fixed/50">Export Log</button>
+</div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/20 bg-surface-container-low/50">
+<th class="p-4 font-label-caps text-label-caps text-on-surface-variant font-medium">Status</th>
+<th class="p-4 font-label-caps text-label-caps text-on-surface-variant font-medium">Vendor Node</th>
+<th class="p-4 font-label-caps text-label-caps text-on-surface-variant font-medium">Model Origin</th>
+<th class="p-4 font-label-caps text-label-caps text-on-surface-variant font-medium">Entropy Score</th>
+<th class="p-4 font-label-caps text-label-caps text-on-surface-variant font-medium">Fiduciary Status</th>
+</tr>
+</thead>
+<tbody class="font-data-numeral text-data-numeral">
+<tr class="border-b border-outline-variant/10 hover:bg-surface-variant/30 transition-colors">
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container border border-outline-variant text-on-surface-variant font-label-caps text-label-caps">
+<span class="w-1.5 h-1.5 rounded-full bg-on-surface-variant animate-pulse"></span>
+                                     FILTERING
+                                 </span>
+</td>
+<td class="p-4 text-on-surface">VN-8842-AX</td>
+<td class="p-4 text-on-surface-variant">Nexus Corp Alpha</td>
+<td class="p-4 text-primary-fixed">0.42</td>
+<td class="p-4 text-on-surface">Awaiting Approval</td>
+</tr>
+<tr class="border-b border-outline-variant/10 hover:bg-surface-variant/30 transition-colors bg-error-container/10">
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-error-container/20 border border-error/30 text-error font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[14px]">block</span>
+                                     INTERCEPTED
+                                 </span>
+</td>
+<td class="p-4 text-on-surface">VN-9911-BX (Unregistered)</td>
+<td class="p-4 text-on-surface-variant">Unknown Sector</td>
+<td class="p-4 text-error font-bold">0.98</td>
+<td class="p-4 text-error">Breach Attempt</td>
+</tr>
+<tr class="border-b border-outline-variant/10 hover:bg-surface-variant/30 transition-colors">
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-primary-container/20 border border-primary-fixed/30 text-primary-fixed font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[14px]">check_circle</span>
+                                     CLEARED
+                                 </span>
+</td>
+<td class="p-4 text-on-surface">VN-1024-CX</td>
+<td class="p-4 text-on-surface-variant">Core Logic Systems</td>
+<td class="p-4 text-secondary-fixed">0.11</td>
+<td class="p-4 text-on-surface">Verified Secure</td>
+</tr>
+<tr class="border-b border-outline-variant/10 hover:bg-surface-variant/30 transition-colors">
+<td class="p-4">
+<span class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-surface-container border border-outline-variant text-on-surface-variant font-label-caps text-label-caps">
+<span class="w-1.5 h-1.5 rounded-full bg-on-surface-variant animate-pulse"></span>
+                                     FILTERING
+                                 </span>
+</td>
+<td class="p-4 text-on-surface">VN-7733-DZ</td>
+<td class="p-4 text-on-surface-variant">Synapse Dynamics</td>
+<td class="p-4 text-primary-fixed">0.55</td>
+<td class="p-4 text-on-surface">Evaluating...</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- Alert Overlay (Simulated via positioned element) -->
+<div class="glass-panel edge-light-error p-4 rounded-xl mt-4 flex items-start gap-4 border border-error/50 bg-surface-container-highest/80 shadow-[0_4px_24px_rgba(147,0,10,0.4)]">
+<div class="w-10 h-10 rounded-full bg-error-container flex items-center justify-center shrink-0">
+<span class="material-symbols-outlined text-error" data-icon="warning">warning</span>
+</div>
+<div class="flex-1">
+<h4 class="font-headline-md text-headline-md text-error font-bold mb-1">High-Entropy Infiltration Detected</h4>
+<p class="font-body-md text-body-md text-on-surface-variant mb-2">Critical vulnerability identified in ingestion stream from VN-9911-BX. Burnt Crimson artifacts align with known hostile signatures.</p>
+<div class="flex gap-3">
+<button class="bg-error text-on-error font-label-caps text-label-caps px-4 py-2 rounded font-bold hover:bg-error-container transition-colors">Isolate Node</button>
+<button class="border border-error/50 text-error font-label-caps text-label-caps px-4 py-2 rounded hover:bg-error-container/20 transition-colors">View Trace</button>
+</div>
+</div>
+</div>
+</main>
+</body></html>
