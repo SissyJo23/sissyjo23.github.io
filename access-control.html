@@ -1,330 +1,248 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>User Permissions &amp; Access Control - Envictica</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<script id="tailwind-config">
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Governance Access & Identity Registry - Envictica</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
                     "colors": {
-                        "on-primary-fixed-variant": "#005236",
-                        "inverse-surface": "#e0e3e5",
-                        "on-tertiary-fixed-variant": "#3a485c",
-                        "tertiary-fixed": "#d5e3fd",
-                        "tertiary-container": "#95a4bb",
-                        "surface-container-lowest": "#0b0f10",
-                        "inverse-on-surface": "#2d3133",
-                        "primary": "#4edea3",
-                        "on-secondary-fixed-variant": "#3f465c",
-                        "on-tertiary": "#233144",
-                        "on-error": "#690005",
-                        "surface-bright": "#363a3b",
-                        "outline": "#86948a",
-                        "secondary-fixed-dim": "#bec6e0",
-                        "on-error-container": "#ffdad6",
-                        "inverse-primary": "#006c49",
-                        "tertiary": "#b9c7e0",
-                        "error-container": "#93000a",
-                        "surface-container-highest": "#323537",
-                        "on-secondary-container": "#adb4ce",
-                        "on-secondary": "#283044",
-                        "outline-variant": "#3c4a42",
-                        "surface-container-low": "#191c1e",
-                        "surface-dim": "#101415",
-                        "secondary-fixed": "#dae2fd",
-                        "primary-fixed-dim": "#4edea3",
-                        "on-primary-container": "#00422b",
-                        "on-secondary-fixed": "#131b2e",
-                        "surface-container-high": "#272a2c",
-                        "on-background": "#e0e3e5",
-                        "surface-variant": "#323537",
-                        "on-tertiary-fixed": "#0d1c2f",
-                        "error": "#ffb4ab",
-                        "secondary": "#bec6e0",
-                        "on-primary": "#003824",
-                        "primary-container": "#10b981",
-                        "on-primary-fixed": "#002113",
-                        "surface-tint": "#4edea3",
-                        "surface-container": "#1d2022",
-                        "on-tertiary-container": "#2c3a4e",
-                        "tertiary-fixed-dim": "#b9c7e0",
-                        "secondary-container": "#3f465c",
-                        "primary-fixed": "#6ffbbe",
-                        "on-surface": "#e0e3e5",
+                        "primary": "#00F5D4", // Electric Teal
+                        "env-alert": "#FF4D6D", // Burnt Crimson
                         "surface": "#101415",
+                        "surface-dim": "#101415",
+                        "surface-bright": "#363a3b",
+                        "surface-container-lowest": "#0b0f10",
+                        "surface-container-low": "#191c1e",
+                        "surface-container": "#1d2022",
+                        "surface-container-high": "#272a2c",
+                        "surface-container-highest": "#323537",
+                        "on-surface": "#e0e3e5",
                         "on-surface-variant": "#bbcabf",
-                        "background": "#101415"
+                        "outline": "#86948a",
+                        "outline-variant": "#3c4a42",
+                        "secondary": "#bec6e0",
+                        "on-secondary": "#283044",
+                        "secondary-container": "#3f465c",
+                        "on-secondary-container": "#adb4ce"
                     },
                     "borderRadius": {
                         "DEFAULT": "0.125rem",
                         "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
+                        "xl": "0.5rem"
                     },
                     "spacing": {
                         "margin": "24px",
-                        "density-regular": "8px",
-                        "unit": "4px",
                         "gutter": "12px",
-                        "density-compact": "4px"
+                        "unit": "4px"
                     },
                     "fontFamily": {
                         "label-caps": ["JetBrains Mono"],
                         "headline-md": ["Hanken Grotesk"],
                         "data-mono": ["JetBrains Mono"],
                         "title-sm": ["Hanken Grotesk"],
-                        "display-lg": ["Hanken Grotesk"],
-                        "body-sm": ["Hanken Grotesk"],
                         "body-md": ["Hanken Grotesk"]
-                    },
-                    "fontSize": {
-                        "label-caps": ["11px", { "lineHeight": "16px", "fontWeight": "700" }],
-                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
-                        "data-mono": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
-                        "title-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
-                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
-                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
                     }
                 }
             }
         }
     </script>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<style>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <style>
         body { background-color: #0b0f10; color: #e0e3e5; }
         .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-        .material-symbols-outlined.fill { font-variation-settings: 'FILL' 1; }
-        
-        /* Custom Scrollbar */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #101415; }
         ::-webkit-scrollbar-thumb { background: #323537; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #3c4a42; }
     </style>
 </head>
-<body class="flex flex-col md:flex-row min-h-screen bg-surface-container-lowest font-body-md text-on-surface antialiased">
-<!-- Top Module Bar -->
-<div class="fixed top-0 left-0 w-full bg-primary text-on-primary-fixed z-[60] h-8 flex items-center justify-center font-label-caps text-label-caps tracking-widest font-bold">
-    OFFICIAL ENVICTICA MODULE: 8 OF 15
-</div>
-<!-- SideNavBar -->
-<nav class="hidden md:flex flex-col bg-surface-container-low dark:bg-surface-container-lowest border-r border-outline-variant dark:border-outline fixed left-0 top-8 h-[calc(100vh-32px)] w-[240px] z-40 py-margin">
-<div class="px-margin mb-8">
-<h1 class="text-headline-md font-headline-md font-black tracking-tight text-primary dark:text-primary-fixed">Envictica</h1>
-<p class="text-body-sm font-body-sm text-on-surface-variant">Legal Knowledge Engineer</p>
-</div>
-<div class="px-margin mb-6">
-<button class="w-full bg-primary text-surface-container-lowest font-label-caps text-label-caps py-2 rounded flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
-<span class="material-symbols-outlined text-[18px]">add</span>
-                New System Audit
+<body class="flex flex-col md:flex-row min-h-screen font-body-md text-on-surface antialiased overflow-x-hidden">
+    <!-- Top Module Bar -->
+    <div class="fixed top-0 left-0 w-full bg-primary text-[#002113] z-[60] h-8 flex items-center justify-center font-label-caps text-[11px] tracking-widest font-bold">
+        OFFICIAL ENVICTICA MODULE: 08 OF 17
+    </div>
+
+    <!-- SideNavBar -->
+    <nav class="hidden md:flex flex-col bg-surface-container-low border-r border-outline-variant fixed left-0 top-8 h-[calc(100vh-32px)] w-[240px] z-40 py-6">
+        <div class="px-6 mb-8">
+            <h1 class="text-2xl font-black tracking-tight text-primary">Envictica</h1>
+            <p class="text-[12px] text-on-surface-variant">Legal Knowledge Engineer</p>
+        </div>
+        <div class="px-6 mb-6">
+            <button class="w-full bg-primary text-[#002113] font-label-caps text-[11px] py-2.5 rounded-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
+                <span class="material-symbols-outlined text-[18px]">add</span>
+                NEW SYSTEM AUDIT
             </button>
-</div>
-<div class="flex-1 overflow-y-auto px-gutter flex flex-col gap-1">
-<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-label-md font-label-md" href="#">
-<span class="material-symbols-outlined">lan</span>
-                Infrastructure
-            </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded bg-secondary-container text-on-secondary-container font-semibold opacity-80 transition-opacity text-label-md font-label-md" href="#">
-<span class="material-symbols-outlined">gavel</span>
-                Governance
-            </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-label-md font-label-md" href="#">
-<span class="material-symbols-outlined">account_tree</span>
-                Pipelines
-            </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-label-md font-label-md" href="#">
-<span class="material-symbols-outlined">fact_check</span>
-                Data Validation
-            </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-label-md font-label-md" href="#">
-<span class="material-symbols-outlined">history</span>
-                Audit Logs
-            </a>
-</div>
-<div class="mt-auto px-gutter flex flex-col gap-1 border-t border-outline-variant pt-4">
-<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-label-md font-label-md" href="#">
-<span class="material-symbols-outlined">settings</span>
-                Settings
-            </a>
-<a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-label-md font-label-md" href="#">
-<span class="material-symbols-outlined">help</span>
-                Support
-            </a>
-</div>
-</nav>
-<!-- Main Content Area -->
-<main class="flex-1 md:ml-[240px] flex flex-col min-h-screen">
-<!-- TopAppBar -->
-<header class="bg-surface dark:bg-surface-container-low border-b border-outline-variant dark:border-outline fixed top-8 left-0 md:left-[240px] w-full md:w-[calc(100%-240px)] z-50 flex justify-between items-center px-margin h-14">
-<div class="flex items-center gap-4">
-<span class="text-headline-sm font-headline-sm font-bold text-primary dark:text-primary-fixed">LEX / INFRA / PIPELINE_04</span>
-</div>
-<div class="flex items-center gap-6">
-<div class="hidden lg:flex items-center gap-4 text-data-mono font-data-mono text-on-surface-variant">
-<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary"></span> System Healthy</span>
-<span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-secondary"></span> ROI Tracking Active</span>
-</div>
-<div class="flex items-center gap-2">
-<button class="p-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-150">
-<span class="material-symbols-outlined">settings</span>
-</button>
-<button class="p-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-150">
-<span class="material-symbols-outlined">notifications</span>
-</button>
-<button class="p-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-colors duration-150">
-<span class="material-symbols-outlined">account_tree</span>
-</button>
-</div>
-</div>
-</header>
-<!-- Canvas -->
-<div class="pt-[104px] px-margin pb-margin flex-1">
-<div class="mb-6 flex items-center justify-between">
-<div>
-<h2 class="text-title-sm font-title-sm text-on-surface">Access Control Management</h2>
-<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Manage role-based permissions and identity verification</p>
-</div>
-<div class="flex gap-2">
-<button class="px-4 py-2 bg-surface border border-outline-variant rounded text-on-surface text-label-caps font-label-caps hover:bg-surface-container-high transition-colors">
-                        EXPORT AUDIT
-                    </button>
-</div>
-</div>
-<div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
-<!-- Left Column: User List & Queue -->
-<div class="xl:col-span-2 flex flex-col gap-6">
-<!-- Active Users Data Grid -->
-<div class="bg-surface border border-outline-variant rounded-lg overflow-hidden flex flex-col">
-<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
-<h3 class="text-label-caps font-label-caps text-on-surface tracking-wider">ACTIVE OPERATORS</h3>
-<div class="flex gap-2">
-<span class="px-2 py-1 bg-surface-container-highest rounded text-data-mono font-data-mono text-on-surface-variant">TOTAL: 142</span>
-</div>
-</div>
-<div class="overflow-x-auto">
-<table class="w-full text-left border-collapse">
-<thead>
-<tr class="bg-surface-container-lowest border-b border-outline-variant text-label-caps font-label-caps text-on-surface-variant">
-<th class="p-3 font-normal">OPERATOR ID</th>
-<th class="p-3 font-normal">ROLE</th>
-<th class="p-3 font-normal text-right">TRUST SCORE</th>
-<th class="p-3 font-normal text-center">CLEARANCE</th>
-<th class="p-3 font-normal text-center">STATUS</th>
-<th class="p-3 font-normal"></th>
-</tr>
-</thead>
-<tbody class="text-data-mono font-data-mono">
-<tr class="border-b border-outline-variant hover:bg-surface-container-highest transition-colors">
-<td class="p-3 text-on-surface">OP-7734-A</td>
-<td class="p-3"><span class="px-2 py-0.5 rounded bg-surface-container-high border border-outline-variant text-primary">Senior Prompt Auditor</span></td>
-<td class="p-3 text-right text-primary">99.8%</td>
-<td class="p-3 text-center">L5</td>
-<td class="p-3 text-center"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span></td>
-<td class="p-3 text-right"><button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-[16px]">more_vert</span></button></td>
-</tr>
-<tr class="border-b border-outline-variant bg-surface-container-low hover:bg-surface-container-highest transition-colors">
-<td class="p-3 text-on-surface">OP-8921-C</td>
-<td class="p-3"><span class="px-2 py-0.5 rounded bg-surface-container-high border border-outline-variant text-secondary">Legal Knowledge Eng.</span></td>
-<td class="p-3 text-right text-secondary">94.2%</td>
-<td class="p-3 text-center">L4</td>
-<td class="p-3 text-center"><span class="w-2 h-2 rounded-full bg-primary inline-block"></span></td>
-<td class="p-3 text-right"><button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-[16px]">more_vert</span></button></td>
-</tr>
-<tr class="border-b border-outline-variant hover:bg-surface-container-highest transition-colors">
-<td class="p-3 text-on-surface">OP-4429-X</td>
-<td class="p-3"><span class="px-2 py-0.5 rounded bg-surface-container-high border border-outline-variant text-on-surface-variant">Schema Technician</span></td>
-<td class="p-3 text-right text-on-surface-variant">88.5%</td>
-<td class="p-3 text-center">L2</td>
-<td class="p-3 text-center"><span class="w-2 h-2 rounded-full bg-surface-variant inline-block border border-outline"></span></td>
-<td class="p-3 text-right"><button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-[16px]">more_vert</span></button></td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-<!-- Access Request Queue -->
-<div class="bg-surface border border-outline-variant rounded-lg p-4">
-<div class="flex justify-between items-center mb-4">
-<h3 class="text-label-caps font-label-caps text-on-surface tracking-wider">ACCESS REQUEST QUEUE</h3>
-<span class="px-2 py-1 bg-error-container text-on-error-container rounded text-data-mono font-data-mono text-[10px]">2 PENDING</span>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-<div class="p-3 border border-outline-variant rounded bg-surface-container-lowest flex flex-col gap-2 relative overflow-hidden">
-<div class="absolute top-0 left-0 w-1 h-full bg-secondary"></div>
-<div class="flex justify-between items-start pl-2">
-<div>
-<p class="text-data-mono font-data-mono text-on-surface">REQ-992-K</p>
-<p class="text-label-caps font-label-caps text-on-surface-variant mt-1">ELEVATION TO L4</p>
-</div>
-<span class="material-symbols-outlined text-secondary text-[18px]">gavel</span>
-</div>
-<div class="flex gap-2 mt-2 pl-2">
-<button class="flex-1 py-1 bg-surface-container-highest border border-outline-variant rounded text-on-surface text-label-caps font-label-caps hover:bg-surface-variant">DENY</button>
-<button class="flex-1 py-1 bg-primary text-surface-container-lowest rounded text-label-caps font-label-caps font-bold hover:opacity-90">APPROVE</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Right Column: Role Definition & Inspector -->
-<div class="xl:col-span-1 flex flex-col gap-6">
-<!-- Role Definition Panel -->
-<div class="bg-surface border border-outline-variant rounded-lg p-4 flex flex-col h-full">
-<h3 class="text-label-caps font-label-caps text-on-surface tracking-wider mb-4 border-b border-outline-variant pb-2">ROLE DEFINITION: SENIOR PROMPT AUDITOR</h3>
-<div class="flex flex-col gap-4">
-<!-- Toggle Item -->
-<div class="flex items-center justify-between p-2 rounded hover:bg-surface-container-highest transition-colors">
-<div>
-<p class="text-body-sm font-body-sm text-on-surface">Schema Edit</p>
-<p class="text-label-caps font-label-caps text-on-surface-variant opacity-70">Modify core semantic structures</p>
-</div>
-<label class="relative inline-flex items-center cursor-pointer">
-<input checked="" class="sr-only peer" type="checkbox" value=""/>
-<div class="w-9 h-5 bg-surface-container-highest border border-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-on-surface after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary peer-checked:border-primary"></div>
-</label>
-</div>
-<!-- Toggle Item -->
-<div class="flex items-center justify-between p-2 rounded hover:bg-surface-container-highest transition-colors">
-<div>
-<p class="text-body-sm font-body-sm text-on-surface">Prompt Calibration</p>
-<p class="text-label-caps font-label-caps text-on-surface-variant opacity-70">Adjust weights and thresholds</p>
-</div>
-<label class="relative inline-flex items-center cursor-pointer">
-<input checked="" class="sr-only peer" type="checkbox" value=""/>
-<div class="w-9 h-5 bg-surface-container-highest border border-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-on-surface after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary peer-checked:border-primary"></div>
-</label>
-</div>
-<!-- Toggle Item -->
-<div class="flex items-center justify-between p-2 rounded hover:bg-surface-container-highest transition-colors">
-<div>
-<p class="text-body-sm font-body-sm text-on-surface">Data Debt Clearance</p>
-<p class="text-label-caps font-label-caps text-on-surface-variant opacity-70">Authorize purge of legacy nodes</p>
-</div>
-<label class="relative inline-flex items-center cursor-pointer">
-<input class="sr-only peer" type="checkbox" value=""/>
-<div class="w-9 h-5 bg-surface-container-highest border border-outline-variant peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-on-surface after:border-gray-300 after:border after:rounded-full after:h-4 after:w-4 after:transition-all peer-checked:bg-primary peer-checked:border-primary"></div>
-</label>
-</div>
-</div>
-<div class="mt-auto pt-6 border-t border-outline-variant">
-<div class="bg-surface-container-lowest border border-outline-variant p-3 rounded flex items-center gap-3">
-<span class="material-symbols-outlined text-primary text-[20px]">verified_user</span>
-<div>
-<p class="text-label-caps font-label-caps text-primary">IDENTITY VERIFICATION</p>
-<p class="text-data-mono font-data-mono text-on-surface-variant text-[10px]">BIOMETRIC HASH VALID</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</main>
-</body></html>
+        </div>
+        <div class="flex-1 overflow-y-auto px-3 flex flex-col gap-1">
+            <a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-[13px]" href="#"><span class="material-symbols-outlined">lan</span> Infrastructure</a>
+            <a class="flex items-center gap-3 px-3 py-2 rounded bg-secondary-container text-on-secondary-container font-semibold transition-opacity text-[13px]" href="#"><span class="material-symbols-outlined">gavel</span> Governance</a>
+            <a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-[13px]" href="#"><span class="material-symbols-outlined">account_tree</span> Pipelines</a>
+            <a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-[13px]" href="#"><span class="material-symbols-outlined">fact_check</span> Data Validation</a>
+            <a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-[13px]" href="#"><span class="material-symbols-outlined">history</span> Audit Logs</a>
+        </div>
+        <div class="mt-auto px-3 flex flex-col gap-1 border-t border-outline-variant pt-4">
+            <a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-[13px]" href="#"><span class="material-symbols-outlined">settings</span> Settings</a>
+            <a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-[13px]" href="#"><span class="material-symbols-outlined">help</span> Support</a>
+        </div>
+    </nav>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 md:ml-[240px] flex flex-col min-h-screen pt-8">
+        <header class="bg-surface border-b border-outline-variant sticky top-8 left-0 z-50 flex justify-between items-center px-6 h-14">
+            <div class="flex items-center gap-4">
+                <span class="text-lg font-bold text-primary tracking-tight">ENV / INFRA / PIPELINE_08</span>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="hidden lg:flex items-center gap-4 text-[11px] font-label-caps text-on-surface-variant">
+                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary"></span> SYSTEM HEALTHY</span>
+                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-secondary"></span> ROI TRACKING ACTIVE</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <button class="p-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-colors"><span class="material-symbols-outlined">settings</span></button>
+                    <button class="p-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-colors"><span class="material-symbols-outlined">notifications</span></button>
+                    <button class="p-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-colors"><span class="material-symbols-outlined">account_tree</span></button>
+                </div>
+            </div>
+        </header>
+
+        <div class="p-6 flex-1">
+            <div class="mb-8 flex items-center justify-between">
+                <div>
+                    <h2 class="text-xl font-bold text-on-surface">Governance Access & Identity Registry</h2>
+                    <p class="text-sm text-on-surface-variant mt-1">Manage role-based permissions and identity verification</p>
+                </div>
+                <button class="px-4 py-2 bg-surface border border-outline-variant rounded-sm text-on-surface text-[11px] font-label-caps font-bold hover:bg-surface-container-high transition-colors">EXPORT AUDIT</button>
+            </div>
+
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                <!-- Left Column -->
+                <div class="xl:col-span-2 flex flex-col gap-6">
+                    <div class="bg-surface border border-outline-variant rounded-sm overflow-hidden">
+                        <div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
+                            <h3 class="text-[11px] font-label-caps text-on-surface tracking-widest font-bold">ACTIVE OPERATORS</h3>
+                            <span class="px-2 py-1 bg-surface-container-highest rounded-sm text-[12px] font-data-mono text-on-surface-variant">TOTAL: 142</span>
+                        </div>
+                        <div class="overflow-x-auto">
+                            <table class="w-full text-left border-collapse">
+                                <thead>
+                                    <tr class="bg-surface-container-lowest border-b border-outline-variant text-[11px] font-label-caps text-on-surface-variant">
+                                        <th class="p-4 font-normal">OPERATOR ID</th>
+                                        <th class="p-4 font-normal">ROLE</th>
+                                        <th class="p-4 font-normal text-right">TRUST SCORE</th>
+                                        <th class="p-4 font-normal text-center">CLEARANCE</th>
+                                        <th class="p-4 font-normal text-center">STATUS</th>
+                                        <th class="p-4 font-normal"></th>
+                                    </tr>
+                                </thead>
+                                <tbody class="text-[13px] font-data-mono">
+                                    <tr class="border-b border-outline-variant hover:bg-surface-container-highest transition-colors">
+                                        <td class="p-4 text-on-surface">OP-7734-A</td>
+                                        <td class="p-4"><span class="px-2 py-0.5 rounded-sm bg-surface-container-high border border-outline-variant text-primary">Senior Prompt Auditor</span></td>
+                                        <td class="p-4 text-right text-primary">99.8%</td>
+                                        <td class="p-4 text-center">L5</td>
+                                        <td class="p-4 text-center"><span class="w-2 h-2 rounded-full bg-primary inline-block mr-1"></span> <span class="text-[10px] text-primary">Cleared for Ingestion</span></td>
+                                        <td class="p-4 text-right"><button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-[18px]">more_vert</span></button></td>
+                                    </tr>
+                                    <tr class="border-b border-outline-variant bg-surface-container-low hover:bg-surface-container-highest transition-colors">
+                                        <td class="p-4 text-on-surface">OP-8921-C</td>
+                                        <td class="p-4"><span class="px-2 py-0.5 rounded-sm bg-surface-container-high border border-outline-variant text-secondary">Lead Knowledge Engineer</span></td>
+                                        <td class="p-4 text-right text-secondary">94.2%</td>
+                                        <td class="p-4 text-center">L4</td>
+                                        <td class="p-4 text-center"><span class="w-2 h-2 rounded-full bg-primary inline-block mr-1"></span> <span class="text-[10px] text-primary">Cleared for Ingestion</span></td>
+                                        <td class="p-4 text-right"><button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-[18px]">more_vert</span></button></td>
+                                    </tr>
+                                    <tr class="border-b border-outline-variant hover:bg-surface-container-highest transition-colors">
+                                        <td class="p-4 text-on-surface">OP-4429-X</td>
+                                        <td class="p-4"><span class="px-2 py-0.5 rounded-sm bg-surface-container-high border border-outline-variant text-on-surface-variant">Schema Technician</span></td>
+                                        <td class="p-4 text-right text-env-alert">88.5%</td>
+                                        <td class="p-4 text-center">L2</td>
+                                        <td class="p-4 text-center"><span class="w-2 h-2 rounded-full bg-env-alert inline-block mr-1"></span> <span class="text-[10px] text-env-alert">Fiduciary Caution</span></td>
+                                        <td class="p-4 text-right"><button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-[18px]">more_vert</span></button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="bg-surface border border-outline-variant rounded-sm p-4">
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 class="text-[11px] font-label-caps text-on-surface tracking-widest font-bold">ACCESS REQUEST QUEUE</h3>
+                            <span class="px-2 py-1 bg-env-alert/20 text-env-alert rounded-sm text-[10px] font-label-caps font-bold">2 PENDING</span>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="p-4 border border-outline-variant rounded-sm bg-surface-container-lowest relative overflow-hidden">
+                                <div class="absolute top-0 left-0 w-1 h-full bg-secondary"></div>
+                                <div class="flex justify-between items-start pl-2">
+                                    <div>
+                                        <p class="text-[13px] font-data-mono text-on-surface">REQ-992-K</p>
+                                        <p class="text-[10px] font-label-caps text-on-surface-variant mt-1">ELEVATION TO L4</p>
+                                    </div>
+                                    <span class="material-symbols-outlined text-secondary">gavel</span>
+                                </div>
+                                <div class="flex gap-2 mt-4 pl-2">
+                                    <button class="flex-1 py-1.5 bg-surface-container-highest border border-outline-variant rounded-sm text-on-surface text-[10px] font-label-caps font-bold hover:bg-surface-variant transition-colors">DENY</button>
+                                    <button class="flex-1 py-1.5 bg-primary text-[#002113] rounded-sm text-[10px] font-label-caps font-bold hover:opacity-90 transition-opacity">APPROVE</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column -->
+                <div class="flex flex-col gap-6">
+                    <div class="bg-surface border border-outline-variant rounded-sm p-4 flex flex-col h-full">
+                        <h3 class="text-[11px] font-label-caps text-on-surface tracking-widest font-bold mb-6 border-b border-outline-variant pb-2">ROLE DEFINITION: SENIOR PROMPT AUDITOR</h3>
+                        <div class="flex flex-col gap-5">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-semibold text-on-surface">Schema Structural Control</p>
+                                    <p class="text-[10px] text-on-surface-variant">Modify core semantic structures</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input checked class="sr-only peer" type="checkbox">
+                                    <div class="w-8 h-4 bg-surface-container-highest rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-on-surface after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary"></div>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-semibold text-on-surface">Weight Calibration</p>
+                                    <p class="text-[10px] text-on-surface-variant">Adjust weights and thresholds</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input checked class="sr-only peer" type="checkbox">
+                                    <div class="w-8 h-4 bg-surface-container-highest rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-on-surface after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary"></div>
+                                </label>
+                            </div>
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-sm font-semibold text-on-surface">Data Debt Liquidation</p>
+                                    <p class="text-[10px] text-on-surface-variant">Authorize purge of legacy nodes</p>
+                                </div>
+                                <label class="relative inline-flex items-center cursor-pointer">
+                                    <input class="sr-only peer" type="checkbox">
+                                    <div class="w-8 h-4 bg-surface-container-highest rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-on-surface after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary"></div>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="mt-auto pt-6 border-t border-outline-variant">
+                            <div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-sm flex items-center gap-3">
+                                <span class="material-symbols-outlined text-primary text-xl">verified_user</span>
+                                <div>
+                                    <p class="text-[10px] font-label-caps font-bold text-primary">MULTI-SIG BIOMETRIC HASH INGESTION</p>
+                                    <p class="text-[9px] font-data-mono text-on-surface-variant">HASHED TO TAMPER-PROOF AUDIT LEDGER</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
