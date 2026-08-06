@@ -3,10 +3,12 @@
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Schema Definition Library - Envictica</title>
+<title>Envictica - Schema Definition Library</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
         tailwind.config = {
@@ -14,53 +16,53 @@
             theme: {
                 extend: {
                     "colors": {
-                        "on-background": "#e0e3e5",
-                        "on-tertiary-fixed-variant": "#3a485c",
-                        "secondary-fixed": "#dae2fd",
-                        "primary-container": "#10b981",
-                        "tertiary-container": "#95a4bb",
-                        "inverse-surface": "#e0e3e5",
-                        "surface-variant": "#323537",
-                        "primary-fixed": "#6ffbbe",
-                        "on-primary-fixed": "#002113",
-                        "primary-fixed-dim": "#4edea3",
-                        "on-surface": "#e0e3e5",
-                        "error-container": "#93000a",
-                        "inverse-primary": "#006c49",
-                        "surface-container": "#1d2022",
-                        "surface-container-low": "#191c1e",
-                        "secondary-container": "#3f465c",
-                        "outline": "#86948a",
-                        "on-primary-fixed-variant": "#005236",
-                        "on-surface-variant": "#bbcabf",
                         "on-tertiary-container": "#2c3a4e",
+                        "tertiary": "#b9c7e0",
+                        "on-tertiary": "#233144",
+                        "on-secondary-fixed": "#131b2e",
+                        "tertiary-fixed-dim": "#b9c7e0",
+                        "on-tertiary-fixed-variant": "#3a485c",
+                        "tertiary-container": "#95a4bb",
+                        "on-secondary": "#283044",
+                        "outline": "#86948a",
+                        "inverse-on-surface": "#2d3133",
+                        "secondary-fixed-dim": "#bec6e0",
+                        "on-surface-variant": "#bbcabf",
+                        "primary-fixed": "#6ffbbe",
+                        "on-tertiary-fixed": "#0d1c2f",
+                        "tertiary-fixed": "#d5e3fd",
+                        "background": "#101415",
+                        "inverse-primary": "#006c49",
+                        "surface-variant": "#323537",
+                        "primary": "#4edea3",
+                        "on-primary-fixed": "#002113",
+                        "on-primary-fixed-variant": "#005236",
+                        "on-background": "#e0e3e5",
+                        "primary-fixed-dim": "#4edea3",
+                        "secondary-fixed": "#dae2fd",
+                        "surface-dim": "#101415",
                         "surface-container-high": "#272a2c",
                         "secondary": "#bec6e0",
-                        "surface-container-highest": "#323537",
+                        "error-container": "#93000a",
                         "on-error-container": "#ffdad6",
-                        "on-secondary": "#283044",
-                        "surface-tint": "#4edea3",
-                        "secondary-fixed-dim": "#bec6e0",
                         "surface": "#101415",
-                        "on-primary-container": "#00422b",
-                        "outline-variant": "#3c4a42",
-                        "primary": "#4edea3",
                         "on-secondary-fixed-variant": "#3f465c",
-                        "error": "#ffb4ab",
-                        "on-tertiary": "#233144",
-                        "surface-dim": "#101415",
-                        "on-secondary-container": "#adb4ce",
-                        "on-tertiary-fixed": "#0d1c2f",
-                        "tertiary": "#b9c7e0",
-                        "background": "#101415",
-                        "on-secondary-fixed": "#131b2e",
-                        "on-error": "#690005",
-                        "surface-bright": "#363a3b",
-                        "inverse-on-surface": "#2d3133",
-                        "tertiary-fixed": "#d5e3fd",
+                        "primary-container": "#10b981",
+                        "on-primary-container": "#00422b",
+                        "on-surface": "#e0e3e5",
+                        "surface-tint": "#4edea3",
+                        "surface-container-highest": "#323537",
+                        "surface-container-lowest": "#0b0f10",
                         "on-primary": "#003824",
-                        "tertiary-fixed-dim": "#b9c7e0",
-                        "surface-container-lowest": "#0b0f10"
+                        "error": "#ffb4ab",
+                        "on-error": "#690005",
+                        "on-secondary-container": "#adb4ce",
+                        "surface-bright": "#363a3b",
+                        "secondary-container": "#3f465c",
+                        "surface-container": "#1d2022",
+                        "outline-variant": "#3c4a42",
+                        "surface-container-low": "#191c1e",
+                        "inverse-surface": "#e0e3e5"
                     },
                     "borderRadius": {
                         "DEFAULT": "0.125rem",
@@ -69,341 +71,406 @@
                         "full": "0.75rem"
                     },
                     "spacing": {
-                        "margin": "24px",
+                        "density-compact": "4px",
                         "density-regular": "8px",
-                        "unit": "4px",
                         "gutter": "12px",
-                        "density-compact": "4px"
+                        "margin": "24px",
+                        "unit": "4px"
                     },
                     "fontFamily": {
-                        "data-mono": ["JetBrains Mono"],
-                        "body-sm": ["Hanken Grotesk"],
-                        "body-md": ["Hanken Grotesk"],
+                        "display-lg": ["Hanken Grotesk"],
                         "label-caps": ["JetBrains Mono"],
                         "title-sm": ["Hanken Grotesk"],
-                        "display-lg": ["Hanken Grotesk"],
-                        "headline-md": ["Hanken Grotesk"]
+                        "body-md": ["Hanken Grotesk"],
+                        "data-mono": ["JetBrains Mono"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "body-sm": ["Hanken Grotesk"]
                     },
                     "fontSize": {
-                        "data-mono": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
-                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
-                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
                         "label-caps": ["11px", { "lineHeight": "16px", "fontWeight": "700" }],
                         "title-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
-                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+                        "data-mono": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }]
                     }
-                },
-            },
+                }
+            }
         }
     </script>
+<style>
+        /* Base typography enforcement to ensure elements without explicit classes inherit correctly */
+        body { font-family: 'Hanken Grotesk', sans-serif; }
+        /* Custom scrollbar for high-density feel */
+        ::-webkit-scrollbar { width: 8px; height: 8px; }
+        ::-webkit-scrollbar-track { background: #101415; }
+        ::-webkit-scrollbar-thumb { background: #323537; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #3c4a42; }
+    </style>
 </head>
-<body class="bg-background text-on-background font-body-md h-screen overflow-hidden flex flex-col antialiased">
-<!-- Official Module Banner -->
-<div class="bg-primary text-on-primary-fixed w-full py-2 px-margin text-center font-label-caps text-label-caps tracking-[0.2em] z-[60] relative font-bold border-b border-outline-variant">
-    OFFICIAL ENVICTICA MODULE: 9 OF 15
+<body class="bg-background text-on-background h-screen w-screen overflow-hidden flex selection:bg-primary/30 selection:text-primary">
+<!-- SideNavBar (Shared Component) -->
+<nav class="docked h-screen left-0 w-64 bg-surface border-r border-outline-variant flex flex-col h-full py-density-regular shrink-0">
+<!-- Header -->
+<div class="px-margin mb-margin flex items-center gap-gutter">
+<div class="w-10 h-10 rounded-DEFAULT bg-surface-container-highest flex items-center justify-center border border-outline-variant overflow-hidden shrink-0">
+<!-- Fallback to icon since no image provided for avatar -->
+<span class="material-symbols-outlined text-primary text-title-sm" style="font-variation-settings: 'FILL' 1;">account_circle</span>
 </div>
+<div class="overflow-hidden">
+<div class="font-headline-md text-headline-md text-primary truncate">Core Engine</div>
+<div class="font-label-caps text-label-caps text-on-surface-variant truncate">V2.4.0-Stable</div>
+</div>
+</div>
+<!-- Main Navigation -->
+<div class="flex-1 overflow-y-auto px-density-regular space-y-density-compact">
+<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">dns</span>
+<span>Infrastructure</span>
+</a>
+<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">gavel</span>
+<span>Governance</span>
+</a>
+<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">account_tree</span>
+<span>Pipelines</span>
+</a>
+<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">fact_check</span>
+<span>Data Validation</span>
+</a>
+<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">build_circle</span>
+<span>Data Debt Repair</span>
+</a>
+<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">history_edu</span>
+<span>Audit Logs</span>
+</a>
+<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">grid_view</span>
+<span>Risk Matrix</span>
+</a>
+<!-- Active Tab based on Intent -->
+<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps border-r-2 border-primary text-primary bg-primary-container/10 transition-all duration-150 ease-in-out rounded-l-DEFAULT rounded-r-none" href="#">
+<span class="material-symbols-outlined">schema</span>
+<span>Schema Library</span>
+</a>
+</div>
+<!-- Footer Navigation -->
+<div class="mt-auto px-density-regular pt-margin border-t border-outline-variant space-y-density-compact">
+<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">description</span>
+<span>Docs</span>
+</a>
+<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="#">
+<span class="material-symbols-outlined">help</span>
+<span>Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Application Area -->
+<main class="flex-1 flex flex-col h-full min-w-0 bg-background relative">
 <!-- TopNavBar (Shared Component) -->
-<header class="bg-surface-container dark:bg-surface-container docked full-width top-0 border-b border-outline-variant flat no shadows flex justify-between items-center px-margin h-16 w-full z-50 shrink-0 hidden md:flex">
-<div class="flex items-center gap-gutter">
-<span class="font-headline-md text-headline-md text-primary dark:text-primary uppercase tracking-wider">Envictica</span>
+<header class="docked full-width top-0 bg-surface-container flex justify-between items-center px-margin h-16 w-full z-50 border-b border-outline-variant shrink-0">
+<div class="flex items-center gap-margin">
+<div class="font-headline-md text-headline-md text-primary uppercase tracking-wider">LexPlumbing</div>
+<!-- Search Bar (on_left configuration) -->
+<div class="relative hidden lg:block w-96">
+<span class="material-symbols-outlined absolute left-gutter top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
+<input class="w-full bg-surface border border-outline-variant rounded-DEFAULT pl-10 pr-4 py-1.5 font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all" placeholder="Query schemas, jurisdictions, tags..." type="text"/>
 </div>
-<div class="flex-1 max-w-xl mx-margin hidden lg:block">
-<div class="relative">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[20px]">search</span>
-<input class="w-full bg-surface-container-highest border border-outline-variant rounded text-on-surface placeholder:text-on-surface-variant font-data-mono text-data-mono pl-10 pr-4 py-2 focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-colors" placeholder="Search resources..." type="text"/>
 </div>
-</div>
-<div class="flex items-center gap-gutter text-on-surface-variant">
-<button class="w-10 h-10 flex items-center justify-center rounded hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80">
+<div class="flex items-center gap-density-regular">
+<button aria-label="monitor_heart" class="p-2 rounded-DEFAULT text-primary hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80">
 <span class="material-symbols-outlined">monitor_heart</span>
 </button>
-<button class="w-10 h-10 flex items-center justify-center rounded hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80">
+<button aria-label="settings" class="p-2 rounded-DEFAULT text-primary hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80">
 <span class="material-symbols-outlined">settings</span>
 </button>
-<button class="w-10 h-10 flex items-center justify-center rounded hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80 relative">
+<button aria-label="notifications" class="p-2 rounded-DEFAULT text-primary hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80 relative">
 <span class="material-symbols-outlined">notifications</span>
-<span class="absolute top-2 right-2 w-2 h-2 bg-primary-container rounded-full"></span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border border-surface-container"></span>
 </button>
-<div class="w-8 h-8 rounded overflow-hidden ml-2 border border-outline-variant">
-<img alt="Operator Profile" class="w-full h-full object-cover" data-alt="A macro shot of a sleek, dark metallic server blade component with subtle emerald green status lights reflecting off brushed steel. The aesthetic is highly technical, pristine, and industrial, fitting an enterprise data infrastructure theme. Deep shadows contrast with sharp highlights." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBtO20c_a8Kf3F6wipc0kHXy-GAK7KrsnyBx6EI3nPNsRsGpa8eWKdZI06414ObXppZ8-EHjoAti74cOZwdCJj5WvDiPVetJCo1FU3_AFuQSEhSioiDe_2tP7lUCyg54wOvaMs2QwnW1VAZUk0LiyGteOJfgxUhy7ahVkUFnw0mIgAB2Q-3dM_XczNInrBCv5ZASg_DybiuhprjacWi3RrxDp4HRtUbru6J0CCcfYo3o2-jzoC2myRNjQ"/>
+<div class="ml-gutter w-8 h-8 rounded-DEFAULT bg-surface-variant border border-outline-variant overflow-hidden cursor-pointer hover:border-primary transition-colors">
+<img alt="Operator Profile" class="w-full h-full object-cover" data-alt="A professional operator profile avatar, headshot of a person with a serious expression in a high-tech control room setting, dark background, cinematic lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjA3vskKN9Qiq2n-N4F12V4Yl30hjgsetPpCDqpjmbt81vx0FqXhyq1wtmXhLUYUNP33mksT_F7vLhgEsGkLxFUpX8eLLjrbnGyL01hRIZdjD6fAMCpfFtFTKRBstH_p0j_6lJZbDL9cOvIFegVPYP9_mpQYC2EtivibM03ki5KUOOUvH9eQZxo4DG8rM4dYVferqztkG5aS6Z53ctJXBScd1YZY9rj1S5YNu4fyCuWO8VeM7pXSI8Fg"/>
 </div>
 </div>
 </header>
-<div class="flex flex-1 overflow-hidden relative">
-<!-- SideNavBar (Shared Component) -->
-<nav class="bg-surface dark:bg-surface text-primary dark:text-primary docked h-screen left-0 w-64 border-r border-outline-variant flat no shadows flex flex-col h-full py-density-regular shrink-0 hidden md:flex transition-all duration-150 ease-in-out z-40 relative">
-<div class="px-margin mb-6 mt-4">
-<h2 class="font-headline-md text-headline-md text-primary">Envictica Core</h2>
-<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">V2.4.0-Stable</p>
+<!-- Module Bar (Custom High-Contrast Anchor) -->
+<div class="bg-primary text-on-primary-container py-density-compact px-margin flex items-center justify-center shrink-0 border-b border-primary-fixed-dim">
+<span class="font-label-caps text-label-caps tracking-[0.1em] font-bold">OFFICIAL ENVICTICA MODULE: 09 OF 17</span>
 </div>
-<div class="flex-1 overflow-y-auto">
-<ul class="flex flex-col font-label-caps text-label-caps">
-<!-- Tab 1 -->
-<li>
-<a class="flex items-center gap-3 px-margin py-3 text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
-<span class="material-symbols-outlined">dns</span>
-                            Infrastructure
-                        </a>
-</li>
-<!-- Tab 2 -->
-<li>
-<a class="flex items-center gap-3 px-margin py-3 text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
-<span class="material-symbols-outlined">gavel</span>
-                            Governance
-                        </a>
-</li>
-<!-- Tab 3 -->
-<li>
-<a class="flex items-center gap-3 px-margin py-3 text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
-<span class="material-symbols-outlined">account_tree</span>
-                            Pipelines
-                        </a>
-</li>
-<!-- Tab 4 -->
-<li>
-<a class="flex items-center gap-3 px-margin py-3 text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
-<span class="material-symbols-outlined">fact_check</span>
-                            Data Validation
-                        </a>
-</li>
-<!-- Tab 5 -->
-<li>
-<a class="flex items-center gap-3 px-margin py-3 text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
-<span class="material-symbols-outlined">build_circle</span>
-                            Data Debt Repair
-                        </a>
-</li>
-<!-- Tab 6 -->
-<li>
-<a class="flex items-center gap-3 px-margin py-3 text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
-<span class="material-symbols-outlined">history_edu</span>
-                            Audit Logs
-                        </a>
-</li>
-<!-- Tab 7 -->
-<li>
-<a class="flex items-center gap-3 px-margin py-3 text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
-<span class="material-symbols-outlined">grid_view</span>
-                            Risk Matrix
-                        </a>
-</li>
-<!-- Tab 8 (ACTIVE) -->
-<li>
-<a class="flex items-center gap-3 px-margin py-3 border-r-2 border-primary text-primary bg-primary-container/10 transition-all duration-150 ease-in-out cursor-pointer active:opacity-80" href="#">
-<span class="material-symbols-outlined">schema</span>
-                            Schema Library
-                        </a>
-</li>
-</ul>
-</div>
-<div class="mt-auto border-t border-outline-variant pt-density-regular px-margin">
-<div class="flex items-center gap-3 py-3 mb-2">
-<img alt="System Administrator" class="w-8 h-8 rounded object-cover" data-alt="A close up of abstract architectural concrete structures interwoven with glowing fiber optic cables in a dimly lit, highly technical server room environment. The color palette is dominated by slate grays and deep shadows with bright emerald green data pulses." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC_YNGuKwzPRlPK5KORO5gsSpFg23mlsxZLS9NMtZCw0zxPDwdkjU3f13mgdJCU3IRsADrjElGT-p2L-T00OAoeFRN_uhcBBCesyT8FI6wao-iOp2ntatzvUFBr7ECP2lm3ilByiLZrggVmlOT4ZeZxbQI28S_ZWBMINrPLQzY1aeg-LjWhJst-GLzOUX_2hUj7HWypDIRvDnvb1PwPdCqLBV36dBN3UBIhVVgZzlCXEq-uiFmcNa6d-w"/>
-<div class="flex flex-col">
-<span class="font-label-caps text-label-caps text-on-surface">System Administrator</span>
-</div>
-</div>
-<ul class="flex flex-col font-label-caps text-label-caps pb-4">
-<li>
-<a class="flex items-center gap-3 py-2 text-on-surface-variant hover:text-on-surface transition-colors cursor-pointer" href="#">
-<span class="material-symbols-outlined text-[18px]">description</span>
-                            Docs
-                        </a>
-</li>
-<li>
-<a class="flex items-center gap-3 py-2 text-on-surface-variant hover:text-on-surface transition-colors cursor-pointer" href="#">
-<span class="material-symbols-outlined text-[18px]">help</span>
-                            Support
-                        </a>
-</li>
-</ul>
-</div>
-</nav>
-<!-- Main Content Area -->
-<main class="flex-1 flex flex-col md:flex-row overflow-hidden bg-background relative">
-<!-- Left Pane: Library List -->
-<div class="w-full md:w-1/2 lg:w-7/12 flex flex-col h-full border-r border-outline-variant">
-<!-- Toolbar -->
-<div class="p-margin border-b border-outline-variant flex flex-wrap items-center justify-between gap-4 bg-surface/50 backdrop-blur-sm z-10">
+<!-- Scrollable Workspace -->
+<div class="flex-1 overflow-y-auto overflow-x-hidden p-margin flex flex-col xl:flex-row gap-margin items-start">
+<!-- Main Content Area (Left/Center) -->
+<div class="flex-1 w-full min-w-0 flex flex-col gap-margin">
+<!-- Page Header & Actions -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-gutter">
 <div>
+<!-- Breadcrumbs -->
+<div class="flex items-center gap-density-compact font-data-mono text-data-mono text-on-surface-variant mb-density-regular opacity-70">
+<span class="hover:text-primary cursor-pointer transition-colors">ROOT</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="hover:text-primary cursor-pointer transition-colors">MODULES</span>
+<span class="material-symbols-outlined text-[16px]">chevron_right</span>
+<span class="text-on-surface">SCHEMA_LIB</span>
+</div>
 <h1 class="font-display-lg text-display-lg text-on-surface">Schema Definition Library</h1>
-<div class="flex items-center gap-2 mt-2 font-data-mono text-data-mono text-on-surface-variant">
-<span>Root</span>
-<span class="material-symbols-outlined text-[16px]">chevron_right</span>
-<span>Definitions</span>
-<span class="material-symbols-outlined text-[16px]">chevron_right</span>
-<span class="text-primary">Master Templates</span>
+<p class="font-body-md text-body-md text-on-surface-variant mt-density-compact">Manage legal DNA templates and structural adherence protocols.</p>
+</div>
+<div class="flex items-center gap-density-regular shrink-0">
+<button class="h-10 px-gutter flex items-center gap-density-regular bg-transparent border border-outline text-on-surface font-title-sm text-title-sm rounded-DEFAULT hover:bg-surface-variant transition-colors">
+<span class="material-symbols-outlined text-[18px]">fingerprint</span>
+                            Export Fingerprints
+                        </button>
+<button class="h-10 px-gutter flex items-center gap-density-regular bg-primary text-on-primary font-title-sm text-title-sm rounded-DEFAULT hover:bg-primary-fixed transition-colors font-bold shadow-[0_0_15px_rgba(78,222,163,0.15)]">
+<span class="material-symbols-outlined text-[18px]">add_box</span>
+                            Create New Schema
+                        </button>
 </div>
 </div>
-<button class="bg-primary text-on-primary-fixed font-title-sm text-title-sm px-6 py-2 rounded flex items-center gap-2 hover:bg-primary-fixed transition-colors">
-<span class="material-symbols-outlined text-[18px]">add</span>
-                        New Schema
+<!-- Telemetry Panel (High-Density Stats) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-density-regular">
+<div class="bg-surface-container border border-outline-variant p-gutter rounded-DEFAULT flex flex-col justify-between relative overflow-hidden group hover:border-primary transition-colors">
+<div class="absolute top-0 right-0 p-density-regular opacity-20 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary text-[32px]">verified</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider z-10">Adherence Rate</span>
+<div class="flex items-baseline gap-density-compact mt-auto z-10">
+<span class="font-data-mono text-display-lg text-primary">100</span>
+<span class="font-data-mono text-title-sm text-primary">%</span>
+</div>
+</div>
+<div class="bg-surface-container border border-outline-variant p-gutter rounded-DEFAULT flex flex-col justify-between relative overflow-hidden group hover:border-outline transition-colors">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider z-10">Active DNA Templates</span>
+<div class="flex items-baseline gap-density-compact mt-auto z-10">
+<span class="font-data-mono text-display-lg text-on-surface">42</span>
+</div>
+</div>
+<div class="bg-surface-container border border-outline-variant p-gutter rounded-DEFAULT flex flex-col justify-between relative overflow-hidden group hover:border-outline transition-colors">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider z-10">Last Template Update</span>
+<div class="flex items-baseline gap-density-compact mt-auto z-10">
+<span class="font-data-mono text-display-lg text-on-surface">2.4</span>
+<span class="font-data-mono text-title-sm text-on-surface-variant">m ago</span>
+</div>
+</div>
+<div class="bg-surface-container border border-outline-variant p-gutter rounded-DEFAULT flex flex-col justify-between relative overflow-hidden group hover:border-error transition-colors">
+<div class="absolute inset-0 bg-error/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider z-10">Data Debt Mitigated</span>
+<div class="flex items-baseline gap-density-compact mt-auto z-10">
+<span class="font-data-mono text-title-sm text-error">$</span>
+<span class="font-data-mono text-display-lg text-on-surface">4.2</span>
+<span class="font-data-mono text-title-sm text-on-surface-variant">M</span>
+</div>
+</div>
+</div>
+<!-- Global Schema Categories -->
+<div class="flex flex-col gap-density-regular">
+<h2 class="font-title-sm text-title-sm text-on-surface flex items-center gap-density-regular">
+<span class="material-symbols-outlined text-[20px] text-primary">category</span>
+                        Global Schema Categories
+                    </h2>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-density-regular">
+<div class="bg-surface-container-low border border-outline-variant p-gutter rounded-DEFAULT cursor-pointer hover:bg-surface-container hover:ring-1 hover:ring-inset hover:ring-primary transition-all flex items-center gap-gutter">
+<div class="w-12 h-12 rounded-DEFAULT bg-surface border border-outline-variant flex items-center justify-center shrink-0">
+<span class="font-data-mono text-title-sm text-on-surface">MA-1</span>
+</div>
+<div>
+<h3 class="font-title-sm text-title-sm text-on-surface">Master Agreements</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Core transactional scaffolds.</p>
+</div>
+</div>
+<div class="bg-surface-container-low border border-outline-variant p-gutter rounded-DEFAULT cursor-pointer hover:bg-surface-container hover:ring-1 hover:ring-inset hover:ring-primary transition-all flex items-center gap-gutter">
+<div class="w-12 h-12 rounded-DEFAULT bg-surface border border-outline-variant flex items-center justify-center shrink-0">
+<span class="font-data-mono text-title-sm text-on-surface">JD-4</span>
+</div>
+<div>
+<h3 class="font-title-sm text-title-sm text-on-surface">Jurisdictional Dockets</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Regional compliance overrides.</p>
+</div>
+</div>
+<div class="bg-surface-container-low border border-outline-variant p-gutter rounded-DEFAULT cursor-pointer hover:bg-surface-container hover:ring-1 hover:ring-inset hover:ring-primary transition-all flex items-center gap-gutter">
+<div class="w-12 h-12 rounded-DEFAULT bg-surface border border-outline-variant flex items-center justify-center shrink-0">
+<span class="font-data-mono text-title-sm text-on-surface">IK-7</span>
+</div>
+<div>
+<h3 class="font-title-sm text-title-sm text-on-surface">Internal Knowledge</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant">Proprietary structural rules.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Template Management Table -->
+<div class="flex flex-col gap-density-regular flex-1">
+<h2 class="font-title-sm text-title-sm text-on-surface flex items-center gap-density-regular">
+<span class="material-symbols-outlined text-[20px] text-primary">table_rows</span>
+                        Template Management Register
+                    </h2>
+<div class="bg-surface border border-outline-variant rounded-DEFAULT overflow-hidden flex flex-col flex-1 shadow-[0_4px_24px_rgba(0,0,0,0.5)]">
+<!-- Table Utilities -->
+<div class="px-gutter py-density-regular bg-surface-container border-b border-outline-variant flex justify-between items-center">
+<div class="flex gap-density-regular">
+<button class="px-density-regular py-1 text-on-surface font-label-caps text-label-caps hover:text-primary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">filter_list</span> FILTER
+                                </button>
+<button class="px-density-regular py-1 text-on-surface font-label-caps text-label-caps hover:text-primary transition-colors flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]">sort</span> SORT
+                                </button>
+</div>
+<span class="font-data-mono text-body-sm text-on-surface-variant">Showing 1-12 of 42</span>
+</div>
+<!-- Table Scroll Area -->
+<div class="overflow-x-auto overflow-y-auto flex-1 bg-background">
+<table class="w-full text-left border-collapse">
+<thead class="bg-surface-container sticky top-0 z-10">
+<tr>
+<th class="py-density-regular px-gutter font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant whitespace-nowrap">Schema ID</th>
+<th class="py-density-regular px-gutter font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant whitespace-nowrap">Version (Hashed)</th>
+<th class="py-density-regular px-gutter font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant whitespace-nowrap">Jurisdiction</th>
+<th class="py-density-regular px-gutter font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant whitespace-nowrap">Compliance Status</th>
+<th class="py-density-regular px-gutter font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant text-right whitespace-nowrap">Adherence Metric</th>
+<th class="py-density-regular px-gutter font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant w-10"></th>
+</tr>
+</thead>
+<tbody class="font-data-mono text-data-mono divide-y divide-surface-container-highest">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-variant/50 transition-colors cursor-default group">
+<td class="py-density-regular px-gutter text-on-surface">MA-1.094</td>
+<td class="py-density-regular px-gutter text-on-surface-variant truncate max-w-[120px]" title="0x7f...3a9b">0x7f...3a9b</td>
+<td class="py-density-regular px-gutter text-on-surface">Global/Core</td>
+<td class="py-density-regular px-gutter">
+<div class="inline-flex items-center gap-density-compact px-2 py-0.5 rounded-DEFAULT bg-primary-container/20 border border-primary/30">
+<div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
+<span class="font-label-caps text-[10px] text-primary">CLEARED</span>
+</div>
+</td>
+<td class="py-density-regular px-gutter text-right text-on-surface">100.00%</td>
+<td class="py-density-regular px-gutter text-right">
+<button class="text-on-surface-variant opacity-0 group-hover:opacity-100 hover:text-primary transition-all"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-variant/50 transition-colors cursor-default group bg-surface-container-low">
+<td class="py-density-regular px-gutter text-on-surface">JD-4.EU-B</td>
+<td class="py-density-regular px-gutter text-on-surface-variant truncate max-w-[120px]" title="0x2a...8f1c">0x2a...8f1c</td>
+<td class="py-density-regular px-gutter text-on-surface">EMEA/DE</td>
+<td class="py-density-regular px-gutter">
+<div class="inline-flex items-center gap-density-compact px-2 py-0.5 rounded-DEFAULT bg-error-container/20 border border-error/30">
+<div class="w-1.5 h-1.5 rounded-full bg-error"></div>
+<span class="font-label-caps text-[10px] text-error">CAUTION</span>
+</div>
+</td>
+<td class="py-density-regular px-gutter text-right text-error">94.20%</td>
+<td class="py-density-regular px-gutter text-right">
+<button class="text-on-surface-variant opacity-0 group-hover:opacity-100 hover:text-primary transition-all"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-variant/50 transition-colors cursor-default group">
+<td class="py-density-regular px-gutter text-on-surface">IK-7.SEC-A</td>
+<td class="py-density-regular px-gutter text-on-surface-variant truncate max-w-[120px]" title="0x9e...1b44">0x9e...1b44</td>
+<td class="py-density-regular px-gutter text-on-surface">Internal/Sec</td>
+<td class="py-density-regular px-gutter">
+<div class="inline-flex items-center gap-density-compact px-2 py-0.5 rounded-DEFAULT bg-primary-container/20 border border-primary/30">
+<div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
+<span class="font-label-caps text-[10px] text-primary">CLEARED</span>
+</div>
+</td>
+<td class="py-density-regular px-gutter text-right text-on-surface">99.98%</td>
+<td class="py-density-regular px-gutter text-right">
+<button class="text-on-surface-variant opacity-0 group-hover:opacity-100 hover:text-primary transition-all"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-variant/50 transition-colors cursor-default group bg-surface-container-low">
+<td class="py-density-regular px-gutter text-on-surface">MA-1.095-DRAFT</td>
+<td class="py-density-regular px-gutter text-on-surface-variant truncate max-w-[120px]" title="Pending_Hash">Pending...</td>
+<td class="py-density-regular px-gutter text-on-surface">Global/Core</td>
+<td class="py-density-regular px-gutter">
+<div class="inline-flex items-center gap-density-compact px-2 py-0.5 rounded-DEFAULT bg-surface-variant border border-outline">
+<div class="w-1.5 h-1.5 rounded-full bg-outline"></div>
+<span class="font-label-caps text-[10px] text-on-surface">DRAFTING</span>
+</div>
+</td>
+<td class="py-density-regular px-gutter text-right text-on-surface-variant">--</td>
+<td class="py-density-regular px-gutter text-right">
+<button class="text-on-surface-variant opacity-0 group-hover:opacity-100 hover:text-primary transition-all"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<!-- Schema Hardening Panel (Right Sidebar) -->
+<aside class="w-full xl:w-80 flex flex-col gap-margin shrink-0">
+<!-- Verification Status Box -->
+<div class="bg-surface-container border border-outline-variant rounded-DEFAULT p-gutter relative overflow-hidden">
+<div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(circle at top right, rgba(78,222,163,0.05), transparent 70%);"></div>
+<h3 class="font-title-sm text-title-sm text-on-surface flex items-center gap-density-regular mb-gutter">
+<span class="material-symbols-outlined text-primary text-[20px]">shield_locked</span>
+                        Schema Hardening
+                    </h3>
+<div class="space-y-gutter">
+<!-- Multi-Sig Section -->
+<div>
+<div class="flex justify-between items-end mb-density-compact">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Multi-Sig Template Approval</span>
+<span class="font-data-mono text-body-sm text-primary">2/3 SIGS</span>
+</div>
+<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
+<div class="h-full bg-primary w-2/3"></div>
+</div>
+<div class="flex gap-density-compact mt-density-regular">
+<div class="w-6 h-6 rounded-full bg-surface-variant border border-primary flex items-center justify-center text-[10px] text-primary" title="Legal Officer: Approved">LO</div>
+<div class="w-6 h-6 rounded-full bg-surface-variant border border-primary flex items-center justify-center text-[10px] text-primary" title="Tech Lead: Approved">TL</div>
+<div class="w-6 h-6 rounded-full bg-surface-container-highest border border-outline-variant flex items-center justify-center text-[10px] text-on-surface-variant border-dashed" title="Compliance Officer: Pending">CO</div>
+</div>
+</div>
+<hr class="border-outline-variant"/>
+<!-- Lineage Mapping Section -->
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-density-regular">Lineage Mapping Verification</span>
+<!-- Simplified Node Map representation -->
+<div class="bg-background rounded-DEFAULT p-density-regular border border-outline-variant relative h-32 flex flex-col justify-center items-center gap-2 overflow-hidden">
+<!-- Node Background Pattern -->
+<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#86948a 1px, transparent 1px); background-size: 8px 8px;"></div>
+<div class="flex items-center gap-4 z-10 w-full px-4">
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-8 h-8 rounded-DEFAULT bg-surface border-2 border-primary flex items-center justify-center shadow-[0_0_10px_rgba(78,222,163,0.3)]">
+<span class="material-symbols-outlined text-[16px] text-primary">source</span>
+</div>
+<span class="font-data-mono text-[10px] text-on-surface">v2.3</span>
+</div>
+<div class="h-0.5 bg-primary flex-1 relative">
+<div class="absolute right-0 -top-1 w-0 h-0 border-t-[3px] border-t-transparent border-l-[6px] border-l-primary border-b-[3px] border-b-transparent"></div>
+</div>
+<div class="flex-1 flex flex-col items-center gap-1">
+<div class="w-10 h-10 rounded-DEFAULT bg-surface border border-outline-variant ring-1 ring-inset ring-primary flex items-center justify-center relative">
+<span class="material-symbols-outlined text-[20px] text-on-surface">transform</span>
+<span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-primary rounded-full animate-pulse"></span>
+</div>
+<span class="font-data-mono text-[10px] text-primary font-bold">ACTIVE</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Block -->
+<div class="bg-surface-container border border-outline-variant rounded-DEFAULT p-gutter">
+<h3 class="font-title-sm text-title-sm text-on-surface mb-density-regular">Deployment Protocol</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mb-gutter">Authorize the rollout of validated schemas to edge nodes across all specified jurisdictions.</p>
+<button class="w-full h-10 flex items-center justify-center gap-density-regular bg-surface-variant border border-primary text-primary font-title-sm text-title-sm rounded-DEFAULT hover:bg-primary hover:text-on-primary transition-all font-bold group">
+<span class="material-symbols-outlined text-[18px] group-hover:animate-bounce">rocket_launch</span>
+                        Authorize Rollout
                     </button>
 </div>
-<!-- Filters -->
-<div class="px-margin py-3 border-b border-outline-variant flex items-center gap-4 bg-surface-container-lowest">
-<div class="flex-1 relative">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">filter_list</span>
-<input class="w-full bg-surface-container border border-outline-variant rounded font-data-mono text-data-mono pl-9 pr-3 py-1.5 focus:outline-none focus:border-primary transition-colors text-on-surface placeholder:text-on-surface-variant" placeholder="Filter schemas..." type="text"/>
-</div>
-<div class="flex gap-2">
-<button class="px-3 py-1.5 border border-primary text-primary font-label-caps text-label-caps rounded bg-primary-container/10">All</button>
-<button class="px-3 py-1.5 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps rounded hover:bg-surface-variant transition-colors">Court Docs</button>
-<button class="px-3 py-1.5 border border-outline-variant text-on-surface-variant font-label-caps text-label-caps rounded hover:bg-surface-variant transition-colors">Contracts</button>
-</div>
-</div>
-<!-- Schema List -->
-<div class="flex-1 overflow-y-auto p-margin space-y-3 relative">
-<!-- Decorator grid background -->
-<div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(#3c4a42 1px, transparent 1px); background-size: 24px 24px; opacity: 0.2;"></div>
-<!-- Item 1 (Active) -->
-<div class="bg-surface-container border border-primary rounded p-4 relative overflow-hidden group cursor-pointer">
-<div class="absolute left-0 top-0 bottom-0 w-1 bg-primary"></div>
-<div class="flex justify-between items-start mb-3">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-primary">description</span>
-<h3 class="font-title-sm text-title-sm text-on-surface">Court_Docket_v2.1</h3>
-</div>
-<span class="px-2 py-0.5 bg-primary-container/20 text-primary border border-primary/30 rounded font-label-caps text-label-caps flex items-center gap-1">
-<span class="w-1.5 h-1.5 bg-primary rounded-full inline-block"></span> Active
-                            </span>
-</div>
-<div class="grid grid-cols-2 gap-4 mb-4 font-data-mono text-data-mono text-on-surface-variant">
-<div>
-<span class="block text-[10px] text-on-tertiary-fixed-variant mb-1 uppercase tracking-wider">Last Updated</span>
-<span class="text-on-surface">2023-10-24 14:32Z</span>
-</div>
-<div>
-<span class="block text-[10px] text-on-tertiary-fixed-variant mb-1 uppercase tracking-wider">Maintainer</span>
-<span class="text-on-surface">sys_admin_01</span>
-</div>
-</div>
-<div class="flex gap-3 mt-4 border-t border-outline-variant pt-3">
-<button class="text-primary font-label-caps text-label-caps flex items-center gap-1 hover:text-primary-fixed-dim transition-colors">
-<span class="material-symbols-outlined text-[16px]">visibility</span> View JSON
-                            </button>
-<button class="text-on-surface-variant font-label-caps text-label-caps flex items-center gap-1 hover:text-on-surface transition-colors">
-<span class="material-symbols-outlined text-[16px]">edit</span> Edit Schema
-                            </button>
-</div>
-</div>
-<!-- Item 2 -->
-<div class="bg-surface-container border border-outline-variant rounded p-4 relative overflow-hidden group cursor-pointer hover:border-outline transition-colors">
-<div class="flex justify-between items-start mb-3">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-tertiary-container">policy</span>
-<h3 class="font-title-sm text-title-sm text-on-surface">Standard_NDA_Metadata</h3>
-</div>
-<span class="px-2 py-0.5 bg-surface-variant text-on-surface-variant border border-outline-variant rounded font-label-caps text-label-caps flex items-center gap-1">
-<span class="w-1.5 h-1.5 bg-on-surface-variant rounded-full inline-block"></span> Stable
-                            </span>
-</div>
-<div class="grid grid-cols-2 gap-4 mb-4 font-data-mono text-data-mono text-on-surface-variant">
-<div>
-<span class="block text-[10px] text-on-tertiary-fixed-variant mb-1 uppercase tracking-wider">Last Updated</span>
-<span class="text-on-surface">2023-09-12 09:15Z</span>
-</div>
-<div>
-<span class="block text-[10px] text-on-tertiary-fixed-variant mb-1 uppercase tracking-wider">Maintainer</span>
-<span class="text-on-surface">legal_ops_bot</span>
-</div>
-</div>
-<div class="flex gap-3 mt-4 border-t border-outline-variant pt-3 opacity-60 group-hover:opacity-100 transition-opacity">
-<button class="text-on-surface-variant font-label-caps text-label-caps flex items-center gap-1 hover:text-on-surface transition-colors">
-<span class="material-symbols-outlined text-[16px]">visibility</span> View JSON
-                            </button>
-<button class="text-on-surface-variant font-label-caps text-label-caps flex items-center gap-1 hover:text-on-surface transition-colors">
-<span class="material-symbols-outlined text-[16px]">edit</span> Edit Schema
-                            </button>
-</div>
-</div>
-<!-- Item 3 -->
-<div class="bg-surface-container border border-outline-variant rounded p-4 relative overflow-hidden group cursor-pointer hover:border-outline transition-colors">
-<div class="flex justify-between items-start mb-3">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-tertiary-container">map</span>
-<h3 class="font-title-sm text-title-sm text-on-surface">Trial_Transcript</h3>
-</div>
-<span class="px-2 py-0.5 bg-error-container/20 text-error border border-error/30 rounded font-label-caps text-label-caps flex items-center gap-1">
-<span class="w-1.5 h-1.5 bg-error rounded-full inline-block"></span> Draft
-                            </span>
-</div>
-<div class="grid grid-cols-2 gap-4 mb-4 font-data-mono text-data-mono text-on-surface-variant">
-<div>
-<span class="block text-[10px] text-on-tertiary-fixed-variant mb-1 uppercase tracking-wider">Last Updated</span>
-<span class="text-on-surface">2023-11-01 18:45Z</span>
-</div>
-<div>
-<span class="block text-[10px] text-on-tertiary-fixed-variant mb-1 uppercase tracking-wider">Maintainer</span>
-<span class="text-on-surface">nlp_pipeline_v3</span>
-</div>
-</div>
-<div class="flex gap-3 mt-4 border-t border-outline-variant pt-3 opacity-60 group-hover:opacity-100 transition-opacity">
-<button class="text-on-surface-variant font-label-caps text-label-caps flex items-center gap-1 hover:text-on-surface transition-colors">
-<span class="material-symbols-outlined text-[16px]">visibility</span> View JSON
-                            </button>
-<button class="text-on-surface-variant font-label-caps text-label-caps flex items-center gap-1 hover:text-on-surface transition-colors">
-<span class="material-symbols-outlined text-[16px]">edit</span> Edit Schema
-                            </button>
-</div>
-</div>
-</div>
-</div>
-<!-- Right Pane: Code Preview -->
-<div class="w-full md:w-1/2 lg:w-5/12 h-full bg-surface-container-lowest flex flex-col">
-<div class="border-b border-outline-variant px-4 py-3 flex justify-between items-center bg-surface-container">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-on-surface-variant text-[18px]">code</span>
-<span class="font-data-mono text-data-mono text-on-surface">Court_Docket_v2.1.json</span>
-</div>
-<div class="flex gap-2">
-<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-colors">
-<span class="material-symbols-outlined text-[16px]">content_copy</span>
-</button>
-<button class="w-8 h-8 flex items-center justify-center rounded border border-outline-variant text-on-surface-variant hover:bg-surface-variant transition-colors">
-<span class="material-symbols-outlined text-[16px]">download</span>
-</button>
-</div>
-</div>
-<div class="flex-1 p-4 overflow-auto font-data-mono text-[13px] leading-relaxed text-on-surface-variant bg-[#0b0f10]">
-<pre><code><span class="text-primary">{</span>
-  <span class="text-tertiary">"$schema"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"http://json-schema.org/draft-07/schema#"</span><span class="text-on-surface">,</span>
-  <span class="text-tertiary">"title"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"Court_Docket"</span><span class="text-on-surface">,</span>
-  <span class="text-tertiary">"type"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"object"</span><span class="text-on-surface">,</span>
-  <span class="text-tertiary">"properties"</span><span class="text-on-surface">:</span> <span class="text-primary">{</span>
-    <span class="text-tertiary">"docket_id"</span><span class="text-on-surface">:</span> <span class="text-primary">{</span>
-      <span class="text-tertiary">"type"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"string"</span><span class="text-on-surface">,</span>
-      <span class="text-tertiary">"description"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"Unique identifier for the court case."</span>
-    <span class="text-primary">}</span><span class="text-on-surface">,</span>
-    <span class="text-tertiary">"court_jurisdiction"</span><span class="text-on-surface">:</span> <span class="text-primary">{</span>
-      <span class="text-tertiary">"type"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"string"</span><span class="text-on-surface">,</span>
-      <span class="text-tertiary">"enum"</span><span class="text-on-surface">:</span> <span class="text-primary">[</span><span class="text-secondary-fixed">"FEDERAL"</span><span class="text-on-surface">,</span> <span class="text-secondary-fixed">"STATE"</span><span class="text-on-surface">,</span> <span class="text-secondary-fixed">"LOCAL"</span><span class="text-primary">]</span>
-    <span class="text-primary">}</span><span class="text-on-surface">,</span>
-    <span class="text-tertiary">"filing_date"</span><span class="text-on-surface">:</span> <span class="text-primary">{</span>
-      <span class="text-tertiary">"type"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"string"</span><span class="text-on-surface">,</span>
-      <span class="text-tertiary">"format"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"date-time"</span>
-    <span class="text-primary">}</span><span class="text-on-surface">,</span>
-    <span class="text-tertiary">"parties"</span><span class="text-on-surface">:</span> <span class="text-primary">{</span>
-      <span class="text-tertiary">"type"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"array"</span><span class="text-on-surface">,</span>
-      <span class="text-tertiary">"items"</span><span class="text-on-surface">:</span> <span class="text-primary">{</span>
-        <span class="text-tertiary">"type"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"object"</span><span class="text-on-surface">,</span>
-        <span class="text-tertiary">"properties"</span><span class="text-on-surface">:</span> <span class="text-primary">{</span>
-          <span class="text-tertiary">"role"</span><span class="text-primary">:</span> <span class="text-primary">{</span> <span class="text-tertiary">"type"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"string"</span> <span class="text-primary">}</span><span class="text-on-surface">,</span>
-          <span class="text-tertiary">"entity_name"</span><span class="text-on-surface">:</span> <span class="text-primary">{</span> <span class="text-tertiary">"type"</span><span class="text-on-surface">:</span> <span class="text-secondary-fixed">"string"</span> <span class="text-primary">}</span>
-        <span class="text-primary">}</span><span class="text-on-surface">,</span>
-        <span class="text-tertiary">"required"</span><span class="text-on-surface">:</span> <span class="text-primary">[</span><span class="text-secondary-fixed">"role"</span><span class="text-on-surface">,</span> <span class="text-secondary-fixed">"entity_name"</span><span class="text-primary">]</span>
-      <span class="text-primary">}</span>
-    <span class="text-primary">}</span>
-  <span class="text-primary">}</span><span class="text-on-surface">,</span>
-  <span class="text-tertiary">"required"</span><span class="text-on-surface">:</span> <span class="text-primary">[</span><span class="text-secondary-fixed">"docket_id"</span><span class="text-on-surface">,</span> <span class="text-secondary-fixed">"court_jurisdiction"</span><span class="text-on-surface">,</span> <span class="text-secondary-fixed">"filing_date"</span><span class="text-primary">]</span>
-<span class="text-primary">}</span></code></pre>
-</div>
-<div class="border-t border-outline-variant p-3 bg-surface-container flex items-center justify-between">
-<span class="font-data-mono text-[11px] text-on-surface-variant">Lines: 28 | Size: 1.2KB</span>
-<span class="px-2 py-1 bg-surface-variant rounded font-label-caps text-[10px] text-on-surface-variant">JSON Schema Draft 07</span>
-</div>
+</aside>
 </div>
 </main>
-</div>
 </body></html>
