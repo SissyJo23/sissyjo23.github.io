@@ -3,10 +3,12 @@
 <html class="dark" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Envictica - Board ROI Report</title>
+<title>Module 03: Board-Level ROI Report &amp; Fiduciary Analytics - Envictica</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@600;700&amp;family=Inter:wght@400;500&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
         tailwind.config = {
@@ -14,53 +16,53 @@
             theme: {
                 extend: {
                     colors: {
-                        "surface-bright": "#343b36",
-                        "on-tertiary-fixed-variant": "#3a485c",
-                        "inverse-surface": "#dde4dd",
-                        "on-error": "#690005",
-                        "tertiary-container": "#95a4bb",
-                        "on-secondary-fixed-variant": "#3f465c",
-                        "on-surface-variant": "#bbcabf",
-                        "secondary": "#bec6e0",
-                        "surface-container-low": "#161d19",
+                        "surface-dim": "#0d1513",
+                        "on-background": "#dbe5e0",
+                        "on-surface": "#dbe5e0",
+                        "secondary-container": "#ac0037",
+                        "primary-container": "#00f5d4",
+                        "on-secondary-container": "#ffdadb",
+                        "background": "#0d1513",
+                        "surface-tint": "#00dfc1",
+                        "on-secondary-fixed-variant": "#91002d",
+                        "secondary": "#ffb2b8",
+                        "on-surface-variant": "#b9cac4",
+                        "surface-container-highest": "#2e3734",
+                        "on-tertiary-fixed": "#231b00",
+                        "secondary-fixed": "#ffdadb",
+                        "surface-bright": "#323b38",
+                        "on-primary-fixed": "#00201a",
+                        "surface-variant": "#2e3734",
+                        "on-primary-container": "#70ffeb",
+                        "primary": "#d7fff3",
                         "error-container": "#93000a",
-                        "surface-dim": "#0e1511",
-                        "on-secondary-fixed": "#131b2e",
-                        "tertiary-fixed": "#d5e3fd",
-                        "on-tertiary": "#233144",
-                        "on-secondary-container": "#adb4ce",
-                        "outline-variant": "#3c4a42",
-                        "on-primary-container": "#00422b",
-                        "on-primary": "#003824",
-                        "surface-container-highest": "#2f3632",
-                        "surface-variant": "#2f3632",
-                        "secondary-fixed": "#dae2fd",
-                        "inverse-on-surface": "#2b322d",
-                        "on-background": "#dde4dd",
-                        "background": "#0e1511",
-                        "primary-fixed": "#6ffbbe",
-                        "on-secondary": "#283044",
-                        "surface-tint": "#4edea3",
-                        "inverse-primary": "#006c49",
-                        "surface-container": "#1a211d",
-                        "on-primary-fixed-variant": "#005236",
-                        "tertiary-fixed-dim": "#b9c7e0",
-                        "tertiary": "#b9c7e0",
-                        "on-primary-fixed": "#002113",
-                        "surface-container-lowest": "#09100c",
-                        "secondary-fixed-dim": "#bec6e0",
-                        "on-surface": "#dde4dd",
-                        "primary-fixed-dim": "#4edea3",
-                        "on-tertiary-container": "#2c3a4e",
-                        "secondary-container": "#3f465c",
-                        "on-tertiary-fixed": "#0d1c2f",
-                        "primary": "#4edea3",
-                        "surface-container-high": "#242c27",
+                        "inverse-surface": "#dbe5e0",
+                        "inverse-on-surface": "#2a3230",
+                        "primary-fixed": "#26fedc",
+                        "surface-container-lowest": "#08100e",
                         "on-error-container": "#ffdad6",
-                        "outline": "#86948a",
+                        "tertiary-fixed-dim": "#eac33f",
+                        "tertiary-container": "#ffd651",
+                        "surface-container-high": "#30363d",
+                        "outline": "#8b949e",
+                        "secondary-fixed-dim": "#ffb2b8",
+                        "on-tertiary-container": "#745c00",
+                        "on-tertiary-fixed-variant": "#574500",
+                        "inverse-primary": "#006b5b",
+                        "on-primary-fixed-variant": "#005144",
+                        "primary-fixed-dim": "#00dfc1",
+                        "on-secondary-fixed": "#40000f",
+                        "surface-container": "#19211f",
+                        "tertiary": "#fff5e4",
+                        "on-secondary": "#67001e",
+                        "surface-container-low": "#161b22",
+                        "outline-variant": "#3a4a46",
+                        "on-error": "#690005",
                         "error": "#ffb4ab",
-                        "surface": "#0e1511",
-                        "primary-container": "#10b981"
+                        "surface": "#0d1513",
+                        "tertiary-fixed": "#ffe086",
+                        "on-primary": "#00382f",
+                        "on-tertiary": "#3c2f00"
                     },
                     borderRadius: {
                         "DEFAULT": "0.125rem",
@@ -69,240 +71,296 @@
                         "full": "0.75rem"
                     },
                     spacing: {
+                        "margin-mobile": "16px",
+                        "unit": "4px",
+                        "container-max": "1440px",
                         "gutter": "16px",
-                        "connector-gap": "2rem",
-                        "pipeline-margin": "3rem",
-                        "grid-unit": "4px",
-                        "node-padding": "1rem"
+                        "margin-desktop": "24px"
                     },
                     fontFamily: {
-                        "display-lg": ["Hanken Grotesk"],
-                        "data-numeral": ["JetBrains Mono"],
-                        "label-mono": ["JetBrains Mono"],
-                        "body-base": ["Inter"],
-                        "headline-md": ["Hanken Grotesk"]
+                        "headline-lg": ["Sora"],
+                        "label-caps": ["Sora"],
+                        "headline-lg-mobile": ["Sora"],
+                        "title-md": ["Sora"],
+                        "body-md": ["Sora"],
+                        "headline-md": ["Sora"],
+                        "mono": ["ui-monospace", "SFMono-Regular", "Menlo", "Monaco", "Consolas", "Liberation Mono", "Courier New", "monospace"]
                     },
                     fontSize: {
-                        "display-lg": ["48px", { lineHeight: "56px", letterSpacing: "-0.02em", fontWeight: "700" }],
-                        "data-numeral": ["14px", { lineHeight: "20px", fontWeight: "600" }],
-                        "label-mono": ["12px", { lineHeight: "16px", letterSpacing: "0.05em", fontWeight: "500" }],
-                        "body-base": ["16px", { lineHeight: "24px", fontWeight: "400" }],
+                        "headline-lg": ["32px", { lineHeight: "40px", fontWeight: "700" }],
+                        "label-caps": ["10px", { lineHeight: "16px", letterSpacing: "0.1em", fontWeight: "700" }],
+                        "headline-lg-mobile": ["28px", { lineHeight: "36px", fontWeight: "700" }],
+                        "title-md": ["18px", { lineHeight: "24px", fontWeight: "600" }],
+                        "body-md": ["14px", { lineHeight: "20px", fontWeight: "400" }],
                         "headline-md": ["24px", { lineHeight: "32px", fontWeight: "600" }]
                     }
                 }
             }
-        }
+        };
     </script>
 <style>
-        body { background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        body { font-family: 'Sora', sans-serif; }
+        .data-value { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
         .grid-bg {
-            background-image: radial-gradient(theme('colors.outline-variant') 1px, transparent 1px);
-            background-size: 16px 16px;
-            background-position: -8px -8px;
-        }
-        .glow-active {
-            box-shadow: inset 0 0 20px 0 rgba(16, 185, 129, 0.1);
+            background-image: linear-gradient(to right, #3a4a46 1px, transparent 1px),
+                              linear-gradient(to bottom, #3a4a46 1px, transparent 1px);
+            background-size: 20px 20px;
+            background-position: center center;
+            opacity: 0.1;
         }
     </style>
 </head>
-<body class="font-body-base text-body-base overflow-x-hidden min-h-screen grid-bg relative">
-<!-- Ambient Background Light -->
-<div class="fixed inset-0 pointer-events-none z-0 overflow-hidden">
-<div class="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary/5 blur-[120px]"></div>
-<div class="absolute bottom-[-20%] right-[-10%] w-[40%] h-[40%] rounded-full bg-secondary-fixed/5 blur-[100px]"></div>
+<body class="bg-surface text-on-surface h-screen flex overflow-hidden">
+<!-- Top Module Bar -->
+<div class="fixed top-0 left-0 w-full h-8 bg-surface-container-highest z-[60] flex items-center justify-center border-b border-outline-variant">
+<span class="font-label-caps text-label-caps text-primary-container">OFFICIAL ENVICTICA MODULE: 03 OF 17</span>
 </div>
-<!-- Layout Container -->
-<div class="relative z-10 flex flex-col w-full">
-<!-- Top Bar -->
-<div class="w-full bg-primary text-on-primary py-2 px-4 text-center font-label-mono text-label-mono font-bold tracking-widest uppercase">
-    OFFICIAL ENVICTICA MODULE: 14 OF 15
-</div>
-<div class="flex w-full">
-<!-- Main Content -->
-<main class="flex-1 min-h-screen px-gutter md:px-8 py-8 lg:py-12 max-w-7xl mx-auto flex flex-col gap-8 w-full">
-<!-- Header Section -->
-<header class="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-outline-variant pb-6">
-<div>
-<h1 class="font-display-lg text-display-lg text-on-surface mb-2">Infrastructure ROI &amp; Strategic Value Report</h1>
-<p class="font-body-base text-body-base text-on-surface-variant max-w-3xl">Executive summary of data debt mitigation, AI readiness, and operational resilience metrics for Envictica enterprise systems.</p>
-</div>
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-8 h-[calc(100vh-32px)] w-64 flex flex-col py-4 px-2 z-40 bg-surface-container dark:bg-surface-container border-r border-outline-variant">
+<div class="mb-8 px-4">
 <div class="flex items-center gap-3">
-<button class="bg-surface-container-high hover:bg-surface-container-highest text-on-surface px-4 py-2 rounded font-label-mono text-label-mono transition-colors flex items-center gap-2 border border-outline-variant">
-<span class="material-symbols-outlined" style="font-size: 16px;">download</span>
-                        Export PDF
-                    </button>
-<button class="bg-primary text-on-primary hover:bg-primary-fixed px-4 py-2 rounded font-label-mono text-label-mono transition-colors flex items-center gap-2 font-bold">
-<span class="material-symbols-outlined" style="font-size: 16px;">share</span>
-                        Share Report
-                    </button>
+<div class="w-8 h-8 rounded-full bg-primary/20 flex items-center justify-center overflow-hidden">
+<img class="object-cover w-full h-full" data-alt="A macro shot of a glowing fiber optic core, representing data transmission, in deep cyan and dark teal tones. High tech, cybernetic style." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDs-xXise3hbJsuNLrvUndHe9p2jYkrewEZbDRXcnhPrFAI4XxcIJ_wVJQeRegFF9CI67hDO_037Hd3Lkfm_k8RM3qF7Za84cwLUCiylk-_jRO9_2VntisjN4W8Du8Pal0-TfFH7Q7nBQ6XTnQIp2HCVegZ0x3Pk_5uxgmvGh-2lzG6tActfAJfEqOMGRU4MIHiASJl_9xBE7UXaphtKNtCeWblU91iS91lPtEWAQNufLY6eujGt1vs-w"/>
+</div>
+<div>
+<h2 class="font-headline-sm text-headline-sm text-primary">System Alpha</h2>
+<p class="font-label-caps text-label-caps text-on-surface-variant">Operational</p>
+</div>
+</div>
+<button class="w-full mt-6 bg-primary text-on-primary font-title-md text-title-md py-2 px-4 rounded transition-colors hover:bg-primary-container flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">play_arrow</span> Execute Audit
+            </button>
+</div>
+<ul class="flex flex-col gap-2 flex-grow">
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">terminal</span> Command
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">gavel</span> Governance
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">query_stats</span> Stress-Test
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded font-label-md text-label-md bg-primary-container text-on-primary-container rounded-lg font-bold transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">monitoring</span> Analytics
+                </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-3 rounded font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">history</span> History
+                </a>
+</li>
+</ul>
+<div class="mt-auto border-t border-outline-variant pt-4">
+<ul class="flex flex-col gap-2">
+<li>
+<a class="flex items-center gap-3 px-4 py-2 rounded font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">help</span> Support
+                    </a>
+</li>
+<li>
+<a class="flex items-center gap-3 px-4 py-2 rounded font-label-md text-label-md text-on-surface-variant hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out" href="#">
+<span class="material-symbols-outlined">logout</span> Sign Out
+                    </a>
+</li>
+</ul>
+</div>
+</nav>
+<!-- Main Content Area -->
+<main class="ml-64 mt-8 flex-grow h-[calc(100vh-32px)] flex flex-col relative">
+<div class="absolute inset-0 grid-bg pointer-events-none"></div>
+<!-- TopNavBar -->
+<header class="fixed top-8 left-64 w-[calc(100%-256px)] z-50 flex justify-between items-center px-gutter h-16 bg-surface dark:bg-surface border-b border-outline-variant bg-surface/40 backdrop-blur-md">
+<div class="flex items-center gap-4">
+<h1 class="font-headline-md text-headline-md font-bold text-primary-fixed tracking-tight">Envictica</h1>
+<div class="h-4 w-px bg-outline-variant mx-2"></div>
+<nav class="font-mono text-xs text-on-surface-variant flex items-center gap-2">
+<span class="hover:text-primary transition-colors cursor-pointer">ENV</span> /
+                    <span class="hover:text-primary transition-colors cursor-pointer">INFRA</span> /
+                    <span class="text-primary-container font-bold">ANALYTICS_03</span>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2 bg-primary-container/10 px-3 py-1 rounded border border-primary-container/30">
+<div class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></div>
+<span class="font-label-caps text-label-caps text-primary-container">SYSTEM HEALTHY</span>
+</div>
+<div class="flex gap-4 text-on-surface-variant">
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors duration-200">notifications</span>
+<span class="material-symbols-outlined cursor-pointer hover:text-primary transition-colors duration-200">settings</span>
+</div>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant">
+<img alt="Chief Financial Officer" class="w-full h-full object-cover" data-alt="A stylized portrait in vector art style of a Chief Financial Officer, sharp corporate attire, cool teal lighting on one side of the face, dark background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDHWbjdtQe2APYWQs1_cC_wbHjxzh7C7XJlhUUDiV0SbbqEDPnAl-2Vwjofx669mGW5Z2N1I-z6be0nC8xPxvLyZ58MQd92cRxPwstVLzrjhq_JbydkUihnhzteY-TeKIXhzNwJCXHR_jR9sgI8Cy7usedC-GxuVv6wzyNX_c7C_6HVrHnrWPvTjmcxv1xjl-F0VqqB_x0f-vlhNamjM3vWSsgLnQ4KDZlNU7EBSkjUV8xhqf7jSHG1AQ"/>
+</div>
 </div>
 </header>
-<!-- Financial Impact Cards (Top Row) -->
-<section class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<!-- Card 1 -->
-<div class="bg-surface-container border border-outline-variant rounded-lg p-6 flex flex-col relative overflow-hidden group">
-<div class="absolute top-0 right-0 w-32 h-32 bg-primary/10 rounded-bl-full -mr-8 -mt-8 transition-transform group-hover:scale-110"></div>
-<div class="flex justify-between items-start mb-4 relative z-10">
-<h3 class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider">Total Data Debt Mitigated</h3>
-<span class="material-symbols-outlined text-primary">account_balance_wallet</span>
+<!-- Scrollable Canvas -->
+<div class="flex-grow overflow-y-auto pt-20 px-margin-desktop pb-24 relative z-10">
+<div class="max-w-container-max mx-auto space-y-6">
+<div class="mb-8">
+<h2 class="font-headline-lg text-headline-lg text-on-surface mb-2">Module 03: Board-Level ROI Report &amp; Fiduciary Analytics</h2>
+<p class="font-body-md text-body-md text-on-surface-variant max-w-3xl">Comprehensive analysis of infrastructure grounding vs operational liability, providing verifiable fiduciary evidence matrices for Q3 strategic scaling.</p>
 </div>
-<div class="mt-auto relative z-10">
+<!-- Hero Metrics (Bento Grid) -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Metric 1 -->
+<div class="bg-surface-container-low border border-outline-variant rounded p-4 flex flex-col justify-between h-32 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-2 opacity-20 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary-container">shield_locked</span>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Total Data Debt Mitigated</span>
 <div class="flex items-baseline gap-2">
-<span class="font-display-lg text-display-lg text-on-surface">$2.4M</span>
-<span class="font-data-numeral text-data-numeral text-primary flex items-center"><span class="material-symbols-outlined" style="font-size: 16px;">arrow_upward</span> 18% YoY</span>
-</div>
-<p class="font-body-base text-body-base text-on-surface-variant mt-2 text-sm">Estimated savings from prevented running repairs.</p>
+<span class="data-value text-3xl font-bold text-primary-container">$4.2M</span>
+<span class="text-xs text-primary flex items-center"><span class="material-symbols-outlined text-[14px]">arrow_upward</span> 12%</span>
 </div>
 </div>
-<!-- Card 2 -->
-<div class="bg-surface-container border border-outline-variant rounded-lg p-6 flex flex-col relative overflow-hidden group glow-active">
-<div class="flex justify-between items-start mb-4 relative z-10">
-<h3 class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider">AI Readiness ROI</h3>
-<span class="material-symbols-outlined text-primary">smart_toy</span>
+<!-- Metric 2 -->
+<div class="bg-surface-container-low border border-outline-variant rounded p-4 flex flex-col justify-between h-32 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-2 opacity-20 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary-container">psychology</span>
 </div>
-<div class="mt-auto relative z-10">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">AI Readiness ROI</span>
 <div class="flex items-baseline gap-2">
-<span class="font-display-lg text-display-lg text-primary">340%</span>
-<span class="font-data-numeral text-data-numeral text-on-surface-variant">multiplier</span>
-</div>
-<p class="font-body-base text-body-base text-on-surface-variant mt-2 text-sm">Calculated based on deployment speed vs legacy methods.</p>
+<span class="data-value text-3xl font-bold text-primary-container">340%</span>
 </div>
 </div>
-<!-- Card 3 -->
-<div class="bg-surface-container border border-outline-variant rounded-lg p-6 flex flex-col relative overflow-hidden group">
-<div class="absolute bottom-0 left-0 w-full h-1 bg-gradient-to-r from-primary to-transparent opacity-50"></div>
-<div class="flex justify-between items-start mb-4 relative z-10">
-<h3 class="font-label-mono text-label-mono text-on-surface-variant uppercase tracking-wider">Vendor Lock-in Reduction</h3>
-<span class="material-symbols-outlined text-on-surface-variant">lock_open</span>
+<!-- Metric 3 -->
+<div class="bg-surface-container-low border border-outline-variant rounded p-4 flex flex-col justify-between h-32 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-2 opacity-20 group-hover:opacity-100 transition-opacity">
+<span class="material-symbols-outlined text-primary-container">vpn_key_alert</span>
 </div>
-<div class="mt-auto relative z-10">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider">Vendor Lock-in Reduction</span>
 <div class="flex items-baseline gap-2">
-<span class="font-display-lg text-display-lg text-on-surface">45%</span>
-<span class="font-data-numeral text-data-numeral text-primary flex items-center"><span class="material-symbols-outlined" style="font-size: 16px;">arrow_downward</span> cost</span>
-</div>
-<p class="font-body-base text-body-base text-on-surface-variant mt-2 text-sm">Savings realized from owning the data infrastructure.</p>
+<span class="data-value text-3xl font-bold text-primary-container">45%</span>
+<span class="text-xs text-primary flex items-center"><span class="material-symbols-outlined text-[14px]">arrow_downward</span></span>
 </div>
 </div>
-</section>
-<!-- Main Content Grid (Bento Style) -->
+<!-- Metric 4 -->
+<div class="bg-surface-container-low border border-outline-variant rounded p-4 flex flex-col justify-between h-32 relative overflow-hidden group">
+<div class="absolute -right-4 -bottom-4 w-24 h-24 bg-error/10 rounded-full blur-xl"></div>
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider relative z-10">Liability Predictor</span>
+<div class="flex items-baseline gap-2 relative z-10">
+<span class="data-value text-3xl font-bold text-error">$1.8M</span>
+<span class="text-xs text-on-surface-variant">avoided</span>
+</div>
+</div>
+</div>
+<!-- Main Content Split -->
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-<!-- Primary Chart Area (Spans 2 columns) -->
-<section class="lg:col-span-2 bg-surface-container border border-outline-variant rounded-lg p-6 flex flex-col min-h-[400px]">
-<div class="flex justify-between items-start mb-6">
-<div>
-<h2 class="font-headline-md text-headline-md text-on-surface">Hallucination Risk vs. Infrastructure Maturity</h2>
-<p class="font-body-base text-body-base text-on-surface-variant mt-1">Envictica's 98.4% accuracy rate correlation with lower litigation risk.</p>
-</div>
-<div class="flex items-center gap-2 bg-surface-container-highest rounded-full px-3 py-1 border border-outline-variant">
-<span class="w-2 h-2 rounded-full bg-primary"></span>
-<span class="font-label-mono text-label-mono text-on-surface">Live Data</span>
+<!-- Chart Section -->
+<div class="lg:col-span-2 bg-surface-container-low border border-outline-variant rounded p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-title-md text-title-md text-on-surface">Risk vs. Maturity Analysis</h3>
+<div class="flex gap-2">
+<span class="px-2 py-1 bg-surface-container rounded text-xs text-on-surface-variant border border-outline-variant flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-primary-container"></div> Infrastructure</span>
+<span class="px-2 py-1 bg-surface-container rounded text-xs text-on-surface-variant border border-outline-variant flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-[#FF4D6D]"></div> Liability</span>
 </div>
 </div>
-<!-- Faux Technical Chart Area -->
-<div class="flex-1 relative w-full h-full bg-surface-dim rounded border border-outline-variant/50 overflow-hidden mt-4 p-4 flex flex-col justify-end">
-<!-- Chart Grid Lines -->
-<div class="absolute inset-0 flex flex-col justify-between py-8 opacity-20 pointer-events-none">
-<div class="w-full border-b border-outline-variant border-dashed"></div>
-<div class="w-full border-b border-outline-variant border-dashed"></div>
-<div class="w-full border-b border-outline-variant border-dashed"></div>
-<div class="w-full border-b border-outline-variant border-dashed"></div>
-<div class="w-full border-b border-outline-variant border-dashed"></div>
+<!-- Simulated Chart -->
+<div class="w-full h-64 relative border-l border-b border-outline-variant/50">
+<!-- Y-axis labels -->
+<div class="absolute -left-8 top-0 text-xs text-on-surface-variant font-mono h-full flex flex-col justify-between py-2">
+<span>High</span>
+<span>Med</span>
+<span>Low</span>
 </div>
-<!-- Y Axis Labels -->
-<div class="absolute left-2 top-8 bottom-8 flex flex-col justify-between font-label-mono text-[10px] text-on-surface-variant">
-<span>High Risk</span>
-<span>Med Risk</span>
-<span>Low Risk</span>
-</div>
-<!-- Data Visualization Elements -->
-<div class="relative w-full h-[80%] flex items-end justify-between px-8 z-10 gap-2">
-<!-- Maturity Line (Ascending) -->
-<svg class="absolute inset-0 w-full h-full preserve-3d" preserveaspectratio="none" viewbox="0 0 100 100">
-<path class="text-primary" d="M 0,90 Q 25,85 50,50 T 100,10" fill="none" stroke="currentColor" stroke-width="2"></path>
-<!-- Area under maturity -->
-<path d="M 0,90 Q 25,85 50,50 T 100,10 L 100,100 L 0,100 Z" fill="url(#primary-gradient)" opacity="0.1"></path>
-<!-- Risk Line (Descending) -->
-<path d="M 0,20 Q 30,30 60,70 T 100,95" fill="none" stroke="#EF4444" stroke-dasharray="4 4" stroke-width="2"></path>
+<!-- Chart Content Container -->
+<div class="absolute inset-0 p-4">
+<div class="w-full h-full relative" style="background: linear-gradient(to right, transparent 0%, transparent 100%);">
+<!-- Infrastructure Line (Teal) -->
+<svg class="absolute inset-0 w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 100 100">
+<path d="M0,90 Q25,80 50,40 T100,10" fill="none" stroke="#00F5D4" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+<path d="M0,90 Q25,80 50,40 T100,10 L100,100 L0,100 Z" fill="url(#teal-grad)" opacity="0.2"></path>
 <defs>
-<lineargradient id="primary-gradient" x1="0%" x2="0%" y1="0%" y2="100%">
-<stop offset="0%" stop-color="theme('colors.primary')"></stop>
+<lineargradient id="teal-grad" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#00F5D4"></stop>
 <stop offset="100%" stop-color="transparent"></stop>
 </lineargradient>
 </defs>
 </svg>
-<!-- Data Points/Markers -->
-<div class="absolute left-[20%] bottom-[80%] flex flex-col items-center group">
-<div class="w-3 h-3 rounded-full bg-error border-2 border-surface z-10 group-hover:scale-150 transition-transform"></div>
-<div class="absolute bottom-4 opacity-0 group-hover:opacity-100 bg-surface-container-highest border border-outline-variant p-2 rounded text-xs font-label-mono whitespace-nowrap z-20">Initial Audit: 85% Risk</div>
-</div>
-<div class="absolute left-[50%] bottom-[45%] flex flex-col items-center group">
-<div class="w-3 h-3 rounded-full bg-primary border-2 border-surface z-10 group-hover:scale-150 transition-transform"></div>
-<div class="absolute bottom-4 opacity-0 group-hover:opacity-100 bg-surface-container-highest border border-outline-variant p-2 rounded text-xs font-label-mono whitespace-nowrap z-20">Phase 1 Complete</div>
-</div>
-<div class="absolute left-[90%] bottom-[10%] flex flex-col items-center group">
-<div class="w-4 h-4 rounded-full bg-primary border-2 border-surface shadow-[0_0_10px_rgba(78,222,163,0.5)] z-10 group-hover:scale-125 transition-transform"></div>
-<div class="absolute top-6 opacity-100 bg-primary/10 border border-primary p-2 rounded text-xs font-label-mono text-primary whitespace-nowrap z-20">Current: 98.4% Acc</div>
+<!-- Liability Line (Crimson) -->
+<svg class="absolute inset-0 w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 100 100">
+<path d="M0,10 Q25,20 50,70 T100,90" fill="none" stroke="#FF4D6D" stroke-dasharray="4" stroke-width="2" vector-effect="non-scaling-stroke"></path>
+</svg>
+<!-- Data Points -->
+<div class="absolute left-[50%] top-[40%] w-3 h-3 bg-primary-container rounded-full -translate-x-1.5 -translate-y-1.5 border-2 border-surface shadow-[0_0_10px_#00F5D4]"></div>
+<div class="absolute left-[50%] top-[70%] w-3 h-3 bg-[#FF4D6D] rounded-full -translate-x-1.5 -translate-y-1.5 border-2 border-surface shadow-[0_0_10px_#FF4D6D]"></div>
 </div>
 </div>
-<!-- X Axis Labels -->
-<div class="flex justify-between w-full font-label-mono text-[10px] text-on-surface-variant mt-2 px-8 border-t border-outline-variant/30 pt-2">
-<span>Q1 '23</span>
-<span>Q3 '23</span>
-<span>Q1 '24</span>
-<span>Q3 '24</span>
-<span>Current</span>
+<!-- X-axis labels -->
+<div class="absolute -bottom-6 left-0 w-full text-xs text-on-surface-variant font-mono flex justify-between px-2">
+<span>Q1</span>
+<span>Q2</span>
+<span>Q3 (Cur)</span>
+<span>Q4 (Proj)</span>
 </div>
 </div>
-</section>
-<!-- Right Column: Strategic Value & Recommendations -->
-<div class="lg:col-span-1 flex flex-col gap-6">
-<!-- Strategic Value Breakdown -->
-<section class="bg-surface-container border border-outline-variant rounded-lg p-6">
-<h2 class="font-headline-md text-headline-md text-on-surface mb-6 border-b border-outline-variant pb-2">Strategic Value</h2>
-<div class="space-y-6">
-<!-- Resilience Score -->
+</div>
+<!-- Tactical Checklist Section -->
+<div class="bg-surface-container-low border border-outline-variant rounded p-6 flex flex-col h-full">
+<h3 class="font-title-md text-title-md text-on-surface mb-4 border-b border-outline-variant pb-2">Boardroom Strategic Plan</h3>
+<div class="space-y-3 flex-grow overflow-y-auto pr-2">
+<!-- Checklist Item 1 -->
+<div class="flex items-start gap-3 p-3 bg-surface-container rounded border border-outline-variant hover:border-primary-container/50 transition-colors">
+<input class="mt-1 w-4 h-4 rounded-sm border-outline-variant bg-surface text-primary focus:ring-primary focus:ring-offset-surface" type="checkbox"/>
 <div>
-<div class="flex justify-between items-end mb-2">
-<h4 class="font-body-base text-body-base text-on-surface-variant">Operational Resilience</h4>
-<span class="font-data-numeral text-data-numeral text-primary">92/100</span>
-</div>
-<div class="w-full bg-surface-dim h-2 rounded-full overflow-hidden">
-<div class="bg-primary h-full w-[92%]"></div>
+<h4 class="font-title-md text-sm text-on-surface">Phase 3 Scaling</h4>
+<p class="font-body-md text-xs text-on-surface-variant mt-1">Deploy distributed ledger components to regional nodes.</p>
 </div>
 </div>
-<!-- Compliance Status -->
-<div class="bg-surface-dim border border-outline-variant p-4 rounded flex items-center justify-between">
+<!-- Checklist Item 2 -->
+<div class="flex items-start gap-3 p-3 bg-surface-container rounded border border-outline-variant hover:border-primary-container/50 transition-colors">
+<input checked="" class="mt-1 w-4 h-4 rounded-sm border-outline-variant bg-surface text-primary focus:ring-primary focus:ring-offset-surface" type="checkbox"/>
 <div>
-<h4 class="font-label-mono text-label-mono text-on-surface-variant uppercase mb-1">Regulatory Audit</h4>
-<span class="font-body-base text-body-base text-on-surface font-medium">Fully Verified</span>
-</div>
-<div class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center border border-primary/50">
-<span class="material-symbols-outlined text-primary">verified</span>
+<h4 class="font-title-md text-sm text-on-surface">Structural Hardening</h4>
+<p class="font-body-md text-xs text-on-surface-variant mt-1">Implement zero-trust protocols across internal VPCs.</p>
 </div>
 </div>
-</div>
-</section>
-<!-- Actionable Recommendation -->
-<section class="bg-gradient-to-br from-surface-container to-surface-container-high border border-outline-variant rounded-lg p-6 flex-1 flex flex-col">
-<div class="flex items-center gap-2 mb-4">
-<span class="material-symbols-outlined text-on-surface-variant">strategy</span>
-<h2 class="font-headline-md text-headline-md text-on-surface">Strategic Plan</h2>
-</div>
-<p class="font-body-base text-body-base text-on-surface-variant mb-6 flex-1">
-                            Recommend immediate authorization for Phase 3 rollout. Scale unified infrastructure across remaining EMEA legal departments to capture projected $1.2M additional savings.
-                        </p>
-<div class="space-y-3">
-<button class="w-full bg-primary text-on-primary hover:bg-primary-fixed py-3 rounded font-label-mono text-label-mono transition-colors font-bold text-center">
-                                Authorize Phase 3 Scaling
-                            </button>
-<button class="w-full bg-transparent border border-outline-variant text-on-surface hover:bg-surface-container-highest py-3 rounded font-label-mono text-label-mono transition-colors text-center">
-                                View Detailed Proposal
-                            </button>
-</div>
-</section>
+<!-- Checklist Item 3 -->
+<div class="flex items-start gap-3 p-3 bg-surface-container rounded border border-outline-variant hover:border-primary-container/50 transition-colors">
+<input class="mt-1 w-4 h-4 rounded-sm border-outline-variant bg-surface text-primary focus:ring-primary focus:ring-offset-surface" type="checkbox"/>
+<div>
+<h4 class="font-title-md text-sm text-on-surface">Audit Verification</h4>
+<p class="font-body-md text-xs text-on-surface-variant mt-1">Generate cryptographic proof of compliance for Q3.</p>
 </div>
 </div>
+<!-- Alert Box -->
+<div class="mt-4 p-3 bg-error-container/20 border border-[#FF4D6D]/30 rounded flex gap-2">
+<span class="material-symbols-outlined text-[#FF4D6D] text-[18px]">warning</span>
+<span class="text-xs text-[#FF4D6D] font-mono">Multisig required for Phase 3 activation. 1/3 signatures collected.</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Action Bar -->
+<div class="flex justify-end gap-4 mt-8 border-t border-outline-variant pt-6">
+<button class="px-6 py-2 rounded bg-surface border border-outline-variant text-on-surface font-title-md text-sm hover:bg-surface-variant transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">share</span> Share Fiduciary Audit
+                    </button>
+<button class="px-6 py-2 rounded bg-surface-container-high border border-[#FF4D6D]/50 text-on-surface font-title-md text-sm hover:bg-[#FF4D6D]/10 transition-colors flex items-center gap-2 relative overflow-hidden">
+<span class="material-symbols-outlined text-[18px]">key</span> Authorize Scaling
+                    </button>
+<button class="px-6 py-2 rounded bg-primary text-on-primary font-title-md text-sm font-bold hover:bg-primary-container transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">download</span> Export Fiduciary Evidence Matrix
+                    </button>
+</div>
+</div>
+</div>
+<!-- Footer -->
+<footer class="fixed bottom-0 left-64 w-[calc(100%-256px)] z-50 flex justify-between items-center px-gutter py-2 bg-surface-container-lowest dark:bg-surface-container-lowest border-t border-outline-variant bg-surface-container-lowest/80 backdrop-blur-md">
+<span class="font-label-md text-label-md font-black text-on-surface">Envictica Fiduciary Systems v4.02</span>
+<div class="flex gap-6 font-label-sm text-label-sm text-primary-fixed-dim dark:text-primary-fixed-dim">
+<span class="text-on-tertiary-fixed-variant">Telemetry Status: Nominal</span>
+<span class="text-on-tertiary-fixed-variant">Security Protocol: Active</span>
+<span class="text-on-tertiary-fixed-variant font-mono">Latency: 14ms</span>
+</div>
+</footer>
 </main>
-</div>
-</div>
 </body></html>
