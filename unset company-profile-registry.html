@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Envictica - Company Profile</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "on-secondary-fixed-variant": "#3c4d00",
+                    "surface-bright": "#38393f",
+                    "secondary-container": "#c3f400",
+                    "on-surface-variant": "#b9cacb",
+                    "primary-container": "#00f0ff",
+                    "on-primary-container": "#006970",
+                    "on-error": "#690005",
+                    "outline": "#849495",
+                    "on-secondary": "#283500",
+                    "tertiary-fixed": "#ffd9e0",
+                    "tertiary-fixed-dim": "#ffb1c3",
+                    "surface-container-highest": "#34343a",
+                    "on-tertiary-container": "#bb0058",
+                    "surface-container": "#1e1f25",
+                    "on-error-container": "#ffdad6",
+                    "on-primary-fixed": "#002022",
+                    "on-primary": "#00363a",
+                    "inverse-surface": "#e3e1e9",
+                    "inverse-on-surface": "#2f3036",
+                    "surface-tint": "#00dbe9",
+                    "primary-fixed": "#7df4ff",
+                    "surface-variant": "#34343a",
+                    "surface-container-low": "#1a1b21",
+                    "secondary-fixed": "#c3f400",
+                    "on-surface": "#e3e1e9",
+                    "error-container": "#93000a",
+                    "background": "#121318",
+                    "surface-dim": "#121318",
+                    "inverse-primary": "#006970",
+                    "on-background": "#e3e1e9",
+                    "on-tertiary-fixed": "#3f0019",
+                    "secondary-fixed-dim": "#abd600",
+                    "primary-fixed-dim": "#00dbe9",
+                    "on-tertiary": "#66002c",
+                    "secondary": "#ffffff",
+                    "surface-container-lowest": "#0d0e13",
+                    "error": "#ffb4ab",
+                    "surface": "#121318",
+                    "on-secondary-container": "#556d00",
+                    "on-tertiary-fixed-variant": "#8f0041",
+                    "on-secondary-fixed": "#161e00",
+                    "primary": "#dbfcff",
+                    "outline-variant": "#3b494b",
+                    "tertiary-container": "#ffccd6",
+                    "surface-container-high": "#292a2f",
+                    "on-primary-fixed-variant": "#004f54",
+                    "tertiary": "#fff3f4"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "stack-sm": "4px",
+                    "stack-lg": "32px",
+                    "gutter": "16px",
+                    "base": "8px",
+                    "stack-md": "12px",
+                    "container-margin": "24px"
+            },
+            "fontFamily": {
+                    "headline-md": [
+                            "Sora"
+                    ],
+                    "label-caps": [
+                            "JetBrains Mono"
+                    ],
+                    "display-lg-mobile": [
+                            "Sora"
+                    ],
+                    "display-lg": [
+                            "Sora"
+                    ],
+                    "body-md": [
+                            "Inter"
+                    ],
+                    "data-numeral": [
+                            "JetBrains Mono"
+                    ]
+            },
+            "fontSize": {
+                    "headline-md": [
+                            "24px",
+                            {
+                                    "lineHeight": "1.3",
+                                    "letterSpacing": "-0.01em",
+                                    "fontWeight": "600"
+                            }
+                    ],
+                    "label-caps": [
+                            "12px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "0.1em",
+                                    "fontWeight": "700"
+                            }
+                    ],
+                    "display-lg-mobile": [
+                            "32px",
+                            {
+                                    "lineHeight": "1.2",
+                                    "letterSpacing": "-0.02em",
+                                    "fontWeight": "800"
+                            }
+                    ],
+                    "display-lg": [
+                            "48px",
+                            {
+                                    "lineHeight": "1.1",
+                                    "letterSpacing": "-0.04em",
+                                    "fontWeight": "800"
+                            }
+                    ],
+                    "body-md": [
+                            "16px",
+                            {
+                                    "lineHeight": "1.6",
+                                    "letterSpacing": "0",
+                                    "fontWeight": "400"
+                            }
+                    ],
+                    "data-numeral": [
+                            "14px",
+                            {
+                                    "lineHeight": "1",
+                                    "letterSpacing": "0",
+                                    "fontWeight": "500"
+                            }
+                    ]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .glass-panel {
+            background-color: rgba(26, 27, 33, 0.7); /* surface-container-low with opacity */
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .data-table-row {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        .data-table-row:last-child {
+            border-bottom: none;
+        }
+        .neon-glow-primary {
+            box-shadow: 0 0 15px rgba(0, 240, 255, 0.3);
+        }
+        .edge-light-primary {
+            border-top: 1px solid theme('colors.primary-container');
+        }
+        .edge-light-error {
+            border-top: 1px solid theme('colors.error');
+        }
+        .bg-grid-pattern {
+            background-image: linear-gradient(to right, rgba(255,255,255,0.02) 1px, transparent 1px),
+                              linear-gradient(to bottom, rgba(255,255,255,0.02) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+        .scanline {
+            position: relative;
+            overflow: hidden;
+        }
+        .scanline::after {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, transparent, rgba(0, 240, 255, 0.1), transparent);
+            animation: scan 4s linear infinite;
+        }
+        @keyframes scan {
+            0% { top: -100%; }
+            100% { top: 100%; }
+        }
+        
+        /* Custom Scrollbar for inner elements */
+        ::-webkit-scrollbar {
+            width: 4px;
+            height: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: theme('colors.surface-container-lowest');
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.surface-variant');
+            border-radius: theme('borderRadius.full');
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: theme('colors.outline');
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md min-h-screen flex flex-col md:flex-row antialiased overflow-hidden selection:bg-primary-container selection:text-on-primary-container">
+<!-- JSON Component: SideNavBar -->
+<nav class="fixed left-0 top-0 h-full w-[320px] bg-surface-container dark:bg-surface-container border-r border-outline-variant dark:border-outline-variant flex flex-col py-stack-md overflow-y-auto hidden md:flex z-40 transition-transform duration-300">
+<div class="px-container-margin mb-stack-lg mt-base">
+<h1 class="text-headline-md font-headline-md text-primary dark:text-primary tracking-tight">LegalArch</h1>
+<p class="text-label-caps font-label-caps text-on-surface-variant uppercase tracking-widest mt-stack-sm opacity-70">Enterprise Infrastructure</p>
+</div>
+<ul class="flex flex-col space-y-1 px-base">
+<li class="cursor-pointer active:opacity-80 transition-all hover:bg-surface-container-high rounded-lg">
+<a class="flex items-center px-gutter py-stack-md text-on-surface-variant font-medium" href="#">
+<span class="material-symbols-outlined mr-gutter" style="font-variation-settings: 'FILL' 0;">settings_input_component</span>
+<span>Infrastructure</span>
+</a>
+</li>
+<!-- Active State Navigation -->
+<li class="cursor-pointer active:opacity-80 transition-all bg-surface-container-high rounded-lg relative overflow-hidden group">
+<div class="absolute left-0 top-0 h-full w-1 bg-primary-container neon-glow-primary"></div>
+<a class="flex items-center px-gutter py-stack-md text-primary font-bold" href="#">
+<span class="material-symbols-outlined mr-gutter text-primary-container" style="font-variation-settings: 'FILL' 1;">gavel</span>
+<span>Governance</span>
+</a>
+</li>
+<li class="cursor-pointer active:opacity-80 transition-all hover:bg-surface-container-high rounded-lg">
+<a class="flex items-center px-gutter py-stack-md text-on-surface-variant font-medium" href="#">
+<span class="material-symbols-outlined mr-gutter" style="font-variation-settings: 'FILL' 0;">account_tree</span>
+<span>Pipelines</span>
+</a>
+</li>
+<li class="cursor-pointer active:opacity-80 transition-all hover:bg-surface-container-high rounded-lg">
+<a class="flex items-center px-gutter py-stack-md text-on-surface-variant font-medium" href="#">
+<span class="material-symbols-outlined mr-gutter" style="font-variation-settings: 'FILL' 0;">fact_check</span>
+<span>Data Validation</span>
+</a>
+</li>
+<li class="cursor-pointer active:opacity-80 transition-all hover:bg-surface-container-high rounded-lg">
+<a class="flex items-center px-gutter py-stack-md text-on-surface-variant font-medium" href="#">
+<span class="material-symbols-outlined mr-gutter" style="font-variation-settings: 'FILL' 0;">history_edu</span>
+<span>Audit Logs</span>
+</a>
+</li>
+<li class="cursor-pointer active:opacity-80 transition-all hover:bg-surface-container-high rounded-lg">
+<a class="flex items-center px-gutter py-stack-md text-on-surface-variant font-medium" href="#">
+<span class="material-symbols-outlined mr-gutter" style="font-variation-settings: 'FILL' 0;">build_circle</span>
+<span>Data Debt Repair</span>
+</a>
+</li>
+</ul>
+<div class="mt-auto px-container-margin py-stack-lg border-t border-outline-variant/30">
+<div class="flex items-center space-x-gutter">
+<div class="w-10 h-10 rounded-full bg-surface-container-highest border border-outline-variant flex items-center justify-center overflow-hidden">
+<span class="material-symbols-outlined text-outline">admin_panel_settings</span>
+</div>
+<div class="flex-1 min-w-0">
+<p class="text-data-numeral font-data-numeral text-on-surface truncate">SYS_ADMIN_01</p>
+<p class="text-label-caps font-label-caps text-on-surface-variant truncate opacity-70">Clearance: Lvl 5</p>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-[320px] h-screen overflow-y-auto bg-background bg-grid-pattern flex flex-col relative">
+<!-- JSON Component: TopAppBar -->
+<header class="sticky top-0 z-30 w-full h-16 bg-surface/90 backdrop-blur-md border-b border-outline-variant/50 flex justify-between items-center px-container-margin">
+<div class="flex items-center gap-gutter">
+<button class="md:hidden text-on-surface hover:text-primary transition-colors">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="font-headline-md text-headline-md font-bold text-primary dark:text-primary tracking-tight">Legal Infrastructure Dashboard</h2>
+</div>
+<div class="flex items-center space-x-4">
+<div class="hidden lg:flex items-center bg-surface-container-low border border-outline-variant/50 rounded px-3 py-1.5 focus-within:border-primary-container focus-within:shadow-[0_1px_0_theme('colors.primary-container')] transition-all group">
+<span class="material-symbols-outlined text-on-surface-variant text-sm mr-2 group-focus-within:text-primary-container">search</span>
+<input class="bg-transparent border-none outline-none text-data-numeral font-data-numeral text-on-surface placeholder:text-on-surface-variant/50 w-48 focus:ring-0 text-sm" placeholder="Query entity registry..." type="text"/>
+</div>
+<div class="flex items-center space-x-2">
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all hover:text-primary-container">
+<span class="material-symbols-outlined">monitor_heart</span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all hover:text-primary-container relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full animate-pulse shadow-[0_0_8px_theme('colors.error')]"></span>
+</button>
+<button class="w-10 h-10 rounded-full flex items-center justify-center text-on-surface-variant hover:bg-surface-container-highest transition-all hover:text-primary-container">
+<span class="material-symbols-outlined">account_circle</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Dashboard Content -->
+<div class="p-container-margin flex-1 max-w-[1440px] mx-auto w-full pb-stack-lg">
+<!-- Module Header -->
+<div class="mb-stack-lg border-b border-outline-variant/30 pb-stack-md flex justify-between items-end">
+<div>
+<div class="flex items-center gap-2 mb-2">
+<span class="w-2 h-2 rounded-full bg-primary-container animate-pulse shadow-[0_0_8px_theme('colors.primary-container')]"></span>
+<span class="font-label-caps text-label-caps text-primary-container uppercase tracking-widest">Live Registry Sync</span>
+</div>
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface tracking-tight">OFFICIAL: Corporate Entity Registry (16 of 16)</h2>
+</div>
+<div class="hidden md:flex flex-col items-end">
+<span class="font-label-caps text-label-caps text-on-surface-variant uppercase">Last Verified</span>
+<span class="font-data-numeral text-data-numeral text-on-surface">2024-10-27T14:32:01Z</span>
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-container-margin">
+<!-- 1. Legal Entity Registry (Col Span 8) -->
+<div class="md:col-span-8 glass-panel rounded-lg p-container-margin relative overflow-hidden edge-light-primary">
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="material-symbols-outlined text-primary-container text-sm">domain</span>
+<h3 class="font-headline-md text-headline-md text-on-surface">Legal Entity Core</h3>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-3 gap-gutter mt-stack-md">
+<div class="bg-surface-container/50 border border-outline-variant/30 p-stack-md rounded">
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-1">Registered Name</span>
+<span class="font-data-numeral text-data-numeral text-primary-container block">ENVICTICA CORP LTD.</span>
+</div>
+<div class="bg-surface-container/50 border border-outline-variant/30 p-stack-md rounded">
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-1">Global Entity ID</span>
+<span class="font-data-numeral text-data-numeral text-on-surface block">LEI-894500L9XT893</span>
+</div>
+<div class="bg-surface-container/50 border border-outline-variant/30 p-stack-md rounded">
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-1">Jurisdiction</span>
+<span class="font-data-numeral text-data-numeral text-on-surface block">ZURICH, CH (TIER-1)</span>
+</div>
+</div>
+<!-- 2. Fiduciary Fingerprint -->
+<div class="mt-stack-lg border-t border-outline-variant/20 pt-stack-md">
+<div class="flex justify-between items-center mb-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Fiduciary Fingerprint (SHA-256)</span>
+<span class="px-2 py-0.5 bg-secondary-container/20 text-secondary-container border border-secondary-container/30 rounded font-label-caps text-[10px]">VERIFIED</span>
+</div>
+<div class="bg-surface-container-lowest border border-outline-variant p-stack-md rounded font-data-numeral text-data-numeral text-outline break-all text-sm scanline">
+                            e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+                        </div>
+</div>
+</div>
+<!-- 4. Regulatory Clearances (Col Span 4) -->
+<div class="md:col-span-4 glass-panel rounded-lg p-container-margin flex flex-col">
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="material-symbols-outlined text-outline text-sm">verified_user</span>
+<h3 class="font-headline-md text-[18px] text-on-surface">Regulatory Clearances</h3>
+</div>
+<div class="flex-1 flex flex-col gap-2">
+<div class="flex justify-between items-center p-stack-md bg-surface-container/40 border border-outline-variant/30 rounded hover:bg-surface-container/60 transition-colors">
+<span class="font-data-numeral text-data-numeral text-on-surface">SOC2 TYPE II</span>
+<span class="px-2 py-1 bg-secondary-container/10 text-secondary-container border border-secondary-container/50 rounded font-label-caps text-[10px] tracking-wider">ACTIVE</span>
+</div>
+<div class="flex justify-between items-center p-stack-md bg-surface-container/40 border border-outline-variant/30 rounded hover:bg-surface-container/60 transition-colors">
+<span class="font-data-numeral text-data-numeral text-on-surface">GDPR ART.27</span>
+<span class="px-2 py-1 bg-secondary-container/10 text-secondary-container border border-secondary-container/50 rounded font-label-caps text-[10px] tracking-wider">ACTIVE</span>
+</div>
+<div class="flex justify-between items-center p-stack-md bg-surface-container/40 border border-error/30 rounded border-l-2 border-l-error bg-error/5 relative overflow-hidden group">
+<div class="absolute inset-0 bg-error/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+<span class="font-data-numeral text-data-numeral text-error">LEGAL AI ACT (EU)</span>
+<span class="px-2 py-1 bg-error/20 text-error border border-error/50 rounded font-label-caps text-[10px] tracking-wider">PENDING AUDIT</span>
+</div>
+<div class="flex justify-between items-center p-stack-md bg-surface-container/40 border border-outline-variant/30 rounded hover:bg-surface-container/60 transition-colors">
+<span class="font-data-numeral text-data-numeral text-on-surface">ISO/IEC 27001</span>
+<span class="px-2 py-1 bg-secondary-container/10 text-secondary-container border border-secondary-container/50 rounded font-label-caps text-[10px] tracking-wider">ACTIVE</span>
+</div>
+</div>
+</div>
+<!-- 3. Liability Chain (Col Span 6) -->
+<div class="md:col-span-6 glass-panel rounded-lg p-container-margin edge-light-error">
+<div class="flex items-center justify-between mb-stack-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-error text-sm">hub</span>
+<h3 class="font-headline-md text-[18px] text-on-surface">Liability Chain</h3>
+</div>
+<span class="font-label-caps text-label-caps text-on-surface-variant">AUTHORITY NODES</span>
+</div>
+<div class="w-full text-left border border-outline-variant/30 rounded overflow-hidden">
+<div class="flex bg-surface-container-highest/50 border-b border-outline-variant/30 p-2">
+<div class="w-1/3 font-label-caps text-label-caps text-on-surface-variant">NODE ID</div>
+<div class="w-1/3 font-label-caps text-label-caps text-on-surface-variant">ROLE CLUSTER</div>
+<div class="w-1/3 font-label-caps text-label-caps text-on-surface-variant text-right">BIOMETRIC BIND</div>
+</div>
+<div class="flex p-stack-md data-table-row items-center hover:bg-surface-container/50 transition-colors">
+<div class="w-1/3 font-data-numeral text-data-numeral text-on-surface">EXEC-01-ALPHA</div>
+<div class="w-1/3 font-data-numeral text-data-numeral text-outline text-sm">CHIEF_EXEC</div>
+<div class="w-1/3 text-right">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-primary-container/10 text-primary-container border border-primary-container/30 rounded font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[12px]">fingerprint</span> SECURED
+                                </span>
+</div>
+</div>
+<div class="flex p-stack-md data-table-row items-center hover:bg-surface-container/50 transition-colors bg-error/5">
+<div class="w-1/3 font-data-numeral text-data-numeral text-error">EXEC-02-BETA</div>
+<div class="w-1/3 font-data-numeral text-data-numeral text-outline text-sm">CHIEF_DATA</div>
+<div class="w-1/3 text-right">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-error/10 text-error border border-error/50 rounded font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[12px]">warning</span> FRACTURED
+                                </span>
+</div>
+</div>
+<div class="flex p-stack-md data-table-row items-center hover:bg-surface-container/50 transition-colors">
+<div class="w-1/3 font-data-numeral text-data-numeral text-on-surface">EXEC-03-GAMMA</div>
+<div class="w-1/3 font-data-numeral text-data-numeral text-outline text-sm">CHIEF_LEGAL</div>
+<div class="w-1/3 text-right">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 bg-primary-container/10 text-primary-container border border-primary-container/30 rounded font-label-caps text-[10px]">
+<span class="material-symbols-outlined text-[12px]">fingerprint</span> SECURED
+                                </span>
+</div>
+</div>
+</div>
+</div>
+<!-- 5. Data Sovereignty & 6. Accountability Record (Col Span 6) -->
+<div class="md:col-span-6 flex flex-col gap-container-margin">
+<!-- 5. Data Sovereignty -->
+<div class="glass-panel rounded-lg p-container-margin border-l-4 border-l-primary-container">
+<div class="flex items-center gap-2 mb-stack-md">
+<span class="material-symbols-outlined text-primary-container text-sm">dns</span>
+<h3 class="font-headline-md text-[18px] text-on-surface">Data Sovereignty</h3>
+</div>
+<div class="grid grid-cols-2 gap-gutter">
+<div class="bg-surface-container-low border border-outline-variant/30 p-stack-md rounded flex items-start gap-3">
+<span class="material-symbols-outlined text-outline mt-0.5">location_on</span>
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-1">EU-CENTRAL-1 (FRK)</span>
+<span class="font-data-numeral text-data-numeral text-secondary-container block text-xs">AIR-GAP: INTACT</span>
+</div>
+</div>
+<div class="bg-surface-container-low border border-outline-variant/30 p-stack-md rounded flex items-start gap-3">
+<span class="material-symbols-outlined text-outline mt-0.5">location_on</span>
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-1">US-EAST-2 (OHI)</span>
+<span class="font-data-numeral text-data-numeral text-error block text-xs">AIR-GAP: COMPROMISED</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 6. Accountability Record -->
+<div class="glass-panel rounded-lg p-container-margin flex-1">
+<div class="flex items-center justify-between mb-stack-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-outline text-sm">assignment_late</span>
+<h3 class="font-headline-md text-[18px] text-on-surface">Accountability Record</h3>
+</div>
+<span class="font-data-numeral text-data-numeral text-on-surface-variant text-sm">RISK WT: <span class="text-error font-bold">0.84</span></span>
+</div>
+<div class="space-y-2">
+<div class="flex justify-between items-center p-stack-md bg-surface-container-lowest/50 border border-outline-variant/20 rounded">
+<div class="flex flex-col">
+<span class="font-data-numeral text-data-numeral text-on-surface">OVR-992-DATA_PURGE</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant mt-1">EXEC-02-BETA</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-data-numeral text-data-numeral text-error">SEV-1</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant mt-1">T-MINUS 12H</span>
+</div>
+</div>
+<div class="flex justify-between items-center p-stack-md bg-surface-container-lowest/50 border border-outline-variant/20 rounded">
+<div class="flex flex-col">
+<span class="font-data-numeral text-data-numeral text-on-surface">OVR-991-PROTOCOL_BYPASS</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant mt-1">SYS_ADMIN_01</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="font-data-numeral text-data-numeral text-outline">SEV-3</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant mt-1">T-MINUS 48H</span>
+</div>
+</div>
+</div>
+<button class="w-full mt-stack-md py-2 border border-primary-container/30 text-primary-container font-label-caps text-label-caps uppercase tracking-widest hover:bg-primary-container/10 transition-colors rounded">
+                            EXPAND AUDIT TRAIL
+                        </button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body></html>
