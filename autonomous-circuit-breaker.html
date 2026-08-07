@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Envictica ACB_17 Interface</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@600;800&amp;family=Inter:wght@400&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-primary-fixed-variant": "#004f54",
+                        "secondary-fixed": "#c3f400",
+                        "primary-fixed": "#7df4ff",
+                        "on-primary-fixed": "#002022",
+                        "tertiary-container": "#ffccd6",
+                        "surface-container-lowest": "#0d0e13",
+                        "on-tertiary-fixed-variant": "#8f0041",
+                        "primary": "#dbfcff",
+                        "on-secondary-container": "#556d00",
+                        "error-container": "#93000a",
+                        "surface-container-high": "#292a2f",
+                        "tertiary-fixed-dim": "#ffb1c3",
+                        "on-secondary": "#283500",
+                        "outline": "#849495",
+                        "surface": "#121318",
+                        "inverse-primary": "#006970",
+                        "outline-variant": "#3b494b",
+                        "surface-variant": "#34343a",
+                        "inverse-on-surface": "#2f3036",
+                        "surface-dim": "#121318",
+                        "surface-container-low": "#1a1b21",
+                        "on-tertiary-fixed": "#3f0019",
+                        "inverse-surface": "#e3e1e9",
+                        "error": "#ffb4ab",
+                        "on-background": "#e3e1e9",
+                        "on-tertiary-container": "#bb0058",
+                        "on-error": "#690005",
+                        "on-primary-container": "#006970",
+                        "background": "#121318",
+                        "tertiary": "#fff3f4",
+                        "secondary-container": "#c3f400",
+                        "tertiary-fixed": "#ffd9e0",
+                        "on-surface-variant": "#b9cacb",
+                        "on-tertiary": "#66002c",
+                        "surface-bright": "#38393f",
+                        "surface-container": "#1e1f25",
+                        "on-primary": "#00363a",
+                        "primary-container": "#00f0ff",
+                        "secondary": "#ffffff",
+                        "primary-fixed-dim": "#00dbe9",
+                        "surface-container-highest": "#34343a",
+                        "surface-tint": "#00dbe9",
+                        "on-secondary-fixed": "#161e00",
+                        "secondary-fixed-dim": "#abd600",
+                        "on-surface": "#e3e1e9",
+                        "on-error-container": "#ffdad6",
+                        "on-secondary-fixed-variant": "#3c4d00"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-margin": "24px",
+                        "base": "8px",
+                        "stack-lg": "32px",
+                        "stack-md": "12px",
+                        "stack-sm": "4px",
+                        "gutter": "16px"
+                    },
+                    "fontFamily": {
+                        "data-numeral": ["JetBrains Mono", "monospace"],
+                        "display-lg": ["Sora", "sans-serif"],
+                        "label-caps": ["JetBrains Mono", "monospace"],
+                        "headline-md": ["Sora", "sans-serif"],
+                        "body-md": ["Inter", "sans-serif"],
+                        "display-lg-mobile": ["Sora", "sans-serif"]
+                    },
+                    "fontSize": {
+                        "data-numeral": ["14px", { "lineHeight": "1", "letterSpacing": "0", "fontWeight": "500" }],
+                        "display-lg": ["48px", { "lineHeight": "1.1", "letterSpacing": "-0.04em", "fontWeight": "800" }],
+                        "label-caps": ["12px", { "lineHeight": "1", "letterSpacing": "0.1em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "1.3", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+                        "body-md": ["16px", { "lineHeight": "1.6", "letterSpacing": "0", "fontWeight": "400" }],
+                        "display-lg-mobile": ["32px", { "lineHeight": "1.2", "letterSpacing": "-0.02em", "fontWeight": "800" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.background'); color: theme('colors.on-background'); }
+        .glass-panel {
+            background-color: rgba(26, 27, 33, 0.7); /* surface-container-low with opacity */
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .glow-active {
+            box-shadow: 0 0 15px 2px rgba(0, 240, 255, 0.3); /* primary-container glow */
+        }
+        .scanline-input {
+            position: relative;
+        }
+        .scanline-input::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, theme('colors.primary-container'), transparent);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .scanline-input:focus-within::after {
+            opacity: 1;
+            animation: scan 2s infinite linear;
+        }
+        @keyframes scan {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
+        }
+        @keyframes pulse-ring {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(2); opacity: 0; }
+        }
+        .status-dot { position: relative; width: 8px; height: 8px; background-color: theme('colors.primary-container'); border-radius: 50%; }
+        .status-dot::before {
+            content: '';
+            position: absolute;
+            left: -4px; top: -4px; right: -4px; bottom: -4px;
+            border-radius: 50%;
+            border: 2px solid theme('colors.primary-container');
+            animation: pulse-ring 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col md:flex-row">
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex flex-col h-full w-64 left-0 fixed border-r border-outline-variant bg-surface-container-low py-6 px-4 z-40">
+<div class="mb-stack-lg">
+<h1 class="font-headline-md text-headline-md text-primary font-bold">Envictica</h1>
+<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">OFFICIAL ENVICTICA MODULE: 17 OF 17</p>
+</div>
+<div class="flex items-center gap-3 mb-stack-lg p-3 glass-panel rounded-lg">
+<img class="w-10 h-10 rounded-full object-cover border border-outline-variant" data-alt="A highly detailed, ultra-realistic portrait of a specialized system operator in a dimly lit cybernetic control room. The operator wears a sleek, futuristic headset glowing with electric blue accents against a dark slate background. The lighting is dramatic, high-contrast, and cinematic, emphasizing professionalism and elite status in a high-tech corporate environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKZg3vlpPQDs6F__mYCfTVF51wftAqZ7S-mQDBcywqpyhIDhdDAq6VpMWzD4v7VcbRtLozfEgyeRijCvUD-qHPhmz_zBkLbgI35w-Q7QL-IlS-Zt2ltbJlGC7Xb2afJW78-taEqnEbibU5mdr34AMRQJAnnyGtePXvh7jIg2an6whoMnL4BmAa3MDUJfiqwuySue4eeUdkfe2Gh7sZeR6FgutVyvXDWePsaBGeX18vPIsY0vlJw9HCPw"/>
+<div>
+<p class="font-label-caps text-label-caps text-on-surface">Operator Alpha</p>
+<p class="text-[10px] font-data-numeral text-on-surface-variant">Level 4 Clearance</p>
+</div>
+</div>
+<div class="flex-1 space-y-stack-sm">
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">terminal</span>
+<span class="font-label-caps text-label-caps">Command</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">gavel</span>
+<span class="font-label-caps text-label-caps">Governance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">account_tree</span>
+<span class="font-label-caps text-label-caps">Pipelines</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">warning</span>
+<span class="font-label-caps text-label-caps">Risk</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg font-bold scale-95 transition-all glow-active" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="font-label-caps text-label-caps">Kill Switch</span>
+</a>
+</div>
+<div class="mt-auto space-y-stack-sm pt-stack-md border-t border-outline-variant">
+<div class="px-3 py-2">
+<p class="font-label-caps text-label-caps text-secondary-container flex items-center gap-2">
+<span class="status-dot !bg-secondary-container before:!border-secondary-container"></span> System Status: Nominal
+                </p>
+</div>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined">description</span>
+<span class="font-label-caps text-label-caps">Documentation</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface transition-all" href="#">
+<span class="material-symbols-outlined">help_outline</span>
+<span class="font-label-caps text-label-caps">Support</span>
+</a>
+</div>
+</nav>
+<!-- TopNavBar (Mobile) - Hidden on Desktop -->
+<nav class="md:hidden flex justify-between items-center w-full px-4 py-3 bg-surface-container-lowest border-b border-outline-variant sticky top-0 z-40">
+<div>
+<h1 class="font-headline-md text-headline-md font-bold text-primary">FCB</h1>
+<p class="text-[10px] font-data-numeral text-on-surface-variant">ACB_17</p>
+</div>
+<div class="flex gap-4 text-primary">
+<span class="material-symbols-outlined">settings</span>
+<span class="material-symbols-outlined">notifications_active</span>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 p-container-margin lg:p-10 max-w-[1440px] mx-auto w-full pb-24 md:pb-10">
+<!-- Header Path & Status -->
+<header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-stack-lg gap-4">
+<div>
+<p class="font-label-caps text-label-caps text-on-surface-variant mb-1 tracking-widest">PATH: ENV / INFRA / ACB_17</p>
+<h2 class="font-display-lg-mobile md:font-display-lg text-display-lg-mobile md:text-display-lg text-on-surface">Procurement Cascade</h2>
+</div>
+<div class="glass-panel px-6 py-3 rounded-lg border-t border-primary-container flex items-center gap-3">
+<div class="status-dot"></div>
+<span class="font-label-caps text-label-caps text-primary-container tracking-widest">CIRCUIT BREAKER: ACTIVE</span>
+</div>
+</header>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter md:gap-6">
+<!-- Left Column: Metrics & Interception (8 cols) -->
+<div class="md:col-span-8 flex flex-col gap-6">
+<!-- Key Metrics Cards -->
+<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+<div class="glass-panel p-4 rounded-lg flex flex-col justify-between h-24 border-t border-error">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Entropy Threshold</span>
+<div class="flex items-end gap-2">
+<span class="font-data-numeral text-2xl font-bold text-error">0.14</span>
+<span class="font-label-caps text-[10px] text-on-surface-variant mb-1">/ 0.15 MAX</span>
+</div>
+</div>
+<div class="glass-panel p-4 rounded-lg flex flex-col justify-between h-24 border-t border-secondary-container">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Air-Gap Status</span>
+<span class="font-data-numeral text-lg font-bold text-secondary-container">ACTIVE</span>
+</div>
+<div class="glass-panel p-4 rounded-lg flex flex-col justify-between h-24">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Liability Avoided</span>
+<span class="font-data-numeral text-2xl font-bold text-on-surface">$4.2M</span>
+</div>
+<div class="glass-panel p-4 rounded-lg flex flex-col justify-between h-24">
+<span class="font-label-caps text-label-caps text-on-surface-variant">Clauses Blocked</span>
+<span class="font-data-numeral text-2xl font-bold text-on-surface">1,400</span>
+</div>
+</div>
+<!-- Main Visualization Panel -->
+<div class="glass-panel rounded-xl overflow-hidden flex flex-col h-[400px] md:h-[500px]">
+<div class="p-4 border-b border-outline-variant/30 flex justify-between items-center bg-surface-container-low/50">
+<h3 class="font-label-caps text-label-caps text-on-surface">Neural 'Mind's Eye' Filter Protocol</h3>
+<span class="px-2 py-1 bg-surface-container-highest rounded text-[10px] font-data-numeral text-primary-container border border-primary-container/30">LIVE FEED</span>
+</div>
+<div class="relative flex-1 bg-surface-dim overflow-hidden">
+<!-- Abstract representation of the high-speed interception gate -->
+<div class="absolute inset-0 bg-cover bg-center opacity-40" data-alt="A highly abstract, futuristic 3D visualization of data streams flowing rapidly through a glowing cyan and deep blue digital gateway. The scene depicts 'unverified clauses' as bright red anomalous data packets being actively intercepted and neutralized by a high-tech energy barrier. The aesthetic is ultra-modern, dark mode, high-contrast, resembling a premium corporate cybersecurity dashboard monitoring system." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA0vHHovvDJkA2UnKUnih0ygfBNSHvH5VdpQGgoSsHf_py3ah9gY9uYRsJFwh9RmbGmyeK2X0-0TMVFkdQ81PV2YFlZkxsL1bzfCUWv93LmcS21XZv36uePPs6aHcPF_6TX7Mwpyvi13g7MyxaEuOxpkbmsCS_Qh_mN-78o78InYFJVtuAcvfdKx8PAr5zVaHrY0gdwnhEcr5z3OW5ErMSyauyTPoUr9w6tzcGDZqqIo8IKDwxTvvd3lQ')"></div>
+<!-- Overlay UI elements for the visualization -->
+<div class="absolute inset-0 flex flex-col p-4 justify-end">
+<div class="w-full bg-surface-container-high/80 backdrop-blur-sm border border-outline-variant p-3 rounded-lg flex flex-col gap-2">
+<div class="flex justify-between items-center text-[10px] font-data-numeral text-on-surface-variant">
+<span>INGESTION RATE</span>
+<span>INTERCEPTION GATE ACTIVE</span>
+</div>
+<div class="w-full h-1 bg-surface-variant rounded overflow-hidden">
+<div class="h-full bg-primary-container w-[78%] relative">
+<div class="absolute right-0 top-0 bottom-0 w-4 bg-white/50 blur-[2px]"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Right Column: Document & Override (4 cols) -->
+<div class="md:col-span-4 flex flex-col gap-6">
+<!-- Document Analysis -->
+<div class="glass-panel rounded-xl flex flex-col flex-1 h-[300px] md:h-auto">
+<div class="p-4 border-b border-outline-variant/30 flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">plagiarism</span>
+<h3 class="font-label-caps text-label-caps text-on-surface">Clause Analysis</h3>
+</div>
+<div class="p-4 flex-1 overflow-y-auto">
+<p class="font-body-md text-body-md text-on-surface-variant whitespace-pre-wrap">{{DATA:DOCUMENT:DOCUMENT_10}}</p>
+</div>
+</div>
+<!-- Manual Override Gate -->
+<div class="glass-panel rounded-xl border border-error/30 bg-surface-container-low p-6 flex flex-col gap-4">
+<div class="flex items-start justify-between">
+<div>
+<h3 class="font-headline-md text-headline-md text-error mb-1">Manual Override</h3>
+<p class="font-label-caps text-[10px] text-on-surface-variant">BIOMETRIC MULTI-SIG REQUIRED</p>
+</div>
+<span class="material-symbols-outlined text-error text-3xl">fingerprint</span>
+</div>
+<div class="space-y-3 mt-2">
+<div class="scanline-input bg-[#0A0B10] rounded px-3 py-2 border-b border-outline-variant">
+<input class="bg-transparent w-full text-on-surface font-data-numeral text-sm focus:outline-none placeholder-on-surface-variant/50" placeholder="Operator Authorization Code" type="password"/>
+</div>
+<div class="scanline-input bg-[#0A0B10] rounded px-3 py-2 border-b border-outline-variant">
+<input class="bg-transparent w-full text-on-surface font-data-numeral text-sm focus:outline-none placeholder-on-surface-variant/50" placeholder="Secondary Auth Token" type="password"/>
+</div>
+</div>
+<button class="w-full mt-4 bg-transparent border border-error text-error hover:bg-error hover:text-on-error font-label-caps text-label-caps py-3 rounded transition-colors duration-200 uppercase tracking-widest shadow-[0_0_10px_rgba(255,180,171,0.1)] hover:shadow-[0_0_15px_rgba(255,180,171,0.4)]">
+                        Initiate Bypass Protocol
+                    </button>
+</div>
+</div>
+</div>
+</main>
+<!-- BottomNavBar (Mobile) - Hidden on Desktop -->
+<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-surface-container-high border-t border-outline-variant shadow-lg">
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-highest transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">pan_tool</span>
+<span class="font-label-caps text-[10px] mt-1">Intervene</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-highest transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">analytics</span>
+<span class="font-label-caps text-[10px] mt-1">Status</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 hover:bg-surface-container-highest transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined">history</span>
+<span class="font-label-caps text-[10px] mt-1">Logs</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full p-2 w-14 h-14 -mt-6 shadow-[0_0_15px_rgba(195,244,0,0.4)] scale-90 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">emergency</span>
+<span class="sr-only">Emergency</span>
+</a>
+</nav>
+</body></html>
