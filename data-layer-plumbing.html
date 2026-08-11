@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Module 06: Data Layer Plumbing & Ingestion Control</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;800&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        envictica: {
+                            slate: '#0F172A',
+                            slate_light: '#1E293B',
+                            slate_border: '#334155',
+                            teal: '#00F5D4',
+                            teal_dim: 'rgba(0, 245, 212, 0.2)',
+                            crimson: '#FF4D6D',
+                            crimson_dim: 'rgba(255, 77, 109, 0.2)',
+                            text_primary: '#F8FAFC',
+                            text_secondary: '#94A3B8'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Hanken Grotesk"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { background-color: theme('colors.envictica.slate'); color: theme('colors.envictica.text_primary'); }
+        .glass-panel {
+            background-color: theme('colors.envictica.slate_light');
+            border: 1px solid theme('colors.envictica.slate_border');
+        }
+        .status-dot { position: relative; width: 8px; height: 8px; border-radius: 50%; }
+        .status-dot.teal { background-color: theme('colors.envictica.teal'); }
+        .status-dot.teal::before {
+            content: ''; position: absolute; left: -4px; top: -4px; right: -4px; bottom: -4px;
+            border-radius: 50%; border: 2px solid theme('colors.envictica.teal');
+            animation: pulse-ring 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(2); opacity: 0; } }
+        .tech-border { position: relative; }
+        .tech-border::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 20px; height: 20px;
+            border-top: 2px solid theme('colors.envictica.teal'); border-left: 2px solid theme('colors.envictica.teal');
+            pointer-events: none;
+        }
+        .tech-border::after {
+            content: ''; position: absolute; bottom: 0; right: 0; width: 20px; height: 20px;
+            border-bottom: 2px solid theme('colors.envictica.teal'); border-right: 2px solid theme('colors.envictica.teal');
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col md:flex-row font-sans">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-full w-64 left-0 fixed border-r border-envictica-slate_border bg-envictica-slate py-6 px-4 z-40">
+<div class="mb-8">
+<a href="index.html" class="font-sans text-2xl font-extrabold text-envictica-text_primary tracking-tight hover:text-envictica-teal">Envictica</a>
+<p class="font-mono text-xs text-envictica-text_secondary mt-1 tracking-widest uppercase">Official Module: 06 of 17</p>
+</div>
+<div class="flex-1 space-y-2 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="index.html">
+<span class="material-symbols-outlined text-sm">grid_view</span>
+<span class="font-mono text-xs uppercase tracking-widest">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="command-bridge.html">
+<span class="material-symbols-outlined text-sm">terminal</span>
+<span class="font-mono text-xs uppercase tracking-widest">Command Bridge</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 border-l-2 border-envictica-teal text-envictica-teal bg-envictica-slate_light transition-all rounded-r-sm bg-envictica-teal/10" href="data-layer-plumbing.html">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">account_tree</span>
+<span class="font-mono text-xs uppercase tracking-widest font-bold">Data Plumbing</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="compliance-logs.html">
+<span class="material-symbols-outlined text-sm">history_edu</span>
+<span class="font-mono text-xs uppercase tracking-widest">Audit Logs</span>
+</a>
+</div>
+<div class="mt-auto space-y-2 pt-6 border-t border-envictica-slate_border">
+<div class="px-3 py-2">
+<p class="font-mono text-[10px] text-envictica-teal flex items-center gap-2 uppercase tracking-widest">
+<span class="status-dot teal"></span> Pipeline: Verified
+                </p>
+</div>
+</div>
+</nav>
+
+<!-- Main Content -->
+<main class="flex-1 md:ml-64 p-6 lg:p-10 max-w-[1600px] mx-auto w-full pb-24 md:pb-10">
+<header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 border-b border-envictica-slate_border pb-6">
+<div>
+<p class="font-mono text-[10px] text-envictica-text_secondary mb-2 tracking-widest uppercase">Path: Env / Infra / Plumbing_06</p>
+<h2 class="font-sans text-3xl md:text-5xl font-extrabold text-white tracking-tight">Data Layer Plumbing & Ingestion</h2>
+</div>
+<div class="glass-panel px-4 py-2 rounded-sm border-l-2 border-envictica-teal bg-envictica-teal/10 flex items-center gap-3">
+<div class="status-dot teal"></div>
+<span class="font-mono text-xs text-envictica-teal tracking-widest uppercase font-bold">Status: Stable (ROI Active)</span>
+</div>
+</header>
+
+<div class="space-y-6">
+<!-- Telemetry Cards -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 border-t-2 border-envictica-teal bg-envictica-slate_light/50">
+<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_primary font-bold">Ingestion Velocity</span>
+<span class="font-mono text-2xl font-bold text-envictica-text_primary">12.4k <span class="text-xs text-envictica-text_secondary">Clauses/Sec</span></span>
+</div>
+<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 bg-envictica-slate_light/50">
+<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_primary font-bold">Structural Integrity</span>
+<span class="font-mono text-3xl font-bold text-envictica-teal">99.9%</span>
+</div>
+<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 bg-envictica-slate_light/50">
+<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_primary font-bold">Circuit Breaker</span>
+<span class="font-mono text-xl font-bold text-envictica-teal">Passive Mon</span>
+</div>
+<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 bg-envictica-slate_light/50 border-r-2 border-envictica-teal">
+<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_primary font-bold">Data Debt Mitigated</span>
+<span class="font-mono text-3xl font-bold text-envictica-teal">$4.2M</span>
+</div>
+</div>
+
+<!-- Control Panels & Protocols Grid -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+<div class="glass-panel p-6 rounded-sm bg-envictica-slate_light/30">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-envictica-teal text-sm">input</span>
+<h3 class="font-mono text-xs uppercase tracking-widest text-envictica-text_primary font-bold">Ingestion Control</h3>
+</div>
+<p class="font-mono text-xs text-envictica-text_secondary leading-relaxed">High-speed schema enforcement for incoming legal dockets, transcripts, and master agreements before RAG ingestion.</p>
+</div>
+<div class="glass-panel p-6 rounded-sm bg-envictica-slate_light/30">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-envictica-teal text-sm">build_circle</span>
+<h3 class="font-mono text-xs uppercase tracking-widest text-envictica-text_primary font-bold">Data Debt Auditor</h3>
+</div>
+<p class="font-mono text-xs text-envictica-text_secondary leading-relaxed">Automated identification and repair of legacy structural debt (e.g., malformed jurisdiction codes, missing effective dates).</p>
+</div>
+<div class="glass-panel p-6 rounded-sm bg-envictica-slate_light/30">
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-envictica-teal text-sm">schema</span>
+<h3 class="font-mono text-xs uppercase tracking-widest text-envictica-text_primary font-bold">Schema Mapping</h3>
+</div>
+<p class="font-mono text-xs text-envictica-text_secondary leading-relaxed">Programmatic alignment of unverified external data into the Envictica Schema Library DNA.</p>
+</div>
+</div>
+
+<!-- Plumbing Actions Section -->
+<div class="glass-panel rounded-sm overflow-hidden tech-border bg-[#050B14]">
+<div class="p-4 border-b border-envictica-slate_border flex justify-between items-center bg-envictica-slate/80">
+<h3 class="font-mono text-xs uppercase tracking-widest text-envictica-text_primary font-bold">Plumbing Maintenance &amp; Action Triggers</h3>
+<span class="font-mono text-[10px] text-envictica-teal">Beta Clearance Required</span>
+</div>
+<div class="p-6 space-y-4 font-mono text-xs">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 bg-envictica-slate_light/30 border border-envictica-slate_border rounded-sm gap-4">
+<div>
+<p class="font-bold text-envictica-text_primary mb-1">Initiate Schema Scan</p>
+<p class="text-[11px] text-envictica-text_secondary">Trigger manual validation of current sub-5ms air-gap ingestion segment.</p>
+</div>
+<button class="px-4 py-2 bg-envictica-teal/10 text-envictica-teal font-mono text-xs font-bold uppercase tracking-widest rounded-sm border border-envictica-teal/50 hover:bg-envictica-teal/20 transition-all">Scan Segment</button>
+</div>
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 bg-envictica-slate_light/30 border border-envictica-slate_border rounded-sm gap-4">
+<div>
+<p class="font-bold text-envictica-text_primary mb-1">Authorize Node Purge</p>
+<p class="text-[11px] text-envictica-text_secondary">Biometric confirmation required for liquidation of legacy data debt silos.</p>
+</div>
+<button class="px-4 py-2 bg-envictica-crimson/10 text-envictica-crimson font-mono text-xs font-bold uppercase tracking-widest rounded-sm border border-envictica-crimson/50 hover:bg-envictica-crimson/20 transition-all">Purge Debt</button>
+</div>
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 bg-envictica-slate_light/30 border border-envictica-slate_border rounded-sm gap-4">
+<div>
+<p class="font-bold text-envictica-text_primary mb-1">Export Lineage Proof</p>
+<p class="text-[11px] text-envictica-text_secondary">Generate hashed audit reports correlating ingestion streams with Compliance Ledger entries.</p>
+</div>
+<button class="px-4 py-2 bg-envictica-slate text-envictica-text_primary font-mono text-xs uppercase tracking-widest rounded-sm border border-envictica-slate_border hover:bg-envictica-slate_light transition-all">Export Proof</button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</body>
+</html>
