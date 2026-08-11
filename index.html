@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
+<html class="dark" lang="en">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Envictica Fiduciary Gateway | Infrastructure Entry Point</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
         tailwind.config = {
@@ -16,122 +15,50 @@
                     "colors": {
                         "surface-dim": "#0d1513",
                         "surface": "#0d1513",
-                        "on-error-container": "#ffdad6",
-                        "on-secondary": "#67001e",
                         "surface-container-lowest": "#08100e",
-                        "on-primary": "#00382f",
-                        "error": "#ffb4ab",
                         "surface-container-low": "#161b22",
-                        "tertiary-fixed": "#ffe086",
                         "surface-variant": "#2e3734",
                         "outline": "#8b949e",
-                        "on-secondary-fixed-variant": "#91002d",
-                        "tertiary-fixed-dim": "#eac33f",
-                        "on-tertiary": "#3c2f00",
-                        "on-tertiary-fixed-variant": "#574500",
-                        "secondary-container": "#ac0037",
-                        "surface-container-high": "#232c29",
-                        "inverse-on-surface": "#2a3230",
-                        "on-error": "#690005",
-                        "secondary-fixed-dim": "#ffb2b8",
+                        "error": "#ffb4ab",
                         "primary": "#d7fff3",
                         "outline-variant": "#3a4a46",
                         "primary-fixed-dim": "#00dfc1",
-                        "on-primary-container": "#006c5c",
-                        "on-tertiary-fixed": "#231b00",
                         "primary-container": "#00f5d4",
-                        "secondary-fixed": "#ffdadb",
                         "secondary": "#ffb2b8",
-                        "on-primary-fixed-variant": "#005144",
-                        "tertiary": "#fff5e4",
-                        "on-secondary-container": "#ffdadb",
-                        "inverse-surface": "#dbe5e0",
-                        "surface-tint": "#00dfc1",
-                        "surface-bright": "#323b38",
-                        "surface-container-highest": "#3b434b",
-                        "on-surface": "#dbe5e0",
-                        "tertiary-container": "#ffd651",
-                        "inverse-primary": "#006b5b",
-                        "surface-container": "#21262d",
-                        "on-background": "#dbe5e0",
-                        "background": "#0d1513",
-                        "on-surface-variant": "#b9cac4",
-                        "on-tertiary-container": "#745c00",
-                        "on-primary-fixed": "#00201a",
-                        "on-secondary-fixed": "#40000f",
                         "primary-fixed": "#26fedc",
-                        "error-container": "#93000a",
-                        "electric-teal": "#00F5D4",
-                        "burnt-crimson": "#FF4D6D",
-                        "deep-slate": "#0b0f10"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    "spacing": {
-                        "unit": "4px",
-                        "margin-desktop": "24px",
-                        "margin-mobile": "16px",
-                        "container-max": "1440px",
-                        "gutter": "16px"
+                        "surface-container-high": "#232c29",
+                        "surface-container": "#21262d",
+                        "on-surface": "#dbe5e0",
+                        "on-surface-variant": "#b9cac4",
+                        "on-primary": "#00382f"
                     },
                     "fontFamily": {
                         "headline-md": ["Sora"],
                         "body-md": ["Sora"],
                         "title-md": ["Sora"],
-                        "headline-lg-mobile": ["Sora"],
-                        "label-caps": ["Sora"],
                         "headline-lg": ["Sora"],
                         "data-mono": ["'JetBrains Mono'", "monospace"]
-                    },
-                    "fontSize": {
-                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
-                        "body-md": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
-                        "title-md": ["18px", {"lineHeight": "24px", "fontWeight": "600"}],
-                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
-                        "label-caps": ["10px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700"}],
-                        "headline-lg": ["32px", {"lineHeight": "40px", "fontWeight": "700"}]
                     }
                 }
             }
         }
     </script>
 <style>
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
         .bg-grid-pattern {
-            background-image: 
-                linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px),
-                linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
+            background-image: linear-gradient(to right, rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(to bottom, rgba(255,255,255,0.05) 1px, transparent 1px);
             background-size: 24px 24px;
         }
-        .ticker-wrap {
-            width: 100%;
-            overflow: hidden;
-            box-sizing: content-box;
-        }
+        .ticker-wrap { width: 100%; overflow: hidden; box-sizing: content-box; }
         .ticker {
-            display: inline-block;
-            white-space: nowrap;
-            padding-right: 100%;
-            box-sizing: content-box;
-            animation-iteration-count: infinite;
-            animation-timing-function: linear;
-            animation-name: ticker;
-            animation-duration: 30s;
+            display: inline-block; white-space: nowrap; padding-right: 100%; box-sizing: content-box;
+            animation: ticker 30s linear infinite;
         }
-        @keyframes ticker {
-            0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(-100%, 0, 0); }
-        }
+        @keyframes ticker { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
     </style>
 </head>
-<body class="bg-surface text-on-surface font-body-md h-screen w-screen overflow-hidden flex flex-col selection:bg-primary-container selection:text-on-primary-container">
-<!-- Global Ticker -->
+<body class="bg-surface text-on-surface font-body-md h-screen w-screen overflow-hidden flex flex-col">
+<!-- Ticker -->
 <div class="h-[24px] bg-surface-container-lowest border-b border-outline-variant flex items-center px-4 overflow-hidden flex-shrink-0 z-50">
 <div class="ticker-wrap font-data-mono text-[10px] text-primary-fixed-dim uppercase tracking-wider flex items-center">
 <div class="ticker flex items-center gap-8">
@@ -142,229 +69,63 @@
 <span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> Data Debt Mitigated: $14.2M</span>
 <span class="text-outline-variant">|</span>
 <span class="flex items-center gap-2 text-error"><span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span> MAL Failover: READY</span>
-<!-- Duplicate for seamless looping -->
-<span class="text-outline-variant ml-8">|</span>
-<span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> System Uptime: 99.999%</span>
-<span class="text-outline-variant">|</span>
-<span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> Global Ingestion: 12.4k Clauses/Sec</span>
-<span class="text-outline-variant">|</span>
-<span class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-primary-container"></span> Data Debt Mitigated: $14.2M</span>
-<span class="text-outline-variant">|</span>
-<span class="flex items-center gap-2 text-error"><span class="w-1.5 h-1.5 rounded-full bg-error animate-pulse"></span> MAL Failover: READY</span>
 </div>
 </div>
 </div>
-<!-- TopNavBar (Shared Component JSON) -->
-<nav class="fixed top-[24px] left-0 w-full z-40 flex justify-between items-center px-gutter h-16 border-b border-outline-variant bg-surface/40 backdrop-blur-md">
+<!-- Top Nav -->
+<nav class="fixed top-[24px] left-0 w-full z-40 flex justify-between items-center px-6 h-16 border-b border-outline-variant bg-surface/40 backdrop-blur-md">
 <div class="flex items-center gap-4">
-<span class="font-headline-md text-headline-md font-bold text-primary-fixed tracking-tight">Envictica</span>
+<span class="font-headline-md text-2xl font-bold text-primary-fixed tracking-tight">Envictica</span>
 </div>
-<div class="hidden md:flex items-center gap-8 font-headline-sm text-headline-sm md:font-headline-md md:text-headline-md">
+<div class="hidden md:flex items-center gap-8">
 <a class="text-primary-fixed border-b-2 border-primary-fixed pb-1" href="#">Network</a>
-<a class="text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Assets</a>
-<a class="text-on-surface-variant hover:text-primary transition-colors duration-200" href="#">Compliance</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Assets</a>
+<a class="text-on-surface-variant hover:text-primary transition-colors" href="#">Compliance</a>
 </div>
 <div class="flex items-center gap-4">
-<button class="text-primary-fixed dark:text-primary-fixed cursor-pointer active:opacity-80">
-<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
-</button>
-<button class="text-primary-fixed dark:text-primary-fixed cursor-pointer active:opacity-80">
-<span class="material-symbols-outlined" data-icon="settings">settings</span>
-</button>
-<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant overflow-hidden">
-<img alt="Chief Financial Officer" class="w-full h-full object-cover" data-alt="A futuristic, hyper-realistic portrait of a Chief Financial Officer in a dark, high-tech corporate environment. Cinematic lighting with subtle teal highlights. The expression is authoritative and focused, reflecting a high-stakes fiduciary context." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAB1mqGmFb1P58OxoQR8Z1PVod-T1BoJ4MRu0Tjg4GYUnrwYjtZkuZxc0x7DmGDCzh0inI1LwQalTR86n4_FZtb097A7-9SwV__Hjv1JGCc-6pbk_BKE4OekUi9fKoQjCnkvfpK_YL1HuAKpmYd0eCL9fj6-RV7VoTvb2mu4T4CcXuFjRy1hm_rF64Kwtqe2P4TWJKBHGSC-GjxHe7jnvIA7PONpBUkP8wK2sxc7KQNFEUViJD5e7pKdA"/>
-</div>
+<span class="material-symbols-outlined text-primary-fixed cursor-pointer">notifications</span>
+<span class="material-symbols-outlined text-primary-fixed cursor-pointer">settings</span>
 </div>
 </nav>
-<!-- Main Content Layout -->
+<!-- Hero Content -->
 <div class="flex flex-1 pt-[88px] overflow-hidden bg-grid-pattern relative">
-<!-- Left Side: Hero / Minds Eye -->
 <div class="w-full lg:w-5/12 flex flex-col justify-center p-8 lg:p-12 z-10 border-r border-outline-variant bg-surface-dim/90 backdrop-blur-sm relative h-full">
-<div class="absolute inset-0 opacity-20 z-0">
-<img alt="Minds Eye Background" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAG2fSWRG_DWu3aP2IJ9SELXhsV3GapLHRJwl_Uv8PYmaSUimqp57fJJQfs416HAw1lgswGI7uhRPLrCHeApf8YYPvqhD_J52MkWLv7ooFR6OH6ezEc8nRrzi_teMvfDrwQVnrNkRMpLyHk_ujg7DZ3au--xQ8_JH_Ny9Kn1HdWtBLk1C_88JytYDttSIhrSoNKz96vVwYd_ot-Jgb0FtKjpXv5zIOBGEHt0k-Msbp6NVhVVOxjtLL9JY5cN36pPcGqhOo"/>
-</div>
 <div class="relative z-10 flex flex-col h-full justify-center">
 <div class="mb-6 flex items-center gap-3">
-<span class="px-2 py-1 bg-surface-container-low border border-outline-variant rounded font-label-caps text-label-caps text-primary-fixed uppercase">Module 00</span>
+<span class="px-2 py-1 bg-surface-container-low border border-outline-variant rounded font-mono text-xs text-primary-fixed uppercase">Module 00</span>
 <span class="w-12 h-[1px] bg-primary-fixed/50"></span>
 </div>
-<h1 class="font-headline-lg md:font-headline-lg text-headline-lg-mobile md:text-headline-lg font-bold text-on-surface mb-4 leading-tight tracking-tight">
+<h1 class="text-3xl lg:text-4xl font-bold text-on-surface mb-4 leading-tight tracking-tight">
                     Fiduciary Data Infrastructure &amp; <br/>
 <span class="text-primary-fixed">Risk Mitigation Governance</span>
 </h1>
-<p class="text-on-surface-variant mb-12 max-w-lg text-lg border-l-2 border-primary-fixed/30 pl-4">
+<p class="text-on-surface-variant mb-12 max-w-lg text-base border-l-2 border-primary-fixed/30 pl-4">
                     For Enterprise Legal AI. Establishing authoritative command over high-stakes schematic data arrays and systemic liability matrices.
                 </p>
 <div class="flex flex-col sm:flex-row gap-4 mt-auto">
-<button class="bg-primary text-on-primary px-6 py-4 rounded font-title-md text-title-md hover:bg-primary-fixed transition-colors flex items-center justify-center gap-2 group border border-transparent" id="btn-command-bridge">
-<span class="material-symbols-outlined group-hover:translate-x-1 transition-transform" data-icon="login">login</span>
+<a href="acb_17.html" class="bg-primary text-on-primary px-6 py-4 rounded font-semibold hover:bg-primary-fixed transition-colors flex items-center justify-center gap-2 border border-transparent">
+<span class="material-symbols-outlined">login</span>
                         Enter Command Bridge
-                    </button>
-<button class="bg-surface-container-low border border-outline-variant text-on-surface px-6 py-4 rounded font-title-md text-title-md hover:bg-surface-variant transition-colors flex items-center justify-center gap-2 group">
-<span class="material-symbols-outlined text-secondary-container group-hover:text-error transition-colors" data-icon="dashboard_customize">dashboard_customize</span>
-                        Boardroom Simulation
-                    </button>
+</a>
 </div>
 </div>
 </div>
-<!-- Right Side: Infrastructure Grid -->
-<div class="hidden lg:flex w-7/12 h-full overflow-y-auto p-8 relative scrollbar-hide">
-<div class="absolute inset-0 bg-gradient-to-b from-surface-dim/50 to-surface-dim z-0 pointer-events-none"></div>
+<!-- Modules Overview Grid -->
+<div class="hidden lg:flex w-7/12 h-full overflow-y-auto p-8 relative">
 <div class="grid grid-cols-2 xl:grid-cols-3 gap-4 w-full h-fit relative z-10 pb-24">
-<!-- Module 01: Command Center -->
-<div class="bg-surface-container-low border border-outline-variant rounded p-5 hover:bg-surface-container transition-colors group cursor-pointer relative overflow-hidden flex flex-col justify-between h-48">
+<a href="acb_17.html" class="bg-surface-container-low border border-outline-variant rounded p-5 hover:bg-surface-container transition-colors group relative overflow-hidden flex flex-col justify-between h-48">
 <div class="flex justify-between items-start mb-4">
-<span class="font-data-mono text-[10px] text-on-surface-variant tracking-widest">01/17</span>
-<div class="flex items-center gap-1.5">
+<span class="font-mono text-xs text-on-surface-variant">17/17</span>
 <span class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_8px_rgba(0,245,212,0.5)]"></span>
-<span class="font-label-caps text-[8px] text-primary-container">STABLE</span>
-</div>
 </div>
 <div>
-<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center mb-3 text-on-surface-variant group-hover:text-primary transition-colors border border-outline-variant/50">
-<span class="material-symbols-outlined text-sm" data-icon="terminal">terminal</span>
+<span class="material-symbols-outlined text-lg text-on-surface-variant group-hover:text-primary mb-2">bolt</span>
+<h3 class="font-bold text-on-surface group-hover:text-primary-fixed mb-1">Procurement Cascade</h3>
+<p class="font-mono text-xs text-on-surface-variant/70">Module 17 Active</p>
 </div>
-<h3 class="font-title-md text-title-md text-on-surface group-hover:text-primary-fixed transition-colors mb-1">Command Center</h3>
-<p class="font-data-mono text-xs text-on-surface-variant/70">99.9% Integrity</p>
-</div>
-</div>
-<!-- Module 02: Data Plumbing -->
-<div class="bg-surface-container-low border border-outline-variant rounded p-5 hover:bg-surface-container transition-colors group cursor-pointer relative overflow-hidden flex flex-col justify-between h-48">
-<div class="flex justify-between items-start mb-4">
-<span class="font-data-mono text-[10px] text-on-surface-variant tracking-widest">02/17</span>
-<div class="flex items-center gap-1.5">
-<span class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_8px_rgba(0,245,212,0.5)]"></span>
-<span class="font-label-caps text-[8px] text-primary-container">STABLE</span>
-</div>
-</div>
-<div>
-<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center mb-3 text-on-surface-variant group-hover:text-primary transition-colors border border-outline-variant/50">
-<span class="material-symbols-outlined text-sm" data-icon="account_tree">account_tree</span>
-</div>
-<h3 class="font-title-md text-title-md text-on-surface group-hover:text-primary-fixed transition-colors mb-1">Data Plumbing</h3>
-<p class="font-data-mono text-xs text-on-surface-variant/70">12.4k TPS</p>
-</div>
-</div>
-<!-- Module 03: Risk Matrix -->
-<div class="bg-surface-container-low border border-outline-variant rounded p-5 hover:bg-surface-container transition-colors group cursor-pointer relative overflow-hidden flex flex-col justify-between h-48 border-l-2 border-l-error/50">
-<div class="flex justify-between items-start mb-4">
-<span class="font-data-mono text-[10px] text-on-surface-variant tracking-widest">03/17</span>
-<div class="flex items-center gap-1.5">
-<span class="w-2 h-2 rounded-full bg-error shadow-[0_0_8px_rgba(255,180,171,0.5)] animate-pulse"></span>
-<span class="font-label-caps text-[8px] text-error">ALERT</span>
-</div>
-</div>
-<div>
-<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center mb-3 text-error border border-error/20">
-<span class="material-symbols-outlined text-sm" data-icon="warning">warning</span>
-</div>
-<h3 class="font-title-md text-title-md text-on-surface group-hover:text-error transition-colors mb-1">Risk Matrix</h3>
-<p class="font-data-mono text-xs text-error/70">2 Anomalies Detected</p>
-</div>
-</div>
-<!-- Module 04: Schema Library -->
-<div class="bg-surface-container-low border border-outline-variant rounded p-5 hover:bg-surface-container transition-colors group cursor-pointer relative overflow-hidden flex flex-col justify-between h-48">
-<div class="flex justify-between items-start mb-4">
-<span class="font-data-mono text-[10px] text-on-surface-variant tracking-widest">04/17</span>
-<div class="flex items-center gap-1.5">
-<span class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_8px_rgba(0,245,212,0.5)]"></span>
-<span class="font-label-caps text-[8px] text-primary-container">STABLE</span>
-</div>
-</div>
-<div>
-<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center mb-3 text-on-surface-variant group-hover:text-primary transition-colors border border-outline-variant/50">
-<span class="material-symbols-outlined text-sm" data-icon="library_books">library_books</span>
-</div>
-<h3 class="font-title-md text-title-md text-on-surface group-hover:text-primary-fixed transition-colors mb-1">Schema Library</h3>
-<p class="font-data-mono text-xs text-on-surface-variant/70">4,092 Active Entities</p>
-</div>
-</div>
-<!-- Module 05: ROI Report -->
-<div class="bg-surface-container-low border border-outline-variant rounded p-5 hover:bg-surface-container transition-colors group cursor-pointer relative overflow-hidden flex flex-col justify-between h-48">
-<div class="flex justify-between items-start mb-4">
-<span class="font-data-mono text-[10px] text-on-surface-variant tracking-widest">05/17</span>
-<div class="flex items-center gap-1.5">
-<span class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_8px_rgba(0,245,212,0.5)]"></span>
-<span class="font-label-caps text-[8px] text-primary-container">STABLE</span>
-</div>
-</div>
-<div>
-<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center mb-3 text-on-surface-variant group-hover:text-primary transition-colors border border-outline-variant/50">
-<span class="material-symbols-outlined text-sm" data-icon="monitoring">monitoring</span>
-</div>
-<h3 class="font-title-md text-title-md text-on-surface group-hover:text-primary-fixed transition-colors mb-1">ROI Report</h3>
-<p class="font-data-mono text-xs text-on-surface-variant/70">+$14.2M Yield</p>
-</div>
-</div>
-<!-- Module 06: Threat Intel -->
-<div class="bg-surface-container-low border border-outline-variant rounded p-5 hover:bg-surface-container transition-colors group cursor-pointer relative overflow-hidden flex flex-col justify-between h-48">
-<div class="flex justify-between items-start mb-4">
-<span class="font-data-mono text-[10px] text-on-surface-variant tracking-widest">06/17</span>
-<div class="flex items-center gap-1.5">
-<span class="w-2 h-2 rounded-full bg-primary-container shadow-[0_0_8px_rgba(0,245,212,0.5)]"></span>
-<span class="font-label-caps text-[8px] text-primary-container">STABLE</span>
-</div>
-</div>
-<div>
-<div class="w-8 h-8 rounded bg-surface-variant flex items-center justify-center mb-3 text-on-surface-variant group-hover:text-primary transition-colors border border-outline-variant/50">
-<span class="material-symbols-outlined text-sm" data-icon="policy">policy</span>
-</div>
-<h3 class="font-title-md text-title-md text-on-surface group-hover:text-primary-fixed transition-colors mb-1">Threat Intel</h3>
-<p class="font-data-mono text-xs text-on-surface-variant/70">Zero-Day Protected</p>
+</a>
 </div>
 </div>
 </div>
-</div>
-</div>
-<!-- Footer (Shared Component JSON) -->
-<footer class="fixed bottom-0 left-0 w-full z-50 flex justify-between items-center px-gutter py-2 border-t border-outline-variant bg-surface-container-lowest/80 backdrop-blur-md">
-<span class="font-label-md text-label-md font-black text-on-surface">Envictica Fiduciary Systems v4.02</span>
-<div class="flex gap-4 font-label-sm text-label-sm text-primary-fixed-dim dark:text-primary-fixed-dim">
-<span class="text-on-tertiary-fixed-variant hover:text-on-surface transition-colors">Telemetry Status: Nominal</span>
-<span class="text-on-tertiary-fixed-variant hover:text-on-surface transition-colors">Security Protocol: Active</span>
-<span class="text-on-tertiary-fixed-variant hover:text-on-surface transition-colors">Latency: 14ms</span>
-</div>
-</footer>
-<style>
-        /* Utility to hide scrollbar but allow scrolling */
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
-        }
-        .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
-        }
-    </style>
-<script>
-    document.getElementById('btn-command-bridge').addEventListener('click', async function() {
-        const btn = this;
-        const originalContent = btn.innerHTML;
-        
-        btn.innerHTML = '<span class="material-symbols-outlined animate-spin" data-icon="progress_activity">progress_activity</span> Connecting...';
-        btn.disabled = true;
-
-        try {
-            const response = await fetch('http://3.145.129.227/api/analyze', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({})
-            });
-            
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            
-            const data = await response.json();
-            alert('Response received successfully.');
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Failed to connect: ' + error.message);
-        } finally {
-            btn.innerHTML = originalContent;
-            btn.disabled = false;
-        }
-    });
-</script>
-</body></html>
+</body>
+</html>
