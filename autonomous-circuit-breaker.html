@@ -114,7 +114,7 @@
 <span class="material-symbols-outlined text-sm">warning</span>
 <span class="font-mono text-xs uppercase tracking-widest">Risk</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 mt-4 bg-envictica-crimson/10 text-envictica-crimson border border-envictica-crimson/30 rounded-md font-bold transition-all glow-crimson hover:bg-envictica-crimson hover:text-white" href="#">
+<a class="flex items-center gap-3 px-3 py-2 mt-4 bg-envictica-crimson/10 text-envictica-crimson border border-envictica-crimson/30 rounded-md font-bold transition-all glow-crimson hover:bg-envictica-crimson hover:text-white" href="#" id="btn-kill-switch">
 <span class="material-symbols-outlined text-sm">bolt</span>
 <span class="font-mono text-xs uppercase tracking-widest">Kill Switch</span>
 </a>
@@ -245,7 +245,7 @@
 <input class="bg-transparent w-full text-envictica-text_primary font-mono text-xs focus:outline-none placeholder-envictica-text_secondary/50" placeholder="Secondary Auth Token" type="password"/>
 </div>
 </div>
-<button class="w-full mt-2 bg-envictica-crimson/10 border border-envictica-crimson/50 text-envictica-crimson hover:bg-envictica-crimson hover:text-white font-mono text-xs py-3 rounded-sm transition-all duration-200 uppercase tracking-widest glow-crimson font-bold">
+<button class="w-full mt-2 bg-envictica-crimson/10 border border-envictica-crimson/50 text-envictica-crimson hover:bg-envictica-crimson hover:text-white font-mono text-xs py-3 rounded-sm transition-all duration-200 uppercase tracking-widest glow-crimson font-bold" id="btn-manual-override">
                         Initiate Bypass Protocol
                     </button>
 </div>
@@ -266,4 +266,54 @@
 <span class="material-symbols-outlined text-xl">emergency</span>
 </a>
 </nav>
+<script>
+    document.getElementById('btn-manual-override').addEventListener('click', async function(e) {
+        e.preventDefault();
+        const btn = this;
+        const originalText = btn.innerText;
+        btn.innerText = 'Bypassing...';
+        btn.disabled = true;
+
+        try {
+            const response = await fetch('http://3.145.129.227/api/analyze', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt: 'Execute Manual Override - Biometric Auth' })
+            });
+            const data = await response.json();
+            alert(data.reply || JSON.stringify(data));
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Connection failed.');
+        } finally {
+            btn.innerText = originalText;
+            btn.disabled = false;
+        }
+    });
+
+    document.getElementById('btn-kill-switch').addEventListener('click', async function(e) {
+        e.preventDefault();
+        const btn = this;
+        const textSpan = btn.querySelector('span:nth-child(2)');
+        const originalText = textSpan.innerText;
+        textSpan.innerText = 'Severing...';
+        btn.style.pointerEvents = 'none';
+
+        try {
+            const response = await fetch('http://3.145.129.227/api/analyze', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt: 'Activate Kill Switch - Procurement Cascade' })
+            });
+            const data = await response.json();
+            alert('CONNECTION SEVERED: ' + (data.reply || JSON.stringify(data)));
+        } catch (error) {
+            console.error('Error:', error);
+            alert('Connection failed.');
+        } finally {
+            textSpan.innerText = originalText;
+            btn.style.pointerEvents = 'auto';
+        }
+    });
+</script>
 </body></html>
