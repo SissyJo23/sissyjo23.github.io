@@ -22,7 +22,7 @@
                             crimson: '#FF4D6D',
                             crimson_dim: 'rgba(255, 77, 109, 0.2)',
                             text_primary: '#F8FAFC',
-                            text_secondary: '#94A3B8'
+                            text_secondary: '#CBD5E1'
                         }
                     },
                     fontFamily: {
@@ -147,8 +147,8 @@
 <!-- Header Path & Status -->
 <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 border-b border-envictica-slate_border pb-6">
 <div>
-<p class="font-mono text-[10px] text-envictica-text_secondary mb-2 tracking-widest uppercase">Path: Env / Infra / ACB_17</p>
-<h2 class="font-sans text-3xl md:text-5xl font-extrabold text-envictica-text_primary tracking-tight">Procurement Cascade</h2>
+<p class="font-mono text-xs text-envictica-teal mb-2 tracking-widest uppercase font-bold">Path: Env / Infra / ACB_17</p>
+<h2 class="font-sans text-3xl md:text-5xl font-extrabold text-white tracking-tight">Procurement Cascade</h2>
 </div>
 <div class="glass-panel px-4 py-2 rounded-sm border-l-2 border-envictica-teal border-t-0 border-r-0 border-b-0 bg-envictica-teal/10 flex items-center gap-3">
 <div class="status-dot teal"></div>
@@ -162,22 +162,22 @@
 <!-- Key Metrics Cards -->
 <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
 <div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 border-t-2 border-envictica-crimson bg-envictica-slate_light/50">
-<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary">Entropy Threshold</span>
+<span class="font-mono text-[10px] uppercase tracking-widest text-slate-300 font-semibold">Entropy Threshold</span>
 <div class="flex items-end gap-2">
 <span class="font-mono text-3xl font-bold text-envictica-crimson">0.14</span>
-<span class="font-mono text-[10px] text-envictica-text_secondary mb-1">/ 0.15 MAX</span>
+<span class="font-mono text-[10px] text-slate-400 mb-1">/ 0.15 MAX</span>
 </div>
 </div>
 <div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 border-t-2 border-envictica-teal bg-envictica-slate_light/50">
-<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary">Air-Gap Status</span>
+<span class="font-mono text-[10px] uppercase tracking-widest text-slate-300 font-semibold">Air-Gap Status</span>
 <span class="font-mono text-xl font-bold text-envictica-teal">SECURE</span>
 </div>
 <div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 bg-envictica-slate_light/50">
-<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary">Liability Avoided</span>
+<span class="font-mono text-[10px] uppercase tracking-widest text-slate-300 font-semibold">Liability Avoided</span>
 <span class="font-mono text-2xl font-bold text-envictica-text_primary">$4.2M</span>
 </div>
 <div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 bg-envictica-slate_light/50">
-<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary">Clauses Blocked</span>
+<span class="font-mono text-[10px] uppercase tracking-widest text-slate-300 font-semibold">Clauses Blocked</span>
 <span class="font-mono text-2xl font-bold text-envictica-text_primary">1,400</span>
 </div>
 </div>
@@ -198,7 +198,7 @@
 <!-- Interception UI Overlay -->
 <div class="absolute inset-0 flex flex-col p-6 justify-end pointer-events-none">
 <div class="w-full bg-envictica-slate/90 backdrop-blur-md border border-envictica-slate_border p-4 rounded-sm flex flex-col gap-3">
-<div class="flex justify-between items-center text-[10px] font-mono text-envictica-text_secondary uppercase tracking-widest">
+<div class="flex justify-between items-center text-[10px] font-mono text-slate-300 uppercase tracking-widest">
 <span>Stream Ingestion Rate</span>
 <span class="text-envictica-teal">Gate Active</span>
 </div>
@@ -208,7 +208,7 @@
 </div>
 </div>
 <div class="flex justify-between items-center text-[10px] font-mono mt-1">
-<span class="text-envictica-text_secondary">4.2 TB/s</span>
+<span class="text-slate-300">4.2 TB/s</span>
 <span class="text-envictica-crimson">24 Anomalies Detected</span>
 </div>
 </div>
@@ -221,11 +221,13 @@
 <!-- Document Analysis -->
 <div class="glass-panel rounded-sm flex flex-col flex-1 min-h-[300px] bg-envictica-slate_light/30">
 <div class="p-4 border-b border-envictica-slate_border flex items-center gap-2 bg-envictica-slate_light/50">
-<span class="material-symbols-outlined text-envictica-text_secondary text-sm">plagiarism</span>
+<span class="material-symbols-outlined text-envictica-teal text-sm">plagiarism</span>
 <h3 class="font-mono text-xs uppercase tracking-widest text-envictica-text_primary">Clause Analysis Buffer</h3>
 </div>
-<div class="p-4 flex-1 overflow-y-auto font-mono text-xs text-envictica-text_secondary whitespace-pre-wrap leading-relaxed opacity-80 mix-blend-screen">
-{{DATA:DOCUMENT:DOCUMENT_10}}
+<div class="p-4 flex-1 overflow-y-auto font-mono text-xs text-slate-300 whitespace-pre-wrap leading-relaxed">
+[SYS_LOG]: Ingestion stream active.
+[ANALYSIS]: Section 4.2 Indemnity Clause contains 2 risk anomalies.
+[STATUS]: Interception filter standing by for Operator instruction...
                     </div>
 </div>
 <!-- Manual Override Gate -->
@@ -233,16 +235,16 @@
 <div class="flex items-start justify-between">
 <div>
 <h3 class="font-sans text-xl font-bold text-envictica-crimson mb-1 uppercase tracking-tight">Manual Override</h3>
-<p class="font-mono text-[10px] text-envictica-text_secondary uppercase tracking-widest">Biometric Multi-Sig Req</p>
+<p class="font-mono text-[10px] text-slate-300 uppercase tracking-widest">Biometric Multi-Sig Req</p>
 </div>
 <span class="material-symbols-outlined text-envictica-crimson text-2xl animate-pulse">fingerprint</span>
 </div>
 <div class="space-y-4 mt-2">
 <div class="scanline-input bg-envictica-slate rounded-sm px-3 py-2.5 border border-envictica-slate_border">
-<input class="bg-transparent w-full text-envictica-text_primary font-mono text-xs focus:outline-none placeholder-envictica-text_secondary/50" placeholder="Operator Authorization Code" type="password"/>
+<input class="bg-transparent w-full text-envictica-text_primary font-mono text-xs focus:outline-none placeholder-slate-400" placeholder="Operator Authorization Code" type="password"/>
 </div>
 <div class="scanline-input bg-envictica-slate rounded-sm px-3 py-2.5 border border-envictica-slate_border">
-<input class="bg-transparent w-full text-envictica-text_primary font-mono text-xs focus:outline-none placeholder-envictica-text_secondary/50" placeholder="Secondary Auth Token" type="password"/>
+<input class="bg-transparent w-full text-envictica-text_primary font-mono text-xs focus:outline-none placeholder-slate-400" placeholder="Secondary Auth Token" type="password"/>
 </div>
 </div>
 <button class="w-full mt-2 bg-envictica-crimson/10 border border-envictica-crimson/50 text-envictica-crimson hover:bg-envictica-crimson hover:text-white font-mono text-xs py-3 rounded-sm transition-all duration-200 uppercase tracking-widest glow-crimson font-bold" id="btn-manual-override">
