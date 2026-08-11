@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Envictica: Resolution & Failover</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#00F5D4",
+              "env-alert": "#FF4D6D",
+              surface: "#121318",
+              "on-surface": "#e3e1e9",
+              "on-surface-variant": "#8a8b94",
+              outline: "#2a2b32",
+              "surface-container": "#1d1e24",
+            },
+            fontFamily: {
+              "label-caps": ["JetBrains Mono", "monospace"],
+              "data-numeral": ["JetBrains Mono", "monospace"],
+              headline: ["Sora", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background-color: #0b0c10;
+        color: #e3e1e9;
+      }
+      .success-glow {
+        box-shadow: 0 0 20px rgba(0, 245, 212, 0.15);
+      }
+    </style>
+  </head>
+  <body class="font-sans antialiased min-h-screen flex flex-col p-8 gap-8">
+    <div class="max-w-5xl mx-auto w-full flex flex-col gap-8">
+      <!-- Header -->
+      <div
+        class="flex justify-between items-end border-b border-outline pb-6"
+      >
+        <div class="flex flex-col gap-2">
+          <span
+            class="bg-primary text-[#002113] font-label-caps text-[11px] px-3 py-1 rounded-sm tracking-widest uppercase font-bold"
+          >
+            Step 3: Resolution
+          </span>
+          <h1
+            class="font-headline text-4xl font-black text-white tracking-tight uppercase"
+          >
+            System Failover Complete
+          </h1>
+        </div>
+        <div class="flex flex-col items-end text-right">
+          <span
+            class="font-label-caps text-[10px] text-primary tracking-widest uppercase font-bold flex items-center gap-2"
+          >
+            <span
+              class="w-2 h-2 rounded-full bg-primary animate-pulse"
+            ></span>
+            Pipeline Secured
+          </span>
+          <span class="font-data-numeral text-lg text-white font-bold"
+            >RTO: 4.82ms</span
+          >
+        </div>
+      </div>
+
+      <!-- Main Status Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- Left: Resolution Details -->
+        <div class="lg:col-span-8 flex flex-col gap-6">
+          <div
+            class="bg-surface border border-primary/30 rounded-sm success-glow overflow-hidden"
+          >
+            <div
+              class="p-4 border-b border-primary/20 bg-primary/5 flex justify-between items-center"
+            >
+              <h3
+                class="font-label-caps text-[11px] text-primary tracking-widest uppercase font-bold"
+              >
+                Verification Success
+              </h3>
+              <span class="material-symbols-outlined text-primary"
+                >verified</span
+              >
+            </div>
+            <div class="p-8 flex flex-col gap-6">
+              <div class="flex items-center gap-6">
+                <div
+                  class="w-16 h-16 rounded-full border-2 border-primary/30 flex items-center justify-center bg-primary/10"
+                >
+                  <span
+                    class="material-symbols-outlined text-primary text-3xl"
+                    >check_circle</span
+                  >
+                </div>
+                <div>
+                  <h2
+                    class="text-2xl font-bold text-white uppercase tracking-tight"
+                  >
+                    Manual Override Confirmed
+                  </h2>
+                  <p class="text-on-surface-variant mt-1 italic">
+                    Ingestion path rerouted to stable schema-hardened node.
+                  </p>
+                </div>
+              </div>
+              <div class="h-px bg-outline-variant w-full my-2"></div>
+              <div class="grid grid-cols-2 gap-8">
+                <div class="flex flex-col gap-2">
+                  <span
+                    class="text-[10px] font-label-caps text-on-surface-variant uppercase"
+                    >Pre-Failover Node</span
+                  >
+                  <span class="font-data-numeral text-env-alert uppercase"
+                    >GPT-4o_INFRA_UNSTABLE</span
+                  >
+                </div>
+                <div class="flex flex-col gap-2">
+                  <span
+                    class="text-[10px] font-label-caps text-primary uppercase"
+                    >Active Failover Node</span
+                  >
+                  <span class="font-data-numeral text-primary uppercase"
+                    >CLAUDE_3.5_STABLE</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Audit Event -->
+          <div class="bg-surface border border-outline p-6 rounded-sm">
+            <h3
+              class="font-label-caps text-[11px] text-on-surface-variant tracking-widest uppercase mb-4"
+            >
+              Cryptographic Proof
+            </h3>
+            <div
+              class="font-data-numeral text-[12px] bg-black/40 p-4 rounded-sm border border-white/5 text-on-surface-variant flex flex-col gap-2"
+            >
+              <p class="flex justify-between">
+                <span class="text-primary">[SUCCESS]</span>
+                <span>HASH: 0x7a2b9...f84a</span>
+              </p>
+              <p class="flex justify-between">
+                <span>TIMESTAMP:</span>
+                <span>2026-08-09 14:02:15 UTC</span>
+              </p>
+              <p class="flex justify-between">
+                <span>AUTHORITY:</span>
+                <span>ENV-OP-4892 (ALPHA_CLEARANCE)</span>
+              </p>
+              <p class="flex justify-between">
+                <span>ACTION:</span>
+                <span>MODEL_SWAP_COMPLETE</span>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Savings Impact -->
+        <div class="lg:col-span-4 flex flex-col gap-6">
+          <div
+            class="bg-primary/5 border border-primary/40 p-6 rounded-sm flex flex-col gap-8 h-full"
+          >
+            <div class="flex flex-col gap-1">
+              <span
+                class="font-label-caps text-[10px] text-primary tracking-widest uppercase font-bold"
+                >Liability Mitigated</span
+              >
+              <span
+                class="font-data-numeral text-[48px] text-white font-light tracking-tighter leading-none"
+                >$4.2M</span
+              >
+              <p
+                class="text-[10px] text-on-surface-variant mt-2 uppercase tracking-wider font-medium"
+              >
+                Projected Data Debt Avoided
+              </p>
+            </div>
+            <div class="h-px bg-primary/20 w-full"></div>
+            <div class="flex flex-col gap-4">
+              <h4
+                class="font-label-caps text-[10px] text-white uppercase tracking-widest font-bold"
+              >
+                Fiduciary Stats
+              </h4>
+              <div class="flex justify-between items-center">
+                <span class="text-[12px] text-on-surface-variant"
+                  >Schema Adherence</span
+                >
+                <span class="font-data-numeral text-primary text-sm"
+                  >100%</span
+                >
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-[12px] text-on-surface-variant"
+                  >Drift Variance</span
+                >
+                <span class="font-data-numeral text-primary text-sm"
+                  >0.02</span
+                >
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-[12px] text-on-surface-variant"
+                  >Failover Latency</span
+                >
+                <span class="font-data-numeral text-primary text-sm"
+                  >4.82ms</span
+                >
+              </div>
+            </div>
+            <button
+              class="w-full bg-white text-black font-label-caps text-[12px] py-4 rounded-sm font-bold tracking-widest hover:bg-on-surface transition-all uppercase mt-auto flex items-center justify-center gap-2"
+            >
+              <span class="material-symbols-outlined text-sm"
+                >description</span
+              >
+              Export Compliance Report
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
