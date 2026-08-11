@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
+<html class="dark" lang="en">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Module 05: Compliance Audit Logs</title>
+<title>Module 05: Compliance & Audit Logs</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;800&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
@@ -39,8 +39,6 @@
             background-color: theme('colors.envictica.slate_light');
             border: 1px solid theme('colors.envictica.slate_border');
         }
-        .glow-teal { box-shadow: 0 0 15px 2px theme('colors.envictica.teal_dim'); }
-        .glow-crimson { box-shadow: 0 0 15px 2px theme('colors.envictica.crimson_dim'); }
         .status-dot { position: relative; width: 8px; height: 8px; border-radius: 50%; }
         .status-dot.teal { background-color: theme('colors.envictica.teal'); }
         .status-dot.teal::before {
@@ -48,16 +46,8 @@
             border-radius: 50%; border: 2px solid theme('colors.envictica.teal');
             animation: pulse-ring 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
         }
-        .status-dot.crimson { background-color: theme('colors.envictica.crimson'); }
-        .status-dot.crimson::before {
-            content: ''; position: absolute; left: -4px; top: -4px; right: -4px; bottom: -4px;
-            border-radius: 50%; border: 2px solid theme('colors.envictica.crimson');
-            animation: pulse-ring 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
-        }
         @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(2); opacity: 0; } }
-        .tech-border {
-            position: relative;
-        }
+        .tech-border { position: relative; }
         .tech-border::before {
             content: ''; position: absolute; top: 0; left: 0; width: 20px; height: 20px;
             border-top: 2px solid theme('colors.envictica.teal'); border-left: 2px solid theme('colors.envictica.teal');
@@ -74,225 +64,108 @@
 <!-- SideNavBar -->
 <nav class="hidden md:flex flex-col h-full w-64 left-0 fixed border-r border-envictica-slate_border bg-envictica-slate py-6 px-4 z-40">
 <div class="mb-8">
-<h1 class="font-sans text-2xl font-extrabold text-envictica-text_primary tracking-tight">Envictica</h1>
+<a href="index.html" class="font-sans text-2xl font-extrabold text-envictica-text_primary tracking-tight hover:text-envictica-teal">Envictica</a>
 <p class="font-mono text-xs text-envictica-text_secondary mt-1 tracking-widest uppercase">Official Module: 05 of 17</p>
 </div>
-<div class="flex items-center gap-3 mb-8 p-3 glass-panel rounded-sm bg-envictica-slate_light/50 backdrop-blur-md border border-envictica-slate_border">
-<img alt="System Administrator" class="w-10 h-10 rounded-sm object-cover border border-envictica-slate_border grayscale opacity-80" data-alt="A stylized, low-poly isometric rendering of a server tower or core engine component, glowing with cyan and teal light against a stark black background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBgYI0SvdkCZi4fE9PKIQE85E3-UDggvW0WYYw7bf2SomNlwno6PapdIlYNe4pn3L7tb8GiMJGG9Cn3I7ASDzPK_v3hMrb4XJILWCzHWAKvTEH_ZPSGitM-Owwq8_Gxxl1kT02KcR4-DiSJNyoG1OhISONU-DU6CsirJLvc4m7G0xqv4bTIpsax6pKqEE4asJTLa1ZwUVxknRqs9rvlYX9-w-rFJeLReIcuQ8_o4d1Kb56GB4U0WlDYQ"/>
-<div>
-<p class="font-mono text-xs font-bold text-envictica-text_primary">Core Engine</p>
-<p class="font-mono text-[10px] text-envictica-teal">V2.4.0-Stable</p>
-</div>
-</div>
 <div class="flex-1 space-y-2 overflow-y-auto">
-<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="#">
-<span class="material-symbols-outlined text-sm">dns</span>
-<span class="font-mono text-xs uppercase tracking-widest">Infrastructure</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="#">
-<span class="material-symbols-outlined text-sm">gavel</span>
-<span class="font-mono text-xs uppercase tracking-widest">Governance</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="#">
-<span class="material-symbols-outlined text-sm">account_tree</span>
-<span class="font-mono text-xs uppercase tracking-widest">Pipelines</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="#">
-<span class="material-symbols-outlined text-sm">fact_check</span>
-<span class="font-mono text-xs uppercase tracking-widest">Data Validation</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="#">
-<span class="material-symbols-outlined text-sm">build_circle</span>
-<span class="font-mono text-xs uppercase tracking-widest">Data Debt Repair</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 border-l-2 border-envictica-teal text-envictica-teal bg-envictica-slate_light transition-all rounded-r-sm bg-envictica-teal/10" href="#">
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">history_edu</span>
-<span class="font-mono text-xs uppercase tracking-widest font-bold">Audit Logs</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="#">
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="index.html">
 <span class="material-symbols-outlined text-sm">grid_view</span>
-<span class="font-mono text-xs uppercase tracking-widest">Risk Matrix</span>
+<span class="font-mono text-xs uppercase tracking-widest">Dashboard</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="#">
-<span class="material-symbols-outlined text-sm">schema</span>
-<span class="font-mono text-xs uppercase tracking-widest">Schema Library</span>
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="command-bridge.html">
+<span class="material-symbols-outlined text-sm">terminal</span>
+<span class="font-mono text-xs uppercase tracking-widest">Command Bridge</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="data-layer-plumbing.html">
+<span class="material-symbols-outlined text-sm">account_tree</span>
+<span class="font-mono text-xs uppercase tracking-widest">Data Plumbing</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 border-l-2 border-envictica-teal text-envictica-teal bg-envictica-slate_light transition-all rounded-r-sm bg-envictica-teal/10" href="compliance-logs.html">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">history_edu</span>
+<span class="font-mono text-xs uppercase tracking-widest font-bold">Compliance Logs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="autonomous-circuit-breaker.html">
+<span class="material-symbols-outlined text-sm">bolt</span>
+<span class="font-mono text-xs uppercase tracking-widest">Circuit Breaker</span>
 </a>
 </div>
 <div class="mt-auto space-y-2 pt-6 border-t border-envictica-slate_border">
 <div class="px-3 py-2">
 <p class="font-mono text-[10px] text-envictica-teal flex items-center gap-2 uppercase tracking-widest">
-<span class="status-dot teal"></span> Sys Status: Nominal
+<span class="status-dot teal"></span> Ledger: Immutable
                 </p>
 </div>
-<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary transition-all rounded-sm" href="#">
-<span class="material-symbols-outlined text-sm">description</span>
-<span class="font-mono text-xs uppercase tracking-widest">Docs</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary transition-all rounded-sm" href="#">
-<span class="material-symbols-outlined text-sm">help</span>
-<span class="font-mono text-xs uppercase tracking-widest">Support</span>
-</a>
 </div>
 </nav>
-<!-- TopNavBar (Mobile) -->
-<nav class="md:hidden flex justify-between items-center w-full px-4 py-3 bg-envictica-slate border-b border-envictica-slate_border sticky top-0 z-40">
-<div>
-<h1 class="font-sans text-xl font-bold text-envictica-text_primary tracking-tight">Envictica</h1>
-<p class="font-mono text-[10px] text-envictica-text_secondary uppercase">LOG_05</p>
-</div>
-<div class="flex gap-4 text-envictica-text_secondary">
-<span class="material-symbols-outlined text-sm">settings</span>
-<span class="material-symbols-outlined text-sm text-envictica-teal">notifications_active</span>
-</div>
-</nav>
+
 <!-- Main Content -->
 <main class="flex-1 md:ml-64 p-6 lg:p-10 max-w-[1600px] mx-auto w-full pb-24 md:pb-10">
-<!-- Header Path & Status -->
 <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 border-b border-envictica-slate_border pb-6">
 <div>
-<p class="font-mono text-[10px] text-envictica-text_secondary mb-2 tracking-widest uppercase">Path: Env / Gov / Audit_Logs</p>
-<h2 class="font-sans text-3xl md:text-5xl font-extrabold text-envictica-text_primary tracking-tight text-white">Compliance Ledger</h2>
+<p class="font-mono text-[10px] text-envictica-text_secondary mb-2 tracking-widest uppercase">Path: Env / Audit / Compliance_Logs_05</p>
+<h2 class="font-sans text-3xl md:text-5xl font-extrabold text-white tracking-tight">Compliance & Audit Ledgers</h2>
 </div>
-<div class="flex items-center gap-4">
-<button class="text-envictica-text_secondary hover:text-envictica-text_primary p-2 glass-panel rounded-sm transition-colors">
-<span class="material-symbols-outlined text-sm">monitor_heart</span>
-</button>
-<button class="text-envictica-text_secondary hover:text-envictica-text_primary p-2 glass-panel rounded-sm transition-colors">
-<span class="material-symbols-outlined text-sm">settings</span>
-</button>
-<div class="glass-panel px-4 py-2 rounded-sm border-l-2 border-envictica-teal border-t-0 border-r-0 border-b-0 bg-envictica-teal/10 flex items-center gap-3 ml-2">
+<div class="glass-panel px-4 py-2 rounded-sm border-l-2 border-envictica-teal bg-envictica-teal/10 flex items-center gap-3">
 <div class="status-dot teal"></div>
-<span class="font-mono text-xs text-envictica-teal tracking-widest uppercase font-bold">Logging: Active</span>
-</div>
+<span class="font-mono text-xs text-envictica-teal tracking-widest uppercase font-bold">Hashes Verified</span>
 </div>
 </header>
+
 <div class="space-y-6">
-<!-- Header & Stats Banner -->
+<!-- Stats Row -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
 <div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 border-t-2 border-envictica-teal bg-envictica-slate_light/50">
-<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_primary font-bold">Total Audit Events</span>
-<span class="font-mono text-3xl font-bold text-envictica-text_primary">14,208</span>
+<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_primary font-bold">Total Ledger Entries</span>
+<span class="font-mono text-3xl font-bold text-envictica-text_primary">48,912</span>
 </div>
 <div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 bg-envictica-slate_light/50">
-<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_primary font-bold">Active Security Monitors</span>
-<div class="flex items-end gap-2">
-<span class="font-mono text-3xl font-bold text-envictica-text_primary">42</span>
-<span class="font-mono text-[10px] text-envictica-text_secondary mb-1">/ 42</span>
-</div>
+<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_primary font-bold">Integrity Discrepancies</span>
+<span class="font-mono text-3xl font-bold text-envictica-teal">0</span>
 </div>
 <div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 bg-envictica-slate_light/50 border-r-2 border-envictica-teal">
-<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_primary font-bold">Last Verified Hash</span>
-<span class="font-mono text-sm font-bold text-envictica-teal tracking-widest">0x9f8c...a1b2</span>
+<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_primary font-bold">Cryptographic Anchor</span>
+<span class="font-mono text-xs font-bold text-envictica-teal mt-2 truncate">sha256:8f4c...91ea</span>
 </div>
 </div>
-<!-- Controls & Filters -->
-<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 glass-panel p-4 rounded-sm tech-border bg-envictica-slate_light/30">
-<div class="flex flex-wrap gap-2">
-<button class="px-4 py-2 bg-envictica-teal/10 text-envictica-teal font-mono text-xs font-bold uppercase tracking-widest rounded-sm border border-envictica-teal/50 transition-colors shadow-[0_0_10px_rgba(0,245,212,0.1)]">
-                            Security Logs
-                        </button>
-<button class="px-4 py-2 bg-envictica-slate_light text-envictica-text_secondary hover:text-envictica-text_primary font-mono text-xs uppercase tracking-widest rounded-sm border border-envictica-slate_border transition-colors">
-                            Data Ingestion Audit
-                        </button>
-<button class="px-4 py-2 bg-envictica-slate_light text-envictica-text_secondary hover:text-envictica-text_primary font-mono text-xs uppercase tracking-widest rounded-sm border border-envictica-slate_border transition-colors">
-                            LLM Drift Checks
-                        </button>
-</div>
-<button class="flex items-center gap-2 px-4 py-2 bg-envictica-slate text-envictica-text_primary font-mono text-xs uppercase tracking-widest rounded-sm border border-envictica-slate_border hover:bg-envictica-slate_light transition-colors">
-<span class="material-symbols-outlined text-sm">download</span>
-                        Export Compliance Report (PDF/CSV)
-                    </button>
-</div>
+
 <!-- Ledger Table -->
-<div class="glass-panel rounded-sm overflow-hidden bg-[#050B14]">
+<div class="glass-panel rounded-sm overflow-hidden tech-border bg-[#050B14]">
+<div class="p-4 border-b border-envictica-slate_border flex justify-between items-center bg-envictica-slate/80">
+<h3 class="font-mono text-xs uppercase tracking-widest text-envictica-text_primary font-bold">Immutable Audit Trail</h3>
+<button class="px-3 py-1 bg-envictica-teal/10 text-envictica-teal font-mono text-[10px] uppercase tracking-widest border border-envictica-teal/40 rounded-sm">Export Ledger Proof</button>
+</div>
 <div class="overflow-x-auto">
 <table class="w-full text-left border-collapse">
 <thead>
-<tr class="border-b border-envictica-slate_border bg-envictica-slate/80 backdrop-blur-sm">
-<th class="px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary font-bold">Timestamp (UTC)</th>
-<th class="px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary font-bold">Actor/Role / Crypt-ID</th>
-<th class="px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary font-bold">Action Type</th>
-<th class="px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary font-bold">Target Entity</th>
-<th class="px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary font-bold text-right">Status</th>
+<tr class="border-b border-envictica-slate_border bg-envictica-slate/80">
+<th class="px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary font-bold">Timestamp</th>
+<th class="px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary font-bold">Event Type</th>
+<th class="px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary font-bold">Module ID</th>
+<th class="px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary font-bold text-right">Hash Status</th>
 </tr>
 </thead>
 <tbody class="font-mono text-xs text-envictica-text_primary divide-y divide-envictica-slate_border/50">
-<!-- Row 1 -->
 <tr class="hover:bg-envictica-slate_light/30 transition-colors">
-<td class="px-4 py-4 text-envictica-text_secondary">2023-10-27 <span class="text-envictica-text_primary">14:32:01.442</span>Z</td>
-<td class="px-4 py-4">SYS_ADMIN <span class="text-envictica-text_secondary/50">[ID:8092]</span></td>
-<td class="px-4 py-4 uppercase tracking-wider text-[10px]">Schema Modification</td>
-<td class="px-4 py-4 text-envictica-teal">TABLE_USER_METRICS</td>
+<td class="px-4 py-4 text-envictica-text_secondary">2026-08-11 17:01:22Z</td>
+<td class="px-4 py-4 font-bold text-envictica-teal">SCHEMA_HARDENING</td>
+<td class="px-4 py-4">Module 06</td>
 <td class="px-4 py-4 text-right">
-<span class="inline-flex items-center gap-2 px-2 py-1 bg-envictica-teal/10 text-envictica-teal border border-envictica-teal/30 rounded-sm font-mono text-[10px] uppercase tracking-widest">
-<div class="w-1.5 h-1.5 bg-envictica-teal rounded-full"></div>
-                                            Verified
-                                        </span>
+<span class="inline-flex items-center gap-2 px-2 py-1 bg-envictica-teal/10 text-envictica-teal border border-envictica-teal/30 rounded-sm text-[10px] uppercase">Valid</span>
 </td>
 </tr>
-<!-- Row 2 -->
-<tr class="hover:bg-envictica-slate_light/30 transition-colors bg-envictica-crimson/5">
-<td class="px-4 py-4 text-envictica-text_secondary">2023-10-27 <span class="text-envictica-text_primary">14:28:45.910</span>Z</td>
-<td class="px-4 py-4">API_KEY_EXT <span class="text-envictica-text_secondary/50">[ID:441A]</span></td>
-<td class="px-4 py-4 uppercase tracking-wider text-[10px]">Bulk Data Extraction</td>
-<td class="px-4 py-4 text-envictica-teal">DATASET_FINANCIAL_Q3</td>
-<td class="px-4 py-4 text-right">
-<span class="inline-flex items-center gap-2 px-2 py-1 bg-envictica-crimson/10 text-envictica-crimson border border-envictica-crimson/50 rounded-sm font-mono text-[10px] uppercase tracking-widest shadow-[0_0_5px_rgba(255,77,109,0.2)]">
-<div class="w-1.5 h-1.5 bg-envictica-crimson rounded-full animate-pulse"></div>
-                                            Access Blocked
-                                        </span>
-</td>
-</tr>
-<!-- Row 3 -->
 <tr class="hover:bg-envictica-slate_light/30 transition-colors">
-<td class="px-4 py-4 text-envictica-text_secondary">2023-10-27 <span class="text-envictica-text_primary">14:15:12.001</span>Z</td>
-<td class="px-4 py-4">AUTO_CRON_01 <span class="text-envictica-text_secondary/50">[ID:SYS]</span></td>
-<td class="px-4 py-4 uppercase tracking-wider text-[10px]">Pipeline Execution</td>
-<td class="px-4 py-4 text-envictica-teal">PIPE_NIGHTLY_ETL</td>
+<td class="px-4 py-4 text-envictica-text_secondary">2026-08-11 16:45:10Z</td>
+<td class="px-4 py-4 font-bold text-envictica-teal">CIRCUIT_BREAKER_CHECK</td>
+<td class="px-4 py-4">Module 17</td>
 <td class="px-4 py-4 text-right">
-<span class="inline-flex items-center gap-2 px-2 py-1 bg-envictica-teal/10 text-envictica-teal border border-envictica-teal/30 rounded-sm font-mono text-[10px] uppercase tracking-widest">
-<div class="w-1.5 h-1.5 bg-envictica-teal rounded-full"></div>
-                                            Verified
-                                        </span>
-</td>
-</tr>
-<!-- Row 4 -->
-<tr class="hover:bg-envictica-slate_light/30 transition-colors bg-envictica-crimson/5">
-<td class="px-4 py-4 text-envictica-text_secondary">2023-10-27 <span class="text-envictica-text_primary">13:59:00.884</span>Z</td>
-<td class="px-4 py-4">LLM_MONITOR_SVC <span class="text-envictica-text_secondary/50">[ID:SVC]</span></td>
-<td class="px-4 py-4 uppercase tracking-wider text-[10px]">Inference Validation</td>
-<td class="px-4 py-4 text-envictica-teal">MODEL_PREDICTIVE_V4</td>
-<td class="px-4 py-4 text-right">
-<span class="inline-flex items-center gap-2 px-2 py-1 bg-[#FFB703]/10 text-[#FFB703] border border-[#FFB703]/50 rounded-sm font-mono text-[10px] uppercase tracking-widest">
-<div class="w-1.5 h-1.5 bg-[#FFB703] rounded-full animate-pulse"></div>
-                                            Drift Warning
-                                        </span>
-</td>
-</tr>
-<!-- Row 5 -->
-<tr class="hover:bg-envictica-slate_light/30 transition-colors">
-<td class="px-4 py-4 text-envictica-text_secondary">2023-10-27 <span class="text-envictica-text_primary">13:42:33.210</span>Z</td>
-<td class="px-4 py-4">DATA_ENG <span class="text-envictica-text_secondary/50">[ID:1102]</span></td>
-<td class="px-4 py-4 uppercase tracking-wider text-[10px]">Record Purge</td>
-<td class="px-4 py-4 text-envictica-teal">LOGS_TEMP_ARCHIVE</td>
-<td class="px-4 py-4 text-right">
-<span class="inline-flex items-center gap-2 px-2 py-1 bg-envictica-teal/10 text-envictica-teal border border-envictica-teal/30 rounded-sm font-mono text-[10px] uppercase tracking-widest">
-<div class="w-1.5 h-1.5 bg-envictica-teal rounded-full"></div>
-                                            Verified
-                                        </span>
+<span class="inline-flex items-center gap-2 px-2 py-1 bg-envictica-teal/10 text-envictica-teal border border-envictica-teal/30 rounded-sm text-[10px] uppercase">Valid</span>
 </td>
 </tr>
 </tbody>
 </table>
 </div>
-<div class="px-4 py-3 border-t border-envictica-slate_border flex justify-between items-center bg-envictica-slate/80 backdrop-blur-sm">
-<span class="font-mono text-[10px] text-envictica-text_secondary uppercase tracking-widest">Showing 1-5 of 14,208 entries</span>
-<div class="flex gap-2">
-<button class="px-3 py-1.5 text-envictica-text_secondary hover:text-envictica-text_primary border border-envictica-slate_border rounded-sm disabled:opacity-50 font-mono text-[10px] uppercase tracking-widest bg-envictica-slate_light/50" disabled="">Prev</button>
-<button class="px-3 py-1.5 text-envictica-text_secondary hover:text-envictica-text_primary border border-envictica-slate_border rounded-sm font-mono text-[10px] uppercase tracking-widest bg-envictica-slate_light/50">Next</button>
-</div>
-</div>
 </div>
 </div>
 </main>
-</body></html>
+</body>
+</html>
