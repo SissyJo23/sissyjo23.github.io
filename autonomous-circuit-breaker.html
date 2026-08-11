@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Envictica ACB_17 Interface</title>
+<title>Module 17: Autonomous Circuit Breaker</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;800&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
@@ -22,7 +22,7 @@
                             crimson: '#FF4D6D',
                             crimson_dim: 'rgba(255, 77, 109, 0.2)',
                             text_primary: '#F8FAFC',
-                            text_secondary: '#CBD5E1'
+                            text_secondary: '#94A3B8'
                         }
                     },
                     fontFamily: {
@@ -39,262 +39,118 @@
             background-color: theme('colors.envictica.slate_light');
             border: 1px solid theme('colors.envictica.slate_border');
         }
-        .glow-teal { box-shadow: 0 0 15px 2px theme('colors.envictica.teal_dim'); }
-        .glow-crimson { box-shadow: 0 0 15px 2px theme('colors.envictica.crimson_dim'); }
-        .scanline-input { position: relative; }
-        .scanline-input::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, theme('colors.envictica.teal'), transparent);
-            opacity: 0; transition: opacity 0.3s;
-        }
-        .scanline-input:focus-within::after {
-            opacity: 1; animation: scan 2s infinite linear;
-        }
-        @keyframes scan { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
-        @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(2); opacity: 0; } }
         .status-dot { position: relative; width: 8px; height: 8px; border-radius: 50%; }
-        .status-dot.teal { background-color: theme('colors.envictica.teal'); }
-        .status-dot.teal::before {
-            content: ''; position: absolute; left: -4px; top: -4px; right: -4px; bottom: -4px;
-            border-radius: 50%; border: 2px solid theme('colors.envictica.teal');
-            animation: pulse-ring 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
-        }
         .status-dot.crimson { background-color: theme('colors.envictica.crimson'); }
         .status-dot.crimson::before {
             content: ''; position: absolute; left: -4px; top: -4px; right: -4px; bottom: -4px;
             border-radius: 50%; border: 2px solid theme('colors.envictica.crimson');
             animation: pulse-ring 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
         }
+        @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(2); opacity: 0; } }
         .tech-border { position: relative; }
         .tech-border::before {
             content: ''; position: absolute; top: 0; left: 0; width: 20px; height: 20px;
-            border-top: 2px solid theme('colors.envictica.teal'); border-left: 2px solid theme('colors.envictica.teal');
+            border-top: 2px solid theme('colors.envictica.crimson'); border-left: 2px solid theme('colors.envictica.crimson');
             pointer-events: none;
         }
         .tech-border::after {
             content: ''; position: absolute; bottom: 0; right: 0; width: 20px; height: 20px;
-            border-bottom: 2px solid theme('colors.envictica.teal'); border-right: 2px solid theme('colors.envictica.teal');
+            border-bottom: 2px solid theme('colors.envictica.crimson'); border-right: 2px solid theme('colors.envictica.crimson');
             pointer-events: none;
         }
     </style>
 </head>
 <body class="antialiased min-h-screen flex flex-col md:flex-row font-sans">
-<!-- SideNavBar (Desktop) -->
+<!-- SideNavBar -->
 <nav class="hidden md:flex flex-col h-full w-64 left-0 fixed border-r border-envictica-slate_border bg-envictica-slate py-6 px-4 z-40">
 <div class="mb-8">
 <a href="index.html" class="font-sans text-2xl font-extrabold text-envictica-text_primary tracking-tight hover:text-envictica-teal">Envictica</a>
 <p class="font-mono text-xs text-envictica-text_secondary mt-1 tracking-widest uppercase">Official Module: 17 of 17</p>
 </div>
-<div class="flex items-center gap-3 mb-8 p-3 glass-panel rounded-lg bg-envictica-slate_light/50 backdrop-blur-md border border-envictica-slate_border">
-<div>
-<p class="font-mono text-xs font-bold text-envictica-text_primary">Operator Alpha</p>
-<p class="font-mono text-[10px] text-envictica-teal">Lvl 4 Clearance</p>
-</div>
-</div>
-<div class="flex-1 space-y-2">
-<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-md" href="index.html">
+<div class="flex-1 space-y-2 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="index.html">
 <span class="material-symbols-outlined text-sm">grid_view</span>
 <span class="font-mono text-xs uppercase tracking-widest">Dashboard</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-md" href="#">
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="command-bridge.html">
 <span class="material-symbols-outlined text-sm">terminal</span>
-<span class="font-mono text-xs uppercase tracking-widest">Command</span>
+<span class="font-mono text-xs uppercase tracking-widest">Command Bridge</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-md" href="#">
-<span class="material-symbols-outlined text-sm">gavel</span>
-<span class="font-mono text-xs uppercase tracking-widest">Governance</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-md" href="#">
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="data-layer-plumbing.html">
 <span class="material-symbols-outlined text-sm">account_tree</span>
-<span class="font-mono text-xs uppercase tracking-widest">Pipelines</span>
+<span class="font-mono text-xs uppercase tracking-widest">Data Plumbing</span>
 </a>
-<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-md" href="#">
-<span class="material-symbols-outlined text-sm">warning</span>
-<span class="font-mono text-xs uppercase tracking-widest">Risk</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 mt-4 bg-envictica-crimson/10 text-envictica-crimson border border-envictica-crimson/30 rounded-md font-bold transition-all glow-crimson hover:bg-envictica-crimson hover:text-white" href="#" id="btn-kill-switch">
-<span class="material-symbols-outlined text-sm">bolt</span>
-<span class="font-mono text-xs uppercase tracking-widest"><span>Kill Switch</span></span>
+<a class="flex items-center gap-3 px-3 py-2 border-l-2 border-envictica-crimson text-envictica-crimson bg-envictica-slate_light transition-all rounded-r-sm bg-envictica-crimson/10" href="autonomous-circuit-breaker.html">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">bolt</span>
+<span class="font-mono text-xs uppercase tracking-widest font-bold">Circuit Breaker</span>
 </a>
 </div>
 <div class="mt-auto space-y-2 pt-6 border-t border-envictica-slate_border">
 <div class="px-3 py-2">
-<p class="font-mono text-[10px] text-envictica-teal flex items-center gap-2 uppercase tracking-widest">
-<span class="status-dot teal"></span> Sys Status: Nominal
+<p class="font-mono text-[10px] text-envictica-crimson flex items-center gap-2 uppercase tracking-widest">
+<span class="status-dot crimson"></span> State: Armed & Ready
                 </p>
 </div>
 </div>
 </nav>
 
-<!-- TopNavBar (Mobile) -->
-<nav class="md:hidden flex justify-between items-center w-full px-4 py-3 bg-envictica-slate border-b border-envictica-slate_border sticky top-0 z-40">
-<div>
-<a href="index.html" class="font-sans text-xl font-bold text-envictica-text_primary tracking-tight">Envictica</a>
-<p class="font-mono text-[10px] text-envictica-text_secondary uppercase">ACB_17</p>
-</div>
-<div class="flex gap-4 text-envictica-text_secondary">
-<span class="material-symbols-outlined text-sm">settings</span>
-<span class="material-symbols-outlined text-sm text-envictica-teal">notifications_active</span>
-</div>
-</nav>
-
-<!-- Main Content Canvas -->
+<!-- Main Content -->
 <main class="flex-1 md:ml-64 p-6 lg:p-10 max-w-[1600px] mx-auto w-full pb-24 md:pb-10">
 <header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 border-b border-envictica-slate_border pb-6">
 <div>
-<p class="font-mono text-xs text-envictica-teal mb-2 tracking-widest uppercase font-bold">Path: Env / Infra / ACB_17</p>
-<h2 class="font-sans text-3xl md:text-5xl font-extrabold text-white tracking-tight">Procurement Cascade</h2>
+<p class="font-mono text-[10px] text-envictica-text_secondary mb-2 tracking-widest uppercase">Path: Env / Safety / Circuit_Breaker_17</p>
+<h2 class="font-sans text-3xl md:text-5xl font-extrabold text-white tracking-tight">Autonomous Circuit Breaker</h2>
 </div>
-<div class="glass-panel px-4 py-2 rounded-sm border-l-2 border-envictica-teal bg-envictica-teal/10 flex items-center gap-3">
-<div class="status-dot teal"></div>
-<span class="font-mono text-xs text-envictica-teal tracking-widest uppercase font-bold">Circuit Breaker: Active</span>
+<div class="glass-panel px-4 py-2 rounded-sm border-l-2 border-envictica-crimson bg-envictica-crimson/10 flex items-center gap-3">
+<div class="status-dot crimson"></div>
+<span class="font-mono text-xs text-envictica-crimson tracking-widest uppercase font-bold">Override System: Primed</span>
 </div>
 </header>
 
-<div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
-<div class="xl:col-span-8 flex flex-col gap-6">
-<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 border-t-2 border-envictica-crimson bg-envictica-slate_light/50">
-<span class="font-mono text-[10px] uppercase tracking-widest text-slate-300 font-semibold">Entropy Threshold</span>
-<div class="flex items-end gap-2">
-<span class="font-mono text-3xl font-bold text-envictica-crimson">0.14</span>
-<span class="font-mono text-[10px] text-slate-400 mb-1">/ 0.15 MAX</span>
-</div>
-</div>
-<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 border-t-2 border-envictica-teal bg-envictica-slate_light/50">
-<span class="font-mono text-[10px] uppercase tracking-widest text-slate-300 font-semibold">Air-Gap Status</span>
-<span class="font-mono text-xl font-bold text-envictica-teal">SECURE</span>
-</div>
-<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 bg-envictica-slate_light/50">
-<span class="font-mono text-[10px] uppercase tracking-widest text-slate-300 font-semibold">Liability Avoided</span>
-<span class="font-mono text-2xl font-bold text-envictica-text_primary">$4.2M</span>
-</div>
-<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 bg-envictica-slate_light/50">
-<span class="font-mono text-[10px] uppercase tracking-widest text-slate-300 font-semibold">Clauses Blocked</span>
-<span class="font-mono text-2xl font-bold text-envictica-text_primary">1,400</span>
-</div>
-</div>
-
-<div class="glass-panel rounded-sm overflow-hidden flex flex-col h-[500px] md:h-[600px] tech-border bg-[#050B14]">
-<div class="p-4 border-b border-envictica-slate_border flex justify-between items-center bg-envictica-slate/80 backdrop-blur-sm z-10">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-envictica-teal text-sm">visibility</span>
-<h3 class="font-mono text-xs uppercase tracking-widest text-envictica-text_primary">Neural 'Mind's Eye' Filter Protocol</h3>
-</div>
-<span class="px-2 py-1 bg-envictica-teal/10 rounded-sm text-[10px] font-mono text-envictica-teal border border-envictica-teal/30 flex items-center gap-2">
-<div class="w-1.5 h-1.5 bg-envictica-teal rounded-full animate-pulse"></div> LIVE FEED
-</span>
-</div>
-<div class="relative flex-1 overflow-hidden flex items-center justify-center bg-envictica-slate_light/20">
-<div class="absolute inset-0 bg-[linear-gradient(rgba(0,245,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,245,212,0.03)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none"></div>
-<div class="absolute inset-0 flex flex-col p-6 justify-end pointer-events-none">
-<div class="w-full bg-envictica-slate/90 backdrop-blur-md border border-envictica-slate_border p-4 rounded-sm flex flex-col gap-3">
-<div class="flex justify-between items-center text-[10px] font-mono text-slate-300 uppercase tracking-widest">
-<span>Stream Ingestion Rate</span>
-<span class="text-envictica-teal">Gate Active</span>
-</div>
-<div class="w-full h-1.5 bg-envictica-slate_light rounded-none overflow-hidden border border-envictica-slate_border">
-<div class="h-full bg-envictica-teal w-[78%] relative shadow-[0_0_10px_#00F5D4]"></div>
-</div>
-<div class="flex justify-between items-center text-[10px] font-mono mt-1">
-<span class="text-slate-300">4.2 TB/s</span>
-<span class="text-envictica-crimson">24 Anomalies Detected</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<div class="xl:col-span-4 flex flex-col gap-6">
-<div class="glass-panel rounded-sm flex flex-col flex-1 min-h-[300px] bg-envictica-slate_light/30">
-<div class="p-4 border-b border-envictica-slate_border flex items-center gap-2 bg-envictica-slate_light/50">
-<span class="material-symbols-outlined text-envictica-teal text-sm">plagiarism</span>
-<h3 class="font-mono text-xs uppercase tracking-widest text-envictica-text_primary">Clause Analysis Buffer</h3>
-</div>
-<div class="p-4 flex-1 overflow-y-auto font-mono text-xs text-slate-300 whitespace-pre-wrap leading-relaxed">
-[SYS_LOG]: Ingestion stream active.
-[ANALYSIS]: Section 4.2 Indemnity Clause contains 2 risk anomalies.
-[STATUS]: Interception filter standing by for Operator instruction...
-</div>
-</div>
-
-<div class="glass-panel rounded-sm border-l-2 border-envictica-crimson bg-envictica-slate_light/40 p-6 flex flex-col gap-5 tech-border">
-<div class="flex items-start justify-between">
+<div class="space-y-6">
+<!-- Warning Banner -->
+<div class="glass-panel p-6 rounded-sm tech-border bg-envictica-crimson/5 border-envictica-crimson/40 flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+<div class="flex items-start gap-4">
+<span class="material-symbols-outlined text-envictica-crimson text-3xl">warning</span>
 <div>
-<h3 class="font-sans text-xl font-bold text-envictica-crimson mb-1 uppercase tracking-tight">Manual Override</h3>
-<p class="font-mono text-[10px] text-slate-300 uppercase tracking-widest">Biometric Multi-Sig Req</p>
-</div>
-<span class="material-symbols-outlined text-envictica-crimson text-2xl animate-pulse">fingerprint</span>
-</div>
-<div class="space-y-4 mt-2">
-<div class="scanline-input bg-envictica-slate rounded-sm px-3 py-2.5 border border-envictica-slate_border">
-<input class="bg-transparent w-full text-envictica-text_primary font-mono text-xs focus:outline-none placeholder-slate-400" placeholder="Operator Authorization Code" type="password"/>
-</div>
-<div class="scanline-input bg-envictica-slate rounded-sm px-3 py-2.5 border border-envictica-slate_border">
-<input class="bg-transparent w-full text-envictica-text_primary font-mono text-xs focus:outline-none placeholder-slate-400" placeholder="Secondary Auth Token" type="password"/>
+<h3 class="font-mono text-sm uppercase tracking-widest text-envictica-crimson font-bold">Emergency Kill-Switch Protocol</h3>
+<p class="font-mono text-xs text-envictica-text_secondary mt-1">Executing this breaker instantly drops external API socket bridges, halts all active RAG agentic threads, and isolates local node memory caches.</p>
 </div>
 </div>
-<button class="w-full mt-2 bg-envictica-crimson/10 border border-envictica-crimson/50 text-envictica-crimson hover:bg-envictica-crimson hover:text-white font-mono text-xs py-3 rounded-sm transition-all duration-200 uppercase tracking-widest glow-crimson font-bold" id="btn-manual-override">
-    Initiate Bypass Protocol
+<button class="px-6 py-3 bg-envictica-crimson text-white font-mono text-xs font-bold uppercase tracking-widest rounded-sm hover:bg-envictica-crimson/80 transition-all shadow-[0_0_15px_rgba(255,77,109,0.3)] whitespace-nowrap">
+Trigger Breaker
 </button>
+</div>
+
+<!-- Diagnostics Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 border-t-2 border-envictica-crimson bg-envictica-slate_light/50">
+<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_primary font-bold">Active Thread Load</span>
+<span class="font-mono text-3xl font-bold text-envictica-text_primary">17 / 17</span>
+</div>
+<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 bg-envictica-slate_light/50">
+<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_primary font-bold">Socket Latency</span>
+<span class="font-mono text-3xl font-bold text-envictica-teal">1.4ms</span>
+</div>
+<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 bg-envictica-slate_light/50 border-r-2 border-envictica-crimson">
+<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_primary font-bold">Isolation State</span>
+<span class="font-mono text-xl font-bold text-envictica-crimson uppercase">Standby</span>
+</div>
+</div>
+
+<!-- Kernel Activity Log -->
+<div class="glass-panel rounded-sm overflow-hidden bg-[#050B14]">
+<div class="p-4 border-b border-envictica-slate_border flex items-center gap-2 bg-envictica-slate/80">
+<span class="material-symbols-outlined text-envictica-crimson text-sm">terminal</span>
+<h3 class="font-mono text-xs uppercase tracking-widest text-envictica-text_primary font-bold">Breaker Event Logs</h3>
+</div>
+<div class="p-4 font-mono text-[11px] text-slate-300 space-y-1 h-48 overflow-y-auto">
+<p class="text-envictica-teal">[SYS_INIT] Module 17 Circuit Breaker initialized successfully.</p>
+<p>[MONITOR] Listening on ingress ports for anomalies and drift spikes.</p>
+<p class="text-envictica-teal">[STATUS] No tripping thresholds exceeded. Systems nominal.</p>
 </div>
 </div>
 </div>
 </main>
-
-<script>
-    document.getElementById('btn-manual-override').addEventListener('click', async function(e) {
-        e.preventDefault();
-        const btn = this;
-        const originalText = btn.innerText;
-        btn.innerText = 'Bypassing...';
-        btn.disabled = true;
-
-        try {
-            const response = await fetch('http://3.145.129.227/api/analyze', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt: 'Execute Manual Override - Biometric Auth' })
-            });
-            const data = await response.json();
-            alert(data.reply || JSON.stringify(data));
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Connection failed.');
-        } finally {
-            btn.innerText = originalText;
-            btn.disabled = false;
-        }
-    });
-
-    document.getElementById('btn-kill-switch').addEventListener('click', async function(e) {
-        e.preventDefault();
-        const btn = this;
-        const textSpan = btn.querySelector('span span');
-        const originalText = textSpan ? textSpan.innerText : 'Kill Switch';
-        if (textSpan) textSpan.innerText = 'Severing...';
-        btn.style.pointerEvents = 'none';
-
-        try {
-            const response = await fetch('http://3.145.129.227/api/analyze', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ prompt: 'Activate Kill Switch - Procurement Cascade' })
-            });
-            const data = await response.json();
-            alert('CONNECTION SEVERED: ' + (data.reply || JSON.stringify(data)));
-        } catch (error) {
-            console.error('Error:', error);
-            alert('Connection failed.');
-        } finally {
-            if (textSpan) textSpan.innerText = originalText;
-            btn.style.pointerEvents = 'auto';
-        }
-    });
-</script>
 </body>
 </html>
