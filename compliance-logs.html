@@ -6,8 +6,7 @@
 <title>Module 05: Compliance Audit Logs</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -76,12 +75,13 @@
                         "gutter": "16px"
                     },
                     "fontFamily": {
-                        "title-md": ["Sora"],
-                        "label-caps": ["Sora"],
-                        "headline-lg-mobile": ["Sora"],
-                        "body-md": ["Sora"],
-                        "headline-lg": ["Sora"],
-                        "headline-md": ["Sora"]
+                        "title-md": ["Hanken Grotesk"],
+                        "label-caps": ["Hanken Grotesk"],
+                        "headline-lg-mobile": ["Hanken Grotesk"],
+                        "body-md": ["Hanken Grotesk"],
+                        "headline-lg": ["Hanken Grotesk"],
+                        "headline-md": ["Hanken Grotesk"],
+                        "mono": ["JetBrains Mono"]
                     },
                     "fontSize": {
                         "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
@@ -96,12 +96,12 @@
         }
     </script>
 <style>
-        body { font-family: 'Sora', sans-serif; }
+        body { font-family: 'Hanken Grotesk', sans-serif; }
     </style>
 </head>
-<body class="bg-background text-on-background min-h-screen flex flex-col antialiased">
+<body class="bg-[#0f172a] text-on-background min-h-screen flex flex-col antialiased">
 <!-- TopNavBar -->
-<nav class="bg-surface-container dark:bg-surface-container docked full-width top-0 border-b border-outline-variant flat no shadows flex justify-between items-center px-margin-desktop h-16 w-full z-50">
+<nav class="bg-[#1e293b] border-b border-outline-variant flex justify-between items-center px-margin-desktop h-16 w-full z-50">
 <div class="flex items-center gap-4">
 <span class="font-headline-md text-headline-md text-primary dark:text-primary uppercase tracking-wider">OFFICIAL ENVICTICA MODULE: 05 OF 17</span>
 </div>
@@ -122,7 +122,7 @@
 </nav>
 <div class="flex flex-1 overflow-hidden">
 <!-- SideNavBar -->
-<aside class="hidden md:flex flex-col h-full py-density-regular bg-surface dark:bg-surface docked h-screen left-0 w-64 border-r border-outline-variant flat no shadows shrink-0">
+<aside class="hidden md:flex flex-col h-full py-density-regular bg-[#1e293b] w-64 border-r border-outline-variant shrink-0">
 <div class="px-6 py-4 border-b border-outline-variant mb-4 flex items-center gap-3">
 <div class="w-10 h-10 rounded bg-surface-container-high border border-outline-variant overflow-hidden shrink-0">
 <img alt="System Administrator" class="w-full h-full object-cover" data-alt="A stylized, low-poly isometric rendering of a server tower or core engine component, glowing with cyan and teal light against a stark black background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBgYI0SvdkCZi4fE9PKIQE85E3-UDggvW0WYYw7bf2SomNlwno6PapdIlYNe4pn3L7tb8GiMJGG9Cn3I7ASDzPK_v3hMrb4XJILWCzHWAKvTEH_ZPSGitM-Owwq8_Gxxl1kT02KcR4-DiSJNyoG1OhISONU-DU6CsirJLvc4m7G0xqv4bTIpsax6pKqEE4asJTLa1ZwUVxknRqs9rvlYX9-w-rFJeLReIcuQ8_o4d1Kb56GB4U0WlDYQ"/>
@@ -153,7 +153,7 @@
 <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 0;">build_circle</span>
                     Data Debt Repair
                 </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded border-r-2 border-primary text-primary bg-primary-container/10 transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
+<a class="flex items-center gap-3 px-4 py-3 rounded border-r-2 border-primary text-primary bg-[#1e293b] transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
 <span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">history_edu</span>
                     Audit Logs
                 </a>
@@ -178,25 +178,25 @@
 </div>
 </aside>
 <!-- Main Content -->
-<main class="flex-1 overflow-y-auto p-margin-mobile md:p-margin-desktop bg-surface-container-lowest">
+<main class="flex-1 overflow-y-auto p-margin-mobile md:p-margin-desktop bg-[#0f172a]">
 <div class="max-w-[1440px] mx-auto space-y-6">
 <!-- Header & Stats Banner -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-<div class="bg-surface-container-low border border-outline-variant rounded p-4 flex flex-col justify-center">
+<div class="bg-[#1e293b] border border-outline-variant rounded p-4 flex flex-col justify-center">
 <span class="font-label-caps text-label-caps text-on-surface-variant mb-1">TOTAL AUDIT EVENTS</span>
 <span class="font-headline-lg text-headline-lg text-primary">14,208</span>
 </div>
-<div class="bg-surface-container-low border border-outline-variant rounded p-4 flex flex-col justify-center">
+<div class="bg-[#1e293b] border border-outline-variant rounded p-4 flex flex-col justify-center">
 <span class="font-label-caps text-label-caps text-on-surface-variant mb-1">ACTIVE SECURITY MONITORS</span>
 <span class="font-headline-lg text-headline-lg text-primary">42/42</span>
 </div>
-<div class="bg-surface-container-low border border-outline-variant rounded p-4 flex flex-col justify-center">
+<div class="bg-[#1e293b] border border-outline-variant rounded p-4 flex flex-col justify-center">
 <span class="font-label-caps text-label-caps text-on-surface-variant mb-1">LAST VERIFIED HASH</span>
 <span class="font-body-md text-body-md font-mono text-tertiary-fixed-dim">0x9f8c...a1b2</span>
 </div>
 </div>
 <!-- Controls & Filters -->
-<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-surface-container p-4 border border-outline-variant rounded">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-[#1e293b] p-4 border border-outline-variant rounded">
 <div class="flex flex-wrap gap-2">
 <button class="px-4 py-2 bg-primary-container text-on-primary-container font-label-caps text-label-caps rounded border border-primary transition-colors">
                             Security Logs
@@ -214,11 +214,11 @@
                     </button>
 </div>
 <!-- Ledger Table -->
-<div class="bg-surface-container-low border border-outline-variant rounded overflow-hidden">
+<div class="bg-[#1e293b] border border-outline-variant rounded overflow-hidden">
 <div class="overflow-x-auto">
 <table class="w-full text-left border-collapse">
 <thead>
-<tr class="border-b border-outline-variant bg-surface-container-highest">
+<tr class="border-b border-outline-variant bg-[#334155]">
 <th class="px-4 py-3 font-label-caps text-label-caps text-on-surface-variant">TIMESTAMP</th>
 <th class="px-4 py-3 font-label-caps text-label-caps text-on-surface-variant">ACTOR/ROLE</th>
 <th class="px-4 py-3 font-label-caps text-label-caps text-on-surface-variant">ACTION TYPE</th>
@@ -234,20 +234,20 @@
 <td class="px-4 py-3">Schema Modification</td>
 <td class="px-4 py-3 text-tertiary-fixed-dim">TABLE_USER_METRICS</td>
 <td class="px-4 py-3 text-right">
-<span class="inline-flex items-center gap-1 px-2 py-1 bg-primary-container/20 text-[#00f5d4] border border-primary/30 rounded font-label-caps text-[10px]">
+<span class="inline-flex items-center gap-1 px-2 py-1 bg-primary-container/20 text-[#00f5d4] border border-[#00f5d4]/30 rounded font-label-caps text-[10px]">
 <span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
                                             Verified
                                         </span>
 </td>
 </tr>
 <!-- Row 2 -->
-<tr class="hover:bg-surface-container transition-colors bg-error-container/10">
+<tr class="hover:bg-surface-container transition-colors bg-[#ff4d6d]/10">
 <td class="px-4 py-3 font-mono text-xs text-on-surface-variant">2023-10-27 14:28:45Z</td>
 <td class="px-4 py-3">API_KEY_EXT (ID: 441A)</td>
 <td class="px-4 py-3">Bulk Data Extraction</td>
 <td class="px-4 py-3 text-tertiary-fixed-dim">DATASET_FINANCIAL_Q3</td>
 <td class="px-4 py-3 text-right">
-<span class="inline-flex items-center gap-1 px-2 py-1 bg-error-container/40 text-[#FF4D6D] border border-error/50 rounded font-label-caps text-[10px]">
+<span class="inline-flex items-center gap-1 px-2 py-1 bg-[#ff4d6d]/20 text-[#FF4D6D] border border-[#ff4d6d]/50 rounded font-label-caps text-[10px]">
 <span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">block</span>
                                             Access Blocked
                                         </span>
@@ -260,20 +260,20 @@
 <td class="px-4 py-3">Pipeline Execution</td>
 <td class="px-4 py-3 text-tertiary-fixed-dim">PIPE_NIGHTLY_ETL</td>
 <td class="px-4 py-3 text-right">
-<span class="inline-flex items-center gap-1 px-2 py-1 bg-primary-container/20 text-[#00f5d4] border border-primary/30 rounded font-label-caps text-[10px]">
+<span class="inline-flex items-center gap-1 px-2 py-1 bg-primary-container/20 text-[#00f5d4] border border-[#00f5d4]/30 rounded font-label-caps text-[10px]">
 <span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
                                             Verified
                                         </span>
 </td>
 </tr>
 <!-- Row 4 -->
-<tr class="hover:bg-surface-container transition-colors bg-secondary-container/10">
+<tr class="hover:bg-surface-container transition-colors bg-[#ff4d6d]/10">
 <td class="px-4 py-3 font-mono text-xs text-on-surface-variant">2023-10-27 13:59:00Z</td>
 <td class="px-4 py-3">LLM_MONITOR_SVC</td>
 <td class="px-4 py-3">Inference Validation</td>
 <td class="px-4 py-3 text-tertiary-fixed-dim">MODEL_PREDICTIVE_V4</td>
 <td class="px-4 py-3 text-right">
-<span class="inline-flex items-center gap-1 px-2 py-1 bg-secondary-container/40 text-[#FF4D6D] border border-secondary/50 rounded font-label-caps text-[10px]">
+<span class="inline-flex items-center gap-1 px-2 py-1 bg-[#ff4d6d]/20 text-[#FF4D6D] border border-[#ff4d6d]/50 rounded font-label-caps text-[10px]">
 <span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">warning</span>
                                             Drift Warning
                                         </span>
@@ -286,7 +286,7 @@
 <td class="px-4 py-3">Record Purge</td>
 <td class="px-4 py-3 text-tertiary-fixed-dim">LOGS_TEMP_ARCHIVE</td>
 <td class="px-4 py-3 text-right">
-<span class="inline-flex items-center gap-1 px-2 py-1 bg-primary-container/20 text-[#00f5d4] border border-primary/30 rounded font-label-caps text-[10px]">
+<span class="inline-flex items-center gap-1 px-2 py-1 bg-primary-container/20 text-[#00f5d4] border border-[#00f5d4]/30 rounded font-label-caps text-[10px]">
 <span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
                                             Verified
                                         </span>
@@ -295,7 +295,7 @@
 </tbody>
 </table>
 </div>
-<div class="px-4 py-3 border-t border-outline-variant flex justify-between items-center bg-surface-container-highest">
+<div class="px-4 py-3 border-t border-outline-variant flex justify-between items-center bg-[#334155]">
 <span class="font-body-md text-xs text-on-surface-variant">Showing 1-5 of 14,208 entries</span>
 <div class="flex gap-2">
 <button class="px-2 py-1 text-on-surface-variant hover:text-on-surface border border-outline-variant rounded disabled:opacity-50" disabled="">Prev</button>
