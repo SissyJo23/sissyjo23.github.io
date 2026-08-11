@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Envictica | Knowledge Graph</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#00F5D4", // Electric Teal
+              "env-alert": "#FF4D6D", // Burnt Crimson
+              surface: "#0A0B0E",
+              "surface-container": "#13151B",
+              outline: "#2A2E39",
+              "on-surface-variant": "#9CA3AF",
+            },
+            fontFamily: {
+              display: ["Sora", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+              body: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background-color: #050608;
+        color: #e3e1e9;
+        overflow: hidden;
+      }
+      .node {
+        stroke: #00f5d4;
+        stroke-width: 1.5;
+        fill: #0a0b0e;
+      }
+      .edge {
+        stroke: rgba(0, 245, 212, 0.2);
+        stroke-width: 1;
+      }
+      .node-alert {
+        stroke: #ff4d6d;
+        fill: rgba(255, 77, 109, 0.1);
+      }
+      .edge-alert {
+        stroke: rgba(255, 77, 109, 0.3);
+        stroke-dasharray: 4;
+        animation: dash 20s linear infinite;
+      }
+      @keyframes dash {
+        to {
+          stroke-dashoffset: -1000;
+        }
+      }
+      .glass-card {
+        background: rgba(19, 21, 27, 0.8);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+    </style>
+  </head>
+  <body class="font-body antialiased min-h-screen">
+    <!-- Top Module Bar -->
+    <div
+      class="fixed top-0 left-0 w-full bg-primary text-[#002113] z-50 h-8 flex items-center justify-center font-mono text-[10px] tracking-[0.3em] font-bold uppercase"
+    >
+      Official Envictica Module: 07 of 17
+    </div>
+
+    <div class="pt-8 flex h-screen">
+      <!-- Sidebar -->
+      <nav
+        class="w-64 bg-surface-container border-r border-outline p-6 flex flex-col gap-8 z-20"
+      >
+        <div class="flex flex-col gap-1">
+          <span
+            class="font-display text-2xl font-black italic tracking-tighter text-white"
+            >ENVICTICA</span
+          >
+          <span
+            class="font-mono text-[10px] text-primary tracking-widest uppercase"
+            >Knowledge Layer</span
+          >
+        </div>
+        <div class="flex flex-col gap-2">
+          <div
+            class="p-3 flex items-center gap-3 text-on-surface-variant hover:text-white transition-colors cursor-pointer"
+          >
+            <span class="material-symbols-outlined text-lg">hub</span>
+            <span class="font-mono text-xs uppercase tracking-wider"
+              >Graph View</span
+            >
+          </div>
+          <div
+            class="bg-primary/10 border border-primary/20 p-3 rounded flex items-center gap-3 text-primary"
+          >
+            <span class="material-symbols-outlined text-lg">account_tree</span>
+            <span class="font-mono text-xs font-bold uppercase tracking-wider"
+              >Fact Mapping</span
+            >
+          </div>
+        </div>
+      </nav>
+
+      <!-- Main Visualization Area -->
+      <main class="flex-1 relative">
+        <!-- SVG Graph Placeholder -->
+        <svg class="w-full h-full absolute inset-0 opacity-40">
+          <line class="edge" x1="20%" y1="30%" x2="40%" y2="50%" />
+          <line class="edge" x1="40%" y1="50%" x2="60%" y2="20%" />
+          <line class="edge-alert" x1="40%" y1="50%" x2="35%" y2="80%" />
+          <circle class="node" cx="20%" cy="30%" r="6" />
+          <circle class="node" cx="40%" cy="50%" r="8" />
+          <circle class="node" cx="60%" cy="20%" r="6" />
+          <circle class="node node-alert" cx="35%" cy="80%" r="10" />
+        </svg>
+
+        <!-- Floating Info Panels -->
+        <div
+          class="absolute top-12 left-12 flex flex-col gap-4 max-w-sm z-10"
+        >
+          <div class="glass-card p-6 rounded-sm">
+            <h2
+              class="font-display text-2xl font-black text-white uppercase tracking-tight mb-2"
+            >
+              Fact Mapping
+            </h2>
+            <p class="text-on-surface-variant text-xs leading-relaxed">
+              Real-time Fact-Mapping that anchors LLM outputs to a verified
+              corporate knowledge base.
+            </p>
+          </div>
+
+          <div class="glass-card p-4 rounded-sm border-l-2 border-env-alert">
+            <div class="flex justify-between items-center mb-3">
+              <span
+                class="font-mono text-[10px] text-env-alert font-bold uppercase tracking-widest"
+                >Anomaly Detected</span
+              >
+              <span class="material-symbols-outlined text-env-alert text-sm"
+                >warning</span
+              >
+            </div>
+            <div class="font-mono text-[11px] text-white">
+              Unverified Clause Anchor: ID_8821
+            </div>
+            <div class="mt-2 text-[10px] text-on-surface-variant">
+              Semantic divergence detected in "Termination Rights" vector.
+              Hot-swap recommended.
+            </div>
+          </div>
+        </div>
+
+        <div
+          class="absolute bottom-12 right-12 glass-card p-6 rounded-sm min-w-[280px] z-10"
+        >
+          <span
+            class="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest block mb-4"
+            >Graph Telemetry</span
+          >
+          <div class="flex flex-col gap-4">
+            <div class="flex justify-between items-end">
+              <span class="text-[10px] text-on-surface-variant"
+                >Active Nodes</span
+              >
+              <span class="font-mono text-xl text-white">12,450</span>
+            </div>
+            <div class="flex justify-between items-end">
+              <span class="text-[10px] text-on-surface-variant"
+                >Verified Edges</span
+              >
+              <span class="font-mono text-xl text-primary">99.8%</span>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
