@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Envictica | Fiduciary Command Bridge</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#00F5D4",
+              "env-alert": "#FF4D6D",
+              surface: "#0A0B0E",
+              "surface-container": "#13151B",
+              outline: "#2A2E39",
+              "on-surface-variant": "#9CA3AF",
+            },
+            fontFamily: {
+              display: ["Sora", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+              body: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background-color: #050608;
+        color: #e3e1e9;
+      }
+      .glow-teal {
+        box-shadow: 0 0 20px rgba(0, 245, 212, 0.15);
+      }
+      .pulse-dot {
+        animation: pulse 2s infinite;
+      }
+      @keyframes pulse {
+        0% {
+          transform: scale(0.95);
+          box-shadow: 0 0 0 0 rgba(0, 245, 212, 0.7);
+        }
+        70% {
+          transform: scale(1);
+          box-shadow: 0 0 0 6px rgba(0, 245, 212, 0);
+        }
+        100% {
+          transform: scale(0.95);
+          box-shadow: 0 0 0 0 rgba(0, 245, 212, 0);
+        }
+      }
+    </style>
+  </head>
+  <body class="font-body antialiased min-h-screen">
+    <!-- Top Bar -->
+    <div
+      class="fixed top-0 left-0 w-full bg-primary text-[#002022] z-50 h-8 flex items-center justify-center font-mono text-[10px] tracking-[0.3em] font-bold uppercase"
+    >
+      Official Envictica Module: 01 of 17
+    </div>
+
+    <div class="pt-8 flex flex-col md:flex-row h-screen">
+      <!-- Sidebar -->
+      <nav
+        class="w-64 bg-surface-container border-r border-outline p-6 flex flex-col gap-8"
+      >
+        <div class="flex flex-col gap-1">
+          <span
+            class="font-display text-2xl font-black italic tracking-tighter text-white"
+            >ENVICTICA</span
+          >
+          <span
+            class="font-mono text-[10px] text-primary tracking-widest uppercase"
+            >Fiduciary Command</span
+          >
+        </div>
+        <div class="flex flex-col gap-2">
+          <div
+            class="bg-primary/10 border border-primary/20 p-3 rounded flex items-center gap-3 text-primary"
+          >
+            <span class="material-symbols-outlined text-lg">terminal</span>
+            <span class="font-mono text-xs font-bold uppercase tracking-wider"
+              >Command</span
+            >
+          </div>
+          <div
+            class="p-3 flex items-center gap-3 text-on-surface-variant hover:text-white transition-colors cursor-pointer"
+          >
+            <span class="material-symbols-outlined text-lg">gavel</span>
+            <span class="font-mono text-xs uppercase tracking-wider"
+              >Governance</span
+            >
+          </div>
+          <div
+            class="p-3 flex items-center gap-3 text-on-surface-variant hover:text-white transition-colors cursor-pointer"
+          >
+            <span class="material-symbols-outlined text-lg"
+              >account_tree</span
+            >
+            <span class="font-mono text-xs uppercase tracking-wider"
+              >Pipelines</span
+            >
+          </div>
+        </div>
+        <div class="mt-auto border-t border-outline pt-6">
+          <div class="flex items-center gap-3">
+            <div class="w-2 h-2 bg-primary rounded-full pulse-dot"></div>
+            <span
+              class="font-mono text-[10px] text-primary uppercase tracking-widest"
+              >System Live</span
+            >
+          </div>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="flex-1 overflow-y-auto p-8">
+        <header
+          class="flex justify-between items-end mb-12 border-b border-outline pb-8"
+        >
+          <div class="flex flex-col gap-2">
+            <h2
+              class="font-display text-4xl font-black text-white uppercase tracking-tight"
+            >
+              Fiduciary Command Bridge
+            </h2>
+            <p class="text-on-surface-variant max-w-xl">
+              Central diagnostic oversight for model drift, ingestion
+              integrity, and autonomous failover protocols.
+            </p>
+          </div>
+        </header>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <!-- Health Matrix -->
+          <section
+            class="bg-surface-container border border-outline p-8 glow-teal"
+          >
+            <div class="flex justify-between items-start mb-8">
+              <h3
+                class="font-mono text-xs font-bold text-primary uppercase tracking-[0.2em]"
+              >
+                Trust Score Calculus
+              </h3>
+              <span
+                class="text-[10px] bg-primary/10 text-primary border border-primary/20 px-2 py-1 uppercase font-mono"
+                >Stable</span
+              >
+            </div>
+            <div class="flex items-baseline gap-4">
+              <span
+                class="font-mono text-7xl font-light text-white tracking-tighter"
+                >94.2</span
+              >
+              <span class="text-on-surface-variant font-mono uppercase text-sm"
+                >/ 100</span
+              >
+            </div>
+          </section>
+
+          <!-- Data Debt -->
+          <section class="bg-surface-container border border-outline p-8">
+            <div class="flex justify-between items-start mb-8">
+              <h3
+                class="font-mono text-xs font-bold text-on-surface-variant uppercase tracking-[0.2em]"
+              >
+                Data Debt Avoided
+              </h3>
+              <span class="material-symbols-outlined text-primary text-xl"
+                >savings</span
+              >
+            </div>
+            <div class="flex flex-col gap-1">
+              <span
+                class="font-mono text-5xl font-light text-white tracking-tighter"
+                >$4.2M</span
+              >
+              <span
+                class="font-mono text-[10px] text-primary uppercase tracking-widest"
+                >Sequential Mitigation Active</span
+              >
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
