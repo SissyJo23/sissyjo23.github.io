@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Envictica: Drift Anomaly Detected</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#00F5D4",
+              "env-alert": "#FF4D6D",
+              surface: "#121318",
+              "on-surface": "#e3e1e9",
+              "on-surface-variant": "#8a8b94",
+              outline: "#2a2b32",
+            },
+            fontFamily: {
+              "label-caps": ["JetBrains Mono", "monospace"],
+              "data-numeral": ["JetBrains Mono", "monospace"],
+              headline: ["Sora", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background-color: #0d0e13;
+        color: #e3e1e9;
+      }
+      .hud-border {
+        border: 1px solid rgba(255, 77, 109, 0.2);
+      }
+      .drift-line {
+        stroke-dasharray: 1000;
+        stroke-dashoffset: 1000;
+        animation: draw 3s forwards ease-in-out;
+      }
+      @keyframes draw {
+        to {
+          stroke-dashoffset: 0;
+        }
+      }
+    </style>
+  </head>
+  <body class="font-sans antialiased min-h-screen flex flex-col p-6 gap-8">
+    <div class="flex flex-col items-center text-center gap-4 mt-8">
+      <span class="material-symbols-outlined text-env-alert text-6xl"
+        >warning</span
+      >
+      <span
+        class="bg-env-alert/10 text-env-alert font-label-caps text-[11px] px-4 py-1.5 rounded-full border border-env-alert/30 tracking-[0.2em] uppercase"
+      >
+        Step 1: Detection
+      </span>
+      <h1
+        class="font-headline text-3xl font-black text-white tracking-tight uppercase mt-2"
+      >
+        Drift Anomaly Detected
+      </h1>
+      <p
+        class="font-label-caps text-on-surface-variant text-[11px] tracking-widest uppercase opacity-60"
+      >
+        Envictica Core Systems
+      </p>
+    </div>
+
+    <div class="bg-surface/40 hud-border p-6 rounded-lg flex flex-col gap-2">
+      <div class="flex justify-between items-start">
+        <div class="flex flex-col">
+          <span
+            class="font-label-caps text-[10px] text-on-surface-variant tracking-wider uppercase"
+            >Fiduciary Impact</span
+          >
+          <span
+            class="font-label-caps text-[12px] text-env-alert font-bold mt-1"
+            >84% Divergence Detected in Procurement.Ops Node</span
+          >
+        </div>
+      </div>
+      <h2 class="text-white text-xl font-medium mt-4">Potential Logic Fail</h2>
+      <div class="w-full bg-white/5 h-2 rounded-full mt-2 overflow-hidden">
+        <div
+          class="bg-env-alert h-full w-[84%] shadow-[0_0_10px_#FF4D6D]"
+        ></div>
+      </div>
+    </div>
+
+    <div
+      class="bg-surface/40 border border-outline p-6 rounded-lg flex flex-col gap-4"
+    >
+      <div class="flex justify-between items-center">
+        <span
+          class="font-label-caps text-[10px] text-on-surface-variant tracking-wider uppercase font-bold"
+          >Drift vs Baseline</span
+        >
+        <span class="font-data-numeral text-[11px] text-primary"
+          >T-Minus 5:00</span
+        >
+      </div>
+      <div class="relative w-full h-32 mt-2">
+        <svg class="w-full h-full" viewBox="0 0 400 100">
+          <path
+            d="M 0 60 Q 100 55 200 65 T 350 15"
+            fill="none"
+            stroke="#FF4D6D"
+            stroke-width="2"
+            class="drift-line"
+          />
+          <line
+            x1="0"
+            y1="60"
+            x2="400"
+            y2="60"
+            stroke="white"
+            stroke-width="1"
+            stroke-dasharray="4 4"
+            opacity="0.2"
+          />
+          <circle
+            cx="350"
+            cy="15"
+            r="4"
+            fill="#FF4D6D"
+            class="animate-pulse"
+          />
+        </svg>
+      </div>
+    </div>
+
+    <div
+      class="bg-surface/40 border border-outline p-6 rounded-lg grid grid-cols-2 gap-4"
+    >
+      <div class="flex flex-col gap-1">
+        <span
+          class="font-label-caps text-[9px] text-on-surface-variant uppercase tracking-widest"
+          >Operator ID</span
+        >
+        <span class="font-data-numeral text-sm text-white">ENV-OP-4892</span>
+      </div>
+      <div class="flex flex-col gap-1 items-end">
+        <span
+          class="font-label-caps text-[9px] text-on-surface-variant uppercase tracking-widest"
+          >Response Window</span
+        >
+        <span class="font-data-numeral text-sm text-env-alert font-bold"
+          >04:57</span
+        >
+      </div>
+    </div>
+
+    <div class="mt-auto flex flex-col gap-3 pb-8">
+      <button
+        class="w-full bg-env-alert text-white font-label-caps text-[13px] py-4 rounded font-bold tracking-widest flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,77,109,0.3)] active:scale-95 transition-all"
+      >
+        <span class="material-symbols-outlined text-lg">emergency</span> INITIATE
+        RE-CALIBRATION
+      </button>
+      <button
+        class="w-full border border-outline bg-transparent text-on-surface font-label-caps text-[13px] py-4 rounded tracking-widest hover:bg-white/5 active:scale-95 transition-all"
+      >
+        REVIEW DIVERGENT CLAUSES
+      </button>
+    </div>
+  </body>
+</html>
