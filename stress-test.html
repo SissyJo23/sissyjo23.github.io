@@ -1,390 +1,238 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Envictica Stress-Test Suite</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400&amp;family=Hanken+Grotesk:wght@600;700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-error-container": "#ffdad6",
-                        "on-secondary-container": "#ffb7bc",
-                        "tertiary-container": "#a6e3ff",
-                        "on-tertiary": "#003545",
-                        "surface-tint": "#00dfc1",
-                        "surface-variant": "#313536",
-                        "secondary-fixed": "#ffdadb",
-                        "on-primary": "#00382f",
-                        "outline": "#83948f",
-                        "error-container": "#93000a",
-                        "on-tertiary-fixed": "#001f2a",
-                        "on-surface-variant": "#b9cac4",
-                        "surface-bright": "#363a3b",
-                        "on-surface": "#e0e3e4",
-                        "tertiary-fixed-dim": "#6cd3fc",
-                        "on-primary-fixed": "#00201a",
-                        "surface-container-high": "#272b2c",
-                        "primary-fixed-dim": "#00dfc1",
-                        "background": "#101415",
-                        "primary": "#d7fff3",
-                        "on-primary-container": "#006c5c",
-                        "surface": "#101415",
-                        "surface-container-low": "#181c1d",
-                        "secondary": "#ffb2b8",
-                        "tertiary-fixed": "#bce9ff",
-                        "on-tertiary-fixed-variant": "#004d63",
-                        "secondary-fixed-dim": "#ffb2b8",
-                        "inverse-surface": "#e0e3e4",
-                        "on-secondary-fixed-variant": "#91002d",
-                        "on-primary-fixed-variant": "#005144",
-                        "on-error": "#690005",
-                        "primary-fixed": "#26fedc",
-                        "on-tertiary-container": "#006784",
-                        "surface-container-highest": "#313536",
-                        "tertiary": "#edf8ff",
-                        "surface-dim": "#101415",
-                        "inverse-primary": "#006b5b",
-                        "error": "#ffb4ab",
-                        "surface-container": "#1c2021",
-                        "on-secondary-fixed": "#40000f",
-                        "surface-container-lowest": "#0b0f10",
-                        "primary-container": "#00f5d4",
-                        "outline-variant": "#3a4a46",
-                        "on-secondary": "#67001e",
-                        "secondary-container": "#ac0037",
-                        "on-background": "#e0e3e4",
-                        "inverse-on-surface": "#2d3132"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    "spacing": {
-                        "gutter": "16px",
-                        "density-standard": "16px",
-                        "density-high": "8px",
-                        "margin-mobile": "16px",
-                        "unit": "4px",
-                        "margin-desktop": "32px",
-                        "max-width": "1600px"
-                    },
-                    "fontFamily": {
-                        "body-lg": ["Geist"],
-                        "label-caps": ["Hanken Grotesk"],
-                        "headline-md": ["Hanken Grotesk"],
-                        "body-md": ["Geist"],
-                        "label-mono": ["JetBrains Mono"],
-                        "headline-sm": ["Hanken Grotesk"],
-                        "display-lg": ["Hanken Grotesk"]
-                    },
-                    "fontSize": {
-                        "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-                        "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "800" }],
-                        "headline-md": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
-                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
-                        "label-mono": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
-                        "headline-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
-                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }]
-                    }
-                }
-            }
-        }
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Envictica | Stress-Test Suite</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#00F5D4",
+              "env-alert": "#FF4D6D",
+              surface: "#0A0B0E",
+              "surface-container": "#13151B",
+              outline: "#2A2E39",
+              "on-surface-variant": "#9CA3AF",
+            },
+            fontFamily: {
+              display: ["Sora", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+              body: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
     </script>
-<style>
-        .glow-active { box-shadow: 0 0 8px 1px rgba(0, 245, 212, 0.4); }
-        .glow-error { box-shadow: 0 0 8px 1px rgba(255, 77, 109, 0.4); }
-        .border-teal { border-color: #00F5D4; }
-        .border-crimson { border-color: #FF4D6D; }
-        .bg-teal-dim { background-color: rgba(0, 245, 212, 0.15); }
-        .bg-crimson-dim { background-color: rgba(255, 77, 109, 0.15); }
-        .text-teal { color: #00F5D4; }
-        .text-crimson { color: #FF4D6D; }
+    <style>
+      body {
+        background-color: #050608;
+        color: #e3e1e9;
+      }
+      .node-grid {
+        display: grid;
+        grid-template-columns: repeat(8, 1fr);
+        gap: 8px;
+      }
+      .node-square {
+        aspect-ratio: 1/1;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        transition: all 0.3s;
+      }
+      .node-failing {
+        background: rgba(255, 77, 109, 0.2);
+        border-color: #ff4d6d;
+        box-shadow: 0 0 10px rgba(255, 77, 109, 0.4);
+      }
+      .node-rerouting {
+        background: rgba(0, 245, 212, 0.2);
+        border-color: #00f5d4;
+      }
+      .glow-crimson {
+        text-shadow: 0 0 10px #ff4d6d;
+      }
     </style>
-</head>
-<body class="bg-background text-on-background font-body-md min-h-screen flex flex-col md:flex-row antialiased">
-<!-- SideNavBar (Hidden on Mobile, Visible on Desktop) -->
-<nav class="hidden md:flex flex-col h-screen left-0 w-64 bg-surface border-r border-outline-variant py-density-regular shrink-0 sticky top-0">
-<div class="px-gutter mb-8">
-<h1 class="font-headline-md text-headline-md text-primary">Core Engine</h1>
-<p class="text-on-surface-variant font-label-mono text-label-mono mt-1">V2.4.0-Stable</p>
-</div>
-<ul class="flex-grow space-y-1">
-<li>
-<a class="flex items-center px-gutter py-2 text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out" href="#">
-<span class="material-symbols-outlined mr-3 text-lg" data-icon="dns" data-weight="fill" style="font-variation-settings: 'FILL' 1;">dns</span>
-<span class="font-label-caps text-label-caps">Infrastructure</span>
-</a>
-</li>
-<li>
-<a class="flex items-center px-gutter py-2 text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out" href="#">
-<span class="material-symbols-outlined mr-3 text-lg" data-icon="gavel" data-weight="fill" style="font-variation-settings: 'FILL' 1;">gavel</span>
-<span class="font-label-caps text-label-caps">Governance</span>
-</a>
-</li>
-<li>
-<a class="flex items-center px-gutter py-2 text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out" href="#">
-<span class="material-symbols-outlined mr-3 text-lg" data-icon="account_tree" data-weight="fill" style="font-variation-settings: 'FILL' 1;">account_tree</span>
-<span class="font-label-caps text-label-caps">Pipelines</span>
-</a>
-</li>
-<li>
-<a class="flex items-center px-gutter py-2 text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out" href="#">
-<span class="material-symbols-outlined mr-3 text-lg" data-icon="fact_check" data-weight="fill" style="font-variation-settings: 'FILL' 1;">fact_check</span>
-<span class="font-label-caps text-label-caps">Data Validation</span>
-</a>
-</li>
-<li>
-<a class="flex items-center px-gutter py-2 text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out" href="#">
-<span class="material-symbols-outlined mr-3 text-lg" data-icon="build_circle" data-weight="fill" style="font-variation-settings: 'FILL' 1;">build_circle</span>
-<span class="font-label-caps text-label-caps">Data Debt Repair</span>
-</a>
-</li>
-<li>
-<a class="flex items-center px-gutter py-2 text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out" href="#">
-<span class="material-symbols-outlined mr-3 text-lg" data-icon="history_edu" data-weight="fill" style="font-variation-settings: 'FILL' 1;">history_edu</span>
-<span class="font-label-caps text-label-caps">Audit Logs</span>
-</a>
-</li>
-<!-- Active Item: Risk Matrix matches 'Stress-Test' best -->
-<li>
-<a class="flex items-center px-gutter py-2 border-r-2 border-primary text-primary bg-primary-container/10 transition-all duration-150 ease-in-out" href="#">
-<span class="material-symbols-outlined mr-3 text-lg" data-icon="grid_view" data-weight="fill" style="font-variation-settings: 'FILL' 1;">grid_view</span>
-<span class="font-label-caps text-label-caps">Risk Matrix</span>
-</a>
-</li>
-<li>
-<a class="flex items-center px-gutter py-2 text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out" href="#">
-<span class="material-symbols-outlined mr-3 text-lg" data-icon="schema" data-weight="fill" style="font-variation-settings: 'FILL' 1;">schema</span>
-<span class="font-label-caps text-label-caps">Schema Library</span>
-</a>
-</li>
-</ul>
-<div class="mt-auto px-gutter pt-8 border-t border-outline-variant/30">
-<div class="flex items-center mb-6">
-<img alt="System Administrator" class="w-8 h-8 rounded-full border border-outline-variant mr-3 object-cover" data-alt="A highly detailed portrait of a system administrator avatar in a high-tech control room environment, sharp focus, cinematic lighting, cyberpunk aesthetic with subtle neon teal undertones." src="https://lh3.googleusercontent.com/aida-public/AB6AXuComTTIfCJz7doCp4AtudDrsS3KmP7byUjYg5FNTgBfxdM_d-nfecrkBeGJNpRD2MsIKTMnvxtmaThqzuo9VnOCyzcZHi5JU1Rd9Qocl5bzaQz6u4Ni1yBMDuws5jFvG7V9CUaA4GNr4g5j1X2hZEjL9gyl_I60d8D-SLv53O5eeszVwHHkhUXl1qW9EB3cwlORoKcLyzbjobki9AaazbH4R7E7UMrgsPLs7AGMLRdQ4WN-5TNKPFt7jg"/>
-<div class="flex flex-col">
-<span class="font-label-caps text-label-caps text-on-surface">Admin</span>
-<span class="font-label-mono text-label-mono text-on-surface-variant text-[10px]">Active Session</span>
-</div>
-</div>
-<ul class="space-y-1">
-<li>
-<a class="flex items-center py-2 text-on-surface-variant hover:text-on-surface transition-colors" href="#">
-<span class="material-symbols-outlined mr-3 text-lg" data-icon="description">description</span>
-<span class="font-label-caps text-label-caps">Docs</span>
-</a>
-</li>
-<li>
-<a class="flex items-center py-2 text-on-surface-variant hover:text-on-surface transition-colors" href="#">
-<span class="material-symbols-outlined mr-3 text-lg" data-icon="help">help</span>
-<span class="font-label-caps text-label-caps">Support</span>
-</a>
-</li>
-</ul>
-</div>
-</nav>
-<!-- Main Content Area -->
-<main class="flex-grow flex flex-col min-w-0 bg-surface-container-lowest">
-<div class="w-full bg-primary-container text-on-primary-container font-label-caps text-label-caps py-2 px-4 text-center tracking-widest border-b border-primary-container">
-    OFFICIAL ENVICTICA MODULE: 4 OF 15
-</div>
-<!-- TopAppBar (Mobile only, replaced by SideNav on Desktop for this layout structure, but keeping semantic TopNavBar if needed, though instructions say "responsive pivot: On MOBILE use BottomNavBar, On WEB hide bottom nav and use full nav cluster in TopAppBar." Since SideNav is provided, we'll use SideNav + Top Header for dashboard.) -->
-<header class="flex md:hidden justify-between items-center px-margin h-16 w-full z-50 bg-surface-container border-b border-outline-variant sticky top-0">
-<div class="font-headline-md text-headline-md text-primary uppercase tracking-wider">
-                Envictica
+  </head>
+  <body class="font-body antialiased min-h-screen">
+    <!-- Top Module Bar -->
+    <div
+      class="fixed top-0 left-0 w-full bg-primary text-[#002022] z-50 h-8 flex items-center justify-center font-mono text-[10px] tracking-[0.3em] font-bold uppercase"
+    >
+      Official Envictica Module: 04 of 17
+    </div>
+
+    <div class="pt-8 flex flex-col md:flex-row h-screen">
+      <!-- Sidebar -->
+      <nav
+        class="w-64 bg-surface-container border-r border-outline p-6 flex flex-col gap-8"
+      >
+        <div class="flex flex-col gap-1">
+          <span
+            class="font-display text-2xl font-black italic tracking-tighter text-white"
+            >ENVICTICA</span
+          >
+          <span
+            class="font-mono text-[10px] text-primary tracking-widest uppercase"
+            >Resilience Suite</span
+          >
+        </div>
+        <div class="flex flex-col gap-2">
+          <div
+            class="p-3 flex items-center gap-3 text-on-surface-variant hover:text-white transition-colors cursor-pointer"
+          >
+            <span class="material-symbols-outlined text-lg">terminal</span>
+            <span class="font-mono text-xs uppercase tracking-wider"
+              >Command</span
+            >
+          </div>
+          <div
+            class="bg-primary/10 border border-primary/20 p-3 rounded flex items-center gap-3 text-primary"
+          >
+            <span class="material-symbols-outlined text-lg">bolt</span>
+            <span class="font-mono text-xs font-bold uppercase tracking-wider"
+              >Stress-Test</span
+            >
+          </div>
+          <div
+            class="p-3 flex items-center gap-3 text-on-surface-variant hover:text-white transition-colors cursor-pointer"
+          >
+            <span class="material-symbols-outlined text-lg">history_edu</span>
+            <span class="font-mono text-xs uppercase tracking-wider"
+              >Audit Log</span
+            >
+          </div>
+        </div>
+      </nav>
+
+      <!-- Main Content -->
+      <main class="flex-1 overflow-y-auto p-8">
+        <header
+          class="flex justify-between items-end mb-12 border-b border-outline pb-8"
+        >
+          <div class="flex flex-col gap-2">
+            <h2
+              class="font-display text-4xl font-black text-white uppercase tracking-tight"
+            >
+              System Stress-Test Suite
+            </h2>
+            <p class="text-on-surface-variant max-w-xl">
+              Active simulation of infrastructure failure vectors to verify
+              sub-5ms failover protocols and RTO targets.
+            </p>
+          </div>
+          <div class="flex gap-4">
+            <button
+              class="bg-env-alert/10 border border-env-alert text-env-alert px-4 py-2 text-[10px] font-mono uppercase tracking-widest hover:bg-env-alert/20 transition-colors"
+            >
+              Abort Test
+            </button>
+            <button
+              class="bg-primary text-[#002022] px-4 py-2 text-[10px] font-mono font-bold uppercase tracking-widest hover:opacity-90 transition-opacity"
+            >
+              Simulate Cloud Blackout
+            </button>
+          </div>
+        </header>
+
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+          <!-- Status Grid -->
+          <div class="xl:col-span-2 flex flex-col gap-6">
+            <div class="bg-surface-container border border-outline p-6">
+              <div class="flex justify-between items-center mb-6">
+                <h3
+                  class="font-mono text-xs font-bold text-on-surface-variant uppercase tracking-widest"
+                >
+                  Global Node Status
+                </h3>
+                <span class="font-mono text-[10px] text-env-alert animate-pulse"
+                  >CRITICAL STRESS LOAD: 98%</span
+                >
+              </div>
+              <div class="node-grid">
+                <!-- Simulated Nodes -->
+                <div class="node-square node-failing"></div>
+                <div class="node-square node-failing"></div>
+                <div class="node-square"></div>
+                <div class="node-square"></div>
+                <div class="node-square node-rerouting"></div>
+                <div class="node-square node-rerouting"></div>
+                <div class="node-square"></div>
+                <div class="node-square"></div>
+                <div class="node-square node-failing"></div>
+                <div class="node-square"></div>
+                <div class="node-square"></div>
+                <div class="node-square"></div>
+                <div class="node-square node-rerouting"></div>
+                <div class="node-square node-rerouting"></div>
+                <div class="node-square"></div>
+                <div class="node-square"></div>
+              </div>
             </div>
-<div class="flex items-center space-x-4">
-<span class="material-symbols-outlined text-primary cursor-pointer active:opacity-80" data-icon="monitor_heart">monitor_heart</span>
-<span class="material-symbols-outlined text-primary cursor-pointer active:opacity-80" data-icon="settings">settings</span>
-<span class="material-symbols-outlined text-primary cursor-pointer active:opacity-80" data-icon="notifications">notifications</span>
-<img alt="Operator Profile" class="w-8 h-8 rounded-full border border-primary/30 object-cover" data-alt="A small detailed circular avatar of an operator in a dark, high-contrast control room setting, moody lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCX3puDDrhNgN38CrAI4ehAxJgdXcJHZ79RtNNmE_F8NdvOT7YZGmj-EYyKgdMGmdgFaNuabumG34SPjrJJ4BJZkTCDn3V3n_tCmEDjWdRiAHyrUvNHX8ZkKWTaw6F5wM5qwcQcBnVlbNTRdiz_aGMjggtQos7ykHYS61rLFVlYbuqafOxi8qStTknnmPNdP1I23SJS3c-4kE0YTR-Z9ZNKwWL_Wr21e5qqNSpnhBNKPWwDzseeFXndxA"/>
-</div>
-</header>
-<!-- Dashboard Canvas -->
-<div class="p-gutter md:p-margin-desktop max-w-max-width mx-auto w-full flex-grow flex flex-col gap-6">
-<!-- Page Header -->
-<div class="flex flex-col md:flex-row justify-between items-start md:items-end gap-4 border-b border-surface-variant pb-6">
-<div>
-<h2 class="font-display-lg text-display-lg text-on-surface tracking-tight">Envictica Stress-Test</h2>
-<p class="font-body-lg text-body-lg text-on-surface-variant mt-2 max-w-2xl">Simulation dashboard for demonstrating system resilience, failover thresholds, and abstraction layer stability under extreme duress.</p>
-</div>
-<button class="bg-primary-container text-background font-label-caps text-label-caps px-6 py-3 rounded hover:bg-primary-fixed transition-colors flex items-center shadow-[0_0_15px_rgba(0,245,212,0.3)] border border-primary-container">
-<span class="material-symbols-outlined mr-2 text-sm" data-icon="warning" data-weight="fill" style="font-variation-settings: 'FILL' 1;">warning</span>
-                    START FAILURE SIMULATION
-                </button>
-</div>
-<!-- Global Status Bento Grid -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<!-- Status Panel -->
-<div class="bg-surface border border-surface-variant rounded-lg p-6 flex flex-col justify-between">
-<div class="flex justify-between items-start mb-4">
-<span class="font-label-caps text-label-caps text-on-surface-variant">System Status</span>
-<div class="w-2 h-2 rounded-full bg-teal-dim border border-teal glow-active"></div>
-</div>
-<div>
-<div class="font-headline-md text-headline-md text-teal">Nominal</div>
-<div class="font-label-mono text-label-mono text-on-surface-variant mt-1">All subsystems online</div>
-</div>
-</div>
-<!-- RTO Panel -->
-<div class="bg-surface border border-surface-variant rounded-lg p-6 flex flex-col justify-between relative overflow-hidden">
-<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: repeating-linear-gradient(45deg, #00F5D4 0, #00F5D4 1px, transparent 1px, transparent 10px);"></div>
-<div class="flex justify-between items-start mb-4 relative z-10">
-<span class="font-label-caps text-label-caps text-on-surface-variant">Real-Time RTO</span>
-<span class="material-symbols-outlined text-teal text-sm" data-icon="timer">timer</span>
-</div>
-<div class="relative z-10">
-<div class="font-headline-md text-headline-md text-on-surface flex items-baseline gap-1">
-                            1.42 <span class="text-sm text-on-surface-variant">ms</span>
-</div>
-<div class="font-label-mono text-label-mono text-teal mt-1">Target: &lt; 5.00 ms</div>
-</div>
-</div>
-<!-- Failover Panel -->
-<div class="bg-surface border border-surface-variant rounded-lg p-6 flex flex-col justify-between">
-<div class="flex justify-between items-start mb-4">
-<span class="font-label-caps text-label-caps text-on-surface-variant">Failover Readiness</span>
-<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="sync_alt">sync_alt</span>
-</div>
-<div>
-<div class="font-headline-md text-headline-md text-on-surface">Armed</div>
-<div class="font-label-mono text-label-mono text-on-surface-variant mt-1 flex items-center gap-2">
-<span class="w-1.5 h-1.5 rounded-full bg-teal-dim border border-teal"></span> Primary Node active
-                        </div>
-</div>
-</div>
-</div>
-<!-- Test Cases Section (Model Abstraction Nodes) -->
-<div class="mt-4">
-<div class="flex items-center justify-between mb-4">
-<h3 class="font-headline-sm text-headline-sm text-on-surface">Simulation Vectors</h3>
-<div class="font-label-mono text-label-mono text-on-surface-variant bg-surface-container-high px-3 py-1 rounded border border-surface-variant">
-                        Layer: Abstraction Core
-                    </div>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-<!-- Node: Vector DB -->
-<div class="bg-surface border border-surface-variant rounded-lg p-4 flex flex-col group hover:border-surface-tint transition-colors cursor-pointer relative">
-<div class="absolute right-4 top-4 w-2 h-2 rounded-full bg-teal-dim border border-teal"></div>
-<div class="font-label-mono text-label-mono text-on-surface-variant mb-2 border-b border-surface-variant/50 pb-2">SIM-001</div>
-<h4 class="font-headline-sm text-headline-sm text-on-surface mb-4">Vector DB Sharding Failure</h4>
-<div class="mt-auto space-y-2">
-<div class="flex justify-between text-sm">
-<span class="text-on-surface-variant">Impact Radius</span>
-<span class="text-on-surface">High</span>
-</div>
-<div class="flex justify-between text-sm">
-<span class="text-on-surface-variant">Last Test</span>
-<span class="text-teal">Pass (0.8s)</span>
-</div>
-</div>
-<div class="mt-4 pt-4 border-t border-surface-variant/50 flex justify-end">
-<button class="text-primary font-label-caps text-label-caps hover:text-primary-fixed transition-colors flex items-center">
-                                RUN TEST <span class="material-symbols-outlined ml-1 text-[16px]" data-icon="play_arrow">play_arrow</span>
-</button>
-</div>
-</div>
-<!-- Node: Context Window -->
-<div class="bg-surface border border-surface-variant rounded-lg p-4 flex flex-col group hover:border-surface-tint transition-colors cursor-pointer relative">
-<div class="absolute right-4 top-4 w-2 h-2 rounded-full bg-crimson-dim border border-crimson"></div>
-<div class="font-label-mono text-label-mono text-on-surface-variant mb-2 border-b border-surface-variant/50 pb-2">SIM-002</div>
-<h4 class="font-headline-sm text-headline-sm text-on-surface mb-4">Context Window Overflow</h4>
-<div class="mt-auto space-y-2">
-<div class="flex justify-between text-sm">
-<span class="text-on-surface-variant">Impact Radius</span>
-<span class="text-on-surface">Critical</span>
-</div>
-<div class="flex justify-between text-sm">
-<span class="text-on-surface-variant">Last Test</span>
-<span class="text-crimson">Fail (OOM)</span>
-</div>
-</div>
-<div class="mt-4 pt-4 border-t border-surface-variant/50 flex justify-end">
-<button class="text-primary font-label-caps text-label-caps hover:text-primary-fixed transition-colors flex items-center">
-                                RUN TEST <span class="material-symbols-outlined ml-1 text-[16px]" data-icon="play_arrow">play_arrow</span>
-</button>
-</div>
-</div>
-<!-- Node: Schema Violation -->
-<div class="bg-surface border border-surface-variant rounded-lg p-4 flex flex-col group hover:border-surface-tint transition-colors cursor-pointer relative">
-<div class="absolute right-4 top-4 w-2 h-2 rounded-full bg-teal-dim border border-teal"></div>
-<div class="font-label-mono text-label-mono text-on-surface-variant mb-2 border-b border-surface-variant/50 pb-2">SIM-003</div>
-<h4 class="font-headline-sm text-headline-sm text-on-surface mb-4">Schema Violation Injection</h4>
-<div class="mt-auto space-y-2">
-<div class="flex justify-between text-sm">
-<span class="text-on-surface-variant">Impact Radius</span>
-<span class="text-on-surface">Medium</span>
-</div>
-<div class="flex justify-between text-sm">
-<span class="text-on-surface-variant">Last Test</span>
-<span class="text-teal">Pass (Blocked)</span>
-</div>
-</div>
-<div class="mt-4 pt-4 border-t border-surface-variant/50 flex justify-end">
-<button class="text-primary font-label-caps text-label-caps hover:text-primary-fixed transition-colors flex items-center">
-                                RUN TEST <span class="material-symbols-outlined ml-1 text-[16px]" data-icon="play_arrow">play_arrow</span>
-</button>
-</div>
-</div>
-</div>
-</div>
-<!-- Event Log Data Grid -->
-<div class="mt-4 flex-grow flex flex-col">
-<h3 class="font-headline-sm text-headline-sm text-on-surface mb-4">Telemetry Stream</h3>
-<div class="bg-surface border border-surface-variant rounded-lg flex-grow overflow-hidden flex flex-col">
-<!-- Header -->
-<div class="grid grid-cols-12 gap-4 px-6 py-3 border-b border-surface-variant bg-surface-container-low font-label-caps text-label-caps text-on-surface-variant">
-<div class="col-span-2">Timestamp</div>
-<div class="col-span-2">Vector</div>
-<div class="col-span-6">Payload Detail</div>
-<div class="col-span-2 text-right">Status</div>
-</div>
-<!-- Rows (Zebra striped via Tailwind) -->
-<div class="flex-grow overflow-y-auto font-label-mono text-label-mono text-on-surface">
-<div class="grid grid-cols-12 gap-4 px-6 py-3 border-b border-surface-variant/30 hover:bg-surface-variant/20 transition-colors bg-[#161B1D]">
-<div class="col-span-2 text-on-surface-variant">10:42:01.055</div>
-<div class="col-span-2 text-primary">SIM-003</div>
-<div class="col-span-6 truncate">Malformed JSON injected into pipeline ingress [ID: 9942a]</div>
-<div class="col-span-2 text-right text-teal flex items-center justify-end gap-2">
-                                 BLOCKED <span class="w-1.5 h-1.5 rounded-full bg-teal-dim border border-teal"></span>
-</div>
-</div>
-<div class="grid grid-cols-12 gap-4 px-6 py-3 border-b border-surface-variant/30 hover:bg-surface-variant/20 transition-colors bg-[#1A2022]">
-<div class="col-span-2 text-on-surface-variant">10:40:15.992</div>
-<div class="col-span-2 text-primary">SIM-001</div>
-<div class="col-span-6 truncate">Node 4 isolated. Traffic rerouted to secondary shard group.</div>
-<div class="col-span-2 text-right text-teal flex items-center justify-end gap-2">
-                                 RECOVERED <span class="w-1.5 h-1.5 rounded-full bg-teal-dim border border-teal"></span>
-</div>
-</div>
-<div class="grid grid-cols-12 gap-4 px-6 py-3 border-b border-surface-variant/30 hover:bg-surface-variant/20 transition-colors bg-[#161B1D]">
-<div class="col-span-2 text-on-surface-variant">10:35:50.110</div>
-<div class="col-span-2 text-primary">SIM-002</div>
-<div class="col-span-6 truncate">Context window exceeded bounds (132k/128k). Garbage collection hung.</div>
-<div class="col-span-2 text-right text-crimson flex items-center justify-end gap-2">
-                                 TIMEOUT <span class="w-1.5 h-1.5 rounded-full bg-crimson-dim border border-crimson"></span>
-</div>
-</div>
-<div class="grid grid-cols-12 gap-4 px-6 py-3 border-b border-surface-variant/30 hover:bg-surface-variant/20 transition-colors bg-[#1A2022]">
-<div class="col-span-2 text-on-surface-variant">10:30:00.000</div>
-<div class="col-span-2 text-on-surface-variant">SYS-CTL</div>
-<div class="col-span-6 truncate">Diagnostic suite initialized. Base line captured.</div>
-<div class="col-span-2 text-right text-on-surface-variant flex items-center justify-end gap-2">
-                                 INFO <span class="w-1.5 h-1.5 rounded-full bg-surface-variant border border-on-surface-variant"></span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</main>
-</body></html>
+
+            <div
+              class="bg-black/40 border border-outline p-4 font-mono text-[10px] text-on-surface-variant h-32 overflow-hidden flex flex-col gap-1"
+            >
+              <div class="text-env-alert">
+                [CRITICAL] High packet loss on Node Alpha-4
+              </div>
+              <div class="text-primary">
+                [RESOLVED] Traffic rerouted to Localized Node A
+              </div>
+              <div class="text-env-alert">
+                [CRITICAL] API Connection timeout: OpenAI-Gpt4o
+              </div>
+              <div class="text-primary">
+                [STATUS] Sub-5ms Hot-Swap Triggered...
+              </div>
+            </div>
+          </div>
+
+          <!-- Recovery Metrics -->
+          <div class="xl:col-span-1 flex flex-col gap-6">
+            <div
+              class="bg-surface-container border border-outline p-8 flex flex-col items-center justify-center text-center"
+            >
+              <span
+                class="font-mono text-[10px] text-on-surface-variant uppercase tracking-[0.2em] mb-4"
+                >Current RTO</span
+              >
+              <div
+                class="text-6xl font-mono text-white tracking-tighter mb-2 glow-crimson"
+              >
+                4.82ms
+              </div>
+              <span class="font-mono text-[10px] text-primary uppercase"
+                >Within &lt; 5ms SLA</span
+              >
+            </div>
+
+            <div class="bg-surface-container border border-outline p-6">
+              <span
+                class="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest"
+                >Liability Avoided</span
+              >
+              <div class="text-3xl font-mono text-white mt-2">$12.4M</div>
+              <div
+                class="mt-4 text-[10px] text-on-surface-variant leading-relaxed"
+              >
+                Projected operational loss mitigated through automated drift
+                detection and failover.
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
