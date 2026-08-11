@@ -6,288 +6,278 @@
 <title>Module 05: Compliance Audit Logs</title>
 <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@400;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;800&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
-                    "colors": {
-                        "on-primary-container": "#006c5c",
-                        "on-surface-variant": "#b9cac4",
-                        "on-secondary-fixed-variant": "#91002d",
-                        "outline-variant": "#484f58",
-                        "inverse-primary": "#006b5b",
-                        "secondary": "#ffb2b8",
-                        "surface-container-highest": "#2e3734",
-                        "on-secondary": "#5f0019",
-                        "tertiary": "#fff5e4",
-                        "on-primary-fixed-variant": "#005144",
-                        "primary": "#d7fff3",
-                        "inverse-on-surface": "#2a3230",
-                        "surface-bright": "#323b38",
-                        "error-container": "#93000a",
-                        "secondary-fixed": "#ffdadb",
-                        "primary-container": "#005045",
-                        "surface-container-lowest": "#08100e",
-                        "surface-container-high": "#30363d",
-                        "on-tertiary": "#3c2f00",
-                        "surface-container-low": "#161b22",
-                        "on-background": "#dbe5e0",
-                        "on-secondary-fixed": "#40000f",
-                        "surface": "#0d1513",
-                        "on-primary-fixed": "#00201a",
-                        "primary-fixed": "#26fedc",
-                        "on-secondary-container": "#ffdadb",
-                        "secondary-container": "#ac0037",
-                        "on-primary": "#00382f",
-                        "secondary-fixed-dim": "#ffb2b8",
-                        "outline": "#8b949e",
-                        "surface-tint": "#00dfc1",
-                        "surface-container": "#19211f",
-                        "tertiary-fixed": "#ffe086",
-                        "on-error-container": "#ffdad6",
-                        "tertiary-fixed-dim": "#eac33f",
-                        "error": "#ffb4ab",
-                        "on-surface": "#dbe5e0",
-                        "on-tertiary-container": "#745c00",
-                        "on-tertiary-fixed": "#231b00",
-                        "surface-dim": "#0d1513",
-                        "on-error": "#690005",
-                        "primary-fixed-dim": "#00dfc1",
-                        "on-tertiary-fixed-variant": "#574500",
-                        "surface-variant": "#2e3734",
-                        "inverse-surface": "#dbe5e0",
-                        "tertiary-container": "#ffd651",
-                        "background": "#0d1513"
+                    colors: {
+                        envictica: {
+                            slate: '#0F172A',
+                            slate_light: '#1E293B',
+                            slate_border: '#334155',
+                            teal: '#00F5D4',
+                            teal_dim: 'rgba(0, 245, 212, 0.2)',
+                            crimson: '#FF4D6D',
+                            crimson_dim: 'rgba(255, 77, 109, 0.2)',
+                            text_primary: '#F8FAFC',
+                            text_secondary: '#94A3B8'
+                        }
                     },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    "spacing": {
-                        "unit": "4px",
-                        "margin-mobile": "16px",
-                        "container-max": "1440px",
-                        "margin-desktop": "24px",
-                        "gutter": "16px"
-                    },
-                    "fontFamily": {
-                        "title-md": ["Hanken Grotesk"],
-                        "label-caps": ["Hanken Grotesk"],
-                        "headline-lg-mobile": ["Hanken Grotesk"],
-                        "body-md": ["Hanken Grotesk"],
-                        "headline-lg": ["Hanken Grotesk"],
-                        "headline-md": ["Hanken Grotesk"],
-                        "mono": ["JetBrains Mono"]
-                    },
-                    "fontSize": {
-                        "title-md": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
-                        "label-caps": ["10px", { "lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "700" }],
-                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
-                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
-                        "headline-lg": ["32px", { "lineHeight": "40px", "fontWeight": "700" }],
-                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }]
+                    fontFamily: {
+                        sans: ['"Hanken Grotesk"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace']
                     }
                 }
             }
         }
     </script>
 <style>
-        body { font-family: 'Hanken Grotesk', sans-serif; }
+        body { background-color: theme('colors.envictica.slate'); color: theme('colors.envictica.text_primary'); }
+        .glass-panel {
+            background-color: theme('colors.envictica.slate_light');
+            border: 1px solid theme('colors.envictica.slate_border');
+        }
+        .glow-teal { box-shadow: 0 0 15px 2px theme('colors.envictica.teal_dim'); }
+        .glow-crimson { box-shadow: 0 0 15px 2px theme('colors.envictica.crimson_dim'); }
+        .status-dot { position: relative; width: 8px; height: 8px; border-radius: 50%; }
+        .status-dot.teal { background-color: theme('colors.envictica.teal'); }
+        .status-dot.teal::before {
+            content: ''; position: absolute; left: -4px; top: -4px; right: -4px; bottom: -4px;
+            border-radius: 50%; border: 2px solid theme('colors.envictica.teal');
+            animation: pulse-ring 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        .status-dot.crimson { background-color: theme('colors.envictica.crimson'); }
+        .status-dot.crimson::before {
+            content: ''; position: absolute; left: -4px; top: -4px; right: -4px; bottom: -4px;
+            border-radius: 50%; border: 2px solid theme('colors.envictica.crimson');
+            animation: pulse-ring 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+        }
+        @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(2); opacity: 0; } }
+        .tech-border {
+            position: relative;
+        }
+        .tech-border::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 20px; height: 20px;
+            border-top: 2px solid theme('colors.envictica.teal'); border-left: 2px solid theme('colors.envictica.teal');
+            pointer-events: none;
+        }
+        .tech-border::after {
+            content: ''; position: absolute; bottom: 0; right: 0; width: 20px; height: 20px;
+            border-bottom: 2px solid theme('colors.envictica.teal'); border-right: 2px solid theme('colors.envictica.teal');
+            pointer-events: none;
+        }
     </style>
 </head>
-<body class="bg-[#0f172a] text-on-background min-h-screen flex flex-col antialiased">
-<!-- TopNavBar -->
-<nav class="bg-[#1e293b] border-b border-outline-variant flex justify-between items-center px-margin-desktop h-16 w-full z-50">
-<div class="flex items-center gap-4">
-<span class="font-headline-md text-headline-md text-primary dark:text-primary uppercase tracking-wider">OFFICIAL ENVICTICA MODULE: 05 OF 17</span>
-</div>
-<div class="flex items-center gap-4">
-<button class="hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80 p-2 rounded flex items-center justify-center text-on-surface-variant">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">monitor_heart</span>
-</button>
-<button class="hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80 p-2 rounded flex items-center justify-center text-on-surface-variant">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">settings</span>
-</button>
-<button class="hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80 p-2 rounded flex items-center justify-center text-on-surface-variant">
-<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 0;">notifications</span>
-</button>
-<div class="w-8 h-8 rounded-full bg-surface-container-high border border-outline-variant overflow-hidden ml-2">
-<img alt="Operator Profile" class="w-full h-full object-cover" data-alt="A futuristic, cybperunk inspired close up portrait of a system operator in high contrast lighting against a dark corporate tech background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvLlbXrOsIGjEFS1uwQKYqSK7QMMeqI8ecrXqBV4qaGWHT4kkvFpWFQ7L_VZu8xtPgupDHsTkBBCGfLRnAdbysFodTjL9MZQ7dMMrHPkbBQxuCGRs0XqUNLPTAboZyg8_2AMj7yePSRLCKDbyBkWrZsbhHv7KWG09bSJ6ziEikt-N-acF6E0M-TOifodH64E-OPifMwibSg50kbOloqpP1-7L-jLQGt1hJOwaXUuAN6fQ-_K6eQaCQBg"/>
-</div>
-</div>
-</nav>
-<div class="flex flex-1 overflow-hidden">
+<body class="antialiased min-h-screen flex flex-col md:flex-row font-sans">
 <!-- SideNavBar -->
-<aside class="hidden md:flex flex-col h-full py-density-regular bg-[#1e293b] w-64 border-r border-outline-variant shrink-0">
-<div class="px-6 py-4 border-b border-outline-variant mb-4 flex items-center gap-3">
-<div class="w-10 h-10 rounded bg-surface-container-high border border-outline-variant overflow-hidden shrink-0">
-<img alt="System Administrator" class="w-full h-full object-cover" data-alt="A stylized, low-poly isometric rendering of a server tower or core engine component, glowing with cyan and teal light against a stark black background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBgYI0SvdkCZi4fE9PKIQE85E3-UDggvW0WYYw7bf2SomNlwno6PapdIlYNe4pn3L7tb8GiMJGG9Cn3I7ASDzPK_v3hMrb4XJILWCzHWAKvTEH_ZPSGitM-Owwq8_Gxxl1kT02KcR4-DiSJNyoG1OhISONU-DU6CsirJLvc4m7G0xqv4bTIpsax6pKqEE4asJTLa1ZwUVxknRqs9rvlYX9-w-rFJeLReIcuQ8_o4d1Kb56GB4U0WlDYQ"/>
+<nav class="hidden md:flex flex-col h-full w-64 left-0 fixed border-r border-envictica-slate_border bg-envictica-slate py-6 px-4 z-40">
+<div class="mb-8">
+<h1 class="font-sans text-2xl font-extrabold text-envictica-text_primary tracking-tight">Envictica</h1>
+<p class="font-mono text-xs text-envictica-text_secondary mt-1 tracking-widest uppercase">Official Module: 05 of 17</p>
 </div>
+<div class="flex items-center gap-3 mb-8 p-3 glass-panel rounded-sm bg-envictica-slate_light/50 backdrop-blur-md border border-envictica-slate_border">
+<img alt="System Administrator" class="w-10 h-10 rounded-sm object-cover border border-envictica-slate_border grayscale opacity-80" data-alt="A stylized, low-poly isometric rendering of a server tower or core engine component, glowing with cyan and teal light against a stark black background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCBgYI0SvdkCZi4fE9PKIQE85E3-UDggvW0WYYw7bf2SomNlwno6PapdIlYNe4pn3L7tb8GiMJGG9Cn3I7ASDzPK_v3hMrb4XJILWCzHWAKvTEH_ZPSGitM-Owwq8_Gxxl1kT02KcR4-DiSJNyoG1OhISONU-DU6CsirJLvc4m7G0xqv4bTIpsax6pKqEE4asJTLa1ZwUVxknRqs9rvlYX9-w-rFJeLReIcuQ8_o4d1Kb56GB4U0WlDYQ"/>
 <div>
-<h2 class="font-title-md text-title-md text-primary">Core Engine</h2>
-<p class="font-label-caps text-label-caps text-on-surface-variant mt-1">V2.4.0-Stable</p>
+<p class="font-mono text-xs font-bold text-envictica-text_primary">Core Engine</p>
+<p class="font-mono text-[10px] text-envictica-teal">V2.4.0-Stable</p>
 </div>
 </div>
-<nav class="flex-1 overflow-y-auto px-2 space-y-1">
-<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
-<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 0;">dns</span>
-                    Infrastructure
-                </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
-<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 0;">gavel</span>
-                    Governance
-                </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
-<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 0;">account_tree</span>
-                    Pipelines
-                </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
-<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 0;">fact_check</span>
-                    Data Validation
-                </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
-<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 0;">build_circle</span>
-                    Data Debt Repair
-                </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded border-r-2 border-primary text-primary bg-[#1e293b] transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
-<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 1;">history_edu</span>
-                    Audit Logs
-                </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
-<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 0;">grid_view</span>
-                    Risk Matrix
-                </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
-<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 0;">schema</span>
-                    Schema Library
-                </a>
+<div class="flex-1 space-y-2 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="#">
+<span class="material-symbols-outlined text-sm">dns</span>
+<span class="font-mono text-xs uppercase tracking-widest">Infrastructure</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="#">
+<span class="material-symbols-outlined text-sm">gavel</span>
+<span class="font-mono text-xs uppercase tracking-widest">Governance</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="#">
+<span class="material-symbols-outlined text-sm">account_tree</span>
+<span class="font-mono text-xs uppercase tracking-widest">Pipelines</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="#">
+<span class="material-symbols-outlined text-sm">fact_check</span>
+<span class="font-mono text-xs uppercase tracking-widest">Data Validation</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="#">
+<span class="material-symbols-outlined text-sm">build_circle</span>
+<span class="font-mono text-xs uppercase tracking-widest">Data Debt Repair</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 border-l-2 border-envictica-teal text-envictica-teal bg-envictica-slate_light transition-all rounded-r-sm bg-envictica-teal/10" href="#">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">history_edu</span>
+<span class="font-mono text-xs uppercase tracking-widest font-bold">Audit Logs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="#">
+<span class="material-symbols-outlined text-sm">grid_view</span>
+<span class="font-mono text-xs uppercase tracking-widest">Risk Matrix</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="#">
+<span class="material-symbols-outlined text-sm">schema</span>
+<span class="font-mono text-xs uppercase tracking-widest">Schema Library</span>
+</a>
+</div>
+<div class="mt-auto space-y-2 pt-6 border-t border-envictica-slate_border">
+<div class="px-3 py-2">
+<p class="font-mono text-[10px] text-envictica-teal flex items-center gap-2 uppercase tracking-widest">
+<span class="status-dot teal"></span> Sys Status: Nominal
+                </p>
+</div>
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary transition-all rounded-sm" href="#">
+<span class="material-symbols-outlined text-sm">description</span>
+<span class="font-mono text-xs uppercase tracking-widest">Docs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary transition-all rounded-sm" href="#">
+<span class="material-symbols-outlined text-sm">help</span>
+<span class="font-mono text-xs uppercase tracking-widest">Support</span>
+</a>
+</div>
 </nav>
-<div class="px-2 mt-auto border-t border-outline-variant pt-4 space-y-1">
-<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
-<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 0;">description</span>
-                    Docs
-                </a>
-<a class="flex items-center gap-3 px-4 py-3 rounded text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out font-label-caps text-label-caps" href="#">
-<span class="material-symbols-outlined text-lg" style="font-variation-settings: 'FILL' 0;">help</span>
-                    Support
-                </a>
+<!-- TopNavBar (Mobile) -->
+<nav class="md:hidden flex justify-between items-center w-full px-4 py-3 bg-envictica-slate border-b border-envictica-slate_border sticky top-0 z-40">
+<div>
+<h1 class="font-sans text-xl font-bold text-envictica-text_primary tracking-tight">Envictica</h1>
+<p class="font-mono text-[10px] text-envictica-text_secondary uppercase">LOG_05</p>
 </div>
-</aside>
+<div class="flex gap-4 text-envictica-text_secondary">
+<span class="material-symbols-outlined text-sm">settings</span>
+<span class="material-symbols-outlined text-sm text-envictica-teal">notifications_active</span>
+</div>
+</nav>
 <!-- Main Content -->
-<main class="flex-1 overflow-y-auto p-margin-mobile md:p-margin-desktop bg-[#0f172a]">
-<div class="max-w-[1440px] mx-auto space-y-6">
+<main class="flex-1 md:ml-64 p-6 lg:p-10 max-w-[1600px] mx-auto w-full pb-24 md:pb-10">
+<!-- Header Path & Status -->
+<header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 border-b border-envictica-slate_border pb-6">
+<div>
+<p class="font-mono text-[10px] text-envictica-text_secondary mb-2 tracking-widest uppercase">Path: Env / Gov / Audit_Logs</p>
+<h2 class="font-sans text-3xl md:text-5xl font-extrabold text-envictica-text_primary tracking-tight text-white">Compliance Ledger</h2>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-envictica-text_secondary hover:text-envictica-text_primary p-2 glass-panel rounded-sm transition-colors">
+<span class="material-symbols-outlined text-sm">monitor_heart</span>
+</button>
+<button class="text-envictica-text_secondary hover:text-envictica-text_primary p-2 glass-panel rounded-sm transition-colors">
+<span class="material-symbols-outlined text-sm">settings</span>
+</button>
+<div class="glass-panel px-4 py-2 rounded-sm border-l-2 border-envictica-teal border-t-0 border-r-0 border-b-0 bg-envictica-teal/10 flex items-center gap-3 ml-2">
+<div class="status-dot teal"></div>
+<span class="font-mono text-xs text-envictica-teal tracking-widest uppercase font-bold">Logging: Active</span>
+</div>
+</div>
+</header>
+<div class="space-y-6">
 <!-- Header & Stats Banner -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-<div class="bg-[#1e293b] border border-outline-variant rounded p-4 flex flex-col justify-center">
-<span class="font-label-caps text-label-caps text-on-surface-variant mb-1">TOTAL AUDIT EVENTS</span>
-<span class="font-headline-lg text-headline-lg text-primary">14,208</span>
+<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 border-t-2 border-envictica-teal bg-envictica-slate_light/50">
+<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_primary font-bold">Total Audit Events</span>
+<span class="font-mono text-3xl font-bold text-envictica-text_primary">14,208</span>
 </div>
-<div class="bg-[#1e293b] border border-outline-variant rounded p-4 flex flex-col justify-center">
-<span class="font-label-caps text-label-caps text-on-surface-variant mb-1">ACTIVE SECURITY MONITORS</span>
-<span class="font-headline-lg text-headline-lg text-primary">42/42</span>
+<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 bg-envictica-slate_light/50">
+<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_primary font-bold">Active Security Monitors</span>
+<div class="flex items-end gap-2">
+<span class="font-mono text-3xl font-bold text-envictica-text_primary">42</span>
+<span class="font-mono text-[10px] text-envictica-text_secondary mb-1">/ 42</span>
 </div>
-<div class="bg-[#1e293b] border border-outline-variant rounded p-4 flex flex-col justify-center">
-<span class="font-label-caps text-label-caps text-on-surface-variant mb-1">LAST VERIFIED HASH</span>
-<span class="font-body-md text-body-md font-mono text-tertiary-fixed-dim">0x9f8c...a1b2</span>
+</div>
+<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 bg-envictica-slate_light/50 border-r-2 border-envictica-teal">
+<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_primary font-bold">Last Verified Hash</span>
+<span class="font-mono text-sm font-bold text-envictica-teal tracking-widest">0x9f8c...a1b2</span>
 </div>
 </div>
 <!-- Controls & Filters -->
-<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-[#1e293b] p-4 border border-outline-variant rounded">
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 glass-panel p-4 rounded-sm tech-border bg-envictica-slate_light/30">
 <div class="flex flex-wrap gap-2">
-<button class="px-4 py-2 bg-primary-container text-on-primary-container font-label-caps text-label-caps rounded border border-primary transition-colors">
+<button class="px-4 py-2 bg-envictica-teal/10 text-envictica-teal font-mono text-xs font-bold uppercase tracking-widest rounded-sm border border-envictica-teal/50 transition-colors shadow-[0_0_10px_rgba(0,245,212,0.1)]">
                             Security Logs
                         </button>
-<button class="px-4 py-2 bg-transparent text-on-surface hover:bg-surface-variant font-label-caps text-label-caps rounded border border-outline-variant transition-colors">
+<button class="px-4 py-2 bg-envictica-slate_light text-envictica-text_secondary hover:text-envictica-text_primary font-mono text-xs uppercase tracking-widest rounded-sm border border-envictica-slate_border transition-colors">
                             Data Ingestion Audit
                         </button>
-<button class="px-4 py-2 bg-transparent text-on-surface hover:bg-surface-variant font-label-caps text-label-caps rounded border border-outline-variant transition-colors">
+<button class="px-4 py-2 bg-envictica-slate_light text-envictica-text_secondary hover:text-envictica-text_primary font-mono text-xs uppercase tracking-widest rounded-sm border border-envictica-slate_border transition-colors">
                             LLM Drift Checks
                         </button>
 </div>
-<button class="flex items-center gap-2 px-4 py-2 bg-primary text-on-primary font-label-caps text-label-caps rounded hover:bg-primary-fixed transition-colors">
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">download</span>
+<button class="flex items-center gap-2 px-4 py-2 bg-envictica-slate text-envictica-text_primary font-mono text-xs uppercase tracking-widest rounded-sm border border-envictica-slate_border hover:bg-envictica-slate_light transition-colors">
+<span class="material-symbols-outlined text-sm">download</span>
                         Export Compliance Report (PDF/CSV)
                     </button>
 </div>
 <!-- Ledger Table -->
-<div class="bg-[#1e293b] border border-outline-variant rounded overflow-hidden">
+<div class="glass-panel rounded-sm overflow-hidden bg-[#050B14]">
 <div class="overflow-x-auto">
 <table class="w-full text-left border-collapse">
 <thead>
-<tr class="border-b border-outline-variant bg-[#334155]">
-<th class="px-4 py-3 font-label-caps text-label-caps text-on-surface-variant">TIMESTAMP</th>
-<th class="px-4 py-3 font-label-caps text-label-caps text-on-surface-variant">ACTOR/ROLE</th>
-<th class="px-4 py-3 font-label-caps text-label-caps text-on-surface-variant">ACTION TYPE</th>
-<th class="px-4 py-3 font-label-caps text-label-caps text-on-surface-variant">TARGET ENTITY</th>
-<th class="px-4 py-3 font-label-caps text-label-caps text-on-surface-variant text-right">STATUS</th>
+<tr class="border-b border-envictica-slate_border bg-envictica-slate/80 backdrop-blur-sm">
+<th class="px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary font-bold">Timestamp (UTC)</th>
+<th class="px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary font-bold">Actor/Role / Crypt-ID</th>
+<th class="px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary font-bold">Action Type</th>
+<th class="px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary font-bold">Target Entity</th>
+<th class="px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary font-bold text-right">Status</th>
 </tr>
 </thead>
-<tbody class="font-body-md text-body-md text-on-surface divide-y divide-outline-variant">
+<tbody class="font-mono text-xs text-envictica-text_primary divide-y divide-envictica-slate_border/50">
 <!-- Row 1 -->
-<tr class="hover:bg-surface-container transition-colors">
-<td class="px-4 py-3 font-mono text-xs text-on-surface-variant">2023-10-27 14:32:01Z</td>
-<td class="px-4 py-3">SYS_ADMIN (ID: 8092)</td>
-<td class="px-4 py-3">Schema Modification</td>
-<td class="px-4 py-3 text-tertiary-fixed-dim">TABLE_USER_METRICS</td>
-<td class="px-4 py-3 text-right">
-<span class="inline-flex items-center gap-1 px-2 py-1 bg-primary-container/20 text-[#00f5d4] border border-[#00f5d4]/30 rounded font-label-caps text-[10px]">
-<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<tr class="hover:bg-envictica-slate_light/30 transition-colors">
+<td class="px-4 py-4 text-envictica-text_secondary">2023-10-27 <span class="text-envictica-text_primary">14:32:01.442</span>Z</td>
+<td class="px-4 py-4">SYS_ADMIN <span class="text-envictica-text_secondary/50">[ID:8092]</span></td>
+<td class="px-4 py-4 uppercase tracking-wider text-[10px]">Schema Modification</td>
+<td class="px-4 py-4 text-envictica-teal">TABLE_USER_METRICS</td>
+<td class="px-4 py-4 text-right">
+<span class="inline-flex items-center gap-2 px-2 py-1 bg-envictica-teal/10 text-envictica-teal border border-envictica-teal/30 rounded-sm font-mono text-[10px] uppercase tracking-widest">
+<div class="w-1.5 h-1.5 bg-envictica-teal rounded-full"></div>
                                             Verified
                                         </span>
 </td>
 </tr>
 <!-- Row 2 -->
-<tr class="hover:bg-surface-container transition-colors bg-[#ff4d6d]/10">
-<td class="px-4 py-3 font-mono text-xs text-on-surface-variant">2023-10-27 14:28:45Z</td>
-<td class="px-4 py-3">API_KEY_EXT (ID: 441A)</td>
-<td class="px-4 py-3">Bulk Data Extraction</td>
-<td class="px-4 py-3 text-tertiary-fixed-dim">DATASET_FINANCIAL_Q3</td>
-<td class="px-4 py-3 text-right">
-<span class="inline-flex items-center gap-1 px-2 py-1 bg-[#ff4d6d]/20 text-[#FF4D6D] border border-[#ff4d6d]/50 rounded font-label-caps text-[10px]">
-<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">block</span>
+<tr class="hover:bg-envictica-slate_light/30 transition-colors bg-envictica-crimson/5">
+<td class="px-4 py-4 text-envictica-text_secondary">2023-10-27 <span class="text-envictica-text_primary">14:28:45.910</span>Z</td>
+<td class="px-4 py-4">API_KEY_EXT <span class="text-envictica-text_secondary/50">[ID:441A]</span></td>
+<td class="px-4 py-4 uppercase tracking-wider text-[10px]">Bulk Data Extraction</td>
+<td class="px-4 py-4 text-envictica-teal">DATASET_FINANCIAL_Q3</td>
+<td class="px-4 py-4 text-right">
+<span class="inline-flex items-center gap-2 px-2 py-1 bg-envictica-crimson/10 text-envictica-crimson border border-envictica-crimson/50 rounded-sm font-mono text-[10px] uppercase tracking-widest shadow-[0_0_5px_rgba(255,77,109,0.2)]">
+<div class="w-1.5 h-1.5 bg-envictica-crimson rounded-full animate-pulse"></div>
                                             Access Blocked
                                         </span>
 </td>
 </tr>
 <!-- Row 3 -->
-<tr class="hover:bg-surface-container transition-colors">
-<td class="px-4 py-3 font-mono text-xs text-on-surface-variant">2023-10-27 14:15:12Z</td>
-<td class="px-4 py-3">AUTO_CRON_01</td>
-<td class="px-4 py-3">Pipeline Execution</td>
-<td class="px-4 py-3 text-tertiary-fixed-dim">PIPE_NIGHTLY_ETL</td>
-<td class="px-4 py-3 text-right">
-<span class="inline-flex items-center gap-1 px-2 py-1 bg-primary-container/20 text-[#00f5d4] border border-[#00f5d4]/30 rounded font-label-caps text-[10px]">
-<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<tr class="hover:bg-envictica-slate_light/30 transition-colors">
+<td class="px-4 py-4 text-envictica-text_secondary">2023-10-27 <span class="text-envictica-text_primary">14:15:12.001</span>Z</td>
+<td class="px-4 py-4">AUTO_CRON_01 <span class="text-envictica-text_secondary/50">[ID:SYS]</span></td>
+<td class="px-4 py-4 uppercase tracking-wider text-[10px]">Pipeline Execution</td>
+<td class="px-4 py-4 text-envictica-teal">PIPE_NIGHTLY_ETL</td>
+<td class="px-4 py-4 text-right">
+<span class="inline-flex items-center gap-2 px-2 py-1 bg-envictica-teal/10 text-envictica-teal border border-envictica-teal/30 rounded-sm font-mono text-[10px] uppercase tracking-widest">
+<div class="w-1.5 h-1.5 bg-envictica-teal rounded-full"></div>
                                             Verified
                                         </span>
 </td>
 </tr>
 <!-- Row 4 -->
-<tr class="hover:bg-surface-container transition-colors bg-[#ff4d6d]/10">
-<td class="px-4 py-3 font-mono text-xs text-on-surface-variant">2023-10-27 13:59:00Z</td>
-<td class="px-4 py-3">LLM_MONITOR_SVC</td>
-<td class="px-4 py-3">Inference Validation</td>
-<td class="px-4 py-3 text-tertiary-fixed-dim">MODEL_PREDICTIVE_V4</td>
-<td class="px-4 py-3 text-right">
-<span class="inline-flex items-center gap-1 px-2 py-1 bg-[#ff4d6d]/20 text-[#FF4D6D] border border-[#ff4d6d]/50 rounded font-label-caps text-[10px]">
-<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">warning</span>
+<tr class="hover:bg-envictica-slate_light/30 transition-colors bg-envictica-crimson/5">
+<td class="px-4 py-4 text-envictica-text_secondary">2023-10-27 <span class="text-envictica-text_primary">13:59:00.884</span>Z</td>
+<td class="px-4 py-4">LLM_MONITOR_SVC <span class="text-envictica-text_secondary/50">[ID:SVC]</span></td>
+<td class="px-4 py-4 uppercase tracking-wider text-[10px]">Inference Validation</td>
+<td class="px-4 py-4 text-envictica-teal">MODEL_PREDICTIVE_V4</td>
+<td class="px-4 py-4 text-right">
+<span class="inline-flex items-center gap-2 px-2 py-1 bg-[#FFB703]/10 text-[#FFB703] border border-[#FFB703]/50 rounded-sm font-mono text-[10px] uppercase tracking-widest">
+<div class="w-1.5 h-1.5 bg-[#FFB703] rounded-full animate-pulse"></div>
                                             Drift Warning
                                         </span>
 </td>
 </tr>
 <!-- Row 5 -->
-<tr class="hover:bg-surface-container transition-colors">
-<td class="px-4 py-3 font-mono text-xs text-on-surface-variant">2023-10-27 13:42:33Z</td>
-<td class="px-4 py-3">DATA_ENG (ID: 1102)</td>
-<td class="px-4 py-3">Record Purge</td>
-<td class="px-4 py-3 text-tertiary-fixed-dim">LOGS_TEMP_ARCHIVE</td>
-<td class="px-4 py-3 text-right">
-<span class="inline-flex items-center gap-1 px-2 py-1 bg-primary-container/20 text-[#00f5d4] border border-[#00f5d4]/30 rounded font-label-caps text-[10px]">
-<span class="material-symbols-outlined text-[12px]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<tr class="hover:bg-envictica-slate_light/30 transition-colors">
+<td class="px-4 py-4 text-envictica-text_secondary">2023-10-27 <span class="text-envictica-text_primary">13:42:33.210</span>Z</td>
+<td class="px-4 py-4">DATA_ENG <span class="text-envictica-text_secondary/50">[ID:1102]</span></td>
+<td class="px-4 py-4 uppercase tracking-wider text-[10px]">Record Purge</td>
+<td class="px-4 py-4 text-envictica-teal">LOGS_TEMP_ARCHIVE</td>
+<td class="px-4 py-4 text-right">
+<span class="inline-flex items-center gap-2 px-2 py-1 bg-envictica-teal/10 text-envictica-teal border border-envictica-teal/30 rounded-sm font-mono text-[10px] uppercase tracking-widest">
+<div class="w-1.5 h-1.5 bg-envictica-teal rounded-full"></div>
                                             Verified
                                         </span>
 </td>
@@ -295,15 +285,14 @@
 </tbody>
 </table>
 </div>
-<div class="px-4 py-3 border-t border-outline-variant flex justify-between items-center bg-[#334155]">
-<span class="font-body-md text-xs text-on-surface-variant">Showing 1-5 of 14,208 entries</span>
+<div class="px-4 py-3 border-t border-envictica-slate_border flex justify-between items-center bg-envictica-slate/80 backdrop-blur-sm">
+<span class="font-mono text-[10px] text-envictica-text_secondary uppercase tracking-widest">Showing 1-5 of 14,208 entries</span>
 <div class="flex gap-2">
-<button class="px-2 py-1 text-on-surface-variant hover:text-on-surface border border-outline-variant rounded disabled:opacity-50" disabled="">Prev</button>
-<button class="px-2 py-1 text-on-surface-variant hover:text-on-surface border border-outline-variant rounded">Next</button>
+<button class="px-3 py-1.5 text-envictica-text_secondary hover:text-envictica-text_primary border border-envictica-slate_border rounded-sm disabled:opacity-50 font-mono text-[10px] uppercase tracking-widest bg-envictica-slate_light/50" disabled="">Prev</button>
+<button class="px-3 py-1.5 text-envictica-text_secondary hover:text-envictica-text_primary border border-envictica-slate_border rounded-sm font-mono text-[10px] uppercase tracking-widest bg-envictica-slate_light/50">Next</button>
 </div>
 </div>
 </div>
 </div>
 </main>
-</div>
 </body></html>
