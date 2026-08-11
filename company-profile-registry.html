@@ -1,274 +1,209 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Corporate Entity Registry - Envictica</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script id="tailwind-config">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Envictica Company Profile Registry</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;800&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
             theme: {
                 extend: {
-                    "colors": {
-                        "primary": "#00F5D4", // Electric Teal
-                        "env-alert": "#FF4D6D", // Burnt Crimson
-                        "surface": "#101415",
-                        "surface-dim": "#101415",
-                        "surface-bright": "#363a3b",
-                        "surface-container-lowest": "#0b0f10",
-                        "surface-container-low": "#191c1e",
-                        "surface-container": "#1d2022",
-                        "surface-container-high": "#272a2c",
-                        "surface-container-highest": "#323537",
-                        "on-surface": "#e0e3e5",
-                        "on-surface-variant": "#bbcabf",
-                        "outline": "#86948a",
-                        "outline-variant": "#3c4a42",
-                        "secondary": "#bec6e0",
-                        "on-secondary": "#283044",
-                        "secondary-container": "#3f465c",
-                        "on-secondary-container": "#adb4ce"
+                    colors: {
+                        envictica: {
+                            slate: '#0F172A',
+                            slate_light: '#1E293B',
+                            slate_border: '#334155',
+                            teal: '#00F5D4',
+                            teal_dim: 'rgba(0, 245, 212, 0.2)',
+                            crimson: '#FF4D6D',
+                            crimson_dim: 'rgba(255, 77, 109, 0.2)',
+                            text_primary: '#F8FAFC',
+                            text_secondary: '#94A3B8'
+                        }
                     },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem"
-                    },
-                    "spacing": {
-                        "margin": "24px",
-                        "gutter": "12px",
-                        "unit": "4px"
-                    },
-                    "fontFamily": {
-                        "label-caps": ["JetBrains Mono"],
-                        "headline-md": ["Hanken Grotesk"],
-                        "data-mono": ["JetBrains Mono"],
-                        "title-sm": ["Hanken Grotesk"],
-                        "body-md": ["Hanken Grotesk"]
+                    fontFamily: {
+                        sans: ['"Hanken Grotesk"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace']
                     }
                 }
             }
         }
     </script>
-    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-    <style>
-        body { background-color: #0b0f10; color: #e0e3e5; }
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+<style>
+        body { background-color: theme('colors.envictica.slate'); color: theme('colors.envictica.text_primary'); }
         .glass-panel {
-            background-color: rgba(25, 28, 30, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(134, 148, 138, 0.2);
+            background-color: theme('colors.envictica.slate_light');
+            border: 1px solid theme('colors.envictica.slate_border');
         }
-        .scanline {
-            position: relative;
-            overflow: hidden;
+        .glow-teal { box-shadow: 0 0 15px 2px theme('colors.envictica.teal_dim'); }
+        .status-dot { position: relative; width: 8px; height: 8px; border-radius: 50%; }
+        .status-dot.teal { background-color: theme('colors.envictica.teal'); }
+        .status-dot.teal::before {
+            content: ''; position: absolute; left: -4px; top: -4px; right: -4px; bottom: -4px;
+            border-radius: 50%; border: 2px solid theme('colors.envictica.teal');
+            animation: pulse-ring 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
         }
-        .scanline::after {
-            content: '';
-            position: absolute;
-            top: -100%;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(to bottom, transparent, rgba(0, 245, 212, 0.05), transparent);
-            animation: scan 4s linear infinite;
+        @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(2); opacity: 0; } }
+        .tech-border { position: relative; }
+        .tech-border::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 20px; height: 20px;
+            border-top: 2px solid theme('colors.envictica.teal'); border-left: 2px solid theme('colors.envictica.teal');
+            pointer-events: none;
         }
-        @keyframes scan {
-            0% { top: -100%; }
-            100% { top: 100%; }
+        .tech-border::after {
+            content: ''; position: absolute; bottom: 0; right: 0; width: 20px; height: 20px;
+            border-bottom: 2px solid theme('colors.envictica.teal'); border-right: 2px solid theme('colors.envictica.teal');
+            pointer-events: none;
         }
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #101415; }
-        ::-webkit-scrollbar-thumb { background: #323537; border-radius: 4px; }
     </style>
 </head>
-<body class="flex flex-col md:flex-row min-h-screen font-body-md text-on-surface antialiased overflow-x-hidden">
-    <!-- Top Module Bar -->
-    <div class="fixed top-0 left-0 w-full bg-primary text-[#002113] z-[60] h-8 flex items-center justify-center font-label-caps text-[11px] tracking-widest font-bold">
-        OFFICIAL ENVICTICA MODULE: 16 OF 17
-    </div>
+<body class="antialiased min-h-screen flex flex-col md:flex-row font-sans">
+<!-- SideNavBar -->
+<nav class="hidden md:flex flex-col h-full w-64 left-0 fixed border-r border-envictica-slate_border bg-envictica-slate py-6 px-4 z-40">
+<div class="mb-8">
+<a href="index.html" class="font-sans text-2xl font-extrabold text-envictica-text_primary tracking-tight hover:text-envictica-teal">Envictica</a>
+<p class="font-mono text-xs text-envictica-text_secondary mt-1 tracking-widest uppercase">Asset Module: 02</p>
+</div>
+<div class="flex-1 space-y-2 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="index.html">
+<span class="material-symbols-outlined text-sm">grid_view</span>
+<span class="font-mono text-xs uppercase tracking-widest">Dashboard</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 border-l-2 border-envictica-teal text-envictica-teal bg-envictica-slate_light transition-all rounded-r-sm bg-envictica-teal/10" href="company-profile-registry.html">
+<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">corporate_fare</span>
+<span class="font-mono text-xs uppercase tracking-widest font-bold">Assets & Registry</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="compliance-logs.html">
+<span class="material-symbols-outlined text-sm">history_edu</span>
+<span class="font-mono text-xs uppercase tracking-widest">Compliance Logs</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-sm" href="autonomous-circuit-breaker.html">
+<span class="material-symbols-outlined text-sm">bolt</span>
+<span class="font-mono text-xs uppercase tracking-widest">Procurement Cascade</span>
+</a>
+</div>
+<div class="mt-auto space-y-2 pt-6 border-t border-envictica-slate_border">
+<div class="px-3 py-2">
+<p class="font-mono text-[10px] text-envictica-teal flex items-center gap-2 uppercase tracking-widest">
+<span class="status-dot teal"></span> Sys Status: Nominal
+                </p>
+</div>
+</div>
+</nav>
 
-    <!-- SideNavBar -->
-    <nav class="hidden md:flex flex-col bg-surface-container-low border-r border-outline-variant fixed left-0 top-8 h-[calc(100vh-32px)] w-[240px] z-40 py-6">
-        <div class="px-6 mb-8">
-            <h1 class="text-2xl font-black tracking-tight text-primary">Envictica</h1>
-            <p class="text-[12px] text-on-surface-variant">Legal Knowledge Engineer</p>
-        </div>
-        <div class="px-6 mb-6">
-            <button class="w-full bg-primary text-[#002113] font-label-caps text-[11px] py-2.5 rounded-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
-                <span class="material-symbols-outlined text-[18px]">add</span>
-                NEW SYSTEM AUDIT
-            </button>
-        </div>
-        <div class="flex-1 overflow-y-auto px-3 flex flex-col gap-1">
-            <a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-[13px]" href="#"><span class="material-symbols-outlined">lan</span> Infrastructure</a>
-            <a class="flex items-center gap-3 px-3 py-2 rounded bg-secondary-container text-on-secondary-container font-semibold transition-opacity text-[13px]" href="#"><span class="material-symbols-outlined">gavel</span> Governance</a>
-            <a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-[13px]" href="#"><span class="material-symbols-outlined">account_tree</span> Pipelines</a>
-            <a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-[13px]" href="#"><span class="material-symbols-outlined">fact_check</span> Data Validation</a>
-            <a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-[13px]" href="#"><span class="material-symbols-outlined">history</span> Audit Logs</a>
-        </div>
-        <div class="mt-auto px-3 flex flex-col gap-1 border-t border-outline-variant pt-4">
-            <a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-[13px]" href="#"><span class="material-symbols-outlined">settings</span> Settings</a>
-            <a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-[13px]" href="#"><span class="material-symbols-outlined">help</span> Support</a>
-        </div>
-    </nav>
+<!-- TopNavBar (Mobile) -->
+<nav class="md:hidden flex justify-between items-center w-full px-4 py-3 bg-envictica-slate border-b border-envictica-slate_border sticky top-0 z-40">
+<div>
+<a href="index.html" class="font-sans text-xl font-bold text-envictica-text_primary tracking-tight">Envictica</a>
+<p class="font-mono text-[10px] text-envictica-text_secondary uppercase">REGISTRY_02</p>
+</div>
+<div class="flex gap-4 text-envictica-text_secondary">
+<span class="material-symbols-outlined text-sm">settings</span>
+<span class="material-symbols-outlined text-sm text-envictica-teal">notifications_active</span>
+</div>
+</nav>
 
-    <!-- Main Content Area -->
-    <main class="flex-1 md:ml-[240px] flex flex-col min-h-screen pt-8">
-        <header class="bg-surface border-b border-outline-variant sticky top-8 left-0 z-50 flex justify-between items-center px-6 h-14">
-            <div class="flex items-center gap-4">
-                <span class="text-lg font-bold text-primary tracking-tight">ENV / INFRA / REGISTRY_16</span>
-            </div>
-            <div class="flex items-center gap-6">
-                <div class="hidden lg:flex items-center gap-4 text-[11px] font-label-caps text-on-surface-variant">
-                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary"></span> SYSTEM HEALTHY</span>
-                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-secondary"></span> ROI TRACKING ACTIVE</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <button class="p-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-colors"><span class="material-symbols-outlined">settings</span></button>
-                    <button class="p-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-colors"><span class="material-symbols-outlined">notifications</span></button>
-                    <button class="p-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-colors"><span class="material-symbols-outlined">account_tree</span></button>
-                </div>
-            </div>
-        </header>
+<!-- Main Content -->
+<main class="flex-1 md:ml-64 p-6 lg:p-10 max-w-[1600px] mx-auto w-full pb-24 md:pb-10">
+<header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 border-b border-envictica-slate_border pb-6">
+<div>
+<p class="font-mono text-[10px] text-envictica-text_secondary mb-2 tracking-widest uppercase">Path: Env / Assets / Registry</p>
+<h2 class="font-sans text-3xl md:text-5xl font-extrabold text-white tracking-tight">Company Profile Registry</h2>
+</div>
+<div class="glass-panel px-4 py-2 rounded-sm border-l-2 border-envictica-teal bg-envictica-teal/10 flex items-center gap-3">
+<div class="status-dot teal"></div>
+<span class="font-mono text-xs text-envictica-teal tracking-widest uppercase font-bold">Sync: Nominal</span>
+</div>
+</header>
 
-        <div class="p-6 flex-1 bg-[radial-gradient(circle_at_top_right,rgba(0,245,212,0.03),transparent)]">
-            <div class="mb-8 flex items-center justify-between border-b border-outline-variant/30 pb-6">
-                <div>
-                    <h2 class="text-2xl font-bold text-on-surface tracking-tight">OFFICIAL: Corporate Entity Registry</h2>
-                    <p class="text-sm text-on-surface-variant mt-1">Definitive organizational source-of-truth for fiduciary accountability</p>
-                </div>
-                <div class="flex flex-col items-end gap-1">
-                    <span class="text-[10px] font-label-caps text-on-surface-variant">LAST VERIFIED SYNC</span>
-                    <span class="text-[12px] font-data-mono text-primary">2024-10-27T14:32:01Z</span>
-                </div>
-            </div>
+<div class="space-y-6">
+<!-- Top Stats Row -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 border-t-2 border-envictica-teal bg-envictica-slate_light/50">
+<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_primary font-bold">Indexed Entity Arrays</span>
+<span class="font-mono text-3xl font-bold text-envictica-text_primary">1,248</span>
+</div>
+<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 bg-envictica-slate_light/50">
+<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_primary font-bold">Fiduciary Risk Rating</span>
+<span class="font-mono text-3xl font-bold text-envictica-teal">Class-A Low</span>
+</div>
+<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 bg-envictica-slate_light/50 border-r-2 border-envictica-teal">
+<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_primary font-bold">Active Liability Escrow</span>
+<span class="font-mono text-2xl font-bold text-envictica-text_primary">$34.8M</span>
+</div>
+</div>
 
-            <div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
-                <!-- Main Identity Card -->
-                <div class="xl:col-span-8 glass-panel rounded-sm p-6 relative overflow-hidden">
-                    <div class="absolute top-0 right-0 p-4 opacity-10">
-                        <span class="material-symbols-outlined text-6xl">domain</span>
-                    </div>
-                    <div class="flex items-center gap-2 mb-6">
-                        <span class="w-2 h-2 rounded-full bg-primary animate-pulse shadow-[0_0_8px_#00F5D4]"></span>
-                        <h3 class="text-[11px] font-label-caps font-bold tracking-widest text-on-surface">LEGAL ENTITY CORE</h3>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                        <div class="space-y-1">
-                            <p class="text-[10px] font-label-caps text-on-surface-variant">REGISTERED NAME</p>
-                            <p class="text-lg font-bold text-primary">ENVICTICA CORP LTD.</p>
-                        </div>
-                        <div class="space-y-1">
-                            <p class="text-[10px] font-label-caps text-on-surface-variant">GLOBAL ENTITY ID</p>
-                            <p class="text-lg font-bold text-on-surface font-data-mono">LEI-894500L9XT893</p>
-                        </div>
-                        <div class="space-y-1">
-                            <p class="text-[10px] font-label-caps text-on-surface-variant">JURISDICTION</p>
-                            <p class="text-lg font-bold text-on-surface">ZURICH, CH (TIER-1)</p>
-                        </div>
-                    </div>
+<!-- Controls -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 glass-panel p-4 rounded-sm tech-border bg-envictica-slate_light/30">
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-2 bg-envictica-teal/10 text-envictica-teal font-mono text-xs font-bold uppercase tracking-widest rounded-sm border border-envictica-teal/50">
+    Primary Entities
+</button>
+<button class="px-4 py-2 bg-envictica-slate_light text-envictica-text_secondary hover:text-envictica-text_primary font-mono text-xs uppercase tracking-widest rounded-sm border border-envictica-slate_border">
+    Subsidiary Holdings
+</button>
+</div>
+<div class="w-full sm:w-auto">
+<input type="text" placeholder="Search Entity Registry..." class="bg-envictica-slate border border-envictica-slate_border text-envictica-text_primary font-mono text-xs px-3 py-2 rounded-sm focus:outline-none w-full sm:w-64"/>
+</div>
+</div>
 
-                    <div class="pt-6 border-t border-outline-variant/30">
-                        <div class="flex justify-between items-center mb-3">
-                            <p class="text-[10px] font-label-caps text-on-surface-variant">FIDUCIARY FINGERPRINT (SHA-256)</p>
-                            <span class="px-2 py-0.5 bg-primary/10 text-primary border border-primary/30 rounded-sm text-[10px] font-bold">VERIFIED</span>
-                        </div>
-                        <div class="bg-surface-container-lowest p-4 rounded-sm border border-outline-variant scanline">
-                            <code class="text-xs font-data-mono text-on-surface-variant break-all">e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855</code>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Regulatory Column -->
-                <div class="xl:col-span-4 flex flex-col gap-6">
-                    <div class="glass-panel rounded-sm p-6 border-l-4 border-l-primary">
-                        <h3 class="text-[11px] font-label-caps font-bold tracking-widest text-on-surface mb-6">REGULATORY CLEARANCES</h3>
-                        <div class="space-y-3">
-                            <div class="flex justify-between items-center p-3 bg-surface-container-highest/20 border border-outline-variant rounded-sm">
-                                <span class="text-[12px] font-data-mono text-on-surface">SOC2 TYPE II</span>
-                                <span class="text-[10px] font-bold text-primary">ACTIVE</span>
-                            </div>
-                            <div class="flex justify-between items-center p-3 bg-surface-container-highest/20 border border-outline-variant rounded-sm">
-                                <span class="text-[12px] font-data-mono text-on-surface">GDPR ART.27</span>
-                                <span class="text-[10px] font-bold text-primary">ACTIVE</span>
-                            </div>
-                            <div class="flex justify-between items-center p-3 bg-env-alert/5 border border-env-alert/30 rounded-sm">
-                                <span class="text-[12px] font-data-mono text-env-alert">LEGAL AI ACT (EU)</span>
-                                <span class="text-[10px] font-bold text-env-alert">PENDING AUDIT</span>
-                            </div>
-                            <div class="flex justify-between items-center p-3 bg-surface-container-highest/20 border border-outline-variant rounded-sm">
-                                <span class="text-[12px] font-data-mono text-on-surface">ISO/IEC 27001</span>
-                                <span class="text-[10px] font-bold text-primary">ACTIVE</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Liability Chain -->
-                <div class="xl:col-span-12 glass-panel rounded-sm p-6 border-t-4 border-t-env-alert">
-                    <div class="flex justify-between items-center mb-6">
-                        <div class="flex items-center gap-2">
-                            <span class="material-symbols-outlined text-env-alert">hub</span>
-                            <h3 class="text-[11px] font-label-caps font-bold tracking-widest text-on-surface">LIABILITY CHAIN: AUTHORITY NODES</h3>
-                        </div>
-                        <span class="text-[10px] font-label-caps text-on-surface-variant uppercase">Biometric Mapping Active</span>
-                    </div>
-                    
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-surface-container-lowest border-b border-outline-variant text-[10px] font-label-caps text-on-surface-variant">
-                                    <th class="p-4 font-normal">NODE ID</th>
-                                    <th class="p-4 font-normal">ROLE CLUSTER</th>
-                                    <th class="p-4 font-normal text-right">BIOMETRIC BIND</th>
-                                    <th class="p-4 font-normal text-center">RISK WEIGHT</th>
-                                </tr>
-                            </thead>
-                            <tbody class="text-[13px] font-data-mono">
-                                <tr class="border-b border-outline-variant/30 hover:bg-surface-container-highest transition-colors">
-                                    <td class="p-4 text-on-surface">EXEC-01-ALPHA</td>
-                                    <td class="p-4 text-on-surface-variant">CHIEF_EXEC</td>
-                                    <td class="p-4 text-right">
-                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-primary/10 text-primary border border-primary/30 rounded-sm text-[10px] font-bold">
-                                            <span class="material-symbols-outlined text-[14px]">fingerprint</span> SECURED
-                                        </span>
-                                    </td>
-                                    <td class="p-4 text-center">0.05</td>
-                                </tr>
-                                <tr class="border-b border-outline-variant/30 bg-env-alert/5 hover:bg-env-alert/10 transition-colors">
-                                    <td class="p-4 text-env-alert font-bold">EXEC-02-BETA</td>
-                                    <td class="p-4 text-env-alert/80">CHIEF_DATA</td>
-                                    <td class="p-4 text-right">
-                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-env-alert/10 text-env-alert border border-env-alert/30 rounded-sm text-[10px] font-bold">
-                                            <span class="material-symbols-outlined text-[14px]">warning</span> FRACTURED
-                                        </span>
-                                    </td>
-                                    <td class="p-4 text-center text-env-alert font-bold">0.84</td>
-                                </tr>
-                                <tr class="border-b border-outline-variant/30 hover:bg-surface-container-highest transition-colors">
-                                    <td class="p-4 text-on-surface">EXEC-03-GAMMA</td>
-                                    <td class="p-4 text-on-surface-variant">CHIEF_LEGAL</td>
-                                    <td class="p-4 text-right">
-                                        <span class="inline-flex items-center gap-1.5 px-2 py-0.5 bg-primary/10 text-primary border border-primary/30 rounded-sm text-[10px] font-bold">
-                                            <span class="material-symbols-outlined text-[14px]">fingerprint</span> SECURED
-                                        </span>
-                                    </td>
-                                    <td class="p-4 text-center">0.12</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    
-                    <div class="mt-6 flex justify-end">
-                        <button class="px-4 py-2 border border-outline-variant rounded-sm text-[11px] font-label-caps font-bold text-on-surface-variant hover:text-primary hover:border-primary transition-all">EXPAND AUDIT TRAIL</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+<!-- Registry Table -->
+<div class="glass-panel rounded-sm overflow-hidden bg-[#050B14]">
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-envictica-slate_border bg-envictica-slate/80 backdrop-blur-sm">
+<th class="px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary font-bold">Entity Name</th>
+<th class="px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary font-bold">Jurisdiction</th>
+<th class="px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary font-bold">Fiduciary Class</th>
+<th class="px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary font-bold">Liability Matrix</th>
+<th class="px-4 py-3 font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary font-bold text-right">Status</th>
+</tr>
+</thead>
+<tbody class="font-mono text-xs text-envictica-text_primary divide-y divide-envictica-slate_border/50">
+<tr class="hover:bg-envictica-slate_light/30 transition-colors">
+<td class="px-4 py-4 font-bold text-envictica-teal">Envictica Global Corp</td>
+<td class="px-4 py-4 text-envictica-text_secondary">Delaware, USA</td>
+<td class="px-4 py-4 uppercase">Tier 1 Primary</td>
+<td class="px-4 py-4 text-envictica-text_secondary">$12.4M Insured</td>
+<td class="px-4 py-4 text-right">
+<span class="inline-flex items-center gap-2 px-2 py-1 bg-envictica-teal/10 text-envictica-teal border border-envictica-teal/30 rounded-sm text-[10px] uppercase tracking-widest">
+<div class="w-1.5 h-1.5 bg-envictica-teal rounded-full"></div> Verified
+</span>
+</td>
+</tr>
+<tr class="hover:bg-envictica-slate_light/30 transition-colors">
+<td class="px-4 py-4 font-bold text-envictica-teal">Mary Technology LLC</td>
+<td class="px-4 py-4 text-envictica-text_secondary">Wyoming, USA</td>
+<td class="px-4 py-4 uppercase">Tier 2 Subsidiary</td>
+<td class="px-4 py-4 text-envictica-text_secondary">$4.1M Insured</td>
+<td class="px-4 py-4 text-right">
+<span class="inline-flex items-center gap-2 px-2 py-1 bg-envictica-teal/10 text-envictica-teal border border-envictica-teal/30 rounded-sm text-[10px] uppercase tracking-widest">
+<div class="w-1.5 h-1.5 bg-envictica-teal rounded-full"></div> Verified
+</span>
+</td>
+</tr>
+<tr class="hover:bg-envictica-slate_light/30 transition-colors">
+<td class="px-4 py-4 font-bold text-envictica-teal">Schematic Array Systems</td>
+<td class="px-4 py-4 text-envictica-text_secondary">Zurich, Switzerland</td>
+<td class="px-4 py-4 uppercase">Tier 1 Primary</td>
+<td class="px-4 py-4 text-envictica-text_secondary">$18.3M Insured</td>
+<td class="px-4 py-4 text-right">
+<span class="inline-flex items-center gap-2 px-2 py-1 bg-envictica-teal/10 text-envictica-teal border border-envictica-teal/30 rounded-sm text-[10px] uppercase tracking-widest">
+<div class="w-1.5 h-1.5 bg-envictica-teal rounded-full"></div> Verified
+</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</main>
 </body>
 </html>
