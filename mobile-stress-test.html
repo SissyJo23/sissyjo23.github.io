@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Envictica | Mobile Stress-Test</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#00F5D4", // Electric Teal
+              "env-alert": "#FF4D6D", // Burnt Crimson
+              surface: "#0A0B0E",
+              "surface-container": "#13151B",
+              outline: "#2A2E39",
+              "on-surface-variant": "#9CA3AF",
+            },
+            fontFamily: {
+              display: ["Sora", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"],
+              body: ["Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      body {
+        background-color: #050608;
+        color: #e3e1e9;
+      }
+      .glass-card {
+        background: rgba(19, 21, 27, 0.8);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+      }
+      .scanline {
+        width: 100%;
+        height: 100%;
+        z-index: 10;
+        position: fixed;
+        pointer-events: none;
+        background: linear-gradient(
+          to bottom,
+          transparent 50%,
+          rgba(0, 0, 0, 0.1) 50%
+        );
+        background-size: 100% 4px;
+        opacity: 0.2;
+      }
+      .failover-path {
+        stroke-dasharray: 5;
+        animation: flow 2s linear infinite;
+      }
+      @keyframes flow {
+        to {
+          stroke-dashoffset: -20;
+        }
+      }
+    </style>
+  </head>
+  <body class="font-body antialiased min-h-screen pb-24">
+    <div class="scanline"></div>
+
+    <!-- Top Module Bar -->
+    <div
+      class="fixed top-0 left-0 w-full bg-primary text-[#002113] z-50 h-8 flex items-center justify-center font-mono text-[10px] tracking-[0.3em] font-bold uppercase"
+    >
+      Official Envictica Module: 12 of 17
+    </div>
+
+    <!-- Header -->
+    <header class="pt-12 px-6 pb-4 flex justify-between items-center">
+      <div class="flex flex-col gap-1">
+        <span
+          class="font-display text-xl font-black italic tracking-tighter text-white"
+          >ENVICTICA</span
+        >
+        <span
+          class="font-mono text-[9px] text-primary tracking-widest uppercase"
+          >Resilience Verification</span
+        >
+      </div>
+      <div
+        class="px-2 py-1 border border-env-alert bg-env-alert/10 rounded-sm"
+      >
+        <span class="font-mono text-[10px] text-env-alert font-bold"
+          >STRESS_ACTIVE</span
+        >
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="px-6 flex flex-col gap-5">
+      <!-- RTO Metric -->
+      <section
+        class="glass-card p-6 rounded-sm text-center relative overflow-hidden"
+      >
+        <div
+          class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary to-transparent opacity-50"
+        ></div>
+        <span
+          class="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest block mb-2"
+          >Recovery Time Objective (RTO)</span
+        >
+        <div class="font-mono text-5xl text-white font-light tracking-tighter">
+          4.82<span class="text-xl text-primary ml-1">ms</span>
+        </div>
+        <div class="mt-4 flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-primary text-sm"
+            >verified</span
+          >
+          <span
+            class="font-mono text-[9px] text-primary uppercase tracking-widest"
+            >SLA Requirement Met</span
+          >
+        </div>
+      </section>
+
+      <!-- Node Failure Visualization -->
+      <section class="glass-card p-5 rounded-sm">
+        <span
+          class="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest block mb-4"
+          >Failover Topology</span
+        >
+        <div
+          class="relative h-40 w-full bg-black/20 rounded border border-outline/50 flex items-center justify-center"
+        >
+          <svg width="100%" height="100%" class="absolute inset-0">
+            <!-- Failure Lines -->
+            <line
+              x1="20%"
+              y1="50%"
+              x2="50%"
+              y2="20%"
+              stroke="#FF4D6D"
+              stroke-width="1"
+              opacity="0.4"
+            />
+            <line
+              x1="20%"
+              y1="50%"
+              x2="50%"
+              y2="80%"
+              stroke="#FF4D6D"
+              stroke-width="1"
+              opacity="0.4"
+            />
+            <!-- Failover Path -->
+            <path
+              class="failover-path"
+              d="M 20% 50% L 80% 50%"
+              fill="none"
+              stroke="#00F5D4"
+              stroke-width="2"
+            />
+            <!-- Nodes -->
+            <circle cx="20%" cy="50%" r="8" fill="#FF4D6D" />
+            <!-- Primary Failed -->
+            <circle
+              cx="50%"
+              cy="20%"
+              r="6"
+              fill="#13151B"
+              stroke="#2A2E39"
+            />
+            <circle
+              cx="50%"
+              cy="80%"
+              r="6"
+              fill="#13151B"
+              stroke="#2A2E39"
+            />
+            <circle
+              cx="80%"
+              cy="50%"
+              r="8"
+              fill="#0A0B0E"
+              stroke="#00F5D4"
+              stroke-width="2"
+            />
+            <!-- Local Recovery -->
+          </svg>
+          <div
+            class="absolute top-2 left-4 font-mono text-[8px] text-env-alert uppercase"
+          >
+            Primary Blackout
+          </div>
+          <div
+            class="absolute bottom-2 right-4 font-mono text-[8px] text-primary uppercase"
+          >
+            Localized Recovery Active
+          </div>
+        </div>
+      </section>
+
+      <!-- Impact Summary -->
+      <section class="glass-card p-5 rounded-sm border-l-2 border-primary">
+        <div class="flex justify-between items-start mb-2">
+          <span
+            class="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest"
+            >Simulated Impact</span
+          >
+        </div>
+        <div class="flex items-baseline gap-2">
+          <span class="font-mono text-2xl text-white font-bold">$12.4M</span>
+          <span class="text-[9px] text-on-surface-variant leading-tight"
+            >Potential Liability Avoided</span
+          >
+        </div>
+      </section>
+
+      <!-- Simulation Control -->
+      <button
+        class="w-full bg-primary/10 border border-primary/20 text-primary py-4 rounded-sm flex items-center justify-center gap-3 active:scale-95 transition-transform"
+      >
+        <span class="material-symbols-outlined text-lg">refresh</span>
+        <span class="font-mono text-xs font-bold uppercase tracking-widest"
+          >Re-Run Stress Sequence</span
+        >
+      </button>
+    </main>
+
+    <!-- Navigation -->
+    <nav
+      class="fixed bottom-0 left-0 w-full bg-surface-container border-t border-outline flex justify-around items-center h-20 px-4 z-50"
+    >
+      <span class="material-symbols-outlined text-on-surface-variant"
+        >dashboard</span
+      >
+      <span class="material-symbols-outlined text-primary">lan</span>
+      <span class="material-symbols-outlined text-on-surface-variant"
+        >gavel</span
+      >
+      <span class="material-symbols-outlined text-on-surface-variant"
+        >history</span
+      >
+    </nav>
+  </body>
+</html>
