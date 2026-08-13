@@ -1,5 +1,6 @@
 # OFFICIAL ENVICTICA MODULE: 15 OF 17
-## Envictica Model Abstraction Layer (MAL)
+## Envictica Model Abstraction Layer (MAL) - Presentation Hardened
+
 ### Executive Summary
 The primary portability and vendor-independence layer for the Envictica Fiduciary Infrastructure. This module decouples legal pipelines from specific model providers (OpenAI, Anthropic, Google, etc.), allowing for sub-5ms failover and "hot-swapping" based on real-time governance scores. It ensures that the enterprise never suffers from vendor lock-in or quality degradation.
 
@@ -24,7 +25,7 @@ The primary portability and vendor-independence layer for the Envictica Fiduciar
 ### Global Routing Telemetry
 Real-time monitoring of multi-cloud model endpoints:
 - **Throughput Analysis**: Monitoring token pressure across Alpha and Beta processing clusters.
-- **Error Rate Intercept**: Automatic routing diversion if external API latency exceeds 200ms.
+- **Error Rate Intercept**: Automatic routing diversion if external API latency exceeds 200ms or manual provider blackout is triggered.
 - **Cost-to-Accuracy Matrix**: Programmatic load-balancing to maximize factual threshold limits within operational budgets.
 
 ---
