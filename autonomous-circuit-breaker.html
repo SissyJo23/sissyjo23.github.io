@@ -1,312 +1,242 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Envictica ACB_17 Interface</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;800&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        envictica: {
-                            slate: '#0F172A',
-                            slate_light: '#1E293B',
-                            slate_border: '#334155',
-                            teal: '#00F5D4',
-                            teal_dim: 'rgba(0, 245, 212, 0.2)',
-                            crimson: '#FF4D6D',
-                            crimson_dim: 'rgba(255, 77, 109, 0.2)',
-                            text_primary: '#F8FAFC',
-                            text_secondary: '#94A3B8'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['"Hanken Grotesk"', 'sans-serif'],
-                        mono: ['"JetBrains Mono"', 'monospace']
-                    }
-                }
-            }
+<html class="dark" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Autonomous Circuit Breaker (ACB) | Envictica</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;600;800&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700&display=swap" rel="stylesheet"/>
+    <style>
+        :root {
+            --electric-teal: #00F5D4;
+            --burnt-crimson: #FF4D6D;
+            --deep-slate: #030712;
         }
-    </script>
-<style>
-        body { background-color: theme('colors.envictica.slate'); color: theme('colors.envictica.text_primary'); }
-        .glass-panel {
-            background-color: theme('colors.envictica.slate_light');
-            border: 1px solid theme('colors.envictica.slate_border');
+        body { background-color: var(--deep-slate); color: #F8FAFC; font-family: 'Hanken Grotesk', sans-serif; }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .glass-card { background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(12px); border: 1px solid rgba(255, 255, 255, 0.05); }
+        .border-teal { border-color: var(--electric-teal); }
+        .border-crimson { border-color: var(--burnt-crimson); }
+        .text-teal { color: var(--electric-teal); }
+        .text-crimson { color: var(--burnt-crimson); }
+        .bg-teal-glow { background: rgba(0, 245, 212, 0.1); box-shadow: 0 0 20px rgba(0, 245, 212, 0.1); }
+        .bg-crimson-glow { background: rgba(255, 77, 109, 0.1); box-shadow: 0 0 20px rgba(255, 77, 109, 0.15); }
+        
+        .status-pulse { animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0% { transform: scale(0.95); opacity: 0.8; }
+            70% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.95); opacity: 0.8; }
         }
-        .glow-teal { box-shadow: 0 0 15px 2px theme('colors.envictica.teal_dim'); }
-        .glow-crimson { box-shadow: 0 0 15px 2px theme('colors.envictica.crimson_dim'); }
-        .scanline-input { position: relative; }
-        .scanline-input::after {
-            content: '';
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 100%; height: 2px;
-            background: linear-gradient(90deg, transparent, theme('colors.envictica.teal'), transparent);
-            opacity: 0; transition: opacity 0.3s;
-        }
-        .scanline-input:focus-within::after {
-            opacity: 1; animation: scan 2s infinite linear;
-        }
-        @keyframes scan { 0% { transform: translateX(-100%); } 100% { transform: translateX(100%); } }
-        @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(2); opacity: 0; } }
-        .status-dot { position: relative; width: 8px; height: 8px; border-radius: 50%; }
-        .status-dot.teal { background-color: theme('colors.envictica.teal'); }
-        .status-dot.teal::before {
-            content: ''; position: absolute; left: -4px; top: -4px; right: -4px; bottom: -4px;
-            border-radius: 50%; border: 2px solid theme('colors.envictica.teal');
-            animation: pulse-ring 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
-        }
-        .status-dot.crimson { background-color: theme('colors.envictica.crimson'); }
-        .status-dot.crimson::before {
-            content: ''; position: absolute; left: -4px; top: -4px; right: -4px; bottom: -4px;
-            border-radius: 50%; border: 2px solid theme('colors.envictica.crimson');
-            animation: pulse-ring 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
-        }
-        .tech-border {
-            position: relative;
-        }
-        .tech-border::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 20px; height: 20px;
-            border-top: 2px solid theme('colors.envictica.teal'); border-left: 2px solid theme('colors.envictica.teal');
-            pointer-events: none;
-        }
-        .tech-border::after {
-            content: ''; position: absolute; bottom: 0; right: 0; width: 20px; height: 20px;
-            border-bottom: 2px solid theme('colors.envictica.teal'); border-right: 2px solid theme('colors.envictica.teal');
-            pointer-events: none;
+        
+        .scanline {
+            width: 100%; height: 100%; position: fixed; pointer-events: none;
+            background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.05) 50%);
+            background-size: 100% 4px; z-index: 100; opacity: 0.2;
         }
     </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col md:flex-row font-sans">
-<!-- SideNavBar (Desktop) -->
-<nav class="hidden md:flex flex-col h-full w-64 left-0 fixed border-r border-envictica-slate_border bg-envictica-slate py-6 px-4 z-40">
-<div class="mb-8">
-<h1 class="font-sans text-2xl font-extrabold text-envictica-text_primary tracking-tight">Envictica</h1>
-<p class="font-mono text-xs text-envictica-text_secondary mt-1 tracking-widest uppercase">Official Module: 17 of 17</p>
-</div>
-<div class="flex items-center gap-3 mb-8 p-3 glass-panel rounded-lg bg-envictica-slate_light/50 backdrop-blur-md border border-envictica-slate_border">
-<img class="w-10 h-10 rounded-sm object-cover border border-envictica-slate_border grayscale opacity-80" data-alt="Operator portrait" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAKZg3vlpPQDs6F__mYCfTVF51wftAqZ7S-mQDBcywqpyhIDhdDAq6VpMWzD4v7VcbRtLozfEgyeRijCvUD-qHPhmz_zBkLbgI35w-Q7QL-IlS-Zt2ltbJlGC7Xb2afJW78-taEqnEbibU5mdr34AMRQJAnnyGtePXvh7jIg2an6whoMnL4BmAa3MDUJfiqwuySue4eeUdkfe2Gh7sZeR6FgutVyvXDWePsaBGeX18vPIsY0vlJw9HCPw"/>
-<div>
-<p class="font-mono text-xs font-bold text-envictica-text_primary">Operator Alpha</p>
-<p class="font-mono text-[10px] text-envictica-teal">Lvl 4 Clearance</p>
-</div>
-</div>
-<div class="flex-1 space-y-2">
-<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-md" href="#">
-<span class="material-symbols-outlined text-sm">terminal</span>
-<span class="font-mono text-xs uppercase tracking-widest">Command</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-md" href="#">
-<span class="material-symbols-outlined text-sm">gavel</span>
-<span class="font-mono text-xs uppercase tracking-widest">Governance</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-md" href="#">
-<span class="material-symbols-outlined text-sm">account_tree</span>
-<span class="font-mono text-xs uppercase tracking-widest">Pipelines</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary hover:bg-envictica-slate_light transition-all rounded-md" href="#">
-<span class="material-symbols-outlined text-sm">warning</span>
-<span class="font-mono text-xs uppercase tracking-widest">Risk</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 mt-4 bg-envictica-crimson/10 text-envictica-crimson border border-envictica-crimson/30 rounded-md font-bold transition-all glow-crimson hover:bg-envictica-crimson hover:text-white" href="#">
-<span class="material-symbols-outlined text-sm">bolt</span>
-<span class="font-mono text-xs uppercase tracking-widest">Kill Switch</span>
-</a>
-</div>
-<div class="mt-auto space-y-2 pt-6 border-t border-envictica-slate_border">
-<div class="px-3 py-2">
-<p class="font-mono text-[10px] text-envictica-teal flex items-center gap-2 uppercase tracking-widest">
-<span class="status-dot teal"></span> Sys Status: Nominal
-                </p>
-</div>
-<a class="flex items-center gap-3 px-3 py-2 text-envictica-text_secondary hover:text-envictica-text_primary transition-all rounded-md" href="#">
-<span class="material-symbols-outlined text-sm">description</span>
-<span class="font-mono text-xs uppercase tracking-widest">Docs</span>
-</a>
-</div>
-</nav>
-<!-- TopNavBar (Mobile) -->
-<nav class="md:hidden flex justify-between items-center w-full px-4 py-3 bg-envictica-slate border-b border-envictica-slate_border sticky top-0 z-40">
-<div>
-<h1 class="font-sans text-xl font-bold text-envictica-text_primary tracking-tight">Envictica</h1>
-<p class="font-mono text-[10px] text-envictica-text_secondary uppercase">ACB_17</p>
-</div>
-<div class="flex gap-4 text-envictica-text_secondary">
-<span class="material-symbols-outlined text-sm">settings</span>
-<span class="material-symbols-outlined text-sm text-envictica-teal">notifications_active</span>
-</div>
-</nav>
-<!-- Main Content Canvas -->
-<main class="flex-1 md:ml-64 p-6 lg:p-10 max-w-[1600px] mx-auto w-full pb-24 md:pb-10">
-<!-- Header Path & Status -->
-<header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 border-b border-envictica-slate_border pb-6">
-<div>
-<p class="font-mono text-[10px] text-envictica-text_secondary mb-2 tracking-widest uppercase">Path: Env / Infra / ACB_17</p>
-<h2 class="font-sans text-3xl md:text-5xl font-extrabold text-envictica-text_primary tracking-tight">Procurement Cascade</h2>
-</div>
-<div class="glass-panel px-4 py-2 rounded-sm border-l-2 border-envictica-teal border-t-0 border-r-0 border-b-0 bg-envictica-teal/10 flex items-center gap-3">
-<div class="status-dot teal"></div>
-<span class="font-mono text-xs text-envictica-teal tracking-widest uppercase font-bold">Circuit Breaker: Active</span>
-</div>
-</header>
-<!-- Bento Grid Layout -->
-<div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
-<!-- Left Column: Metrics & Interception (8 cols) -->
-<div class="xl:col-span-8 flex flex-col gap-6">
-<!-- Key Metrics Cards -->
-<div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 border-t-2 border-envictica-crimson bg-envictica-slate_light/50">
-<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary">Entropy Threshold</span>
-<div class="flex items-end gap-2">
-<span class="font-mono text-3xl font-bold text-envictica-crimson">0.14</span>
-<span class="font-mono text-[10px] text-envictica-text_secondary mb-1">/ 0.15 MAX</span>
-</div>
-</div>
-<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 border-t-2 border-envictica-teal bg-envictica-slate_light/50">
-<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary">Air-Gap Status</span>
-<span class="font-mono text-xl font-bold text-envictica-teal">SECURE</span>
-</div>
-<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 bg-envictica-slate_light/50">
-<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary">Liability Avoided</span>
-<span class="font-mono text-2xl font-bold text-envictica-text_primary">$4.2M</span>
-</div>
-<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 bg-envictica-slate_light/50">
-<span class="font-mono text-[10px] uppercase tracking-widest text-envictica-text_secondary">Clauses Blocked</span>
-<span class="font-mono text-2xl font-bold text-envictica-text_primary">1,400</span>
-</div>
-</div>
-<!-- Main Visualization Panel -->
-<div class="glass-panel rounded-sm overflow-hidden flex flex-col h-[500px] md:h-[600px] tech-border bg-[#050B14]">
-<div class="p-4 border-b border-envictica-slate_border flex justify-between items-center bg-envictica-slate/80 backdrop-blur-sm z-10">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-envictica-teal text-sm">visibility</span>
-<h3 class="font-mono text-xs uppercase tracking-widest text-envictica-text_primary">Neural 'Mind's Eye' Filter Protocol</h3>
-</div>
-<span class="px-2 py-1 bg-envictica-teal/10 rounded-sm text-[10px] font-mono text-envictica-teal border border-envictica-teal/30 flex items-center gap-2">
-<div class="w-1.5 h-1.5 bg-envictica-teal rounded-full animate-pulse"></div> LIVE FEED
-                        </span>
-</div>
-<div class="relative flex-1 overflow-hidden bg-cover bg-center" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA0vHHovvDJkA2UnKUnih0ygfBNSHvH5VdpQGgoSsHf_py3ah9gY9uYRsJFwh9RmbGmyeK2X0-0TMVFkdQ81PV2YFlZkxsL1bzfCUWv93LmcS21XZv36uePPs6aHcPF_6TX7Mwpyvi13g7MyxaEuOxpkbmsCS_Qh_mN-78o78InYFJVtuAcvfdKx8PAr5zVaHrY0gdwnhEcr5z3OW5ErMSyauyTPoUr9w6tzcGDZqqIo8IKDwxTvvd3lQ')">
-<!-- Technical Overlay Grid -->
-<div class="absolute inset-0 bg-[linear-gradient(rgba(0,245,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,245,212,0.03)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none"></div>
-<!-- Interception UI Overlay -->
-<div class="absolute inset-0 flex flex-col p-6 justify-end pointer-events-none">
-<div class="w-full bg-envictica-slate/90 backdrop-blur-md border border-envictica-slate_border p-4 rounded-sm flex flex-col gap-3">
-<div class="flex justify-between items-center text-[10px] font-mono text-envictica-text_secondary uppercase tracking-widest">
-<span>Stream Ingestion Rate</span>
-<span class="text-envictica-teal">Gate Active</span>
-</div>
-<div class="w-full h-1.5 bg-envictica-slate_light rounded-none overflow-hidden border border-envictica-slate_border">
-<div class="h-full bg-envictica-teal w-[78%] relative shadow-[0_0_10px_#00F5D4]">
-<div class="absolute right-0 top-0 bottom-0 w-8 bg-white/50 blur-[2px]"></div>
-</div>
-</div>
-<div class="flex justify-between items-center text-[10px] font-mono mt-1">
-<span class="text-envictica-text_secondary">4.2 TB/s</span>
-<span class="text-envictica-crimson">24 Anomalies Detected</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Right Column: Document & Override (4 cols) -->
-<div class="xl:col-span-4 flex flex-col gap-6">
-<!-- Document Analysis -->
-<div class="glass-panel rounded-sm flex flex-col flex-1 min-h-[300px] bg-envictica-slate_light/30">
-<div class="p-4 border-b border-envictica-slate_border flex items-center gap-2 bg-envictica-slate_light/50">
-<span class="material-symbols-outlined text-envictica-text_secondary text-sm">plagiarism</span>
-<h3 class="font-mono text-xs uppercase tracking-widest text-envictica-text_primary">Clause Analysis Buffer</h3>
-</div>
-<div class="p-4 flex-1 overflow-y-auto font-mono text-xs text-envictica-text_secondary whitespace-pre-wrap leading-relaxed opacity-80 mix-blend-screen">
-Master Services Agreement Clause 10.4 - Automated Liability Cap Triggered
+<body class="antialiased min-h-screen flex flex-col font-sans">
+    <div class="scanline"></div>
+    
+    <!-- Top Module Bar -->
+    <div id="module-bar" class="h-8 flex items-center justify-center font-mono text-[10px] tracking-[0.3em] font-bold transition-colors duration-300 bg-teal-600 text-[#030712]">
+        OFFICIAL ENVICTICA MODULE: 17 OF 17 // AUTONOMOUS CIRCUIT BREAKER
+    </div>
+
+    <!-- Header -->
+    <header class="h-16 border-b border-white/5 flex items-center justify-between px-8 bg-black/20 backdrop-blur-md sticky top-0 z-50">
+        <div class="flex items-center gap-4">
+            <span class="text-xl font-black tracking-tighter text-white italic">ENVICTICA</span>
+            <div class="h-4 w-px bg-white/10 mx-2"></div>
+            <span id="system-status-label" class="font-mono text-[10px] tracking-widest text-teal flex items-center gap-2">
+                <span class="w-1.5 h-1.5 rounded-full bg-teal status-pulse"></span>
+                FILTERING ENABLED (SUB-5MS AIR-GAP)
+            </span>
+        </div>
+        <div class="flex items-center gap-6 text-slate-400">
+            <div class="flex flex-col items-end">
+                <span class="font-mono text-[9px] tracking-widest opacity-50 uppercase">Environment Context</span>
+                <span class="font-mono text-[10px] text-white">ENV / INFRA / ACB_17</span>
+            </div>
+            <div class="w-8 h-8 rounded-full border border-teal/30 bg-slate-800 flex items-center justify-center">
+                <span class="material-symbols-outlined text-sm text-teal">verified_user</span>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 p-8 grid grid-cols-1 lg:grid-cols-12 gap-6 max-w-[1600px] mx-auto w-full">
+        
+        <!-- Left: Validation Input & Air-Gap Logic -->
+        <div class="lg:col-span-8 flex flex-col gap-6">
+            <section class="glass-card p-6 rounded-sm flex flex-col gap-6">
+                <div class="flex justify-between items-center border-b border-white/5 pb-4">
+                    <h2 class="font-bold text-lg tracking-tight flex items-center gap-3">
+                        <span class="material-symbols-outlined text-teal">security</span>
+                        Sub-5ms Ingestion Air-Gap
+                    </h2>
+                    <span class="font-mono text-[10px] text-slate-500 uppercase tracking-widest">Presentation Hardened</span>
+                </div>
+                
+                <div class="flex flex-col gap-4">
+                    <label class="font-mono text-[11px] text-slate-400 tracking-wider uppercase">Active Prompt Ingestion Window</label>
+                    <textarea id="prompt-input" class="w-full h-48 bg-black/40 border border-white/10 rounded-sm p-4 font-mono text-sm focus:outline-none focus:border-teal/50 transition-colors placeholder:text-slate-700" placeholder="Paste external AI output or prompt here for architectural validation..."></textarea>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <button id="btn-validate" class="bg-teal text-[#030712] font-black text-xs tracking-widest py-4 rounded-sm hover:opacity-90 active:scale-[0.98] transition-all">
+                            EXECUTE SUB-5MS SCAN
+                        </button>
+                        <button id="btn-reset" class="border border-white/10 hover:bg-white/5 text-white font-black text-xs tracking-widest py-4 rounded-sm transition-all">
+                            RESET CIRCUIT BREAKER
+                        </button>
                     </div>
-</div>
-<!-- Manual Override Gate -->
-<div class="glass-panel rounded-sm border-l-2 border-envictica-crimson bg-envictica-slate_light/40 p-6 flex flex-col gap-5 tech-border">
-<div class="flex items-start justify-between">
-<div>
-<h3 class="font-sans text-xl font-bold text-envictica-crimson mb-1 uppercase tracking-tight">Manual Override</h3>
-<p class="font-mono text-[10px] text-envictica-text_secondary uppercase tracking-widest">Biometric Multi-Sig Req</p>
-</div>
-<span class="material-symbols-outlined text-envictica-crimson text-2xl animate-pulse">fingerprint</span>
-</div>
-<div class="space-y-4 mt-2">
-<div class="scanline-input bg-envictica-slate rounded-sm px-3 py-2.5 border border-envictica-slate_border">
-<input class="bg-transparent w-full text-envictica-text_primary font-mono text-xs focus:outline-none placeholder-envictica-text_secondary/50" placeholder="Operator Authorization Code" type="password"/>
-</div>
-<div class="scanline-input bg-envictica-slate rounded-sm px-3 py-2.5 border border-envictica-slate_border">
-<input class="bg-transparent w-full text-envictica-text_primary font-mono text-xs focus:outline-none placeholder-envictica-text_secondary/50" placeholder="Secondary Auth Token" type="password"/>
-</div>
-</div>
-<button class="w-full mt-2 bg-envictica-crimson/10 border border-envictica-crimson/50 text-envictica-crimson hover:bg-envictica-crimson hover:text-white font-mono text-xs py-3 rounded-sm transition-all duration-200 uppercase tracking-widest glow-crimson font-bold">
-                        Initiate Bypass Protocol
-                    </button>
-</div>
-</div>
-</div>
-</main>
-<!-- BottomNavBar (Mobile) -->
-<nav class="md:hidden fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 bg-envictica-slate border-t border-envictica-slate_border">
-<a class="flex flex-col items-center justify-center text-envictica-text_secondary p-2 hover:text-envictica-text_primary transition-all rounded-md" href="#">
-<span class="material-symbols-outlined text-sm">pan_tool</span>
-<span class="font-mono text-[10px] mt-1 uppercase tracking-wider">Intervene</span>
-</a>
-<a class="flex flex-col items-center justify-center text-envictica-text_secondary p-2 hover:text-envictica-text_primary transition-all rounded-md" href="#">
-<span class="material-symbols-outlined text-sm">analytics</span>
-<span class="font-mono text-[10px] mt-1 uppercase tracking-wider">Status</span>
-</a>
-<a class="flex flex-col items-center justify-center bg-envictica-crimson/20 text-envictica-crimson border border-envictica-crimson/50 rounded-full p-2 w-14 h-14 -mt-6 glow-crimson" href="#">
-<span class="material-symbols-outlined text-xl">emergency</span>
-</a>
-</nav>
+                </div>
+            </section>
 
-<style>
-/* Global Responsive Breakpoints & Mobile Fixes */
-@media (max-width: 768px) {
-  /* Force grid structures to stack in a single column */
-  .grid, .card-grid, .dashboard-grid, [class*="grid"] {
-    grid-template-columns: 1fr !important;
-  }
-  
-  /* Tables & data displays wrap cleanly with scroll support */
-  table, .table-container, [class*="table"] {
-    max-width: 100% !important;
-    overflow-x: auto !important;
-  }
-  
-  /* Prevent horizontal document overflow */
-  body, html {
-    overflow-x: hidden !important;
-  }
+            <!-- Telemetry Graph / Neural Visualization Area -->
+            <section id="viz-container" class="glass-card p-6 rounded-sm flex-1 relative overflow-hidden flex flex-col gap-4 min-h-[300px] transition-colors duration-500">
+                <div class="flex justify-between items-center">
+                    <span class="font-mono text-[10px] text-slate-400 tracking-widest uppercase">The Procurement Cascade (Live)</span>
+                    <span id="latency-metric" class="font-mono text-[10px] text-teal">RTO: 4.82ms</span>
+                </div>
+                
+                <div id="viz-status-box" class="flex-1 flex flex-col items-center justify-center border border-white/5 bg-black/20 rounded-sm p-8">
+                    <div id="viz-icon" class="material-symbols-outlined text-6xl text-teal mb-4 transition-all duration-300">shield</div>
+                    <div id="viz-message" class="font-mono text-xs tracking-[0.2em] text-center max-w-xs transition-all duration-300">
+                        MONITORING EXTERNAL MODEL ENDPOINTS FOR SYNTHETIC ENTROPY
+                    </div>
+                </div>
 
-  /* Bottom padding to prevent floating bars/dock from overlapping buttons */
-  body, main, .container, .page-wrapper {
-    padding-bottom: 90px !important;
-  }
-}
-</style>
+                <!-- Alert Overlay (Initially hidden) -->
+                <div id="alert-overlay" class="absolute inset-0 bg-crimson-glow flex flex-col items-center justify-center p-12 opacity-0 pointer-events-none transition-opacity duration-300">
+                    <div class="border-2 border-crimson p-10 bg-black/90 flex flex-col items-center text-center gap-6">
+                        <span class="material-symbols-outlined text-6xl text-crimson animate-bounce">block</span>
+                        <div class="space-y-2">
+                            <h3 class="text-3xl font-black tracking-tighter text-crimson leading-none">AUTONOMOUS CASCADE INTERCEPTED</h3>
+                            <p class="font-mono text-[10px] tracking-[0.3em] uppercase text-white/60">High-Entropy Hallucination Blocked</p>
+                        </div>
+                        <div class="h-px w-full bg-crimson/30"></div>
+                        <div class="grid grid-cols-2 w-full gap-8">
+                            <div class="flex flex-col items-start">
+                                <span class="font-mono text-[9px] text-slate-500 uppercase">Risk Score</span>
+                                <span class="text-2xl font-mono font-bold text-crimson">0.94</span>
+                            </div>
+                            <div class="flex flex-col items-end">
+                                <span class="font-mono text-[9px] text-slate-500 uppercase">Liability Avoided</span>
+                                <span class="text-2xl font-mono font-bold text-teal">$4.2M</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
 
+        <!-- Right: Control Panel & Spec Metrics -->
+        <div class="lg:col-span-4 flex flex-col gap-6">
+            <section class="glass-card p-6 rounded-sm flex flex-col gap-6">
+                <h3 class="font-mono text-[10px] tracking-widest text-slate-400 border-b border-white/5 pb-2 uppercase">Core Interception Parameters</h3>
+                <div class="space-y-4">
+                    <div class="flex justify-between items-center bg-black/20 p-3 rounded-sm">
+                        <span class="text-sm font-light">Entropy Threshold</span>
+                        <span class="font-mono text-sm text-teal">0.15 Max</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-black/20 p-3 rounded-sm">
+                        <span class="text-sm font-light">Semantic Drift Cap</span>
+                        <span class="font-mono text-sm text-teal">15% Split</span>
+                    </div>
+                    <div class="flex justify-between items-center bg-black/20 p-3 rounded-sm">
+                        <span class="text-sm font-light">JSON Schema Adherence</span>
+                        <span class="font-mono text-sm text-teal">Mandatory</span>
+                    </div>
+                </div>
+            </section>
 
-<style>
-/* High contrast text overrides */
-.text-muted, [class*="muted"], [class*="opacity"] {
-  color: #cbd5e1 !important;
-  opacity: 1 !important;
-}
+            <section class="glass-card p-6 rounded-sm flex-1 flex flex-col gap-4">
+                <h3 class="font-mono text-[10px] tracking-widest text-slate-400 border-b border-white/5 pb-2 uppercase">Real-Time ROI Calculus</h3>
+                <div class="flex-1 flex flex-col justify-center gap-6">
+                    <div>
+                        <div class="font-mono text-[10px] text-slate-500 mb-1 uppercase">Projected Savings</div>
+                        <div class="text-5xl font-black tracking-tighter text-teal leading-none">$4.2M</div>
+                    </div>
+                    <div class="space-y-1">
+                        <div class="font-mono text-[10px] text-slate-500 uppercase">Data Debt Mitigated</div>
+                        <div class="font-mono text-sm text-white">1,400 Non-Compliant Clauses</div>
+                    </div>
+                    <div class="h-2 bg-white/5 rounded-full overflow-hidden">
+                        <div id="roi-progress" class="h-full bg-teal transition-all duration-1000" style="width: 84%"></div>
+                    </div>
+                </div>
+                <button class="w-full border border-teal/30 bg-teal/5 text-teal font-mono text-[10px] py-3 tracking-widest hover:bg-teal/10 transition-colors uppercase">
+                    Export Fiduciary Matrix
+                </button>
+            </section>
+        </div>
+    </main>
 
-/* Graphic responsiveness for narrow viewports */
-svg, canvas, img, .graphic-container {
-  max-width: 100% !important;
-  height: auto !important;
-}
-</style>
+    <script>
+        const promptInput = document.getElementById('prompt-input');
+        const validateBtn = document.getElementById('btn-validate');
+        const resetBtn = document.getElementById('btn-reset');
+        const moduleBar = document.getElementById('module-bar');
+        const overlay = document.getElementById('alert-overlay');
+        const statusLabel = document.getElementById('system-status-label');
+        const vizIcon = document.getElementById('viz-icon');
+        const vizMessage = document.getElementById('viz-message');
+        const vizStatusBox = document.getElementById('viz-status-box');
 
-<script src="envictica-ui.js"></script>
-</body></html>
+        // Validation Rules: Triggers failure if input contains "error", "hallucination", or is empty
+        const validateArchitecture = (input) => {
+            const cleanInput = input.toLowerCase().trim();
+            if (cleanInput.length === 0) return { pass: false, type: 'EMPTY_STREAM' };
+            if (cleanInput.includes('hallucination')) return { pass: false, type: 'HIGH_ENTROPY_DETECTED' };
+            if (cleanInput.includes('missing clause')) return { pass: false, type: 'SCHEMA_VIOLATION' };
+            return { pass: true };
+        };
+
+        validateBtn.addEventListener('click', () => {
+            const result = validateArchitecture(promptInput.value);
+            
+            // Simulation of sub-5ms logic
+            if (result.pass) {
+                // Success State
+                moduleBar.classList.remove('bg-red-600');
+                moduleBar.classList.add('bg-teal-600');
+                vizIcon.innerHTML = 'check_circle';
+                vizIcon.style.color = '#00F5D4';
+                vizMessage.innerHTML = 'GROUNDED DATA VALIDATED // CLEARED FOR RAG INGESTION';
+                vizMessage.classList.add('text-teal');
+            } else {
+                // FAILURE / INTERCEPT STATE (Tripping the Circuit Breaker)
+                moduleBar.classList.remove('bg-teal-600');
+                moduleBar.classList.add('bg-red-600');
+                statusLabel.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-red-500 status-pulse"></span> SYSTEM SEVERED (AUTONOMOUS INTERCEPT)';
+                statusLabel.classList.remove('text-teal');
+                statusLabel.classList.add('text-red-500');
+                
+                overlay.classList.remove('opacity-0', 'pointer-events-none');
+                overlay.classList.add('opacity-100');
+            }
+        });
+
+        resetBtn.addEventListener('click', () => {
+            // Restore System
+            moduleBar.classList.remove('bg-red-600');
+            moduleBar.classList.add('bg-teal-600');
+            statusLabel.innerHTML = '<span class="w-1.5 h-1.5 rounded-full bg-teal status-pulse"></span> FILTERING ENABLED (SUB-5MS AIR-GAP)';
+            statusLabel.classList.remove('text-red-500');
+            statusLabel.classList.add('text-teal');
+            
+            overlay.classList.add('opacity-0', 'pointer-events-none');
+            overlay.classList.remove('opacity-100');
+            
+            vizIcon.innerHTML = 'shield';
+            vizIcon.style.color = '#00F5D4';
+            vizMessage.innerHTML = 'MONITORING EXTERNAL MODEL ENDPOINTS FOR SYNTHETIC ENTROPY';
+            vizMessage.classList.remove('text-teal');
+            
+            promptInput.value = '';
+        });
+    </script>
+</body>
+</html>
