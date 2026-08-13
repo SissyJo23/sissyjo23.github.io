@@ -1,300 +1,376 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
-<head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-    <title>Access Control & Identity Verification - Envictica</title>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Envictica | Governance Access</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "primary": "#00F5D4", // Electric Teal
-                        "env-alert": "#FF4D6D", // Burnt Crimson
-                        "surface": "#101415",
-                        "surface-dim": "#101415",
-                        "surface-bright": "#363a3b",
-                        "surface-container-lowest": "#0b0f10",
-                        "surface-container-low": "#191c1e",
-                        "surface-container": "#1d2022",
-                        "surface-container-high": "#272a2c",
-                        "surface-container-highest": "#323537",
-                        "on-surface": "#e0e3e5",
-                        "on-surface-variant": "#bbcabf",
-                        "outline": "#86948a",
-                        "outline-variant": "#3c4a42",
-                        "secondary": "#bec6e0",
-                        "on-secondary": "#283044",
-                        "secondary-container": "#3f465c",
-                        "on-secondary-container": "#adb4ce"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem"
-                    },
-                    "spacing": {
-                        "margin": "24px",
-                        "gutter": "12px",
-                        "unit": "4px"
-                    },
-                    "fontFamily": {
-                        "label-caps": ["JetBrains Mono"],
-                        "headline-md": ["Hanken Grotesk"],
-                        "data-mono": ["JetBrains Mono"],
-                        "title-sm": ["Hanken Grotesk"],
-                        "body-md": ["Hanken Grotesk"]
-                    }
-                }
-            }
-        }
-    </script>
-    <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet"/>
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        body { background-color: #0b0f10; color: #e0e3e5; }
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #101415; }
-        ::-webkit-scrollbar-thumb { background: #323537; border-radius: 4px; }
+      body {
+        background-color: #0d1117;
+        color: #e6edf3;
+        font-family: "Hanken Grotesk", sans-serif;
+      }
+      .sidebar {
+        background-color: #010409;
+        border-right: 1px solid #30363d;
+      }
+      .glass-card {
+        background: rgba(22, 27, 34, 0.8);
+        border: 1px solid #30363d;
+      }
+      .status-active {
+        color: #00f5d4;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
     </style>
-</head>
-<body class="flex flex-col md:flex-row min-h-screen font-body-md text-on-surface antialiased overflow-x-hidden pt-8">
-    <!-- Top Module Bar -->
-    <div class="fixed top-0 left-0 w-full bg-primary text-[#002113] z-[60] h-8 flex items-center justify-center font-label-caps text-[11px] tracking-widest font-bold">
-        OFFICIAL ENVICTICA MODULE: 15 OF 17
-    </div>
+  </head>
+  <body class="min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+    <!-- Side Navigation -->
+    <aside
+      class="w-full md:w-64 sidebar flex flex-col h-screen sticky top-0 z-50"
+    >
+      <div class="p-6 border-b border-[#30363d] mb-4">
+        <h1 class="text-xl font-black tracking-tighter text-white">
+          ENVICTICA
+        </h1>
+        <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">
+          Infrastructure Control
+        </p>
+      </div>
+      <nav class="flex-1 px-4 space-y-1">
+        <a
+          href="command-center.html"
+          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
+        >
+          <span class="material-symbols-outlined text-lg">dashboard</span>
+          Command Center
+        </a>
+        <a
+          href="pipeline-injest.html"
+          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
+        >
+          <span class="material-symbols-outlined text-lg">account_tree</span>
+          Ingestion Control
+        </a>
+        <a
+          href="governance-access.html"
+          class="flex items-center gap-3 px-3 py-2.5 text-[#00f5d4] bg-[#00f5d4]/5 border-l-2 border-[#00f5d4] text-sm font-semibold"
+        >
+          <span class="material-symbols-outlined text-lg">gavel</span>
+          Governance
+        </a>
+        <a
+          href="risk-matrix.html"
+          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
+        >
+          <span class="material-symbols-outlined text-lg">warning</span>
+          Risk Matrix
+        </a>
+        <a
+          href="compliance-logs.html"
+          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
+        >
+          <span class="material-symbols-outlined text-lg">receipt_long</span>
+          Audit Logs
+        </a>
+      </nav>
+      <div class="p-4 border-t border-[#30363d] mt-auto">
+        <div
+          class="flex items-center gap-2 px-3 py-2 text-[11px] font-bold text-[#00f5d4] uppercase tracking-widest"
+        >
+          <span class="w-2 h-2 rounded-full bg-[#00f5d4] animate-pulse"></span>
+          System Healthy
+        </div>
+      </div>
+    </aside>
 
-    <!-- SideNavBar -->
-    <nav class="hidden md:flex flex-col bg-surface-container-low border-r border-outline-variant fixed left-0 top-8 h-[calc(100vh-32px)] w-[240px] z-40 py-6">
-        <div class="px-6 mb-8">
-            <h1 class="text-2xl font-black tracking-tight text-primary">Envictica</h1>
-            <p class="text-[12px] text-on-surface-variant">Legal Knowledge Engineer</p>
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col min-h-screen">
+      <header
+        class="h-16 border-b border-[#30363d] flex items-center justify-between px-8 bg-[#0d1117]/80 backdrop-blur-md sticky top-0 z-40"
+      >
+        <div
+          class="text-[11px] font-bold text-slate-500 uppercase tracking-[0.2em]"
+        >
+          PATH: ENV / INFRA / PIPELINE_08
         </div>
-        <div class="px-6 mb-6">
-            <button class="w-full bg-primary text-[#002113] font-label-caps text-[11px] py-2.5 rounded-sm flex items-center justify-center gap-2 hover:opacity-90 transition-opacity">
-                <span class="material-symbols-outlined text-[18px]">account_balance</span>
-                EXPORT FIDUCIARY EVIDENCE
-            </button>
+        <div class="flex items-center gap-6">
+          <button
+            class="px-4 py-1.5 bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 transition-all"
+          >
+            EXPORT GOVERNANCE AUDIT
+          </button>
+          <button
+            class="p-2 text-slate-400 hover:text-white transition-colors"
+          >
+            <span class="material-symbols-outlined">settings</span>
+          </button>
         </div>
-        <div class="flex-1 overflow-y-auto px-3 flex flex-col gap-1">
-            <a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-[13px]" href="#"><span class="material-symbols-outlined">lan</span> Infrastructure</a>
-            <a class="flex items-center gap-3 px-3 py-2 rounded bg-secondary-container text-on-secondary-container font-semibold transition-opacity text-[13px]" href="#"><span class="material-symbols-outlined">gavel</span> Governance</a>
-            <a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-[13px]" href="#"><span class="material-symbols-outlined">account_tree</span> Pipelines</a>
-            <a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-[13px]" href="#"><span class="material-symbols-outlined">fact_check</span> Data Validation</a>
-            <a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-[13px]" href="#"><span class="material-symbols-outlined">history</span> Audit Logs</a>
-        </div>
-        <div class="mt-auto px-3 flex flex-col gap-1 border-t border-outline-variant pt-4">
-            <a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-[13px]" href="#"><span class="material-symbols-outlined">settings</span> Settings</a>
-            <a class="flex items-center gap-3 px-3 py-2 rounded text-on-surface-variant hover:bg-surface-container-high transition-all text-[13px]" href="#"><span class="material-symbols-outlined">help</span> Support</a>
-        </div>
-    </nav>
+      </header>
 
-    <!-- Main Content Area -->
-    <main class="flex-1 md:ml-[240px] flex flex-col min-h-screen">
-        <header class="bg-surface border-b border-outline-variant sticky top-8 left-0 z-50 flex justify-between items-center px-6 h-14">
-            <div class="flex items-center gap-4">
-                <span class="text-lg font-bold text-primary tracking-tight">ENV / INFRA / PIPELINE_15</span>
+      <div class="p-8 space-y-8">
+        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+          <!-- Active Operators Table -->
+          <div class="xl:col-span-2 space-y-6">
+            <div class="glass-card rounded-sm overflow-hidden">
+              <div
+                class="p-4 border-b border-[#30363d] flex justify-between items-center bg-white/5"
+              >
+                <h2
+                  class="text-[11px] font-bold uppercase tracking-widest flex items-center gap-2"
+                >
+                  <span class="material-symbols-outlined text-sm text-[#00f5d4]">
+                    group
+                  </span>
+                  Active Operators
+                </h2>
+                <span class="text-[10px] font-mono text-slate-500">
+                  TOTAL: 142
+                </span>
+              </div>
+              <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
+                  <thead
+                    class="text-[10px] text-slate-500 uppercase font-bold bg-black/20"
+                  >
+                    <tr>
+                      <th class="px-6 py-3 border-b border-[#30363d]">
+                        Operator ID
+                      </th>
+                      <th class="px-6 py-3 border-b border-[#30363d]">Role</th>
+                      <th
+                        class="px-6 py-3 border-b border-[#30363d] text-right"
+                      >
+                        Trust Score
+                      </th>
+                      <th
+                        class="px-6 py-3 border-b border-[#30363d] text-center"
+                      >
+                        Clearance
+                      </th>
+                      <th
+                        class="px-6 py-3 border-b border-[#30363d] text-center"
+                      >
+                        Status
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-[13px] font-mono">
+                    <tr
+                      class="border-b border-[#30363d] hover:bg-white/5 transition-colors"
+                    >
+                      <td class="px-6 py-4 text-white">OP-7734-A</td>
+                      <td class="px-6 py-4">
+                        <span
+                          class="px-2 py-0.5 rounded-sm bg-[#00f5d4]/10 border border-[#00f5d4]/30 text-[#00f5d4] text-[10px]"
+                        >
+                          Senior Prompt Auditor
+                        </span>
+                      </td>
+                      <td class="px-6 py-4 text-right text-[#00f5d4]">99.8%</td>
+                      <td class="px-6 py-4 text-center">L5</td>
+                      <td class="px-6 py-4 text-center">
+                        <span
+                          class="text-[10px] text-[#00f5d4] uppercase tracking-tighter"
+                        >
+                          Cleared Ingestion
+                        </span>
+                      </td>
+                    </tr>
+                    <tr
+                      class="border-b border-[#30363d] hover:bg-white/5 transition-colors"
+                    >
+                      <td class="px-6 py-4 text-white">OP-8921-C</td>
+                      <td class="px-6 py-4">
+                        <span
+                          class="px-2 py-0.5 rounded-sm bg-white/5 border border-white/10 text-slate-300 text-[10px]"
+                        >
+                          Lead Knowledge Engineer
+                        </span>
+                      </td>
+                      <td class="px-6 py-4 text-right text-[#00f5d4]">94.2%</td>
+                      <td class="px-6 py-4 text-center">L4</td>
+                      <td class="px-6 py-4 text-center">
+                        <span
+                          class="text-[10px] text-[#00f5d4] uppercase tracking-tighter"
+                        >
+                          Cleared Ingestion
+                        </span>
+                      </td>
+                    </tr>
+                    <tr
+                      class="border-b border-[#30363d] hover:bg-white/5 transition-colors"
+                    >
+                      <td class="px-6 py-4 text-white">OP-4429-X</td>
+                      <td class="px-6 py-4">
+                        <span
+                          class="px-2 py-0.5 rounded-sm bg-white/5 border border-white/10 text-slate-300 text-[10px]"
+                        >
+                          Schema Technician
+                        </span>
+                      </td>
+                      <td class="px-6 py-4 text-right text-[#ff4d6d]">88.5%</td>
+                      <td class="px-6 py-4 text-center">L2</td>
+                      <td class="px-6 py-4 text-center">
+                        <span
+                          class="text-[10px] text-[#ff4d6d] uppercase tracking-tighter"
+                        >
+                          Fiduciary Caution
+                        </span>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             </div>
-            <div class="flex items-center gap-6">
-                <div class="hidden lg:flex items-center gap-4 text-[11px] font-label-caps text-on-surface-variant">
-                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-primary"></span> VERIFIED PIPELINE</span>
-                    <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-secondary"></span> ROI TRACKING ACTIVE</span>
-                </div>
-                <div class="flex items-center gap-2">
-                    <button class="p-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-colors"><span class="material-symbols-outlined">settings</span></button>
-                    <button class="p-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-colors"><span class="material-symbols-outlined">notifications</span></button>
-                    <button class="p-2 rounded text-on-surface-variant hover:bg-surface-container-highest transition-colors"><span class="material-symbols-outlined">account_tree</span></button>
-                </div>
-            </div>
-        </header>
 
-        <div class="p-6 flex-1">
-            <div class="mb-8 flex items-center justify-between">
-                <div>
-                    <h2 class="text-xl font-bold text-on-surface">Access Control & Identity Verification</h2>
-                    <p class="text-sm text-on-surface-variant mt-1">Fiduciary management of operator trust and multi-sig credentials</p>
-                </div>
+            <!-- Request Queue -->
+            <div class="glass-card p-6 rounded-sm space-y-4">
+              <div class="flex justify-between items-center mb-2">
+                <h3
+                  class="text-[11px] font-bold uppercase tracking-widest text-white"
+                >
+                  Access Request Queue
+                </h3>
+                <span
+                  class="px-2 py-1 bg-[#ff4d6d]/10 text-[#ff4d6d] border border-[#ff4d6d]/30 text-[10px] font-bold"
+                >
+                  2 PENDING
+                </span>
+              </div>
+              <div
+                class="p-4 border border-[#30363d] bg-black/20 rounded-sm flex items-center justify-between"
+              >
                 <div class="flex items-center gap-4">
-                    <div class="text-right">
-                        <p class="text-[10px] font-label-caps font-bold text-primary">BOARD COMPLIANCE</p>
-                        <p class="text-[9px] text-on-surface-variant opacity-70 uppercase">Q1 Fiduciary Track</p>
+                  <div
+                    class="w-10 h-10 bg-white/5 border border-white/10 flex items-center justify-center rounded-sm"
+                  >
+                    <span class="material-symbols-outlined text-slate-400">
+                      priority_high
+                    </span>
+                  </div>
+                  <div>
+                    <div class="text-sm font-bold text-white">REQ-992-K</div>
+                    <div
+                      class="text-[10px] text-slate-500 uppercase tracking-widest"
+                    >
+                      Elevation to Level 4 (L4)
                     </div>
-                    <button class="px-4 py-2 bg-primary text-[#002113] rounded-sm text-[11px] font-label-caps font-bold hover:opacity-90 transition-opacity flex items-center gap-2">
-                        <span class="material-symbols-outlined text-[16px]">account_balance</span>
-                        EXPORT EVIDENCE
-                    </button>
+                  </div>
                 </div>
+                <div class="flex gap-2">
+                  <button
+                    class="px-4 py-1.5 bg-white/5 border border-white/10 text-[10px] font-bold text-slate-400 hover:text-white transition-all uppercase"
+                  >
+                    Deny
+                  </button>
+                  <button
+                    class="px-4 py-1.5 bg-[#00f5d4] text-black text-[10px] font-bold uppercase hover:bg-[#00d1b5] transition-all"
+                  >
+                    Approve
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column: Role Definitions & Multi-Sig -->
+          <div class="space-y-8">
+            <div class="glass-card p-6 rounded-sm space-y-6">
+              <h3
+                class="text-[11px] font-bold uppercase tracking-widest text-white border-b border-[#30363d] pb-4"
+              >
+                Role Definition: Senior Prompt Auditor
+              </h3>
+              <div class="space-y-4">
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-sm font-bold text-white">
+                      Schema Structural Control
+                    </div>
+                    <div class="text-[10px] text-slate-500">
+                      Modify core semantic structures
+                    </div>
+                  </div>
+                  <div
+                    class="w-10 h-5 bg-[#00f5d4]/20 border border-[#00f5d4]/50 rounded-full relative"
+                  >
+                    <div
+                      class="absolute right-1 top-1 w-3 h-3 bg-[#00f5d4] rounded-full"
+                    ></div>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between">
+                  <div>
+                    <div class="text-sm font-bold text-white">
+                      Weight Calibration
+                    </div>
+                    <div class="text-[10px] text-slate-500">
+                      Adjust weights and thresholds
+                    </div>
+                  </div>
+                  <div
+                    class="w-10 h-5 bg-[#00f5d4]/20 border border-[#00f5d4]/50 rounded-full relative"
+                  >
+                    <div
+                      class="absolute right-1 top-1 w-3 h-3 bg-[#00f5d4] rounded-full"
+                    ></div>
+                  </div>
+                </div>
+                <div
+                  class="flex items-center justify-between opacity-50 grayscale"
+                >
+                  <div>
+                    <div class="text-sm font-bold text-slate-400">
+                      Data Debt Liquidation
+                    </div>
+                    <div class="text-[10px] text-slate-500">
+                      Authorize purge of legacy nodes
+                    </div>
+                  </div>
+                  <div
+                    class="w-10 h-5 bg-white/5 border border-white/20 rounded-full relative"
+                  >
+                    <div
+                      class="absolute left-1 top-1 w-3 h-3 bg-slate-600 rounded-full"
+                    ></div>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div class="grid grid-cols-1 xl:grid-cols-3 gap-6">
-                <!-- Left Column -->
-                <div class="xl:col-span-2 flex flex-col gap-6">
-                    <div class="bg-surface border border-outline-variant rounded-sm overflow-hidden">
-                        <div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-container-low">
-                            <h3 class="text-[11px] font-label-caps text-on-surface tracking-widest font-bold">OPERATIONAL ACCESS LEDGER</h3>
-                            <span class="px-2 py-1 bg-surface-container-highest rounded-sm text-[12px] font-data-mono text-on-surface-variant">TOTAL OPERATORS: 142</span>
-                        </div>
-                        <div class="overflow-x-auto">
-                            <table class="w-full text-left border-collapse">
-                                <thead>
-                                    <tr class="bg-surface-container-lowest border-b border-outline-variant text-[11px] font-label-caps text-on-surface-variant">
-                                        <th class="p-4 font-normal">OPERATOR ID</th>
-                                        <th class="p-4 font-normal">ROLE & QUADRANT</th>
-                                        <th class="p-4 font-normal text-right">TRUST SCORE</th>
-                                        <th class="p-4 font-normal text-center">CLEARANCE</th>
-                                        <th class="p-4 font-normal text-center">STATUS</th>
-                                        <th class="p-4 font-normal"></th>
-                                    </tr>
-                                </thead>
-                                <tbody class="text-[13px] font-data-mono">
-                                    <tr class="border-b border-outline-variant hover:bg-surface-container-highest transition-colors">
-                                        <td class="p-4 text-on-surface">OP-7734-A</td>
-                                        <td class="p-4">
-                                            <div class="flex items-center gap-2">
-                                                <span class="px-2 py-0.5 rounded-sm bg-surface-container-high border border-outline-variant text-primary">Senior Prompt Auditor</span>
-                                                <span class="text-[9px] px-1.5 py-0.5 bg-secondary-container text-on-secondary-container font-bold rounded-sm">ALPHA-RISK</span>
-                                            </div>
-                                        </td>
-                                        <td class="p-4 text-right text-primary">99.8%</td>
-                                        <td class="p-4 text-center">L5</td>
-                                        <td class="p-4 text-center"><span class="w-2 h-2 rounded-full bg-primary inline-block mr-1"></span> <span class="text-[10px] text-primary">Cleared</span></td>
-                                        <td class="p-4 text-right"><button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-[18px]">more_vert</span></button></td>
-                                    </tr>
-                                    <tr class="border-b border-outline-variant bg-surface-container-low hover:bg-surface-container-highest transition-colors">
-                                        <td class="p-4 text-on-surface">OP-8921-C</td>
-                                        <td class="p-4">
-                                            <div class="flex items-center gap-2">
-                                                <span class="px-2 py-0.5 rounded-sm bg-surface-container-high border border-outline-variant text-secondary">Lead Knowledge Engineer</span>
-                                                <span class="text-[9px] px-1.5 py-0.5 bg-surface-container-highest text-on-surface-variant font-bold rounded-sm">DELTA-REPAIR</span>
-                                            </div>
-                                        </td>
-                                        <td class="p-4 text-right text-secondary">94.2%</td>
-                                        <td class="p-4 text-center">L4</td>
-                                        <td class="p-4 text-center"><span class="w-2 h-2 rounded-full bg-primary inline-block mr-1"></span> <span class="text-[10px] text-primary">Cleared</span></td>
-                                        <td class="p-4 text-right"><button class="text-on-surface-variant hover:text-primary"><span class="material-symbols-outlined text-[18px]">more_vert</span></button></td>
-                                    </tr>
-                                    <tr class="border-b border-outline-variant hover:bg-surface-container-highest transition-colors text-env-alert">
-                                        <td class="p-4 font-bold">OP-4429-X</td>
-                                        <td class="p-4">
-                                            <div class="flex items-center gap-2 opacity-80">
-                                                <span class="px-2 py-0.5 rounded-sm bg-surface-container-high border border-outline-variant">Schema Technician</span>
-                                                <span class="text-[9px] px-1.5 py-0.5 bg-surface-container-highest font-bold rounded-sm">CORE INGESTION</span>
-                                            </div>
-                                        </td>
-                                        <td class="p-4 text-right font-bold">88.5%</td>
-                                        <td class="p-4 text-center">L2</td>
-                                        <td class="p-4 text-center"><span class="w-2 h-2 rounded-full bg-env-alert animate-pulse inline-block mr-1"></span> <span class="text-[10px] font-bold">Fiduciary Caution</span></td>
-                                        <td class="p-4 text-right"><button class="text-on-surface-variant hover:text-env-alert"><span class="material-symbols-outlined text-[18px]">warning</span></button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
-                    <div class="bg-surface border border-outline-variant rounded-sm p-4">
-                        <div class="flex justify-between items-center mb-4">
-                            <h3 class="text-[11px] font-label-caps text-on-surface tracking-widest font-bold">ADMINISTRATIVE ELEVATION QUEUE</h3>
-                            <span class="px-2 py-1 bg-env-alert/20 text-env-alert rounded-sm text-[10px] font-label-caps font-bold">2 PENDING INTERCEPTS</span>
-                        </div>
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                            <div class="p-4 border border-outline-variant rounded-sm bg-surface-container-lowest relative overflow-hidden">
-                                <div class="absolute top-0 left-0 w-1 h-full bg-secondary"></div>
-                                <div class="flex justify-between items-start pl-2">
-                                    <div>
-                                        <p class="text-[13px] font-data-mono text-on-surface">REQ-992-K</p>
-                                        <p class="text-[10px] font-label-caps text-on-surface-variant mt-1">ELEVATION TO LEVEL 4 (L4)</p>
-                                    </div>
-                                    <span class="material-symbols-outlined text-secondary">shield_person</span>
-                                </div>
-                                <div class="flex gap-2 mt-4 pl-2">
-                                    <button class="flex-1 py-1.5 bg-surface-container-highest border border-outline-variant rounded-sm text-on-surface text-[10px] font-label-caps font-bold hover:bg-surface-variant transition-colors">DENY</button>
-                                    <button class="flex-1 py-1.5 bg-primary text-[#002113] rounded-sm text-[10px] font-label-caps font-bold hover:opacity-90 transition-opacity">APPROVE (MULTI-SIG)</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <div
+              class="glass-card p-6 rounded-sm bg-[#00f5d4]/5 border-[#00f5d4]/20 flex items-start gap-4"
+            >
+              <span class="material-symbols-outlined text-[#00f5d4] text-3xl">
+                verified_user
+              </span>
+              <div>
+                <div
+                  class="text-[10px] font-bold text-[#00f5d4] uppercase tracking-widest mb-1"
+                >
+                  Multi-Sig Biometric Hash
                 </div>
-
-                <!-- Right Column -->
-                <div class="flex flex-col gap-6">
-                    <div class="bg-surface border border-outline-variant rounded-sm p-4 flex flex-col h-full">
-                        <h3 class="text-[11px] font-label-caps text-on-surface tracking-widest font-bold mb-6 border-b border-outline-variant pb-2 uppercase">Role Permissions: Senior Prompt Auditor</h3>
-                        <div class="flex flex-col gap-5">
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-sm font-semibold text-on-surface">Schema Structural Control</p>
-                                    <p class="text-[10px] text-on-surface-variant">Modify core legal DNA templates</p>
-                                </div>
-                                <label class="relative inline-flex items-center cursor-pointer">
-                                    <input checked class="sr-only peer" type="checkbox">
-                                    <div class="w-8 h-4 bg-surface-container-highest rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-on-surface after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary"></div>
-                                </label>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-sm font-semibold text-on-surface">Weight Calibration</p>
-                                    <p class="text-[10px] text-on-surface-variant">Adjust systemic prompt thresholds</p>
-                                </div>
-                                <label class="relative inline-flex items-center cursor-pointer">
-                                    <input checked class="sr-only peer" type="checkbox">
-                                    <div class="w-8 h-4 bg-surface-container-highest rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-on-surface after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary"></div>
-                                </label>
-                            </div>
-                            <div class="flex items-center justify-between">
-                                <div>
-                                    <p class="text-sm font-semibold text-on-surface">Data Debt Liquidation</p>
-                                    <p class="text-[10px] text-on-surface-variant">Authorize purge of legacy nodes</p>
-                                </div>
-                                <label class="relative inline-flex items-center cursor-pointer">
-                                    <input class="sr-only peer" type="checkbox">
-                                    <div class="w-8 h-4 bg-surface-container-highest rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-on-surface after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-primary"></div>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="mt-auto pt-6 border-t border-outline-variant">
-                            <div class="bg-surface-container-lowest border border-outline-variant p-4 rounded-sm flex items-center gap-3">
-                                <span class="material-symbols-outlined text-primary text-xl">verified_user</span>
-                                <div>
-                                    <p class="text-[10px] font-label-caps font-bold text-primary">MULTI-SIG BIOMETRIC HASH INGESTION</p>
-                                    <p class="text-[9px] font-data-mono text-on-surface-variant">HASHED TO TAMPER-PROOF AUDIT LEDGER</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <p class="text-[11px] leading-relaxed text-slate-400">
+                  Identity match confirmed. Action hashed to tamper-proof
+                  audit ledger for Q1 boardroom review.
+                </p>
+              </div>
             </div>
+          </div>
         </div>
+      </div>
     </main>
-
-<style>
-/* Global Responsive Breakpoints & Mobile Fixes */
-@media (max-width: 768px) {
-  /* Force grid structures to stack in a single column */
-  .grid, .card-grid, .dashboard-grid, [class*="grid"] {
-    grid-template-columns: 1fr !important;
-  }
-  
-  /* Tables & data displays wrap cleanly with scroll support */
-  table, .table-container, [class*="table"] {
-    max-width: 100% !important;
-    overflow-x: auto !important;
-  }
-  
-  /* Prevent horizontal document overflow */
-  body, html {
-    overflow-x: hidden !important;
-  }
-
-  /* Bottom padding to prevent floating bars/dock from overlapping buttons */
-  body, main, .container, .page-wrapper {
-    padding-bottom: 90px !important;
-  }
-}
-</style>
-
-<script src="envictica-ui.js"></script>
-</body>
+  </body>
 </html>
