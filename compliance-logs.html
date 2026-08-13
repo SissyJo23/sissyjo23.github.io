@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Envictica | Fiduciary Risk Matrix</title>
+    <title>Envictica | Compliance Audit Logs</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
@@ -27,19 +27,11 @@
         background: rgba(22, 27, 34, 0.8);
         border: 1px solid #30363d;
       }
-      .status-active {
-        color: #00f5d4;
-      }
       .material-symbols-outlined {
         font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
       }
-      .matrix-grid {
-        background-image: linear-gradient(
-            rgba(255, 255, 255, 0.05) 1px,
-            transparent 1px
-          ),
-          linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
-        background-size: 50px 50px;
+      .ticker-text {
+        font-family: "JetBrains Mono", monospace;
       }
     </style>
   </head>
@@ -80,14 +72,14 @@
         </a>
         <a
           href="risk-matrix.html"
-          class="flex items-center gap-3 px-3 py-2.5 text-[#00f5d4] bg-[#00f5d4]/5 border-l-2 border-[#00f5d4] text-sm font-semibold"
+          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
         >
           <span class="material-symbols-outlined text-lg">warning</span>
           Risk Matrix
         </a>
         <a
           href="compliance-logs.html"
-          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
+          class="flex items-center gap-3 px-3 py-2.5 text-[#00f5d4] bg-[#00f5d4]/5 border-l-2 border-[#00f5d4] text-sm font-semibold"
         >
           <span class="material-symbols-outlined text-lg">receipt_long</span>
           Audit Logs
@@ -111,14 +103,20 @@
         <div
           class="text-[11px] font-bold text-slate-500 uppercase tracking-[0.2em]"
         >
-          PATH: ENV / INFRA / RISK_13
+          PATH: ENV / INFRA / AUDIT_05
         </div>
         <div class="flex items-center gap-6">
-          <button
-            class="px-4 py-1.5 bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 transition-all"
+          <div
+            class="flex items-center gap-3 px-3 py-1 bg-[#00f5d4]/10 border border-[#00f5d4]/20 rounded-full"
           >
-            EXPORT RISK MATRIX
-          </button>
+            <span
+              class="text-[9px] font-bold text-[#00f5d4] uppercase tracking-widest"
+              >Logging Active</span
+            >
+            <div
+              class="w-1.5 h-1.5 rounded-full bg-[#00f5d4] animate-pulse"
+            ></div>
+          </div>
           <button
             class="p-2 text-slate-400 hover:text-white transition-colors"
           >
@@ -128,226 +126,199 @@
       </header>
 
       <div class="p-8 space-y-8">
-        <!-- Header & Parameters -->
-        <div
-          class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 border-b border-[#30363d] pb-8"
-        >
-          <div class="max-w-2xl">
-            <h2 class="text-3xl font-extrabold tracking-tight text-white mb-2">
-              Hallucination Propensity vs. Data Drift
-            </h2>
-            <p class="text-slate-400 leading-relaxed">
-              Translating technical model volatility into actionable boardroom
-              liability. Real-time mapping of semantic divergence across global
-              business units.
-            </p>
+        <!-- Summary Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="glass-card p-6 rounded-sm">
+            <div
+              class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
+            >
+              Total Audit Events
+            </div>
+            <div class="text-4xl font-mono text-white tracking-tighter">
+              14,208
+            </div>
           </div>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-8">
-            <div>
-              <div
-                class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1 text-center"
-              >
-                Avg Node Temp
-              </div>
-              <div class="text-xl font-mono text-white text-center">
-                42.8°C <span class="text-[10px] text-[#00f5d4]">↓1.2°</span>
-              </div>
+          <div class="glass-card p-6 rounded-sm">
+            <div
+              class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
+            >
+              Active Monitors
             </div>
-            <div>
-              <div
-                class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1 text-center"
-              >
-                Intercepts (24H)
-              </div>
-              <div class="text-xl font-mono text-white text-center">
-                1,492 <span class="text-[10px] text-[#ff4d6d]">↑14%</span>
-              </div>
+            <div class="text-4xl font-mono text-[#00f5d4] tracking-tighter">
+              42 <span class="text-sm text-slate-500">/ 42</span>
             </div>
-            <div>
-              <div
-                class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1 text-center"
-              >
-                Drift Velocity
-              </div>
-              <div class="text-xl font-mono text-white text-center">
-                0.042<span class="text-xs text-slate-500 ml-1">μ/s</span>
-              </div>
+          </div>
+          <div class="glass-card p-6 rounded-sm">
+            <div
+              class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
+            >
+              Last Verified Hash
             </div>
-            <div>
-              <div
-                class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1 text-center"
-              >
-                Integrity Score
-              </div>
-              <div class="text-xl font-mono text-[#00f5d4] text-center">
-                98.9%
-              </div>
+            <div class="text-lg font-mono text-white truncate">
+              0x9f8c...a1b2
             </div>
           </div>
         </div>
 
-        <!-- Risk Matrix Visualization -->
-        <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
-          <div class="glass-card rounded-sm p-8 flex flex-col gap-6">
-            <div class="flex justify-between items-center">
-              <h3 class="text-[11px] font-bold uppercase tracking-widest">
-                Active Risk Quadrants
-              </h3>
-              <div
-                class="flex items-center gap-4 text-[9px] font-bold uppercase tracking-widest"
-              >
-                <span class="flex items-center gap-1.5"
-                  ><span class="w-2 h-2 bg-[#00f5d4]"></span> Fiduciary
-                  Grade</span
-                >
-                <span class="flex items-center gap-1.5"
-                  ><span class="w-2 h-2 bg-yellow-400"></span> Drift Risk</span
-                >
-                <span class="flex items-center gap-1.5"
-                  ><span class="w-2 h-2 bg-[#ff4d6d]"></span> Critical
-                  Liability</span
-                >
-              </div>
-            </div>
-            <div
-              class="relative w-full aspect-square matrix-grid border border-[#30363d] overflow-hidden group"
-            >
-              <!-- X & Y Labels -->
-              <div
-                class="absolute bottom-2 left-1/2 -translate-x-1/2 text-[9px] font-bold text-slate-500 tracking-[0.2em] uppercase"
-              >
-                Data Drift →
-              </div>
-              <div
-                class="absolute left-2 top-1/2 -translate-y-1/2 -rotate-90 text-[9px] font-bold text-slate-500 tracking-[0.2em] uppercase whitespace-nowrap"
-              >
-                Hallucination →
-              </div>
-              <!-- Quadrant Lines -->
-              <div class="absolute inset-0 flex items-center justify-center">
-                <div class="w-full h-px bg-white/10"></div>
-                <div class="h-full w-px bg-white/10"></div>
-              </div>
-              <!-- Data Points -->
-              <div
-                class="absolute bottom-[20%] left-[15%] w-3 h-3 bg-[#00f5d4] shadow-[0_0_15px_#00f5d4] rounded-full animate-pulse cursor-pointer"
-                title="Corporate M&A"
-              ></div>
-              <div
-                class="absolute bottom-[85%] left-[80%] w-4 h-4 bg-[#ff4d6d] shadow-[0_0_20px_#ff4d6d] rounded-full animate-ping cursor-pointer"
-                title="Financial Auditing"
-              ></div>
-              <div
-                class="absolute bottom-[45%] left-[60%] w-3 h-3 bg-yellow-400 shadow-[0_0_15px_#fbbf24] rounded-full cursor-pointer"
-                title="Global Litigation"
-              ></div>
-              <div
-                class="absolute bottom-[25%] left-[40%] w-2 h-2 bg-[#00f5d4] rounded-full opacity-60"
-              ></div>
-              <div
-                class="absolute bottom-[70%] left-[30%] w-2 h-2 bg-[#ff4d6d] rounded-full opacity-40"
-              ></div>
-            </div>
-          </div>
-
-          <!-- Business Unit Table -->
-          <div class="glass-card rounded-sm overflow-hidden flex flex-col">
-            <div class="p-4 border-b border-[#30363d] bg-white/5">
-              <h3 class="text-[11px] font-bold uppercase tracking-widest">
-                Business Unit Performance
-              </h3>
-            </div>
-            <div class="overflow-x-auto">
-              <table class="w-full text-left border-collapse">
-                <thead
-                  class="text-[10px] text-slate-500 uppercase font-bold bg-black/20"
-                >
-                  <tr>
-                    <th class="px-6 py-3 border-b border-[#30363d]">Entity</th>
-                    <th class="px-6 py-3 border-b border-[#30363d] text-right">
-                      Hallucination
-                    </th>
-                    <th class="px-6 py-3 border-b border-[#30363d] text-right">
-                      Drift
-                    </th>
-                    <th class="px-6 py-3 border-b border-[#30363d] text-center">
-                      Status
-                    </th>
-                  </tr>
-                </thead>
-                <tbody class="text-[13px] font-mono">
-                  <tr
-                    class="border-b border-[#30363d] hover:bg-white/5 transition-colors"
-                  >
-                    <td class="px-6 py-4 text-white font-bold">
-                      Corporate M&amp;A
-                    </td>
-                    <td class="px-6 py-4 text-right text-[#00f5d4]">0.12</td>
-                    <td class="px-6 py-4 text-right text-[#00f5d4]">0.4%</td>
-                    <td class="px-6 py-4 text-center">
-                      <span
-                        class="px-2 py-0.5 rounded-sm bg-[#00f5d4]/10 border border-[#00f5d4]/30 text-[#00f5d4] text-[9px] uppercase"
-                      >
-                        Nominal
-                      </span>
-                    </td>
-                  </tr>
-                  <tr
-                    class="border-b border-[#30363d] hover:bg-white/5 transition-colors"
-                  >
-                    <td class="px-6 py-4 text-white font-bold">
-                      Global Litigation
-                    </td>
-                    <td class="px-6 py-4 text-right text-yellow-400">0.45</td>
-                    <td class="px-6 py-4 text-right text-yellow-400">3.1%</td>
-                    <td class="px-6 py-4 text-center">
-                      <span
-                        class="px-2 py-0.5 rounded-sm bg-yellow-400/10 border border-yellow-400/30 text-yellow-400 text-[9px] uppercase"
-                      >
-                        Drift
-                      </span>
-                    </td>
-                  </tr>
-                  <tr
-                    class="border-b border-[#30363d] hover:bg-white/5 transition-colors bg-[#ff4d6d]/5"
-                  >
-                    <td class="px-6 py-4 text-white font-bold">
-                      Financial Auditing
-                    </td>
-                    <td class="px-6 py-4 text-right text-[#ff4d6d]">0.89</td>
-                    <td class="px-6 py-4 text-right text-[#ff4d6d]">7.2%</td>
-                    <td class="px-6 py-4 text-center">
-                      <span
-                        class="px-2 py-0.5 rounded-sm bg-[#ff4d6d]/20 border border-[#ff4d6d]/50 text-[#ff4d6d] text-[9px] uppercase font-bold"
-                      >
-                        High Risk
-                      </span>
-                    </td>
-                  </tr>
-                  <tr
-                    class="border-b border-[#30363d] hover:bg-white/5 transition-colors"
-                  >
-                    <td class="px-6 py-4 text-white font-bold">
-                      IP Compliance
-                    </td>
-                    <td class="px-6 py-4 text-right text-slate-400">0.05</td>
-                    <td class="px-6 py-4 text-right text-slate-400">1.1%</td>
-                    <td class="px-6 py-4 text-center">
-                      <span
-                        class="px-2 py-0.5 rounded-sm bg-white/5 border border-white/10 text-slate-400 text-[9px] uppercase"
-                      >
-                        Secure
-                      </span>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="mt-auto p-6 border-t border-[#30363d]">
+        <!-- Ledger Table -->
+        <div class="glass-card rounded-sm overflow-hidden flex flex-col">
+          <div
+            class="p-4 border-b border-[#30363d] flex justify-between items-center bg-white/5"
+          >
+            <div class="flex gap-4">
               <button
-                class="w-full py-3 bg-[#00f5d4] text-black text-[11px] font-bold uppercase tracking-widest hover:bg-[#00d1b5] transition-all"
+                class="px-3 py-1.5 bg-[#00f5d4] text-black text-[10px] font-bold uppercase tracking-widest rounded-sm"
               >
-                INITIALIZE UNIT RECALIBRATION
+                Security Logs
+              </button>
+              <button
+                class="px-3 py-1.5 bg-white/5 text-slate-400 text-[10px] font-bold uppercase tracking-widest hover:text-white transition-colors"
+              >
+                Data Ingestion
+              </button>
+              <button
+                class="px-3 py-1.5 bg-white/5 text-slate-400 text-[10px] font-bold uppercase tracking-widest hover:text-white transition-colors"
+              >
+                LLM Drift Checks
+              </button>
+            </div>
+            <button
+              class="flex items-center gap-2 px-4 py-1.5 border border-white/10 text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 transition-all"
+            >
+              <span class="material-symbols-outlined text-sm">download</span>
+              Export Compliance Report
+            </button>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead
+                class="text-[10px] text-slate-500 uppercase font-bold bg-black/20"
+              >
+                <tr>
+                  <th class="px-6 py-4 border-b border-[#30363d]">
+                    Timestamp (UTC)
+                  </th>
+                  <th class="px-6 py-4 border-b border-[#30363d]">
+                    Actor / Crypt-ID
+                  </th>
+                  <th class="px-6 py-4 border-b border-[#30363d]">
+                    Action Type
+                  </th>
+                  <th class="px-6 py-4 border-b border-[#30363d]">
+                    Target Entity
+                  </th>
+                  <th class="px-6 py-4 border-b border-[#30363d] text-center">
+                    Status
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="text-[12px] ticker-text">
+                <tr
+                  class="border-b border-[#30363d] hover:bg-white/5 transition-colors"
+                >
+                  <td class="px-6 py-4 text-slate-400">2026-08-11 14:32:01</td>
+                  <td class="px-6 py-4">
+                    SYS_ADMIN
+                    <span class="text-[10px] text-slate-600">[ID:8092]</span>
+                  </td>
+                  <td class="px-6 py-4 text-white">SCHEMA MODIFICATION</td>
+                  <td class="px-6 py-4 text-[#00f5d4]">TABLE_USER_METRICS</td>
+                  <td class="px-6 py-4 text-center">
+                    <span
+                      class="px-2 py-0.5 rounded-sm bg-[#00f5d4]/10 border border-[#00f5d4]/30 text-[#00f5d4] text-[9px] uppercase"
+                      >Verified</span
+                    >
+                  </td>
+                </tr>
+                <tr
+                  class="border-b border-[#30363d] hover:bg-white/5 transition-colors"
+                >
+                  <td class="px-6 py-4 text-slate-400">2026-08-11 14:28:45</td>
+                  <td class="px-6 py-4">
+                    API_KEY_EXT
+                    <span class="text-[10px] text-slate-600">[ID:441A]</span>
+                  </td>
+                  <td class="px-6 py-4 text-white">BULK DATA EXTRACTION</td>
+                  <td class="px-6 py-4 text-[#ff4d6d]">
+                    DATASET_FINANCIAL_Q3
+                  </td>
+                  <td class="px-6 py-4 text-center">
+                    <span
+                      class="px-2 py-0.5 rounded-sm bg-[#ff4d6d]/10 border border-[#ff4d6d]/30 text-[#ff4d6d] text-[9px] uppercase"
+                      >Access Blocked</span
+                    >
+                  </td>
+                </tr>
+                <tr
+                  class="border-b border-[#30363d] hover:bg-white/5 transition-colors"
+                >
+                  <td class="px-6 py-4 text-slate-400">2026-08-11 14:15:12</td>
+                  <td class="px-6 py-4">
+                    AUTO_CRON_01
+                    <span class="text-[10px] text-slate-600">[ID:SYS]</span>
+                  </td>
+                  <td class="px-6 py-4 text-white">PIPELINE EXECUTION</td>
+                  <td class="px-6 py-4 text-[#00f5d4]">PIPE_NIGHTLY_ETL</td>
+                  <td class="px-6 py-4 text-center">
+                    <span
+                      class="px-2 py-0.5 rounded-sm bg-[#00f5d4]/10 border border-[#00f5d4]/30 text-[#00f5d4] text-[9px] uppercase"
+                      >Verified</span
+                    >
+                  </td>
+                </tr>
+                <tr
+                  class="border-b border-[#30363d] hover:bg-white/5 transition-colors bg-[#ff4d6d]/5"
+                >
+                  <td class="px-6 py-4 text-slate-400">2026-08-11 13:59:00</td>
+                  <td class="px-6 py-4">
+                    LLM_MONITOR_SVC
+                    <span class="text-[10px] text-slate-600">[ID:SVC]</span>
+                  </td>
+                  <td class="px-6 py-4 text-[#ff4d6d] font-bold">
+                    INFERENCE VALIDATION
+                  </td>
+                  <td class="px-6 py-4 text-white">MODEL_PREDICTIVE_V4</td>
+                  <td class="px-6 py-4 text-center">
+                    <span
+                      class="px-2 py-0.5 rounded-sm bg-[#ff4d6d]/20 border border-[#ff4d6d]/50 text-[#ff4d6d] text-[9px] uppercase font-bold"
+                      >Drift Warning</span
+                    >
+                  </td>
+                </tr>
+                <tr
+                  class="border-b border-[#30363d] hover:bg-white/5 transition-colors"
+                >
+                  <td class="px-6 py-4 text-slate-400">2026-08-11 13:42:33</td>
+                  <td class="px-6 py-4">
+                    DATA_ENG
+                    <span class="text-[10px] text-slate-600">[ID:1102]</span>
+                  </td>
+                  <td class="px-6 py-4 text-white">RECORD PURGE</td>
+                  <td class="px-6 py-4 text-[#00f5d4]">LOGS_TEMP_ARCHIVE</td>
+                  <td class="px-6 py-4 text-center">
+                    <span
+                      class="px-2 py-0.5 rounded-sm bg-[#00f5d4]/10 border border-[#00f5d4]/30 text-[#00f5d4] text-[9px] uppercase"
+                      >Verified</span
+                    >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div
+            class="p-4 bg-black/20 flex justify-between items-center text-[10px] font-bold text-slate-500 uppercase tracking-widest"
+          >
+            <span>Showing 1-5 of 14,208 entries</span>
+            <div class="flex gap-2">
+              <button
+                class="px-3 py-1 border border-white/10 rounded-sm hover:bg-white/5"
+              >
+                Prev
+              </button>
+              <button
+                class="px-3 py-1 border border-white/10 rounded-sm hover:bg-white/5"
+              >
+                Next
               </button>
             </div>
           </div>
