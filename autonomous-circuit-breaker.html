@@ -225,7 +225,7 @@
 <h3 class="font-mono text-xs uppercase tracking-widest text-envictica-text_primary">Clause Analysis Buffer</h3>
 </div>
 <div class="p-4 flex-1 overflow-y-auto font-mono text-xs text-envictica-text_secondary whitespace-pre-wrap leading-relaxed opacity-80 mix-blend-screen">
-{{DATA:DOCUMENT:DOCUMENT_10}}
+Master Services Agreement Clause 10.4 - Automated Liability Cap Triggered
                     </div>
 </div>
 <!-- Manual Override Gate -->
@@ -266,4 +266,47 @@
 <span class="material-symbols-outlined text-xl">emergency</span>
 </a>
 </nav>
+
+<style>
+/* Global Responsive Breakpoints & Mobile Fixes */
+@media (max-width: 768px) {
+  /* Force grid structures to stack in a single column */
+  .grid, .card-grid, .dashboard-grid, [class*="grid"] {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Tables & data displays wrap cleanly with scroll support */
+  table, .table-container, [class*="table"] {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+  
+  /* Prevent horizontal document overflow */
+  body, html {
+    overflow-x: hidden !important;
+  }
+
+  /* Bottom padding to prevent floating bars/dock from overlapping buttons */
+  body, main, .container, .page-wrapper {
+    padding-bottom: 90px !important;
+  }
+}
+</style>
+
+
+<style>
+/* High contrast text overrides */
+.text-muted, [class*="muted"], [class*="opacity"] {
+  color: #cbd5e1 !important;
+  opacity: 1 !important;
+}
+
+/* Graphic responsiveness for narrow viewports */
+svg, canvas, img, .graphic-container {
+  max-width: 100% !important;
+  height: auto !important;
+}
+</style>
+
+<script src="envictica-ui.js"></script>
 </body></html>

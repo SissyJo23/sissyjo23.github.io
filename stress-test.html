@@ -234,5 +234,33 @@
         </div>
       </main>
     </div>
-  </body>
+  
+<style>
+/* Global Responsive Breakpoints & Mobile Fixes */
+@media (max-width: 768px) {
+  /* Force grid structures to stack in a single column */
+  .grid, .card-grid, .dashboard-grid, [class*="grid"] {
+    grid-template-columns: 1fr !important;
+  }
+  
+  /* Tables & data displays wrap cleanly with scroll support */
+  table, .table-container, [class*="table"] {
+    max-width: 100% !important;
+    overflow-x: auto !important;
+  }
+  
+  /* Prevent horizontal document overflow */
+  body, html {
+    overflow-x: hidden !important;
+  }
+
+  /* Bottom padding to prevent floating bars/dock from overlapping buttons */
+  body, main, .container, .page-wrapper {
+    padding-bottom: 90px !important;
+  }
+}
+</style>
+
+<script src="envictica-ui.js"></script>
+</body>
 </html>
