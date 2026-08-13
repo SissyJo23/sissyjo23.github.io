@@ -1,472 +1,340 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Envictica - Model Abstraction Layer</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Sora:wght@400;600;800&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-          darkMode: "class",
-          theme: {
-            extend: {
-              "colors": {
-                      "on-primary-fixed-variant": "#004f54",
-                      "secondary-fixed": "#c3f400",
-                      "primary-fixed": "#7df4ff",
-                      "on-primary-fixed": "#002022",
-                      "tertiary-container": "#ffccd6",
-                      "surface-container-lowest": "#0d0e13",
-                      "on-tertiary-fixed-variant": "#8f0041",
-                      "primary": "#dbfcff",
-                      "on-secondary-container": "#556d00",
-                      "error-container": "#93000a",
-                      "surface-container-high": "#292a2f",
-                      "tertiary-fixed-dim": "#ffb1c3",
-                      "on-secondary": "#283500",
-                      "outline": "#849495",
-                      "surface": "#121318",
-                      "inverse-primary": "#006970",
-                      "outline-variant": "#3b494b",
-                      "surface-variant": "#34343a",
-                      "inverse-on-surface": "#2f3036",
-                      "surface-dim": "#121318",
-                      "surface-container-low": "#1a1b21",
-                      "on-tertiary-fixed": "#3f0019",
-                      "inverse-surface": "#e3e1e9",
-                      "error": "#ffb4ab",
-                      "on-background": "#e3e1e9",
-                      "on-tertiary-container": "#bb0058",
-                      "on-error": "#690005",
-                      "on-primary-container": "#006970",
-                      "background": "#121318",
-                      "tertiary": "#fff3f4",
-                      "secondary-container": "#c3f400",
-                      "tertiary-fixed": "#ffd9e0",
-                      "on-surface-variant": "#b9cacb",
-                      "on-tertiary": "#66002c",
-                      "surface-bright": "#38393f",
-                      "surface-container": "#1e1f25",
-                      "on-primary": "#00363a",
-                      "primary-container": "#00f0ff",
-                      "secondary": "#ffffff",
-                      "primary-fixed-dim": "#00dbe9",
-                      "surface-container-highest": "#34343a",
-                      "surface-tint": "#00dbe9",
-                      "on-secondary-fixed": "#161e00",
-                      "secondary-fixed-dim": "#abd600",
-                      "on-surface": "#e3e1e9",
-                      "on-error-container": "#ffdad6",
-                      "on-secondary-fixed-variant": "#3c4d00"
-              },
-              "borderRadius": {
-                      "DEFAULT": "0.125rem",
-                      "lg": "0.25rem",
-                      "xl": "0.5rem",
-                      "full": "0.75rem"
-              },
-              "spacing": {
-                      "container-margin": "24px",
-                      "base": "8px",
-                      "stack-lg": "32px",
-                      "stack-md": "12px",
-                      "stack-sm": "4px",
-                      "gutter": "16px"
-              },
-              "fontFamily": {
-                      "data-numeral": [
-                              "JetBrains Mono", "monospace"
-                      ],
-                      "display-lg": [
-                              "Sora", "sans-serif"
-                      ],
-                      "label-caps": [
-                              "JetBrains Mono", "monospace"
-                      ],
-                      "headline-md": [
-                              "Sora", "sans-serif"
-                      ],
-                      "body-md": [
-                              "Inter", "sans-serif"
-                      ],
-                      "display-lg-mobile": [
-                              "Sora", "sans-serif"
-                      ]
-              },
-              "fontSize": {
-                      "data-numeral": [
-                              "14px",
-                              {
-                                      "lineHeight": "1",
-                                      "letterSpacing": "0",
-                                      "fontWeight": "500"
-                              }
-                      ],
-                      "display-lg": [
-                              "48px",
-                              {
-                                      "lineHeight": "1.1",
-                                      "letterSpacing": "-0.04em",
-                                      "fontWeight": "800"
-                              }
-                      ],
-                      "label-caps": [
-                              "12px",
-                              {
-                                      "lineHeight": "1",
-                                      "letterSpacing": "0.1em",
-                                      "fontWeight": "700"
-                              }
-                      ],
-                      "headline-md": [
-                              "24px",
-                              {
-                                      "lineHeight": "1.3",
-                                      "letterSpacing": "-0.01em",
-                                      "fontWeight": "600"
-                              }
-                      ],
-                      "body-md": [
-                              "16px",
-                              {
-                                      "lineHeight": "1.6",
-                                      "letterSpacing": "0",
-                                      "fontWeight": "400"
-                              }
-                      ],
-                      "display-lg-mobile": [
-                              "32px",
-                              {
-                                      "lineHeight": "1.2",
-                                      "letterSpacing": "-0.02em",
-                                      "fontWeight": "800"
-                              }
-                      ]
-              }
-            },
-          }
-        }
-      </script>
-<style>
-        body {
-            background-color: #050608;
-            color: #e3e1e9;
-        }
-        .glass-panel {
-            background: rgba(26, 27, 33, 0.7);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        .glow-edge-teal {
-            border-top: 1px solid #00F5D4;
-            box-shadow: inset 0 2px 15px rgba(0, 245, 212, 0.05);
-        }
-        .glow-edge-crimson {
-            border-top: 1px solid #FF4D6D;
-            box-shadow: inset 0 2px 15px rgba(255, 77, 109, 0.05);
-        }
-        .text-teal { color: #00F5D4; }
-        .text-crimson { color: #FF4D6D; }
-        .bg-teal { background-color: #00F5D4; }
-        
-        .pulse-dot {
-            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: .5; }
-        }
-        
-        .failover-flash {
-            animation: flashSuccess 0.5s ease-out;
-        }
-        @keyframes flashSuccess {
-            0% { background-color: rgba(0, 245, 212, 0.3); box-shadow: 0 0 20px #00F5D4; }
-            100% { background-color: transparent; box-shadow: none; }
-        }
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Envictica | Model Abstraction Layer</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #0d1117;
+        color: #e6edf3;
+        font-family: "Hanken Grotesk", sans-serif;
+      }
+      .sidebar {
+        background-color: #010409;
+        border-right: 1px solid #30363d;
+      }
+      .glass-card {
+        background: rgba(22, 27, 34, 0.8);
+        border: 1px solid #30363d;
+      }
+      .status-active {
+        color: #00f5d4;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
+      .progress-bar {
+        height: 4px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .progress-fill {
+        height: 100%;
+        background: #00f5d4;
+        box-shadow: 0 0 10px #00f5d4;
+      }
     </style>
-</head>
-<body class="font-body-md text-body-md flex h-screen overflow-hidden">
-<!-- SideNavBar -->
-<nav aria-label="Side Navigation" class="bg-surface-container-low dark:bg-surface-container-low border-r border-outline-variant flex flex-col h-full py-6 px-4 w-64 left-0 fixed z-20 hidden md:flex">
-<div class="mb-stack-lg">
-<h1 class="font-headline-md text-headline-md text-primary tracking-tight">Operator Alpha</h1>
-<p class="font-label-caps text-label-caps text-on-surface-variant mt-stack-sm">Level 4 Clearance</p>
-<div class="mt-4 flex items-center gap-2">
-<span class="w-2 h-2 rounded-full bg-secondary-fixed pulse-dot"></span>
-<span class="font-label-caps text-label-caps text-secondary-fixed">System Status: Nominal</span>
-</div>
-</div>
-<ul class="flex flex-col gap-2 flex-grow">
-<li>
-<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all rounded" href="#">
-<span class="material-symbols-outlined" data-icon="terminal">terminal</span>
-<span class="font-label-caps text-label-caps">Command</span>
-</a>
-</li>
-<li>
-<!-- Active Navigation: Governance context requested in prompt -->
-<a class="flex items-center gap-3 px-3 py-2 bg-primary-container text-on-primary-container rounded-lg font-bold" href="#">
-<span class="material-symbols-outlined" data-icon="gavel" style="font-variation-settings: 'FILL' 1;">gavel</span>
-<span class="font-label-caps text-label-caps">Governance</span>
-</a>
-</li>
-<li>
-<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all rounded" href="#">
-<span class="material-symbols-outlined" data-icon="account_tree">account_tree</span>
-<span class="font-label-caps text-label-caps">Pipelines</span>
-</a>
-</li>
-<li>
-<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all rounded" href="#">
-<span class="material-symbols-outlined" data-icon="warning">warning</span>
-<span class="font-label-caps text-label-caps">Risk</span>
-</a>
-</li>
-<li>
-<a class="flex items-center gap-3 px-3 py-2 text-error hover:bg-error-container transition-all rounded mt-stack-md border border-error/20 cursor-pointer" onclick="executeFailover()">
-<span class="material-symbols-outlined" data-icon="bolt">bolt</span>
-<span class="font-label-caps text-label-caps">Kill Switch</span>
-</a>
-</li>
-</ul>
-<div class="mt-auto border-t border-outline-variant pt-4">
-<ul class="flex flex-col gap-2">
-<li>
-<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all rounded" href="#">
-<span class="material-symbols-outlined" data-icon="description">description</span>
-<span class="font-label-caps text-label-caps">Documentation</span>
-</a>
-</li>
-<li>
-<a class="flex items-center gap-3 px-3 py-2 text-on-surface-variant hover:text-on-surface hover:bg-surface-container transition-all rounded" href="#">
-<span class="material-symbols-outlined" data-icon="help_outline">help_outline</span>
-<span class="font-label-caps text-label-caps">Support</span>
-</a>
-</li>
-</ul>
-</div>
-</nav>
-<!-- Main Content Area -->
-<main class="flex-1 flex flex-col h-full ml-0 md:ml-64 overflow-y-auto bg-background">
-<!-- Top Module Bar -->
-<header class="bg-surface-container-lowest border-b border-outline-variant sticky top-0 z-10 px-container-margin py-4 flex justify-between items-center">
-<div>
-<div class="font-label-caps text-label-caps text-on-surface-variant mb-1 flex items-center gap-2">
-<span>ENV</span> <span class="text-outline">/</span> <span>INFRA</span> <span class="text-outline">/</span> <span class="text-primary-fixed">MAL_15</span>
-</div>
-<h2 class="font-headline-md text-headline-md font-bold text-primary tracking-tight">OFFICIAL ENVICTICA MODULE: 15 OF 17</h2>
-</div>
-<div class="flex items-center gap-4 hidden md:flex">
-<div class="glass-panel px-4 py-2 rounded flex items-center gap-2">
-<span class="w-2 h-2 rounded-full bg-teal pulse-dot"></span>
-<span class="font-label-caps text-label-caps text-teal">MAL ONLINE</span>
-</div>
-<button class="bg-error text-on-error font-label-caps text-label-caps px-4 py-2 rounded flex items-center gap-2 hover:bg-error/90 transition-colors" onclick="executeFailover()">
-<span class="material-symbols-outlined text-[18px]">emergency</span>
-                    EMERGENCY INTERVENTION
+  </head>
+  <body class="min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+    <!-- Side Navigation -->
+    <aside
+      class="w-full md:w-64 sidebar flex flex-col h-screen sticky top-0 z-50"
+    >
+      <div class="p-6 border-b border-[#30363d] mb-4">
+        <h1 class="text-xl font-black tracking-tighter text-white">
+          ENVICTICA
+        </h1>
+        <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">
+          Infrastructure Control
+        </p>
+      </div>
+      <nav class="flex-1 px-4 space-y-1">
+        <a
+          href="command-center.html"
+          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
+        >
+          <span class="material-symbols-outlined text-lg">dashboard</span>
+          Command Center
+        </a>
+        <a
+          href="pipeline-injest.html"
+          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
+        >
+          <span class="material-symbols-outlined text-lg">account_tree</span>
+          Ingestion Control
+        </a>
+        <a
+          href="governance-access.html"
+          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
+        >
+          <span class="material-symbols-outlined text-lg">gavel</span>
+          Governance
+        </a>
+        <a
+          href="risk-matrix.html"
+          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
+        >
+          <span class="material-symbols-outlined text-lg">warning</span>
+          Risk Matrix
+        </a>
+        <a
+          href="compliance-logs.html"
+          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
+        >
+          <span class="material-symbols-outlined text-lg">receipt_long</span>
+          Audit Logs
+        </a>
+      </nav>
+      <div class="p-4 border-t border-[#30363d] mt-auto">
+        <div
+          class="flex items-center gap-2 px-3 py-2 text-[11px] font-bold text-[#00f5d4] uppercase tracking-widest"
+        >
+          <span class="w-2 h-2 rounded-full bg-[#00f5d4] animate-pulse"></span>
+          System Healthy
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col min-h-screen">
+      <header
+        class="h-16 border-b border-[#30363d] flex items-center justify-between px-8 bg-[#0d1117]/80 backdrop-blur-md sticky top-0 z-40"
+      >
+        <div
+          class="text-[11px] font-bold text-slate-500 uppercase tracking-[0.2em]"
+        >
+          PATH: ENV / INFRA / MAL_15
+        </div>
+        <div class="flex items-center gap-6">
+          <div class="flex items-center gap-2">
+            <span
+              class="text-[10px] text-slate-500 font-bold uppercase tracking-widest"
+              >Portability Status</span
+            >
+            <span class="text-[14px] font-mono text-[#00f5d4]">Grounded</span>
+          </div>
+          <button
+            class="p-2 text-slate-400 hover:text-white transition-colors"
+          >
+            <span class="material-symbols-outlined">settings</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="p-8 space-y-8">
+        <!-- Summary Stats -->
+        <div
+          class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center md:text-left"
+        >
+          <div class="glass-card p-6 rounded-sm">
+            <div
+              class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
+            >
+              Active Primary
+            </div>
+            <div class="text-2xl font-bold text-white">GPT-4o</div>
+          </div>
+          <div class="glass-card p-6 rounded-sm">
+            <div
+              class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
+            >
+              Active Standby
+            </div>
+            <div class="text-2xl font-bold text-slate-400">Claude 3.5</div>
+          </div>
+          <div class="glass-card p-6 rounded-sm">
+            <div
+              class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
+            >
+              Failover Ready
+            </div>
+            <div class="text-2xl font-mono text-[#00f5d4]">&lt; 5ms</div>
+          </div>
+          <div class="glass-card p-6 rounded-sm">
+            <div
+              class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
+            >
+              Vendor Lock-in
+            </div>
+            <div class="text-2xl font-mono text-white">0%</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Model Performance Matrix -->
+          <div
+            class="lg:col-span-2 glass-card rounded-sm overflow-hidden flex flex-col"
+          >
+            <div
+              class="p-4 border-b border-[#30363d] flex justify-between items-center bg-white/5"
+            >
+              <h2
+                class="text-[11px] font-bold uppercase tracking-widest flex items-center gap-2"
+              >
+                <span class="material-symbols-outlined text-sm text-[#00f5d4]"
+                  >analytics</span
+                >
+                Global Routing Telemetry
+              </h2>
+              <span class="text-[9px] font-mono text-[#00f5d4] animate-pulse"
+                >OPTIMIZING LOAD</span
+              >
+            </div>
+            <div class="p-6 space-y-6">
+              <div class="space-y-4">
+                <!-- Model 1 -->
+                <div class="p-4 bg-white/5 border border-[#30363d] rounded-sm">
+                  <div class="flex justify-between items-center mb-4">
+                    <div class="flex items-center gap-3">
+                      <div class="w-2 h-2 rounded-full bg-[#00f5d4]"></div>
+                      <span class="font-bold text-white"
+                        >GPT-4o (Primary Core)</span
+                      >
+                    </div>
+                    <span class="text-[10px] font-mono text-[#00f5d4]"
+                      >94.2% ADHERENCE</span
+                    >
+                  </div>
+                  <div class="grid grid-cols-3 gap-8 text-[11px] mb-4">
+                    <div>
+                      <span class="text-slate-500 block mb-1">Latency</span>
+                      <span class="text-white font-mono">142ms</span>
+                    </div>
+                    <div>
+                      <span class="text-slate-500 block mb-1"
+                        >Cost/1k Tokens</span
+                      >
+                      <span class="text-white font-mono">$0.015</span>
+                    </div>
+                    <div>
+                      <span class="text-slate-500 block mb-1"
+                        >Hallucination Index</span
+                      >
+                      <span class="text-white font-mono">0.04</span>
+                    </div>
+                  </div>
+                  <div class="progress-bar">
+                    <div class="progress-fill" style="width: 94%"></div>
+                  </div>
+                </div>
+                <!-- Model 2 -->
+                <div class="p-4 bg-white/5 border border-[#30363d] rounded-sm">
+                  <div class="flex justify-between items-center mb-4">
+                    <div class="flex items-center gap-3">
+                      <div class="w-2 h-2 rounded-full bg-slate-600"></div>
+                      <span class="font-bold text-slate-300"
+                        >Claude 3.5 Sonnet (Standby)</span
+                      >
+                    </div>
+                    <span class="text-[10px] font-mono text-slate-500"
+                      >92.8% ADHERENCE</span
+                    >
+                  </div>
+                  <div class="grid grid-cols-3 gap-8 text-[11px] mb-4">
+                    <div>
+                      <span class="text-slate-500 block mb-1">Latency</span>
+                      <span class="text-white font-mono">118ms</span>
+                    </div>
+                    <div>
+                      <span class="text-slate-500 block mb-1"
+                        >Cost/1k Tokens</span
+                      >
+                      <span class="text-white font-mono">$0.012</span>
+                    </div>
+                    <div>
+                      <span class="text-slate-500 block mb-1"
+                        >Hallucination Index</span
+                      >
+                      <span class="text-white font-mono">0.03</span>
+                    </div>
+                  </div>
+                  <div class="progress-bar">
+                    <div
+                      class="progress-fill bg-slate-600 shadow-none"
+                      style="width: 92%"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Controls -->
+          <div class="space-y-6">
+            <div class="glass-card rounded-sm p-6 space-y-6">
+              <h3
+                class="text-[11px] font-bold uppercase tracking-widest text-white border-b border-[#30363d] pb-4 text-center"
+              >
+                Governance Controls
+              </h3>
+              <div class="space-y-3">
+                <button
+                  class="w-full py-4 bg-[#00f5d4] text-black font-bold text-[11px] uppercase tracking-[0.2em] hover:bg-[#00d1b5] transition-all transform active:scale-95 flex items-center justify-center gap-2"
+                >
+                  <span class="material-symbols-outlined text-lg"
+                    >swap_horiz</span
+                  >
+                  Initiate Model Swap
                 </button>
-</div>
-</header>
-<!-- Canvas -->
-<div class="p-container-margin md:p-10 max-w-7xl mx-auto w-full flex flex-col gap-stack-lg">
-<!-- Context Injection -->
-<div class="glass-panel p-6 rounded-xl border border-outline-variant">
-<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-4 flex items-center gap-2"><span class="material-symbols-outlined text-[16px]">data_object</span> CONTEXTUAL PAYLOAD</h3>
-<div class="font-body-md text-on-surface whitespace-pre-wrap font-mono text-sm leading-relaxed opacity-80">{{DATA:DOCUMENT:DOCUMENT_11}}</div>
-</div>
-<!-- Key Metrics Bento -->
-<section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
-<div class="glass-panel rounded-xl p-5 glow-edge-teal flex flex-col justify-between h-32">
-<span class="font-label-caps text-label-caps text-on-surface-variant">MODEL ADHERENCE</span>
-<div class="flex items-end justify-between">
-<span class="font-display-lg text-display-lg text-primary">98.4<span class="text-2xl text-on-surface-variant">%</span></span>
-<span class="material-symbols-outlined text-teal mb-1">trending_up</span>
-</div>
-</div>
-<div class="glass-panel rounded-xl p-5 border border-outline-variant flex flex-col justify-between h-32 transition-colors duration-300" id="failover-metric">
-<span class="font-label-caps text-label-caps text-on-surface-variant">FAILOVER READINESS</span>
-<div class="flex items-end justify-between">
-<span class="font-display-lg text-display-lg text-primary">Sub-5<span class="text-2xl text-on-surface-variant">ms</span></span>
-<span class="material-symbols-outlined text-primary-fixed mb-1">bolt</span>
-</div>
-</div>
-<div class="glass-panel rounded-xl p-5 border border-outline-variant flex flex-col justify-between h-32 relative overflow-hidden">
-<div class="absolute inset-0 bg-gradient-to-br from-primary-fixed/5 to-transparent z-0"></div>
-<span class="font-label-caps text-label-caps text-on-surface-variant relative z-10">GOVERNANCE SCORE</span>
-<div class="flex items-end justify-between relative z-10">
-<span class="font-display-lg text-display-lg text-primary-fixed">HIGH</span>
-<span class="material-symbols-outlined text-primary-fixed mb-1">verified_user</span>
-</div>
-</div>
-<div class="glass-panel rounded-xl p-5 glow-edge-crimson flex flex-col justify-between h-32">
-<span class="font-label-caps text-label-caps text-on-surface-variant">INGRESS LATENCY</span>
-<div class="flex items-end justify-between">
-<span class="font-display-lg text-display-lg text-crimson">4.82<span class="text-2xl text-on-surface-variant">ms</span></span>
-<span class="material-symbols-outlined text-crimson mb-1">warning</span>
-</div>
-</div>
-</section>
-<!-- Main Grid: Routing & Comparison -->
-<section class="grid grid-cols-1 lg:grid-cols-3 gap-gutter">
-<!-- Model Performance Comparison -->
-<div class="glass-panel rounded-xl p-6 lg:col-span-2 border border-outline-variant flex flex-col">
-<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-6 flex items-center gap-2">
-<span class="material-symbols-outlined text-[18px]">route</span> MODEL ROUTING TELEMETRY
-                    </h3>
-<div class="flex flex-col gap-4">
-<!-- Active Model -->
-<div class="bg-surface-container-high rounded p-4 border border-outline-variant flex items-center justify-between group hover:border-primary-fixed transition-colors transition-all duration-300" id="model-primary">
-<div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center transition-colors" id="model-primary-icon-wrapper">
-<span class="material-symbols-outlined text-on-primary-container transition-colors" id="model-primary-icon">psychology</span>
-</div>
-<div>
-<div class="flex items-center gap-2">
-<h4 class="font-headline-md text-[18px] font-bold text-primary">GPT-4o</h4>
-<span class="bg-teal text-[#050608] px-2 py-0.5 rounded text-[10px] font-label-caps transition-colors" id="model-primary-badge">ACTIVE (GROUNDED)</span>
-</div>
-<p class="font-data-numeral text-data-numeral text-on-surface-variant mt-1" id="model-primary-stats">Throughput: 14.2k req/s | Cluster: Alpha</p>
-</div>
-</div>
-<div class="text-right hidden sm:block">
-<div class="font-data-numeral text-data-numeral text-teal transition-colors" id="model-primary-uptime">99.9% Up</div>
-<div class="text-[12px] text-on-surface-variant mt-1" id="model-primary-latency">Latency: 112ms</div>
-</div>
-</div>
-<!-- Standby Model -->
-<div class="bg-surface-container rounded p-4 border border-outline-variant flex items-center justify-between opacity-80 transition-all duration-300" id="model-standby">
-<div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center transition-colors" id="model-standby-icon-wrapper">
-<span class="material-symbols-outlined text-on-surface-variant transition-colors" id="model-standby-icon">model_training</span>
-</div>
-<div>
-<div class="flex items-center gap-2">
-<h4 class="font-headline-md text-[18px] font-bold text-on-surface">Claude 3.5 Sonnet</h4>
-<span class="border border-outline px-2 py-0.5 rounded text-[10px] font-label-caps text-outline transition-colors" id="model-standby-badge">STANDBY</span>
-</div>
-<p class="font-data-numeral text-data-numeral text-on-surface-variant mt-1" id="model-standby-stats">Throughput: 0 req/s | Cluster: Beta</p>
-</div>
-</div>
-<div class="text-right hidden sm:block">
-<div class="font-data-numeral text-data-numeral text-outline transition-colors" id="model-standby-uptime">Ready</div>
-<div class="text-[12px] text-on-surface-variant mt-1" id="model-standby-latency">Sync: &lt;1ms</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Auth Controls -->
-<div class="glass-panel rounded-xl p-6 border border-outline-variant flex flex-col justify-between">
-<div>
-<h3 class="font-label-caps text-label-caps text-on-surface-variant mb-6 flex items-center gap-2">
-<span class="material-symbols-outlined text-[18px]">key</span> MULTI-SIG AUTHORIZATION
-                        </h3>
-<p class="font-body-md text-[14px] text-on-surface-variant mb-6">Manual model swap requires 2/3 cryptographic signatures from governance board members.</p>
-<div class="space-y-3">
-<div class="flex items-center justify-between p-3 bg-surface-container rounded border border-outline-variant">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-teal text-[16px]">check_circle</span>
-<span class="font-data-numeral text-[12px] text-on-surface">SIG_01 (System Admin)</span>
-</div>
-<span class="font-label-caps text-[10px] text-teal">VERIFIED</span>
-</div>
-<div class="flex items-center justify-between p-3 bg-surface-container rounded border border-outline-variant border-dashed">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-outline text-[16px]">pending</span>
-<span class="font-data-numeral text-[12px] text-on-surface-variant">SIG_02 (Compliance)</span>
-</div>
-<span class="font-label-caps text-[10px] text-outline">PENDING</span>
-</div>
-<div class="flex items-center justify-between p-3 bg-surface-container rounded border border-outline-variant border-dashed">
-<div class="flex items-center gap-2">
-<span class="material-symbols-outlined text-outline text-[16px]">pending</span>
-<span class="font-data-numeral text-[12px] text-on-surface-variant">SIG_03 (Exec)</span>
-</div>
-<span class="font-label-caps text-[10px] text-outline">PENDING</span>
-</div>
-</div>
-</div>
-<button class="w-full mt-6 bg-surface-variant text-on-surface-variant font-label-caps text-label-caps py-3 rounded border border-outline-variant cursor-not-allowed opacity-50 flex items-center justify-center gap-2" disabled="">
-<span class="material-symbols-outlined text-[18px]">swap_horiz</span>
-                        INITIATE SWAP (1/3)
-                    </button>
-</div>
-</section>
-</div>
-</main>
-<!-- BottomNavBar (Mobile Only) -->
-<nav aria-label="Bottom Navigation" class="bg-surface-container-high dark:bg-surface-container-high border-t border-outline-variant fixed bottom-0 left-0 w-full z-50 flex justify-around items-center px-4 pb-4 pt-2 md:hidden">
-<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 w-16" href="#">
-<span class="material-symbols-outlined mb-1 text-[24px]">pan_tool</span>
-<span class="font-label-caps text-[10px] truncate w-full text-center">Intervene</span>
-</a>
-<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full p-2 w-16" href="#">
-<span class="material-symbols-outlined mb-1 text-[24px]" style="font-variation-settings: 'FILL' 1;">analytics</span>
-<span class="font-label-caps text-[10px] truncate w-full text-center">Status</span>
-</a>
-<a class="flex flex-col items-center justify-center text-on-surface-variant p-2 w-16" href="#">
-<span class="material-symbols-outlined mb-1 text-[24px]">history</span>
-<span class="font-label-caps text-[10px] truncate w-full text-center">Logs</span>
-</a>
-<a class="flex flex-col items-center justify-center text-error p-2 w-16" href="#" onclick="executeFailover()">
-<span class="material-symbols-outlined mb-1 text-[24px]">emergency</span>
-<span class="font-label-caps text-[10px] truncate w-full text-center">Emergency</span>
-</a>
-</nav>
-<script>
-    function executeFailover() {
-        // Flash Failover Metric
-        const metric = document.getElementById('failover-metric');
-        metric.classList.add('failover-flash');
-        setTimeout(() => metric.classList.remove('failover-flash'), 500);
-
-        // Update GPT-4o to Offline (Burnt Crimson #FF4D6D)
-        const gpt = document.getElementById('model-primary');
-        gpt.className = "bg-surface-container rounded p-4 border border-error/30 flex items-center justify-between opacity-70 transition-all duration-300";
-        
-        const gptIconWrap = document.getElementById('model-primary-icon-wrapper');
-        gptIconWrap.className = "w-10 h-10 rounded-full bg-error-container/20 flex items-center justify-center transition-colors";
-        
-        const gptIcon = document.getElementById('model-primary-icon');
-        gptIcon.className = "material-symbols-outlined text-crimson transition-colors";
-        gptIcon.textContent = "error";
-        
-        const gptBadge = document.getElementById('model-primary-badge');
-        gptBadge.className = "bg-crimson/10 border border-crimson text-crimson px-2 py-0.5 rounded text-[10px] font-label-caps transition-colors";
-        gptBadge.textContent = "OFFLINE";
-        
-        document.getElementById('model-primary-stats').textContent = "Throughput: 0 req/s | Cluster: Alpha";
-        
-        const gptUptime = document.getElementById('model-primary-uptime');
-        gptUptime.className = "font-data-numeral text-data-numeral text-crimson transition-colors";
-        gptUptime.textContent = "Failed";
-        document.getElementById('model-primary-latency').textContent = "Latency: N/A";
-
-        // Update Claude to Active (Electric Teal #00F5D4)
-        const claude = document.getElementById('model-standby');
-        claude.className = "bg-surface-container-high rounded p-4 border border-outline-variant flex items-center justify-between group hover:border-primary-fixed transition-all duration-300 glow-edge-teal opacity-100";
-        
-        const claudeIconWrap = document.getElementById('model-standby-icon-wrapper');
-        claudeIconWrap.className = "w-10 h-10 rounded-full bg-teal/20 flex items-center justify-center transition-colors";
-        
-        const claudeIcon = document.getElementById('model-standby-icon');
-        claudeIcon.className = "material-symbols-outlined text-teal transition-colors";
-        claudeIcon.textContent = "psychology";
-        
-        const claudeBadge = document.getElementById('model-standby-badge');
-        claudeBadge.className = "bg-teal text-[#050608] px-2 py-0.5 rounded text-[10px] font-label-caps transition-colors";
-        claudeBadge.textContent = "ACTIVE";
-        
-        document.getElementById('model-standby-stats').textContent = "Throughput: 14.2k req/s | Cluster: Beta";
-        
-        const claudeUptime = document.getElementById('model-standby-uptime');
-        claudeUptime.className = "font-data-numeral text-data-numeral text-teal transition-colors";
-        claudeUptime.textContent = "99.9% Up";
-        document.getElementById('model-standby-latency').textContent = "Latency: 115ms";
-    }
-</script>
-</body></html>
+                <button
+                  class="w-full py-4 bg-white/5 border border-white/10 text-white font-bold text-[11px] uppercase tracking-[0.2em] hover:bg-white/10 transition-all flex items-center justify-center gap-2"
+                >
+                  <span class="material-symbols-outlined text-lg"
+                    >description</span
+                  >
+                  Export Portability Audit
+                </button>
+              </div>
+              <div
+                class="p-4 bg-[#ff4d6d]/5 border border-[#ff4d6d]/20 rounded-sm"
+              >
+                <div class="flex items-center gap-3 text-[#ff4d6d] mb-2">
+                  <span class="material-symbols-outlined text-sm"
+                    >security</span
+                  >
+                  <span class="text-[10px] font-bold uppercase tracking-widest"
+                    >Multi-Sig Required</span
+                  >
+                </div>
+                <p class="text-[11px] text-slate-400 leading-relaxed">
+                  Manual model promotion requires biometric authorization from two
+                  Alpha-level controllers.
+                </p>
+              </div>
+            </div>
+            <div class="glass-card rounded-sm p-6 flex flex-col gap-4">
+              <h3 class="text-[11px] font-bold uppercase tracking-widest">
+                Routing Logic
+              </h3>
+              <div class="space-y-4">
+                <div class="flex justify-between items-center text-[11px]">
+                  <span class="text-slate-400">Drift Threshold</span>
+                  <span class="text-white font-mono">15.0%</span>
+                </div>
+                <div class="flex justify-between items-center text-[11px]">
+                  <span class="text-slate-400">Failover Latency</span>
+                  <span class="text-white font-mono">4.8ms</span>
+                </div>
+                <div class="flex justify-between items-center text-[11px]">
+                  <span class="text-slate-400">Schema Enforcement</span>
+                  <span class="text-[#00f5d4] font-bold">Active</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
