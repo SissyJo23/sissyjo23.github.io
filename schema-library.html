@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
+<html class="dark" lang="en">
+<head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <title>Envictica - Schema Definition Library</title>
@@ -9,7 +9,6 @@
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
 <script id="tailwind-config">
         tailwind.config = {
             darkMode: "class",
@@ -100,22 +99,20 @@
         }
     </script>
 <style>
-        /* Base typography enforcement to ensure elements without explicit classes inherit correctly */
         body { font-family: 'Hanken Grotesk', sans-serif; }
-        /* Custom scrollbar for high-density feel */
         ::-webkit-scrollbar { width: 8px; height: 8px; }
         ::-webkit-scrollbar-track { background: #101415; }
         ::-webkit-scrollbar-thumb { background: #323537; border-radius: 4px; }
         ::-webkit-scrollbar-thumb:hover { background: #3c4a42; }
-    </style>
+</style>
 </head>
-<body class="bg-background text-on-background h-screen w-screen overflow-hidden flex selection:bg-primary/30 selection:text-primary">
-<!-- SideNavBar (Shared Component) -->
-<nav class="docked h-screen left-0 w-64 bg-surface border-r border-outline-variant flex flex-col h-full py-density-regular shrink-0">
+<body class="bg-background text-on-background min-h-screen w-screen overflow-x-hidden flex flex-col md:flex-row selection:bg-primary/30 selection:text-primary">
+
+<!-- SideNavBar -->
+<nav class="w-full md:w-64 bg-surface border-r border-outline-variant flex flex-col shrink-0 py-density-regular min-h-screen">
 <!-- Header -->
 <div class="px-margin mb-margin flex items-center gap-gutter">
 <div class="w-10 h-10 rounded-DEFAULT bg-surface-container-highest flex items-center justify-center border border-outline-variant overflow-hidden shrink-0">
-<!-- Fallback to icon since no image provided for avatar -->
 <span class="material-symbols-outlined text-primary text-title-sm" style="font-variation-settings: 'FILL' 1;">account_circle</span>
 </div>
 <div class="overflow-hidden">
@@ -125,94 +122,98 @@
 </div>
 <!-- Main Navigation -->
 <div class="flex-1 overflow-y-auto px-density-regular space-y-density-compact">
-<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="#">
+<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="infrastructure.html">
 <span class="material-symbols-outlined">dns</span>
 <span>Infrastructure</span>
 </a>
-<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="#">
+<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="governance.html">
 <span class="material-symbols-outlined">gavel</span>
 <span>Governance</span>
 </a>
-<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="#">
+<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="pipelines.html">
 <span class="material-symbols-outlined">account_tree</span>
 <span>Pipelines</span>
 </a>
-<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="#">
+<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="data-validation.html">
 <span class="material-symbols-outlined">fact_check</span>
 <span>Data Validation</span>
 </a>
-<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="#">
+<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="data-debt-repair.html">
 <span class="material-symbols-outlined">build_circle</span>
 <span>Data Debt Repair</span>
 </a>
-<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="#">
+<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="audit-logs.html">
 <span class="material-symbols-outlined">history_edu</span>
 <span>Audit Logs</span>
 </a>
-<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="#">
+<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="risk-matrix.html">
 <span class="material-symbols-outlined">grid_view</span>
 <span>Risk Matrix</span>
 </a>
-<!-- Active Tab based on Intent -->
-<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps border-r-2 border-primary text-primary bg-primary-container/10 transition-all duration-150 ease-in-out rounded-l-DEFAULT rounded-r-none" href="#">
+<!-- Active Tab -->
+<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps border-r-2 border-primary text-primary bg-primary-container/10 transition-all duration-150 ease-in-out rounded-l-DEFAULT rounded-r-none" href="schema-library.html">
 <span class="material-symbols-outlined">schema</span>
 <span>Schema Library</span>
 </a>
 </div>
 <!-- Footer Navigation -->
 <div class="mt-auto px-density-regular pt-margin border-t border-outline-variant space-y-density-compact">
-<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="#">
+<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="docs.html">
 <span class="material-symbols-outlined">description</span>
 <span>Docs</span>
 </a>
-<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="#">
+<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="support.html">
 <span class="material-symbols-outlined">help</span>
 <span>Support</span>
 </a>
 </div>
 </nav>
+
 <!-- Main Application Area -->
-<main class="flex-1 flex flex-col h-full min-w-0 bg-background relative">
-<!-- TopNavBar (Shared Component) -->
-<header class="docked full-width top-0 bg-surface-container flex justify-between items-center px-margin h-16 w-full z-50 border-b border-outline-variant shrink-0">
+<main class="flex-1 flex flex-col min-h-screen min-w-0 bg-background relative overflow-y-auto">
+<!-- TopNavBar -->
+<header class="bg-surface-container flex justify-between items-center px-margin h-16 w-full shrink-0 border-b border-outline-variant">
 <div class="flex items-center gap-margin">
+<!-- FIXED: LEXPLUMBING REMOVED -->
 <div class="font-headline-md text-headline-md text-primary uppercase tracking-wider">ENVICTICA</div>
-<!-- Search Bar (on_left configuration) -->
+<!-- Search Bar -->
 <div class="relative hidden lg:block w-96">
 <span class="material-symbols-outlined absolute left-gutter top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
 <input class="w-full bg-surface border border-outline-variant rounded-DEFAULT pl-10 pr-4 py-1.5 font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all" placeholder="Query schemas, jurisdictions, tags..." type="text"/>
 </div>
 </div>
 <div class="flex items-center gap-density-regular">
-<button aria-label="monitor_heart" class="p-2 rounded-DEFAULT text-primary hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80">
+<button aria-label="monitor_heart" onclick="triggerAction('System Health Monitoring Standard Active')" class="p-2 rounded-DEFAULT text-primary hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80">
 <span class="material-symbols-outlined">monitor_heart</span>
 </button>
-<button aria-label="settings" class="p-2 rounded-DEFAULT text-primary hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80">
+<button aria-label="settings" onclick="triggerAction('Opening Engine Settings')" class="p-2 rounded-DEFAULT text-primary hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80">
 <span class="material-symbols-outlined">settings</span>
 </button>
-<button aria-label="notifications" class="p-2 rounded-DEFAULT text-primary hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80 relative">
+<button aria-label="notifications" onclick="triggerAction('No new security warnings')" class="p-2 rounded-DEFAULT text-primary hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80 relative">
 <span class="material-symbols-outlined">notifications</span>
 <span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border border-surface-container"></span>
 </button>
 <div class="ml-gutter w-8 h-8 rounded-DEFAULT bg-surface-variant border border-outline-variant overflow-hidden cursor-pointer hover:border-primary transition-colors">
-<img alt="Operator Profile" class="w-full h-full object-cover" data-alt="A professional operator profile avatar, headshot of a person with a serious expression in a high-tech control room setting, dark background, cinematic lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjA3vskKN9Qiq2n-N4F12V4Yl30hjgsetPpCDqpjmbt81vx0FqXhyq1wtmXhLUYUNP33mksT_F7vLhgEsGkLxFUpX8eLLjrbnGyL01hRIZdjD6fAMCpfFtFTKRBstH_p0j_6lJZbDL9cOvIFegVPYP9_mpQYC2EtivibM03ki5KUOOUvH9eQZxo4DG8rM4dYVferqztkG5aS6Z53ctJXBScd1YZY9rj1S5YNu4fyCuWO8VeM7pXSI8Fg"/>
+<img alt="Operator Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjA3vskKN9Qiq2n-N4F12V4Yl30hjgsetPpCDqpjmbt81vx0FqXhyq1wtmXhLUYUNP33mksT_F7vLhgEsGkLxFUpX8eLLjrbnGyL01hRIZdjD6fAMCpfFtFTKRBstH_p0j_6lJZbDL9cOvIFegVPYP9_mpQYC2EtivibM03ki5KUOOUvH9eQZxo4DG8rM4dYVferqztkG5aS6Z53ctJXBScd1YZY9rj1S5YNu4fyCuWO8VeM7pXSI8Fg"/>
 </div>
 </div>
 </header>
-<!-- Module Bar (Custom High-Contrast Anchor) -->
+
+<!-- Module Bar -->
 <div class="bg-primary text-on-primary-container py-density-compact px-margin flex items-center justify-center shrink-0 border-b border-primary-fixed-dim">
 <span class="font-label-caps text-label-caps tracking-[0.1em] font-bold">OFFICIAL ENVICTICA MODULE: 09 OF 17</span>
 </div>
-<!-- Scrollable Workspace -->
-<div class="flex-1 overflow-y-auto overflow-x-hidden p-margin flex flex-col xl:flex-row gap-margin items-start">
-<!-- Main Content Area (Left/Center) -->
+
+<!-- Scrollable Workspace Container -->
+<div class="flex-1 p-margin flex flex-col xl:flex-row gap-margin items-start">
+<!-- Main Content Area -->
 <div class="flex-1 w-full min-w-0 flex flex-col gap-margin">
 <!-- Page Header & Actions -->
 <div class="flex flex-col md:flex-row md:items-end justify-between gap-gutter">
 <div>
 <!-- Breadcrumbs -->
 <div class="flex items-center gap-density-compact font-data-mono text-data-mono text-on-surface-variant mb-density-regular opacity-70">
-<span class="hover:text-primary cursor-pointer transition-colors">ROOT</span>
+<a href="index.html" class="hover:text-primary transition-colors">ROOT</a>
 <span class="material-symbols-outlined text-[16px]">chevron_right</span>
 <span class="hover:text-primary cursor-pointer transition-colors">MODULES</span>
 <span class="material-symbols-outlined text-[16px]">chevron_right</span>
@@ -222,17 +223,18 @@
 <p class="font-body-md text-body-md text-on-surface-variant mt-density-compact">Manage legal DNA templates and structural adherence protocols.</p>
 </div>
 <div class="flex items-center gap-density-regular shrink-0">
-<button class="h-10 px-gutter flex items-center gap-density-regular bg-transparent border border-outline text-on-surface font-title-sm text-title-sm rounded-DEFAULT hover:bg-surface-variant transition-colors">
+<button onclick="exportFingerprints()" class="h-10 px-gutter flex items-center gap-density-regular bg-transparent border border-outline text-on-surface font-title-sm text-title-sm rounded-DEFAULT hover:bg-surface-variant transition-colors cursor-pointer">
 <span class="material-symbols-outlined text-[18px]">fingerprint</span>
                             Export Fingerprints
                         </button>
-<button class="h-10 px-gutter flex items-center gap-density-regular bg-primary text-on-primary font-title-sm text-title-sm rounded-DEFAULT hover:bg-primary-fixed transition-colors font-bold shadow-[0_0_15px_rgba(78,222,163,0.15)]">
+<button onclick="createSchema()" class="h-10 px-gutter flex items-center gap-density-regular bg-primary text-on-primary font-title-sm text-title-sm rounded-DEFAULT hover:bg-primary-fixed transition-colors font-bold shadow-[0_0_15px_rgba(78,222,163,0.15)] cursor-pointer">
 <span class="material-symbols-outlined text-[18px]">add_box</span>
                             Create New Schema
                         </button>
 </div>
 </div>
-<!-- Telemetry Panel (High-Density Stats) -->
+
+<!-- Telemetry Panel -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-density-regular">
 <div class="bg-surface-container border border-outline-variant p-gutter rounded-DEFAULT flex flex-col justify-between relative overflow-hidden group hover:border-primary transition-colors">
 <div class="absolute top-0 right-0 p-density-regular opacity-20 group-hover:opacity-100 transition-opacity">
@@ -267,6 +269,7 @@
 </div>
 </div>
 </div>
+
 <!-- Global Schema Categories -->
 <div class="flex flex-col gap-density-regular">
 <h2 class="font-title-sm text-title-sm text-on-surface flex items-center gap-density-regular">
@@ -274,7 +277,7 @@
                         Global Schema Categories
                     </h2>
 <div class="grid grid-cols-1 md:grid-cols-3 gap-density-regular">
-<div class="bg-surface-container-low border border-outline-variant p-gutter rounded-DEFAULT cursor-pointer hover:bg-surface-container hover:ring-1 hover:ring-inset hover:ring-primary transition-all flex items-center gap-gutter">
+<div onclick="triggerAction('Filtering category: Master Agreements')" class="bg-surface-container-low border border-outline-variant p-gutter rounded-DEFAULT cursor-pointer hover:bg-surface-container hover:ring-1 hover:ring-inset hover:ring-primary transition-all flex items-center gap-gutter">
 <div class="w-12 h-12 rounded-DEFAULT bg-surface border border-outline-variant flex items-center justify-center shrink-0">
 <span class="font-data-mono text-title-sm text-on-surface">MA-1</span>
 </div>
@@ -283,7 +286,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant">Core transactional scaffolds.</p>
 </div>
 </div>
-<div class="bg-surface-container-low border border-outline-variant p-gutter rounded-DEFAULT cursor-pointer hover:bg-surface-container hover:ring-1 hover:ring-inset hover:ring-primary transition-all flex items-center gap-gutter">
+<div onclick="triggerAction('Filtering category: Jurisdictional Dockets')" class="bg-surface-container-low border border-outline-variant p-gutter rounded-DEFAULT cursor-pointer hover:bg-surface-container hover:ring-1 hover:ring-inset hover:ring-primary transition-all flex items-center gap-gutter">
 <div class="w-12 h-12 rounded-DEFAULT bg-surface border border-outline-variant flex items-center justify-center shrink-0">
 <span class="font-data-mono text-title-sm text-on-surface">JD-4</span>
 </div>
@@ -292,7 +295,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant">Regional compliance overrides.</p>
 </div>
 </div>
-<div class="bg-surface-container-low border border-outline-variant p-gutter rounded-DEFAULT cursor-pointer hover:bg-surface-container hover:ring-1 hover:ring-inset hover:ring-primary transition-all flex items-center gap-gutter">
+<div onclick="triggerAction('Filtering category: Internal Knowledge')" class="bg-surface-container-low border border-outline-variant p-gutter rounded-DEFAULT cursor-pointer hover:bg-surface-container hover:ring-1 hover:ring-inset hover:ring-primary transition-all flex items-center gap-gutter">
 <div class="w-12 h-12 rounded-DEFAULT bg-surface border border-outline-variant flex items-center justify-center shrink-0">
 <span class="font-data-mono text-title-sm text-on-surface">IK-7</span>
 </div>
@@ -303,8 +306,9 @@
 </div>
 </div>
 </div>
+
 <!-- Template Management Table -->
-<div class="flex flex-col gap-density-regular flex-1">
+<div class="flex flex-col gap-density-regular flex-1 pb-12">
 <h2 class="font-title-sm text-title-sm text-on-surface flex items-center gap-density-regular">
 <span class="material-symbols-outlined text-[20px] text-primary">table_rows</span>
                         Template Management Register
@@ -313,17 +317,17 @@
 <!-- Table Utilities -->
 <div class="px-gutter py-density-regular bg-surface-container border-b border-outline-variant flex justify-between items-center">
 <div class="flex gap-density-regular">
-<button class="px-density-regular py-1 text-on-surface font-label-caps text-label-caps hover:text-primary transition-colors flex items-center gap-1">
+<button onclick="triggerAction('Filter dialog triggered')" class="px-density-regular py-1 text-on-surface font-label-caps text-label-caps hover:text-primary transition-colors flex items-center gap-1 cursor-pointer">
 <span class="material-symbols-outlined text-[16px]">filter_list</span> FILTER
                                 </button>
-<button class="px-density-regular py-1 text-on-surface font-label-caps text-label-caps hover:text-primary transition-colors flex items-center gap-1">
+<button onclick="triggerAction('Sort order updated')" class="px-density-regular py-1 text-on-surface font-label-caps text-label-caps hover:text-primary transition-colors flex items-center gap-1 cursor-pointer">
 <span class="material-symbols-outlined text-[16px]">sort</span> SORT
                                 </button>
 </div>
 <span class="font-data-mono text-body-sm text-on-surface-variant">Showing 1-12 of 42</span>
 </div>
 <!-- Table Scroll Area -->
-<div class="overflow-x-auto overflow-y-auto flex-1 bg-background">
+<div class="overflow-x-auto bg-background">
 <table class="w-full text-left border-collapse">
 <thead class="bg-surface-container sticky top-0 z-10">
 <tr>
@@ -349,7 +353,7 @@
 </td>
 <td class="py-density-regular px-gutter text-right text-on-surface">100.00%</td>
 <td class="py-density-regular px-gutter text-right">
-<button class="text-on-surface-variant opacity-0 group-hover:opacity-100 hover:text-primary transition-all"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+<button onclick="triggerAction('Options for MA-1.094')" class="text-on-surface-variant opacity-0 group-hover:opacity-100 hover:text-primary transition-all cursor-pointer"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
 </td>
 </tr>
 <!-- Row 2 -->
@@ -365,7 +369,7 @@
 </td>
 <td class="py-density-regular px-gutter text-right text-error">94.20%</td>
 <td class="py-density-regular px-gutter text-right">
-<button class="text-on-surface-variant opacity-0 group-hover:opacity-100 hover:text-primary transition-all"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+<button onclick="triggerAction('Options for JD-4.EU-B')" class="text-on-surface-variant opacity-0 group-hover:opacity-100 hover:text-primary transition-all cursor-pointer"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
 </td>
 </tr>
 <!-- Row 3 -->
@@ -381,7 +385,7 @@
 </td>
 <td class="py-density-regular px-gutter text-right text-on-surface">99.98%</td>
 <td class="py-density-regular px-gutter text-right">
-<button class="text-on-surface-variant opacity-0 group-hover:opacity-100 hover:text-primary transition-all"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+<button onclick="triggerAction('Options for IK-7.SEC-A')" class="text-on-surface-variant opacity-0 group-hover:opacity-100 hover:text-primary transition-all cursor-pointer"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
 </td>
 </tr>
 <!-- Row 4 -->
@@ -397,7 +401,7 @@
 </td>
 <td class="py-density-regular px-gutter text-right text-on-surface-variant">--</td>
 <td class="py-density-regular px-gutter text-right">
-<button class="text-on-surface-variant opacity-0 group-hover:opacity-100 hover:text-primary transition-all"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
+<button onclick="triggerAction('Options for MA-1.095-DRAFT')" class="text-on-surface-variant opacity-0 group-hover:opacity-100 hover:text-primary transition-all cursor-pointer"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
 </td>
 </tr>
 </tbody>
@@ -406,8 +410,9 @@
 </div>
 </div>
 </div>
+
 <!-- Schema Hardening Panel (Right Sidebar) -->
-<aside class="w-full xl:w-80 flex flex-col gap-margin shrink-0">
+<aside class="w-full xl:w-80 flex flex-col gap-margin shrink-0 pb-12">
 <!-- Verification Status Box -->
 <div class="bg-surface-container border border-outline-variant rounded-DEFAULT p-gutter relative overflow-hidden">
 <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(circle at top right, rgba(78,222,163,0.05), transparent 70%);"></div>
@@ -435,9 +440,7 @@
 <!-- Lineage Mapping Section -->
 <div>
 <span class="font-label-caps text-label-caps text-on-surface-variant block mb-density-regular">Lineage Mapping Verification</span>
-<!-- Simplified Node Map representation -->
 <div class="bg-background rounded-DEFAULT p-density-regular border border-outline-variant relative h-32 flex flex-col justify-center items-center gap-2 overflow-hidden">
-<!-- Node Background Pattern -->
 <div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#86948a 1px, transparent 1px); background-size: 8px 8px;"></div>
 <div class="flex items-center gap-4 z-10 w-full px-4">
 <div class="flex-1 flex flex-col items-center gap-1">
@@ -461,11 +464,12 @@
 </div>
 </div>
 </div>
+
 <!-- Action Block -->
 <div class="bg-surface-container border border-outline-variant rounded-DEFAULT p-gutter">
 <h3 class="font-title-sm text-title-sm text-on-surface mb-density-regular">Deployment Protocol</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant mb-gutter">Authorize the rollout of validated schemas to edge nodes across all specified jurisdictions.</p>
-<button class="w-full h-10 flex items-center justify-center gap-density-regular bg-surface-variant border border-primary text-primary font-title-sm text-title-sm rounded-DEFAULT hover:bg-primary hover:text-on-primary transition-all font-bold group">
+<button onclick="authorizeRollout()" class="w-full h-10 flex items-center justify-center gap-density-regular bg-surface-variant border border-primary text-primary font-title-sm text-title-sm rounded-DEFAULT hover:bg-primary hover:text-on-primary transition-all font-bold group cursor-pointer">
 <span class="material-symbols-outlined text-[18px] group-hover:animate-bounce">rocket_launch</span>
                         Authorize Rollout
                     </button>
@@ -474,31 +478,24 @@
 </div>
 </main>
 
-<style>
-/* Global Responsive Breakpoints & Mobile Fixes */
-@media (max-width: 768px) {
-  /* Force grid structures to stack in a single column */
-  .grid, .card-grid, .dashboard-grid, [class*="grid"] {
-    grid-template-columns: 1fr !important;
-  }
-  
-  /* Tables & data displays wrap cleanly with scroll support */
-  table, .table-container, [class*="table"] {
-    max-width: 100% !important;
-    overflow-x: auto !important;
-  }
-  
-  /* Prevent horizontal document overflow */
-  body, html {
-    overflow-x: hidden !important;
+<!-- Interactive Action Handlers (JavaScript) -->
+<script>
+  function exportFingerprints() {
+    alert("Exporting Envictica Schema Fingerprints...\n[SHA256 Multi-Sig Checksum Verified]");
   }
 
-  /* Bottom padding to prevent floating bars/dock from overlapping buttons */
-  body, main, .container, .page-wrapper {
-    padding-bottom: 90px !important;
+  function createSchema() {
+    alert("Opening Schema Definition Builder...");
   }
-}
-</style>
 
-<script src="envictica-ui.js"></script>
-</body></html>
+  function authorizeRollout() {
+    confirm("Are you sure you want to authorize rollout across all edge nodes?");
+  }
+
+  function triggerAction(msg) {
+    console.log("Action Triggered:", msg);
+    alert(msg);
+  }
+</script>
+</body>
+</html>
