@@ -180,6 +180,14 @@
             0%, 100% { opacity: 1; }
             50% { opacity: .5; }
         }
+        
+        .failover-flash {
+            animation: flashSuccess 0.5s ease-out;
+        }
+        @keyframes flashSuccess {
+            0% { background-color: rgba(0, 245, 212, 0.3); box-shadow: 0 0 20px #00F5D4; }
+            100% { background-color: transparent; box-shadow: none; }
+        }
     </style>
 </head>
 <body class="font-body-md text-body-md flex h-screen overflow-hidden">
@@ -220,7 +228,7 @@
 </a>
 </li>
 <li>
-<a class="flex items-center gap-3 px-3 py-2 text-error hover:bg-error-container transition-all rounded mt-stack-md border border-error/20" href="#">
+<a class="flex items-center gap-3 px-3 py-2 text-error hover:bg-error-container transition-all rounded mt-stack-md border border-error/20 cursor-pointer" onclick="executeFailover()">
 <span class="material-symbols-outlined" data-icon="bolt">bolt</span>
 <span class="font-label-caps text-label-caps">Kill Switch</span>
 </a>
@@ -258,7 +266,7 @@
 <span class="w-2 h-2 rounded-full bg-teal pulse-dot"></span>
 <span class="font-label-caps text-label-caps text-teal">MAL ONLINE</span>
 </div>
-<button class="bg-error text-on-error font-label-caps text-label-caps px-4 py-2 rounded flex items-center gap-2 hover:bg-error/90 transition-colors">
+<button class="bg-error text-on-error font-label-caps text-label-caps px-4 py-2 rounded flex items-center gap-2 hover:bg-error/90 transition-colors" onclick="executeFailover()">
 <span class="material-symbols-outlined text-[18px]">emergency</span>
                     EMERGENCY INTERVENTION
                 </button>
@@ -280,7 +288,7 @@
 <span class="material-symbols-outlined text-teal mb-1">trending_up</span>
 </div>
 </div>
-<div class="glass-panel rounded-xl p-5 border border-outline-variant flex flex-col justify-between h-32">
+<div class="glass-panel rounded-xl p-5 border border-outline-variant flex flex-col justify-between h-32 transition-colors duration-300" id="failover-metric">
 <span class="font-label-caps text-label-caps text-on-surface-variant">FAILOVER READINESS</span>
 <div class="flex items-end justify-between">
 <span class="font-display-lg text-display-lg text-primary">Sub-5<span class="text-2xl text-on-surface-variant">ms</span></span>
@@ -312,41 +320,41 @@
                     </h3>
 <div class="flex flex-col gap-4">
 <!-- Active Model -->
-<div class="bg-surface-container-high rounded p-4 border border-outline-variant flex items-center justify-between group hover:border-primary-fixed transition-colors">
+<div class="bg-surface-container-high rounded p-4 border border-outline-variant flex items-center justify-between group hover:border-primary-fixed transition-colors transition-all duration-300" id="model-primary">
 <div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center">
-<span class="material-symbols-outlined text-on-primary-container">psychology</span>
+<div class="w-10 h-10 rounded-full bg-primary-container flex items-center justify-center transition-colors" id="model-primary-icon-wrapper">
+<span class="material-symbols-outlined text-on-primary-container transition-colors" id="model-primary-icon">psychology</span>
 </div>
 <div>
 <div class="flex items-center gap-2">
 <h4 class="font-headline-md text-[18px] font-bold text-primary">GPT-4o</h4>
-<span class="bg-teal text-[#050608] px-2 py-0.5 rounded text-[10px] font-label-caps">ACTIVE (GROUNDED)</span>
+<span class="bg-teal text-[#050608] px-2 py-0.5 rounded text-[10px] font-label-caps transition-colors" id="model-primary-badge">ACTIVE (GROUNDED)</span>
 </div>
-<p class="font-data-numeral text-data-numeral text-on-surface-variant mt-1">Throughput: 14.2k req/s | Cluster: Alpha</p>
+<p class="font-data-numeral text-data-numeral text-on-surface-variant mt-1" id="model-primary-stats">Throughput: 14.2k req/s | Cluster: Alpha</p>
 </div>
 </div>
 <div class="text-right hidden sm:block">
-<div class="font-data-numeral text-data-numeral text-teal">99.9% Up</div>
-<div class="text-[12px] text-on-surface-variant mt-1">Latency: 112ms</div>
+<div class="font-data-numeral text-data-numeral text-teal transition-colors" id="model-primary-uptime">99.9% Up</div>
+<div class="text-[12px] text-on-surface-variant mt-1" id="model-primary-latency">Latency: 112ms</div>
 </div>
 </div>
 <!-- Standby Model -->
-<div class="bg-surface-container rounded p-4 border border-outline-variant flex items-center justify-between opacity-80">
+<div class="bg-surface-container rounded p-4 border border-outline-variant flex items-center justify-between opacity-80 transition-all duration-300" id="model-standby">
 <div class="flex items-center gap-4">
-<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center">
-<span class="material-symbols-outlined text-on-surface-variant">model_training</span>
+<div class="w-10 h-10 rounded-full bg-surface-variant flex items-center justify-center transition-colors" id="model-standby-icon-wrapper">
+<span class="material-symbols-outlined text-on-surface-variant transition-colors" id="model-standby-icon">model_training</span>
 </div>
 <div>
 <div class="flex items-center gap-2">
 <h4 class="font-headline-md text-[18px] font-bold text-on-surface">Claude 3.5 Sonnet</h4>
-<span class="border border-outline px-2 py-0.5 rounded text-[10px] font-label-caps text-outline">STANDBY</span>
+<span class="border border-outline px-2 py-0.5 rounded text-[10px] font-label-caps text-outline transition-colors" id="model-standby-badge">STANDBY</span>
 </div>
-<p class="font-data-numeral text-data-numeral text-on-surface-variant mt-1">Throughput: 0 req/s | Cluster: Beta</p>
+<p class="font-data-numeral text-data-numeral text-on-surface-variant mt-1" id="model-standby-stats">Throughput: 0 req/s | Cluster: Beta</p>
 </div>
 </div>
 <div class="text-right hidden sm:block">
-<div class="font-data-numeral text-data-numeral text-outline">Ready</div>
-<div class="text-[12px] text-on-surface-variant mt-1">Sync: &lt;1ms</div>
+<div class="font-data-numeral text-data-numeral text-outline transition-colors" id="model-standby-uptime">Ready</div>
+<div class="text-[12px] text-on-surface-variant mt-1" id="model-standby-latency">Sync: &lt;1ms</div>
 </div>
 </div>
 </div>
@@ -404,37 +412,61 @@
 <span class="material-symbols-outlined mb-1 text-[24px]">history</span>
 <span class="font-label-caps text-[10px] truncate w-full text-center">Logs</span>
 </a>
-<a class="flex flex-col items-center justify-center text-error p-2 w-16" href="#">
+<a class="flex flex-col items-center justify-center text-error p-2 w-16" href="#" onclick="executeFailover()">
 <span class="material-symbols-outlined mb-1 text-[24px]">emergency</span>
 <span class="font-label-caps text-[10px] truncate w-full text-center">Emergency</span>
 </a>
 </nav>
+<script>
+    function executeFailover() {
+        // Flash Failover Metric
+        const metric = document.getElementById('failover-metric');
+        metric.classList.add('failover-flash');
+        setTimeout(() => metric.classList.remove('failover-flash'), 500);
 
-<style>
-/* Global Responsive Breakpoints & Mobile Fixes */
-@media (max-width: 768px) {
-  /* Force grid structures to stack in a single column */
-  .grid, .card-grid, .dashboard-grid, [class*="grid"] {
-    grid-template-columns: 1fr !important;
-  }
-  
-  /* Tables & data displays wrap cleanly with scroll support */
-  table, .table-container, [class*="table"] {
-    max-width: 100% !important;
-    overflow-x: auto !important;
-  }
-  
-  /* Prevent horizontal document overflow */
-  body, html {
-    overflow-x: hidden !important;
-  }
+        // Update GPT-4o to Offline (Burnt Crimson #FF4D6D)
+        const gpt = document.getElementById('model-primary');
+        gpt.className = "bg-surface-container rounded p-4 border border-error/30 flex items-center justify-between opacity-70 transition-all duration-300";
+        
+        const gptIconWrap = document.getElementById('model-primary-icon-wrapper');
+        gptIconWrap.className = "w-10 h-10 rounded-full bg-error-container/20 flex items-center justify-center transition-colors";
+        
+        const gptIcon = document.getElementById('model-primary-icon');
+        gptIcon.className = "material-symbols-outlined text-crimson transition-colors";
+        gptIcon.textContent = "error";
+        
+        const gptBadge = document.getElementById('model-primary-badge');
+        gptBadge.className = "bg-crimson/10 border border-crimson text-crimson px-2 py-0.5 rounded text-[10px] font-label-caps transition-colors";
+        gptBadge.textContent = "OFFLINE";
+        
+        document.getElementById('model-primary-stats').textContent = "Throughput: 0 req/s | Cluster: Alpha";
+        
+        const gptUptime = document.getElementById('model-primary-uptime');
+        gptUptime.className = "font-data-numeral text-data-numeral text-crimson transition-colors";
+        gptUptime.textContent = "Failed";
+        document.getElementById('model-primary-latency').textContent = "Latency: N/A";
 
-  /* Bottom padding to prevent floating bars/dock from overlapping buttons */
-  body, main, .container, .page-wrapper {
-    padding-bottom: 90px !important;
-  }
-}
-</style>
-
-<script src="envictica-ui.js"></script>
+        // Update Claude to Active (Electric Teal #00F5D4)
+        const claude = document.getElementById('model-standby');
+        claude.className = "bg-surface-container-high rounded p-4 border border-outline-variant flex items-center justify-between group hover:border-primary-fixed transition-all duration-300 glow-edge-teal opacity-100";
+        
+        const claudeIconWrap = document.getElementById('model-standby-icon-wrapper');
+        claudeIconWrap.className = "w-10 h-10 rounded-full bg-teal/20 flex items-center justify-center transition-colors";
+        
+        const claudeIcon = document.getElementById('model-standby-icon');
+        claudeIcon.className = "material-symbols-outlined text-teal transition-colors";
+        claudeIcon.textContent = "psychology";
+        
+        const claudeBadge = document.getElementById('model-standby-badge');
+        claudeBadge.className = "bg-teal text-[#050608] px-2 py-0.5 rounded text-[10px] font-label-caps transition-colors";
+        claudeBadge.textContent = "ACTIVE";
+        
+        document.getElementById('model-standby-stats').textContent = "Throughput: 14.2k req/s | Cluster: Beta";
+        
+        const claudeUptime = document.getElementById('model-standby-uptime');
+        claudeUptime.className = "font-data-numeral text-data-numeral text-teal transition-colors";
+        claudeUptime.textContent = "99.9% Up";
+        document.getElementById('model-standby-latency').textContent = "Latency: 115ms";
+    }
+</script>
 </body></html>
