@@ -1,449 +1,361 @@
 <!DOCTYPE html>
-
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>OFFICIAL ENVICTICA MODULE: 06 OF 17 - Automated Ingestion Control</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-primary-fixed-variant": "#005236",
-                        "inverse-surface": "#e0e3e5",
-                        "on-tertiary-fixed-variant": "#3a485c",
-                        "tertiary-fixed": "#d5e3fd",
-                        "tertiary-container": "#95a4bb",
-                        "surface-container-lowest": "#0b0f10",
-                        "inverse-on-surface": "#2d3133",
-                        "primary": "#4edea3",
-                        "on-secondary-fixed-variant": "#3f465c",
-                        "on-tertiary": "#233144",
-                        "on-error": "#690005",
-                        "surface-bright": "#363a3b",
-                        "outline": "#86948a",
-                        "secondary-fixed-dim": "#bec6e0",
-                        "on-error-container": "#ffdad6",
-                        "inverse-primary": "#006c49",
-                        "tertiary": "#b9c7e0",
-                        "error-container": "#93000a",
-                        "surface-container-highest": "#323537",
-                        "on-secondary-container": "#adb4ce",
-                        "on-secondary": "#283044",
-                        "outline-variant": "#3c4a42",
-                        "surface-container-low": "#191c1e",
-                        "surface-dim": "#101415",
-                        "secondary-fixed": "#dae2fd",
-                        "primary-fixed-dim": "#4edea3",
-                        "on-primary-container": "#00422b",
-                        "on-secondary-fixed": "#131b2e",
-                        "surface-container-high": "#272a2c",
-                        "on-background": "#e0e3e5",
-                        "surface-variant": "#323537",
-                        "on-tertiary-fixed": "#0d1c2f",
-                        "error": "#ffb4ab",
-                        "secondary": "#bec6e0",
-                        "on-primary": "#003824",
-                        "primary-container": "#10b981",
-                        "on-primary-fixed": "#002113",
-                        "surface-tint": "#4edea3",
-                        "surface-container": "#1d2022",
-                        "on-tertiary-container": "#2c3a4e",
-                        "tertiary-fixed-dim": "#b9c7e0",
-                        "secondary-container": "#3f465c",
-                        "primary-fixed": "#6ffbbe",
-                        "on-surface": "#e0e3e5",
-                        "surface": "#101415",
-                        "on-surface-variant": "#bbcabf",
-                        "background": "#101415"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    "spacing": {
-                        "margin": "24px",
-                        "density-regular": "8px",
-                        "unit": "4px",
-                        "gutter": "12px",
-                        "density-compact": "4px"
-                    },
-                    "fontFamily": {
-                        "label-caps": ["JetBrains Mono"],
-                        "headline-md": ["Hanken Grotesk"],
-                        "data-mono": ["JetBrains Mono"],
-                        "title-sm": ["Hanken Grotesk"],
-                        "display-lg": ["Hanken Grotesk"],
-                        "body-sm": ["Hanken Grotesk"],
-                        "body-md": ["Hanken Grotesk"]
-                    },
-                    "fontSize": {
-                        "label-caps": ["11px", { "lineHeight": "16px", "fontWeight": "700" }],
-                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
-                        "data-mono": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
-                        "title-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
-                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }],
-                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }]
-                    }
-                }
-            }
-        }
-    </script>
-<style>
-        body { background-color: #0b0f10; color: #e0e3e5; }
-        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
-        
-        /* Custom Scrollbar for high-density feel */
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #101415; }
-        ::-webkit-scrollbar-thumb { background: #323537; border-radius: 2px; }
-        ::-webkit-scrollbar-thumb:hover { background: #4edea3; }
-        
-        .progress-bar-stripe {
-            background-image: linear-gradient(45deg, rgba(255, 255, 255, .15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, .15) 50%, rgba(255, 255, 255, .15) 75%, transparent 75%, transparent);
-            background-size: 1rem 1rem;
-            animation: progress-stripes 1s linear infinite;
-        }
-        @keyframes progress-stripes { from { background-position: 1rem 0; } to { background-position: 0 0; } }
+<html class="dark" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Envictica | Ingestion Control</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        background-color: #0d1117;
+        color: #e6edf3;
+        font-family: "Hanken Grotesk", sans-serif;
+      }
+      .sidebar {
+        background-color: #010409;
+        border-right: 1px solid #30363d;
+      }
+      .glass-card {
+        background: rgba(22, 27, 34, 0.8);
+        border: 1px solid #30363d;
+      }
+      .status-active {
+        color: #00f5d4;
+      }
+      .material-symbols-outlined {
+        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+      }
     </style>
-</head>
-<body class="bg-surface-container-lowest text-on-surface antialiased h-screen overflow-hidden flex font-body-md">
-<!-- SideNavBar (Shared Component) -->
-<nav class="fixed left-0 top-0 h-full w-[240px] flex flex-col py-stack-md z-40 bg-surface-container-low dark:bg-surface-container-lowest border-r border-outline-variant dark:border-outline">
-<div class="px-margin mb-8">
-<div class="text-headline-md font-headline-md font-black tracking-tight text-primary dark:text-primary-fixed">Envictica 06</div>
-<div class="text-label-caps font-label-caps text-on-surface-variant mt-1">Legal Knowledge Engineer</div>
-</div>
-<div class="flex-1 overflow-y-auto px-unit">
-<ul class="space-y-unit">
-<li>
-<a class="flex items-center gap-3 px-gutter py-density-regular rounded text-on-surface-variant hover:bg-surface-container-high transition-all font-label-md text-label-md" href="#">
-<span class="material-symbols-outlined text-[18px]">lan</span>
-                        Infrastructure
-                    </a>
-</li>
-<li>
-<a class="flex items-center gap-3 px-gutter py-density-regular rounded text-on-surface-variant hover:bg-surface-container-high transition-all font-label-md text-label-md" href="#">
-<span class="material-symbols-outlined text-[18px]">gavel</span>
-                        Governance
-                    </a>
-</li>
-<li>
-<a class="flex items-center gap-3 px-gutter py-density-regular rounded bg-secondary-container text-on-secondary-container font-semibold opacity-80 transition-opacity font-label-md text-label-md" href="#">
-<span class="material-symbols-outlined text-[18px]">account_tree</span>
-                        Pipelines
-                    </a>
-</li>
-<li>
-<a class="flex items-center gap-3 px-gutter py-density-regular rounded text-on-surface-variant hover:bg-surface-container-high transition-all font-label-md text-label-md" href="#">
-<span class="material-symbols-outlined text-[18px]">fact_check</span>
-                        Data Validation
-                    </a>
-</li>
-<li>
-<a class="flex items-center gap-3 px-gutter py-density-regular rounded text-on-surface-variant hover:bg-surface-container-high transition-all font-label-md text-label-md" href="#">
-<span class="material-symbols-outlined text-[18px]">history</span>
-                        Audit Logs
-                    </a>
-</li>
-</ul>
-</div>
-<div class="px-margin mt-auto mb-4">
-<button class="w-full bg-primary text-surface-container-lowest py-density-regular px-gutter rounded font-label-caps text-label-caps uppercase hover:bg-primary-fixed transition-colors">
-                New System Audit
+  </head>
+  <body class="min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+    <!-- Side Navigation -->
+    <aside
+      class="w-full md:w-64 sidebar flex flex-col h-screen sticky top-0 z-50"
+    >
+      <div class="p-6 border-b border-[#30363d] mb-4">
+        <h1 class="text-xl font-black tracking-tighter text-white">
+          ENVICTICA
+        </h1>
+        <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">
+          Infrastructure Control
+        </p>
+      </div>
+      <nav class="flex-1 px-4 space-y-1">
+        <a
+          href="command-center.html"
+          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
+        >
+          <span class="material-symbols-outlined text-lg">dashboard</span>
+          Command Center
+        </a>
+        <a
+          href="pipeline-injest.html"
+          class="flex items-center gap-3 px-3 py-2.5 text-[#00f5d4] bg-[#00f5d4]/5 border-l-2 border-[#00f5d4] text-sm font-semibold"
+        >
+          <span class="material-symbols-outlined text-lg">account_tree</span>
+          Ingestion Control
+        </a>
+        <a
+          href="governance-access.html"
+          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
+        >
+          <span class="material-symbols-outlined text-lg">gavel</span>
+          Governance
+        </a>
+        <a
+          href="risk-matrix.html"
+          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
+        >
+          <span class="material-symbols-outlined text-lg">warning</span>
+          Risk Matrix
+        </a>
+        <a
+          href="compliance-logs.html"
+          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
+        >
+          <span class="material-symbols-outlined text-lg">receipt_long</span>
+          Audit Logs
+        </a>
+      </nav>
+      <div class="p-4 border-t border-[#30363d] mt-auto">
+        <div
+          class="flex items-center gap-2 px-3 py-2 text-[11px] font-bold text-[#00f5d4] uppercase tracking-widest"
+        >
+          <span class="w-2 h-2 rounded-full bg-[#00f5d4] animate-pulse"></span>
+          System Healthy
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col min-h-screen">
+      <header
+        class="h-16 border-b border-[#30363d] flex items-center justify-between px-8 bg-[#0d1117]/80 backdrop-blur-md sticky top-0 z-40"
+      >
+        <div
+          class="text-[11px] font-bold text-slate-500 uppercase tracking-[0.2em]"
+        >
+          PATH: ENV / INFRA / PIPELINE_06
+        </div>
+        <div class="flex items-center gap-6">
+          <div class="flex items-center gap-2">
+            <span
+              class="text-[10px] text-slate-500 font-bold uppercase tracking-widest"
+            >
+              Uptime
+            </span>
+            <span class="text-[14px] font-mono text-white">99.999%</span>
+          </div>
+          <button
+            class="p-2 text-slate-400 hover:text-white transition-colors"
+          >
+            <span class="material-symbols-outlined">settings</span>
+          </button>
+        </div>
+      </header>
+
+      <div class="p-8 space-y-8">
+        <!-- Metrics Row -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div class="glass-card p-6 rounded-sm">
+            <div
+              class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
+            >
+              Ingestion Velocity
+            </div>
+            <div class="text-3xl font-mono text-white">
+              12.4k<span class="text-xs text-slate-500 ml-1">cls/sec</span>
+            </div>
+          </div>
+          <div class="glass-card p-6 rounded-sm">
+            <div
+              class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
+            >
+              Structural Integrity
+            </div>
+            <div class="text-3xl font-mono text-[#00f5d4]">99.9%</div>
+          </div>
+          <div class="glass-card p-6 rounded-sm border-[#ff4d6d]/20">
+            <div
+              class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
+            >
+              ACB Status
+            </div>
+            <div class="text-xl font-mono text-slate-400">
+              Passive Monitoring
+            </div>
+          </div>
+          <div class="glass-card p-6 rounded-sm">
+            <div
+              class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
+            >
+              Data Debt Mitigated
+            </div>
+            <div class="text-3xl font-mono text-white">$4.2M</div>
+          </div>
+        </div>
+
+        <!-- Content Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <!-- Live Feed -->
+          <div class="lg:col-span-2 glass-card rounded-sm flex flex-col">
+            <div
+              class="p-4 border-b border-[#30363d] flex justify-between items-center bg-white/5"
+            >
+              <h2
+                class="text-[11px] font-bold uppercase tracking-widest flex items-center gap-2"
+              >
+                <span class="material-symbols-outlined text-sm text-[#00f5d4]">
+                  bolt
+                </span>
+                Live Ingestion Feed
+              </h2>
+              <span
+                class="text-[9px] font-mono text-[#00f5d4] animate-pulse"
+              >
+                ACTIVE POLLING
+              </span>
+            </div>
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead
+                  class="text-[10px] text-slate-500 uppercase font-bold bg-black/20"
+                >
+                  <tr>
+                    <th class="px-6 py-3 border-b border-[#30363d]">Status</th>
+                    <th class="px-6 py-3 border-b border-[#30363d]">
+                      Batch Name / Source
+                    </th>
+                    <th class="px-6 py-3 border-b border-[#30363d]">
+                      Progress
+                    </th>
+                    <th class="px-6 py-3 border-b border-[#30363d] text-right">
+                      Size
+                    </th>
+                  </tr>
+                </thead>
+                <tbody class="text-[13px] font-mono">
+                  <tr class="border-b border-[#30363d] hover:bg-white/5">
+                    <td class="px-6 py-4">
+                      <span
+                        class="material-symbols-outlined text-[#00f5d4] animate-spin"
+                      >
+                        sync
+                      </span>
+                    </td>
+                    <td class="px-6 py-4">
+                      <div class="text-white">Volume 12 Case Files</div>
+                      <div class="text-[10px] text-slate-500">
+                        s3://lex-client-alpha/raw/
+                      </div>
+                    </td>
+                    <td class="px-6 py-4">
+                      <div
+                        class="w-full bg-slate-800 h-1 rounded-full overflow-hidden"
+                      >
+                        <div
+                          class="bg-[#00f5d4] h-full"
+                          style="width: 78%"
+                        ></div>
+                      </div>
+                      <div class="text-[9px] text-slate-500 mt-1">
+                        78% COMPLETE
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 text-right text-slate-400">4.2 GB</td>
+                  </tr>
+                  <tr class="border-b border-[#30363d] hover:bg-white/5">
+                    <td class="px-6 py-4">
+                      <span class="material-symbols-outlined text-[#00f5d4]">
+                        check_circle
+                      </span>
+                    </td>
+                    <td class="px-6 py-4">
+                      <div class="text-white">
+                        Deposition Transcripts - Smith
+                      </div>
+                      <div class="text-[10px] text-slate-500">
+                        sharepoint://legal-ops/transcripts/
+                      </div>
+                    </td>
+                    <td class="px-6 py-4">
+                      <div
+                        class="w-full bg-slate-800 h-1 rounded-full overflow-hidden"
+                      >
+                        <div
+                          class="bg-[#00f5d4] h-full"
+                          style="width: 100%"
+                        ></div>
+                      </div>
+                      <div class="text-[9px] text-[#00f5d4] mt-1">VERIFIED</div>
+                    </td>
+                    <td class="px-6 py-4 text-right text-slate-400">850 MB</td>
+                  </tr>
+                  <tr class="hover:bg-white/5 border-b border-[#30363d]">
+                    <td class="px-6 py-4">
+                      <span class="material-symbols-outlined text-[#ff4d6d]">
+                        error
+                      </span>
+                    </td>
+                    <td class="px-6 py-4">
+                      <div class="text-[#ff4d6d]">Legacy Contract Archive</div>
+                      <div class="text-[10px] text-slate-500">
+                        s3://lex-archive-cold/2018/
+                      </div>
+                    </td>
+                    <td class="px-6 py-4">
+                      <div
+                        class="w-full bg-slate-800 h-1 rounded-full overflow-hidden"
+                      >
+                        <div
+                          class="bg-[#ff4d6d] h-full"
+                          style="width: 45%"
+                        ></div>
+                      </div>
+                      <div class="text-[9px] text-[#ff4d6d] mt-1">
+                        SCHEMA MISMATCH
+                      </div>
+                    </td>
+                    <td class="px-6 py-4 text-right text-slate-400">12 GB</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Source Connections -->
+          <div class="glass-card rounded-sm p-6 flex flex-col gap-6">
+            <div class="flex justify-between items-center">
+              <h2 class="text-[11px] font-bold uppercase tracking-widest">
+                Source Connections
+              </h2>
+              <button class="text-[#00f5d4] hover:opacity-80">
+                <span class="material-symbols-outlined text-lg">
+                  add_circle
+                </span>
+              </button>
+            </div>
+            <div class="space-y-3">
+              <div
+                class="p-4 bg-white/5 border border-[#30363d] rounded flex items-center gap-4"
+              >
+                <span class="material-symbols-outlined text-white/50">
+                  cloud_done
+                </span>
+                <div>
+                  <div class="text-sm font-bold">AWS S3 Bucket</div>
+                  <div
+                    class="text-[10px] text-slate-500 font-mono text-ellipsis overflow-hidden"
+                  >
+                    lex-client-alpha
+                  </div>
+                </div>
+              </div>
+              <div
+                class="p-4 bg-white/5 border border-[#30363d] rounded flex items-center gap-4"
+              >
+                <span class="material-symbols-outlined text-white/50">
+                  folder_shared
+                </span>
+                <div>
+                  <div class="text-sm font-bold">SharePoint Legal Ops</div>
+                  <div
+                    class="text-[10px] text-slate-500 font-mono text-ellipsis overflow-hidden"
+                  >
+                    /transcripts/2023
+                  </div>
+                </div>
+              </div>
+              <div
+                class="p-4 bg-white/5 border border-[#30363d] rounded flex items-center gap-4 opacity-50 grayscale"
+              >
+                <span class="material-symbols-outlined">storage</span>
+                <div>
+                  <div class="text-sm font-bold text-slate-400">
+                    Legacy FTP Server
+                  </div>
+                  <div class="text-[10px] text-slate-500 font-mono">
+                    ftp://edgar-mirror.local
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button
+              class="w-full mt-auto py-3 bg-white/5 border border-white/10 text-[11px] font-bold uppercase tracking-widest hover:bg-white/10 transition-all"
+            >
+              NEW SYSTEM AUDIT
             </button>
-</div>
-<div class="border-t border-outline-variant pt-4 px-unit">
-<ul class="space-y-unit">
-<li>
-<a class="flex items-center gap-3 px-gutter py-density-regular rounded text-on-surface-variant hover:bg-surface-container-high transition-all font-label-md text-label-md" href="#">
-<span class="material-symbols-outlined text-[18px]">settings</span>
-                        Settings
-                    </a>
-</li>
-<li>
-<a class="flex items-center gap-3 px-gutter py-density-regular rounded text-on-surface-variant hover:bg-surface-container-high transition-all font-label-md text-label-md" href="#">
-<span class="material-symbols-outlined text-[18px]">help</span>
-                        Support
-                    </a>
-</li>
-</ul>
-</div>
-</nav>
-<!-- Main Content Area -->
-<main class="ml-[240px] flex-1 flex flex-col h-full overflow-hidden relative">
-<!-- TopAppBar (Shared Component) -->
-<header class="fixed top-0 left-[240px] right-0 z-50 flex justify-between items-center px-margin h-14 bg-surface dark:bg-surface-container-low border-b border-outline-variant dark:border-outline">
-<div class="flex items-center gap-4">
-<span class="text-headline-sm font-headline-sm font-bold text-primary dark:text-primary-fixed">ENV / INFRA / PIPELINE_06</span>
-<div class="h-4 w-px bg-outline-variant"></div>
-<div class="flex gap-4">
-<span class="text-primary font-bold border-b-2 border-primary pb-[14px] translate-y-[8px] text-label-md font-label-md">Automated Ingestion</span>
-<span class="text-on-surface-variant text-label-md font-label-md hover:bg-surface-container-highest transition-colors duration-150 py-1 px-2 rounded cursor-pointer">Processing Nodes</span>
-</div>
-</div>
-<div class="flex items-center gap-6">
-<div class="flex items-center gap-3">
-<div class="flex items-center gap-1.5 text-data-mono font-data-mono text-primary">
-<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-                        System Healthy
-                    </div>
-<div class="h-4 w-px bg-outline-variant mx-2"></div>
-<div class="text-data-mono font-data-mono text-secondary">
-                        ROI Tracking Active
-                    </div>
-</div>
-<div class="flex gap-2 text-on-surface-variant">
-<button class="hover:bg-surface-container-highest p-1.5 rounded transition-colors"><span class="material-symbols-outlined">settings</span></button>
-<button class="hover:bg-surface-container-highest p-1.5 rounded transition-colors relative">
-<span class="material-symbols-outlined">notifications</span>
-<span class="absolute top-1 right-1 w-2 h-2 bg-error rounded-full"></span>
-</button>
-<button class="hover:bg-surface-container-highest p-1.5 rounded transition-colors"><span class="material-symbols-outlined">account_tree</span></button>
-</div>
-</div>
-</header>
-<!-- Scrollable Dashboard Content -->
-<div class="flex-1 overflow-y-auto mt-14 p-margin grid grid-cols-12 gap-gutter content-start">
-<!-- Breadcrumbs & Page Header -->
-<div class="col-span-12 flex justify-between items-end mb-4">
-<div>
-<div class="text-data-mono font-data-mono text-on-surface-variant flex items-center gap-2 mb-2">
-<span>root</span>
-<span class="material-symbols-outlined text-[14px]">chevron_right</span>
-<span>pipelines</span>
-<span class="material-symbols-outlined text-[14px]">chevron_right</span>
-<span class="text-on-surface">pipeline_06_ingest</span>
-</div>
-<h1 class="text-display-lg font-display-lg text-on-surface">Automated Ingestion Control</h1>
-</div>
-<div class="flex gap-4">
-<div class="bg-surface-container border border-outline-variant rounded p-density-regular flex flex-col min-w-[120px]">
-<span class="text-label-caps font-label-caps text-on-surface-variant uppercase mb-1">Throughput</span>
-<span class="text-data-mono font-data-mono text-primary text-lg">12.4k Clauses/Sec</span>
-</div>
-<div class="bg-surface-container border border-outline-variant rounded p-density-regular flex flex-col min-w-[120px]"><span class="text-label-caps font-label-caps text-on-surface-variant uppercase mb-1">Data Debt Mitigated</span><span class="text-data-mono font-data-mono text-secondary text-lg">$4.2M</span></div>
-</div>
-</div>
-<!-- Left Column (Live Feed) -->
-<div class="col-span-12 xl:col-span-8 flex flex-col gap-gutter">
-<!-- Live Ingestion Feed -->
-<section class="bg-surface dark:bg-surface-dim border border-outline-variant rounded flex flex-col flex-1">
-<div class="px-gutter py-density-regular border-b border-outline-variant flex justify-between items-center bg-surface-container-lowest">
-<h2 class="text-title-sm font-title-sm flex items-center gap-2">
-<span class="material-symbols-outlined text-primary text-[20px]">stream</span>
-                            Live Ingestion Feed
-                        </h2>
-<span class="text-label-caps font-label-caps bg-primary/10 text-primary px-2 py-1 rounded border border-primary/20">ACTIVE POLLING</span>
-</div>
-<!-- Data Grid (Zebra Striped) -->
-<div class="flex-1 overflow-y-auto">
-<table class="w-full text-left border-collapse">
-<thead class="sticky top-0 bg-surface-container-lowest border-b border-outline-variant z-10">
-<tr>
-<th class="px-gutter py-density-regular text-label-caps font-label-caps text-on-surface-variant uppercase w-12">Status</th>
-<th class="px-gutter py-density-regular text-label-caps font-label-caps text-on-surface-variant uppercase">Batch Name / Source</th>
-<th class="px-gutter py-density-regular text-label-caps font-label-caps text-on-surface-variant uppercase w-1/3">Progress</th>
-<th class="px-gutter py-density-regular text-label-caps font-label-caps text-on-surface-variant uppercase text-right w-24">Size</th>
-</tr>
-</thead>
-<tbody class="text-body-sm font-body-sm">
-<tr class="border-b border-outline-variant/30 hover:bg-surface-container-highest transition-colors">
-<td class="px-gutter py-density-regular text-center">
-<span class="material-symbols-outlined text-primary text-[18px]">sync</span>
-</td>
-<td class="px-gutter py-density-regular">
-<div class="font-semibold text-on-surface">Volume 12 Case Files</div>
-<div class="text-data-mono font-data-mono text-on-surface-variant text-[11px]">s3://lex-client-alpha/raw/</div>
-</td>
-<td class="px-gutter py-density-regular align-middle">
-<div class="flex items-center gap-3">
-<div class="w-full bg-surface-container-highest h-2 rounded overflow-hidden">
-<div class="bg-primary h-full progress-bar-stripe" style="width: 78%"></div>
-</div>
-<span class="text-data-mono font-data-mono text-on-surface w-8 text-right">78%</span>
-</div>
-</td>
-<td class="px-gutter py-density-regular text-right text-data-mono font-data-mono">4.2 GB</td>
-</tr>
-<tr class="bg-surface-container-lowest/50 border-b border-outline-variant/30 hover:bg-surface-container-highest transition-colors">
-<td class="px-gutter py-density-regular text-center">
-<span class="material-symbols-outlined text-primary text-[18px]">sync</span>
-</td>
-<td class="px-gutter py-density-regular">
-<div class="font-semibold text-on-surface">SEC Filings Q3 (Tech Sector)</div>
-<div class="text-data-mono font-data-mono text-on-surface-variant text-[11px]">ftp://edgar-mirror.local/</div>
-</td>
-<td class="px-gutter py-density-regular align-middle">
-<div class="flex items-center gap-3">
-<div class="w-full bg-surface-container-highest h-2 rounded overflow-hidden">
-<div class="bg-primary h-full progress-bar-stripe" style="width: 42%"></div>
-</div>
-<span class="text-data-mono font-data-mono text-on-surface w-8 text-right">42%</span>
-</div>
-</td>
-<td class="px-gutter py-density-regular text-right text-data-mono font-data-mono">1.8 GB</td>
-</tr>
-<tr class="border-b border-outline-variant/30 hover:bg-surface-container-highest transition-colors">
-<td class="px-gutter py-density-regular text-center">
-<span class="material-symbols-outlined text-outline text-[18px]">check_circle</span>
-</td>
-<td class="px-gutter py-density-regular">
-<div class="font-semibold text-on-surface">Deposition Transcripts - Smith v. Jones</div>
-<div class="text-data-mono font-data-mono text-on-surface-variant text-[11px]">sharepoint://legal-ops/transcripts/</div>
-</td>
-<td class="px-gutter py-density-regular align-middle">
-<div class="flex items-center gap-3">
-<div class="w-full bg-surface-container-highest h-2 rounded overflow-hidden">
-<div class="bg-outline h-full" style="width: 100%"></div>
-</div>
-<span class="text-data-mono font-data-mono text-outline w-8 text-right">100%</span>
-</div>
-</td>
-<td class="px-gutter py-density-regular text-right text-data-mono font-data-mono">850 MB</td>
-</tr>
-<tr class="bg-surface-container-lowest/50 border-b border-outline-variant/30 hover:bg-surface-container-highest transition-colors">
-<td class="px-gutter py-density-regular text-center">
-<span class="material-symbols-outlined text-error text-[18px]">error</span>
-</td>
-<td class="px-gutter py-density-regular">
-<div class="font-semibold text-error">Legacy Contract Archive (Corrupted Zip)</div>
-<div class="text-data-mono font-data-mono text-on-surface-variant text-[11px]">s3://lex-archive-cold/2018/</div>
-</td>
-<td class="px-gutter py-density-regular align-middle">
-<div class="flex items-center gap-3">
-<div class="w-full bg-surface-container-highest h-2 rounded overflow-hidden">
-<div class="bg-error h-full" style="width: 15%"></div>
-</div>
-<span class="text-data-mono font-data-mono text-error w-8 text-right">ERR</span>
-</div>
-</td>
-<td class="px-gutter py-density-regular text-right text-data-mono font-data-mono">12 GB</td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-</div>
-<!-- Right Column -->
-<div class="col-span-12 xl:col-span-4 flex flex-col gap-gutter">
-<!-- Classification Engine Status -->
-<section class="bg-surface border border-outline-variant rounded flex flex-col">
-<div class="px-gutter py-density-regular border-b border-outline-variant bg-surface-container-lowest">
-<h2 class="text-title-sm font-title-sm flex items-center gap-2">
-<span class="material-symbols-outlined text-secondary text-[20px]">psychology</span>
-                            Classification Engine
-                        </h2>
-</div>
-<div class="p-gutter grid grid-cols-2 gap-unit">
-<div class="bg-surface-container-lowest border border-outline-variant p-density-regular rounded text-center">
-<div class="text-display-lg font-display-lg text-primary">94.2%</div>
-<div class="text-label-caps font-label-caps text-on-surface-variant uppercase mt-1">Auto-Tagged</div>
-</div>
-<div class="bg-surface-container-lowest border border-error/30 p-density-regular rounded text-center relative overflow-hidden">
-<div class="absolute inset-0 bg-error/5"></div>
-<div class="text-display-lg font-display-lg text-error relative z-10">5.8%</div>
-<div class="text-label-caps font-label-caps text-on-surface-variant uppercase mt-1 relative z-10">Manual Repair Queue</div>
-</div>
-</div>
-<div class="px-gutter pb-gutter">
-<div class="flex justify-between text-label-caps font-label-caps text-on-surface-variant mb-1">
-<span>NLP Model Confidence Threshold</span>
-<span>0.85</span>
-</div>
-<div class="w-full bg-surface-container-highest h-1 rounded overflow-hidden">
-<div class="bg-secondary h-full w-[85%]"></div>
-</div>
-</div>
-</section>
-<!-- Source Configuration -->
-<section class="bg-surface border border-outline-variant rounded flex flex-col flex-1">
-<div class="px-gutter py-density-regular border-b border-outline-variant bg-surface-container-lowest flex justify-between items-center">
-<h2 class="text-title-sm font-title-sm flex items-center gap-2">
-<span class="material-symbols-outlined text-tertiary text-[20px]">settings_input_component</span>
-                            Source Connections
-                        </h2>
-<button class="text-primary hover:bg-surface-container p-1 rounded transition-colors"><span class="material-symbols-outlined text-[20px]">add</span></button>
-</div>
-<div class="p-gutter flex flex-col gap-unit overflow-y-auto">
-<!-- Connection Card -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded p-density-regular flex items-center justify-between hover:border-primary transition-colors cursor-pointer group">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center">
-<span class="material-symbols-outlined text-on-surface-variant text-[18px]">cloud</span>
-</div>
-<div>
-<div class="text-body-md font-body-md font-semibold text-on-surface">AWS S3 Bucket</div>
-<div class="text-data-mono font-data-mono text-on-surface-variant text-[11px]">lex-client-alpha</div>
-</div>
-</div>
-<div class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(78,222,163,0.6)]"></div>
-</div>
-<!-- Connection Card -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded p-density-regular flex items-center justify-between hover:border-primary transition-colors cursor-pointer group">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center">
-<span class="material-symbols-outlined text-on-surface-variant text-[18px]">folder_shared</span>
-</div>
-<div>
-<div class="text-body-md font-body-md font-semibold text-on-surface">SharePoint Legal Ops</div>
-<div class="text-data-mono font-data-mono text-on-surface-variant text-[11px]">/transcripts/2023</div>
-</div>
-</div>
-<div class="w-2 h-2 rounded-full bg-primary shadow-[0_0_8px_rgba(78,222,163,0.6)]"></div>
-</div>
-<!-- Connection Card -->
-<div class="bg-surface-container-lowest border border-outline-variant rounded p-density-regular flex items-center justify-between hover:border-primary transition-colors cursor-pointer group opacity-60">
-<div class="flex items-center gap-3">
-<div class="w-8 h-8 rounded bg-surface-container flex items-center justify-center">
-<span class="material-symbols-outlined text-on-surface-variant text-[18px]">dns</span>
-</div>
-<div>
-<div class="text-body-md font-body-md font-semibold text-on-surface">Legacy FTP Server</div>
-<div class="text-data-mono font-data-mono text-on-surface-variant text-[11px]">ftp://edgar-mirror.local</div>
-</div>
-</div>
-<div class="w-2 h-2 rounded-full bg-outline"></div>
-</div>
-</div>
-</section>
-</div>
-</div>
-</main>
-
-<style>
-/* Global Responsive Breakpoints & Mobile Fixes */
-@media (max-width: 768px) {
-  /* Force grid structures to stack in a single column */
-  .grid, .card-grid, .dashboard-grid, [class*="grid"] {
-    grid-template-columns: 1fr !important;
-  }
-  
-  /* Tables & data displays wrap cleanly with scroll support */
-  table, .table-container, [class*="table"] {
-    max-width: 100% !important;
-    overflow-x: auto !important;
-  }
-  
-  /* Prevent horizontal document overflow */
-  body, html {
-    overflow-x: hidden !important;
-  }
-
-  /* Bottom padding to prevent floating bars/dock from overlapping buttons */
-  body, main, .container, .page-wrapper {
-    padding-bottom: 90px !important;
-  }
-}
-</style>
-
-<script src="envictica-ui.js"></script>
-</body></html>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>
