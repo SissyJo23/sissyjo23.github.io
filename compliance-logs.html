@@ -1,329 +1,149 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Envictica | Compliance Audit Logs</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        background-color: #0d1117;
-        color: #e6edf3;
-        font-family: "Hanken Grotesk", sans-serif;
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Compliance Audit Logs - Envictica</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  
+  <!-- Tailwind Custom Configuration -->
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#00F5D4",         // Electric Teal
+            "env-alert": "#FF4D6D",      // Burnt Crimson
+            surface: "#0b0f10",
+            "surface-container": "#121318",
+            "on-surface": "#e3e1e9",
+            "on-surface-variant": "#9ca3af",
+            "outline-variant": "rgba(0, 245, 212, 0.1)"
+          },
+          fontFamily: {
+            "label-caps": ["JetBrains Mono", "monospace"],
+            "headline-md": ["Sora", "sans-serif"],
+            "data-numeral": ["JetBrains Mono", "monospace"],
+            "body-md": ["Inter", "sans-serif"]
+          }
+        }
       }
-      .sidebar {
-        background-color: #010409;
-        border-right: 1px solid #30363d;
-      }
-      .glass-card {
-        background: rgba(22, 27, 34, 0.8);
-        border: 1px solid #30363d;
-      }
-      .material-symbols-outlined {
-        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-      }
-      .ticker-text {
-        font-family: "JetBrains Mono", monospace;
-      }
-    </style>
-  </head>
-  <body class="min-h-screen flex flex-col md:flex-row overflow-x-hidden">
-    <!-- Side Navigation -->
-    <aside
-      class="w-full md:w-64 sidebar flex flex-col h-screen sticky top-0 z-50"
-    >
-      <div class="p-6 border-b border-[#30363d] mb-4">
-        <h1 class="text-xl font-black tracking-tighter text-white">
-          ENVICTICA
-        </h1>
-        <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">
-          Infrastructure Control
-        </p>
+    };
+  </script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@500;700&family=Sora:wght@300;600;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet" />
+  
+  <style>
+    body {
+      background-color: #050608;
+      color: #e3e1e9;
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+    .audit-table-container {
+      -webkit-overflow-scrolling: touch;
+    }
+    .teal-glow {
+      box-shadow: 0 0 15px rgba(0, 245, 212, 0.15);
+    }
+  </style>
+</head>
+
+<body class="flex flex-col min-h-screen font-body-md antialiased overflow-x-hidden">
+  
+  <!-- Header -->
+  <header class="bg-surface-container border-b border-outline-variant sticky top-0 z-50 flex justify-between items-center px-4 md:px-8 h-16">
+    <h1 class="text-2xl font-black text-white italic tracking-tighter">ENVICTICA</h1>
+    <div class="flex items-center gap-4">
+      <div class="px-3 py-1.5 border border-primary bg-primary/10 rounded-sm hidden xs:flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+        <span class="font-label-caps text-[10px] text-primary font-bold tracking-widest">LOGGING: ACTIVE</span>
       </div>
-      <nav class="flex-1 px-4 space-y-1">
-        <a
-          href="command-center.html"
-          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
-        >
-          <span class="material-symbols-outlined text-lg">dashboard</span>
-          Command Center
-        </a>
-        <a
-          href="pipeline-injest.html"
-          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
-        >
-          <span class="material-symbols-outlined text-lg">account_tree</span>
-          Ingestion Control
-        </a>
-        <a
-          href="governance-access.html"
-          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
-        >
-          <span class="material-symbols-outlined text-lg">gavel</span>
-          Governance
-        </a>
-        <a
-          href="risk-matrix.html"
-          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
-        >
-          <span class="material-symbols-outlined text-lg">warning</span>
-          Risk Matrix
-        </a>
-        <a
-          href="compliance-logs.html"
-          class="flex items-center gap-3 px-3 py-2.5 text-[#00f5d4] bg-[#00f5d4]/5 border-l-2 border-[#00f5d4] text-sm font-semibold"
-        >
-          <span class="material-symbols-outlined text-lg">receipt_long</span>
-          Audit Logs
-        </a>
-      </nav>
-      <div class="p-4 border-t border-[#30363d] mt-auto">
-        <div
-          class="flex items-center gap-2 px-3 py-2 text-[11px] font-bold text-[#00f5d4] uppercase tracking-widest"
-        >
-          <span class="w-2 h-2 rounded-full bg-[#00f5d4] animate-pulse"></span>
-          System Healthy
-        </div>
+      <button class="p-2 text-on-surface-variant hover:text-primary transition-colors" aria-label="Settings">
+        <span class="material-symbols-outlined">settings</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col p-4 md:p-8 gap-8">
+    <div class="flex flex-col gap-2">
+      <h2 class="text-3xl font-headline-md font-black text-white italic uppercase tracking-tight">Compliance Ledger</h2>
+      <p class="font-label-caps text-[11px] text-on-surface-variant tracking-widest uppercase">Envictica Fiduciary Data Infrastructure</p>
+    </div>
+
+    <!-- Metrics Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div class="bg-surface border border-outline-variant p-5 flex flex-col gap-4 teal-glow">
+        <span class="font-label-caps text-[10px] text-white uppercase tracking-widest font-bold">Total Audit Events</span>
+        <span class="font-data-numeral text-4xl text-primary font-light">14,208</span>
       </div>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="flex-1 flex flex-col min-h-screen">
-      <header
-        class="h-16 border-b border-[#30363d] flex items-center justify-between px-8 bg-[#0d1117]/80 backdrop-blur-md sticky top-0 z-40"
-      >
-        <div
-          class="text-[11px] font-bold text-slate-500 uppercase tracking-[0.2em]"
-        >
-          PATH: ENV / INFRA / AUDIT_05
-        </div>
-        <div class="flex items-center gap-6">
-          <div
-            class="flex items-center gap-3 px-3 py-1 bg-[#00f5d4]/10 border border-[#00f5d4]/20 rounded-full"
-          >
-            <span
-              class="text-[9px] font-bold text-[#00f5d4] uppercase tracking-widest"
-              >Logging Active</span
-            >
-            <div
-              class="w-1.5 h-1.5 rounded-full bg-[#00f5d4] animate-pulse"
-            ></div>
-          </div>
-          <button
-            class="p-2 text-slate-400 hover:text-white transition-colors"
-          >
-            <span class="material-symbols-outlined">settings</span>
-          </button>
-        </div>
-      </header>
-
-      <div class="p-8 space-y-8">
-        <!-- Summary Stats -->
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="glass-card p-6 rounded-sm">
-            <div
-              class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
-            >
-              Total Audit Events
-            </div>
-            <div class="text-4xl font-mono text-white tracking-tighter">
-              14,208
-            </div>
-          </div>
-          <div class="glass-card p-6 rounded-sm">
-            <div
-              class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
-            >
-              Active Monitors
-            </div>
-            <div class="text-4xl font-mono text-[#00f5d4] tracking-tighter">
-              42 <span class="text-sm text-slate-500">/ 42</span>
-            </div>
-          </div>
-          <div class="glass-card p-6 rounded-sm">
-            <div
-              class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
-            >
-              Last Verified Hash
-            </div>
-            <div class="text-lg font-mono text-white truncate">
-              0x9f8c...a1b2
-            </div>
-          </div>
-        </div>
-
-        <!-- Ledger Table -->
-        <div class="glass-card rounded-sm overflow-hidden flex flex-col">
-          <div
-            class="p-4 border-b border-[#30363d] flex justify-between items-center bg-white/5"
-          >
-            <div class="flex gap-4">
-              <button
-                class="px-3 py-1.5 bg-[#00f5d4] text-black text-[10px] font-bold uppercase tracking-widest rounded-sm"
-              >
-                Security Logs
-              </button>
-              <button
-                class="px-3 py-1.5 bg-white/5 text-slate-400 text-[10px] font-bold uppercase tracking-widest hover:text-white transition-colors"
-              >
-                Data Ingestion
-              </button>
-              <button
-                class="px-3 py-1.5 bg-white/5 text-slate-400 text-[10px] font-bold uppercase tracking-widest hover:text-white transition-colors"
-              >
-                LLM Drift Checks
-              </button>
-            </div>
-            <button
-              class="flex items-center gap-2 px-4 py-1.5 border border-white/10 text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 transition-all"
-            >
-              <span class="material-symbols-outlined text-sm">download</span>
-              Export Compliance Report
-            </button>
-          </div>
-          <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse">
-              <thead
-                class="text-[10px] text-slate-500 uppercase font-bold bg-black/20"
-              >
-                <tr>
-                  <th class="px-6 py-4 border-b border-[#30363d]">
-                    Timestamp (UTC)
-                  </th>
-                  <th class="px-6 py-4 border-b border-[#30363d]">
-                    Actor / Crypt-ID
-                  </th>
-                  <th class="px-6 py-4 border-b border-[#30363d]">
-                    Action Type
-                  </th>
-                  <th class="px-6 py-4 border-b border-[#30363d]">
-                    Target Entity
-                  </th>
-                  <th class="px-6 py-4 border-b border-[#30363d] text-center">
-                    Status
-                  </th>
-                </tr>
-              </thead>
-              <tbody class="text-[12px] ticker-text">
-                <tr
-                  class="border-b border-[#30363d] hover:bg-white/5 transition-colors"
-                >
-                  <td class="px-6 py-4 text-slate-400">2026-08-11 14:32:01</td>
-                  <td class="px-6 py-4">
-                    SYS_ADMIN
-                    <span class="text-[10px] text-slate-600">[ID:8092]</span>
-                  </td>
-                  <td class="px-6 py-4 text-white">SCHEMA MODIFICATION</td>
-                  <td class="px-6 py-4 text-[#00f5d4]">TABLE_USER_METRICS</td>
-                  <td class="px-6 py-4 text-center">
-                    <span
-                      class="px-2 py-0.5 rounded-sm bg-[#00f5d4]/10 border border-[#00f5d4]/30 text-[#00f5d4] text-[9px] uppercase"
-                      >Verified</span
-                    >
-                  </td>
-                </tr>
-                <tr
-                  class="border-b border-[#30363d] hover:bg-white/5 transition-colors"
-                >
-                  <td class="px-6 py-4 text-slate-400">2026-08-11 14:28:45</td>
-                  <td class="px-6 py-4">
-                    API_KEY_EXT
-                    <span class="text-[10px] text-slate-600">[ID:441A]</span>
-                  </td>
-                  <td class="px-6 py-4 text-white">BULK DATA EXTRACTION</td>
-                  <td class="px-6 py-4 text-[#ff4d6d]">
-                    DATASET_FINANCIAL_Q3
-                  </td>
-                  <td class="px-6 py-4 text-center">
-                    <span
-                      class="px-2 py-0.5 rounded-sm bg-[#ff4d6d]/10 border border-[#ff4d6d]/30 text-[#ff4d6d] text-[9px] uppercase"
-                      >Access Blocked</span
-                    >
-                  </td>
-                </tr>
-                <tr
-                  class="border-b border-[#30363d] hover:bg-white/5 transition-colors"
-                >
-                  <td class="px-6 py-4 text-slate-400">2026-08-11 14:15:12</td>
-                  <td class="px-6 py-4">
-                    AUTO_CRON_01
-                    <span class="text-[10px] text-slate-600">[ID:SYS]</span>
-                  </td>
-                  <td class="px-6 py-4 text-white">PIPELINE EXECUTION</td>
-                  <td class="px-6 py-4 text-[#00f5d4]">PIPE_NIGHTLY_ETL</td>
-                  <td class="px-6 py-4 text-center">
-                    <span
-                      class="px-2 py-0.5 rounded-sm bg-[#00f5d4]/10 border border-[#00f5d4]/30 text-[#00f5d4] text-[9px] uppercase"
-                      >Verified</span
-                    >
-                  </td>
-                </tr>
-                <tr
-                  class="border-b border-[#30363d] hover:bg-white/5 transition-colors bg-[#ff4d6d]/5"
-                >
-                  <td class="px-6 py-4 text-slate-400">2026-08-11 13:59:00</td>
-                  <td class="px-6 py-4">
-                    LLM_MONITOR_SVC
-                    <span class="text-[10px] text-slate-600">[ID:SVC]</span>
-                  </td>
-                  <td class="px-6 py-4 text-[#ff4d6d] font-bold">
-                    INFERENCE VALIDATION
-                  </td>
-                  <td class="px-6 py-4 text-white">MODEL_PREDICTIVE_V4</td>
-                  <td class="px-6 py-4 text-center">
-                    <span
-                      class="px-2 py-0.5 rounded-sm bg-[#ff4d6d]/20 border border-[#ff4d6d]/50 text-[#ff4d6d] text-[9px] uppercase font-bold"
-                      >Drift Warning</span
-                    >
-                  </td>
-                </tr>
-                <tr
-                  class="border-b border-[#30363d] hover:bg-white/5 transition-colors"
-                >
-                  <td class="px-6 py-4 text-slate-400">2026-08-11 13:42:33</td>
-                  <td class="px-6 py-4">
-                    DATA_ENG
-                    <span class="text-[10px] text-slate-600">[ID:1102]</span>
-                  </td>
-                  <td class="px-6 py-4 text-white">RECORD PURGE</td>
-                  <td class="px-6 py-4 text-[#00f5d4]">LOGS_TEMP_ARCHIVE</td>
-                  <td class="px-6 py-4 text-center">
-                    <span
-                      class="px-2 py-0.5 rounded-sm bg-[#00f5d4]/10 border border-[#00f5d4]/30 text-[#00f5d4] text-[9px] uppercase"
-                      >Verified</span
-                    >
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div
-            class="p-4 bg-black/20 flex justify-between items-center text-[10px] font-bold text-slate-500 uppercase tracking-widest"
-          >
-            <span>Showing 1-5 of 14,208 entries</span>
-            <div class="flex gap-2">
-              <button
-                class="px-3 py-1 border border-white/10 rounded-sm hover:bg-white/5"
-              >
-                Prev
-              </button>
-              <button
-                class="px-3 py-1 border border-white/10 rounded-sm hover:bg-white/5"
-              >
-                Next
-              </button>
-            </div>
-          </div>
+      <div class="bg-surface border border-outline-variant p-5 flex flex-col gap-4">
+        <span class="font-label-caps text-[10px] text-white uppercase tracking-widest font-bold">Active Security Monitors</span>
+        <div class="flex items-baseline gap-2">
+          <span class="font-data-numeral text-4xl text-white font-light">42</span>
+          <span class="text-[12px] text-on-surface-variant font-data-numeral">/ 42</span>
         </div>
       </div>
-    </main>
-  </body>
+      <div class="bg-surface border border-outline-variant p-5 flex flex-col gap-4">
+        <span class="font-label-caps text-[10px] text-white uppercase tracking-widest font-bold">Last Verified Hash</span>
+        <span class="font-data-numeral text-[13px] text-primary truncate">0x9f8c47b1a2e3d4f5...a1b2</span>
+      </div>
+    </div>
+
+    <!-- Audit Table Section -->
+    <section class="bg-surface border border-outline-variant flex flex-col">
+      <div class="p-4 border-b border-outline-variant bg-white/5 flex flex-wrap gap-2">
+        <button class="px-4 py-2 bg-primary text-black font-label-caps text-[10px] font-bold tracking-widest">SECURITY LOGS</button>
+        <button class="px-4 py-2 bg-surface-container text-on-surface font-label-caps text-[10px] tracking-widest hover:bg-surface-container/80">DATA INGESTION</button>
+        <button class="px-4 py-2 bg-surface-container text-on-surface font-label-caps text-[10px] tracking-widest hover:bg-surface-container/80">LLM DRIFT CHECKS</button>
+      </div>
+
+      <div class="audit-table-container overflow-x-auto">
+        <table class="w-full text-left border-collapse min-w-[700px]">
+          <thead>
+            <tr class="bg-surface-container/50 border-b border-outline-variant text-[10px] font-label-caps text-on-surface-variant uppercase tracking-widest">
+              <th class="p-4 font-normal">Timestamp (UTC)</th>
+              <th class="p-4 font-normal">Actor/Role</th>
+              <th class="p-4 font-normal">Action Type</th>
+              <th class="p-4 font-normal text-right">Status</th>
+            </tr>
+          </thead>
+          <tbody class="font-data-numeral text-[12px] divide-y divide-outline-variant/30">
+            <tr class="hover:bg-white/5 transition-colors">
+              <td class="p-4 text-on-surface-variant">2023-10-27 <span class="text-white">14:32:01Z</span></td>
+              <td class="p-4 text-white font-bold">SYS_ADMIN <span class="text-on-surface-variant opacity-50 text-[10px]">[ID:8092]</span></td>
+              <td class="p-4 text-on-surface-variant uppercase">Schema Modification</td>
+              <td class="p-4 text-right">
+                <span class="px-2 py-1 bg-primary/20 text-primary border border-primary/40 text-[10px] font-bold tracking-widest">VERIFIED</span>
+              </td>
+            </tr>
+            <tr class="bg-white/5 transition-colors">
+              <td class="p-4 text-on-surface-variant">2023-10-27 <span class="text-white">14:28:45Z</span></td>
+              <td class="p-4 text-white font-bold">API_KEY_EXT <span class="text-on-surface-variant opacity-50 text-[10px]">[ID:441A]</span></td>
+              <td class="p-4 text-on-surface-variant uppercase">Bulk Data Extraction</td>
+              <td class="p-4 text-right">
+                <span class="px-2 py-1 bg-env-alert/20 text-env-alert border border-env-alert/40 text-[10px] font-bold tracking-widest">BLOCKED</span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Action Button -->
+    <button class="w-full py-4 bg-primary text-black font-label-caps text-[12px] font-bold tracking-[0.2em] shadow-[0_0_20px_rgba(0,245,212,0.2)]">
+      EXPORT COMPLIANCE REPORT
+    </button>
+  </main>
+
+</body>
 </html>
