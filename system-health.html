@@ -1,528 +1,245 @@
 <!DOCTYPE html>
+<html class="dark" lang="en">
 
-<html class="dark" lang="en"><head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Module 10: System Health Monitoring &amp; Lineage Verification</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700;900&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "primary-container": "#10b981",
-                        "primary-fixed-dim": "#4edea3",
-                        "on-tertiary": "#233144",
-                        "on-secondary-container": "#adb4ce",
-                        "surface-variant": "#2f3632",
-                        "surface-container-lowest": "#09100c",
-                        "surface-dim": "#0e1511",
-                        "on-surface": "#dde4dd",
-                        "surface-container": "#1a211d",
-                        "on-primary": "#003824",
-                        "inverse-primary": "#006c49",
-                        "secondary-container": "#3f465c",
-                        "error-container": "#93000a",
-                        "surface-tint": "#4edea3",
-                        "on-secondary-fixed": "#131b2e",
-                        "on-secondary-fixed-variant": "#3f465c",
-                        "surface-container-highest": "#2f3632",
-                        "tertiary": "#b9c7e0",
-                        "on-primary-fixed-variant": "#005236",
-                        "secondary-fixed": "#dae2fd",
-                        "surface-container-high": "#242c27",
-                        "on-primary-fixed": "#002113",
-                        "on-primary-container": "#00422b",
-                        "surface-bright": "#343b36",
-                        "on-tertiary-container": "#2c3a4e",
-                        "inverse-surface": "#dde4dd",
-                        "on-tertiary-fixed-variant": "#3a485c",
-                        "outline": "#86948a",
-                        "on-background": "#dde4dd",
-                        "secondary": "#bec6e0",
-                        "error": "#ffb4ab",
-                        "on-surface-variant": "#bbcabf",
-                        "primary-fixed": "#6ffbbe",
-                        "secondary-fixed-dim": "#bec6e0",
-                        "on-secondary": "#283044",
-                        "surface": "#0e1511",
-                        "on-error-container": "#ffdad6",
-                        "outline-variant": "#3c4a42",
-                        "on-error": "#690005",
-                        "background": "#0e1511",
-                        "primary": "#4edea3",
-                        "tertiary-container": "#95a4bb",
-                        "tertiary-fixed-dim": "#b9c7e0",
-                        "tertiary-fixed": "#d5e3fd",
-                        "on-tertiary-fixed": "#0d1c2f",
-                        "surface-container-low": "#161d19",
-                        "inverse-on-surface": "#2b322d",
-                        "envictica-teal": "#00F5D4",
-                        "envictica-crimson": "#FF4D6D"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    "spacing": {
-                        "connector-gap": "2rem",
-                        "node-padding": "1rem",
-                        "grid-unit": "4px",
-                        "gutter": "16px",
-                        "pipeline-margin": "3rem"
-                    },
-                    "fontFamily": {
-                        "body-base": ["Inter"],
-                        "data-numeral": ["JetBrains Mono"],
-                        "headline-md": ["Hanken Grotesk"],
-                        "display-lg": ["Hanken Grotesk"],
-                        "label-mono": ["JetBrains Mono"]
-                    },
-                    "fontSize": {
-                        "body-base": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
-                        "body-sm": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
-                        "data-numeral": ["14px", { "lineHeight": "20px", "fontWeight": "600" }],
-                        "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
-                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
-                        "display-lg": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500", "letterSpacing": "0.01em" }],
-                        "label-mono": ["12px", { "lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500" }],
-                        "mono-data": ["13px", { "lineHeight": "18px", "fontWeight": "400" }]
-                    }
-                }
-            }
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Knowledge Graph & Fact Mapping - Envictica</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "primary": "#00F5D4", // Electric Teal
+            "env-alert": "#FF4D6D", // Burnt Crimson
+            "surface": "#050608",
+            "surface-container": "#0b0f10",
+            "on-surface": "#e3e1e9",
+            "on-surface-variant": "#9ca3af",
+            "outline-variant": "rgba(0, 245, 212, 0.1)"
+          },
+          "fontFamily": {
+            "label-caps": ["JetBrains Mono", "monospace"],
+            "headline-md": ["Sora", "sans-serif"],
+            "data-numeral": ["JetBrains Mono", "monospace"],
+            "body-md": ["Inter", "sans-serif"]
+          }
         }
-    </script>
-<style>
-        .grid-bg {
-            background-size: 16px 16px;
-            background-image: radial-gradient(circle, #3c4a42 1px, transparent 1px);
-        }
-        .text-envictica-teal { color: #00F5D4; }
-        .text-envictica-crimson { color: #FF4D6D; }
-        .bg-envictica-teal { background-color: #00F5D4; }
-        .bg-envictica-crimson { background-color: #FF4D6D; }
-        .border-envictica-teal { border-color: #00F5D4; }
-        
-        .pulse-teal {
-            animation: pulse-teal 2s infinite;
-        }
-        @keyframes pulse-teal {
-            0% { box-shadow: 0 0 0 0 rgba(0, 245, 212, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(0, 245, 212, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(0, 245, 212, 0); }
-        }
-        
-        .connector-line-active {
-            stroke-dasharray: 4;
-            animation: dash 1s linear infinite;
-        }
-        @keyframes dash {
-            to { stroke-dashoffset: -8; }
-        }
-    </style>
+      }
+    }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@500;700&family=Sora:wght@300;600;800&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #050608;
+      color: #e3e1e9;
+    }
+
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .node-pulse {
+      animation: node-glow 4s infinite alternate;
+    }
+
+    @keyframes node-glow {
+      0% {
+        filter: drop-shadow(0 0 2px rgba(0, 245, 212, 0.2));
+      }
+
+      100% {
+        filter: drop-shadow(0 0 10px rgba(0, 245, 212, 0.6));
+      }
+    }
+  </style>
 </head>
-<body class="bg-background text-on-background font-body-base antialiased h-screen overflow-hidden flex flex-col">
-<!-- TopAppBar -->
-<header class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-4 h-14 bg-surface-container-low border-b border-outline-variant flat no shadows">
-<div class="flex items-center gap-4">
-<span class="text-headline-sm font-headline-sm font-bold text-primary-fixed">LEX / INFRA / PIPELINE_04</span>
-</div>
-<div class="flex items-center gap-6">
-<div class="flex items-center gap-3">
-<div class="flex items-center gap-1.5 bg-surface-container px-2 py-1 rounded border border-outline-variant">
-<div class="w-2 h-2 rounded-full bg-envictica-teal pulse-teal"></div>
-<span class="text-label-mono font-label-mono text-envictica-teal uppercase">System Healthy</span>
-</div>
-<div class="flex items-center gap-1.5 bg-surface-container px-2 py-1 rounded border border-outline-variant">
-<span class="material-symbols-outlined text-sm text-secondary-fixed">monitoring</span>
-<span class="text-label-mono font-label-mono text-secondary-fixed uppercase">ROI Tracking Active</span>
-</div>
-</div>
-<div class="flex items-center gap-3 text-on-surface-variant">
-<button class="hover:bg-surface-container-highest transition-colors duration-150 p-1 rounded active:scale-[0.99]">
-<span class="material-symbols-outlined">settings</span>
-</button>
-<button class="hover:bg-surface-container-highest transition-colors duration-150 p-1 rounded active:scale-[0.99]">
-<span class="material-symbols-outlined">notifications</span>
-</button>
-<button class="hover:bg-surface-container-highest transition-colors duration-150 p-1 rounded active:scale-[0.99]">
-<span class="material-symbols-outlined">account_tree</span>
-</button>
-</div>
-</div>
-</header>
-<div class="flex flex-1 pt-14 h-full">
-<!-- SideNavBar -->
-<nav class="docked fixed-left w-[240px] h-full border-r border-outline-variant bg-surface-container-lowest flex flex-col py-4 z-40 hidden md:flex">
-<div class="px-4 mb-6">
-<h2 class="text-headline-md font-headline-md font-black tracking-tight text-primary-fixed">ENVICTICA</h2>
-<p class="text-body-sm font-body-sm text-on-surface-variant mt-1">Legal Knowledge Engineer</p>
-</div>
-<div class="flex-1 px-2 space-y-1">
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-all" href="#">
-<span class="material-symbols-outlined">lan</span>
-<span class="text-label-md font-label-md">Infrastructure</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-all" href="#">
-<span class="material-symbols-outlined">gavel</span>
-<span class="text-label-md font-label-md">Governance</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-secondary-container text-on-secondary-container font-semibold opacity-100 transition-opacity" href="#">
-<span class="material-symbols-outlined">account_tree</span>
-<span class="text-label-md font-label-md">Pipelines</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-all" href="#">
-<span class="material-symbols-outlined">fact_check</span>
-<span class="text-label-md font-label-md">Data Validation</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-all" href="#">
-<span class="material-symbols-outlined">history</span>
-<span class="text-label-md font-label-md">Audit Logs</span>
-</a>
-</div>
-<div class="px-4 py-4">
-<button class="w-full bg-primary text-on-primary py-2 px-4 rounded-lg font-label-md text-label-md hover:bg-primary-fixed-dim transition-colors flex items-center justify-center gap-2">
-<span class="material-symbols-outlined text-[18px]">add</span>
-                    New System Audit
-                </button>
-</div>
-<div class="mt-auto px-2 space-y-1 pb-4">
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-all" href="#">
-<span class="material-symbols-outlined">settings</span>
-<span class="text-label-md font-label-md">Settings</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-container-highest transition-all" href="#">
-<span class="material-symbols-outlined">help</span>
-<span class="text-label-md font-label-md">Support</span>
-</a>
-</div>
-</nav>
-<!-- Main Content -->
-<main class="flex-1 ml-0 md:ml-[240px] bg-background h-full overflow-y-auto grid-bg">
-<div class="p-6 max-w-[1600px] mx-auto space-y-6">
-<!-- Header Area -->
-<div class="flex justify-between items-end border-b border-outline-variant pb-4">
-<div>
-<div class="text-label-mono font-label-mono text-tertiary uppercase mb-2 tracking-widest">OFFICIAL ENVICTICA MODULE: 10 OF 17</div>
-<h1 class="text-display-lg font-display-lg text-on-surface">System Health Monitoring &amp; Lineage Verification</h1>
-</div>
-<div class="flex gap-3">
-<button class="bg-surface-container border border-outline-variant text-on-surface px-4 py-2 rounded-md hover:bg-surface-container-high transition-colors font-label-mono text-label-mono flex items-center gap-2">
-<span class="material-symbols-outlined text-sm">download</span> Export Health Matrix
-                        </button>
-<button class="bg-surface-container border border-outline-variant text-on-surface px-4 py-2 rounded-md hover:bg-surface-container-high transition-colors font-label-mono text-label-mono flex items-center gap-2">
-<span class="material-symbols-outlined text-sm">sync</span> Initiate Node Re-Sync
-                        </button>
-<button class="bg-primary text-on-primary px-4 py-2 rounded-md hover:bg-primary-fixed-dim transition-colors font-label-mono text-label-mono flex items-center gap-2 font-bold">
-<span class="material-symbols-outlined text-sm">verified_user</span> Verify Lineage Integrity
-                        </button>
-</div>
-</div>
-<!-- Hero Metrics (Bento Grid) -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-<div class="bg-surface-container-low border border-outline-variant rounded-xl p-6 relative overflow-hidden">
-<div class="absolute top-0 right-0 w-24 h-24 bg-envictica-teal opacity-5 rounded-bl-full blur-2xl"></div>
-<div class="flex justify-between items-start mb-4">
-<span class="text-label-mono font-label-mono text-on-surface-variant uppercase">System Uptime</span>
-<span class="material-symbols-outlined text-envictica-teal">network_check</span>
-</div>
-<div class="text-[40px] font-display-lg font-bold text-on-surface mb-1">99.999%</div>
-<div class="text-label-mono font-label-mono text-envictica-teal flex items-center gap-1">
-<span class="material-symbols-outlined text-[14px]">check_circle</span> Fiduciary Grade
-                        </div>
-</div>
-<div class="bg-surface-container-low border border-outline-variant rounded-xl p-6 relative overflow-hidden">
-<div class="absolute top-0 right-0 w-24 h-24 bg-envictica-teal opacity-5 rounded-bl-full blur-2xl"></div>
-<div class="flex justify-between items-start mb-4">
-<span class="text-label-mono font-label-mono text-on-surface-variant uppercase">Lineage Verification Rate</span>
-<span class="material-symbols-outlined text-envictica-teal">verified</span>
-</div>
-<div class="text-[40px] font-display-lg font-bold text-on-surface mb-1">100%</div>
-<div class="text-label-mono font-label-mono text-envictica-teal flex items-center gap-1">
-<span class="material-symbols-outlined text-[14px]">shield</span> Verified Integrity
-                        </div>
-</div>
-<div class="bg-surface-container-low border border-outline-variant rounded-xl p-6 relative overflow-hidden">
-<div class="absolute top-0 right-0 w-24 h-24 bg-secondary opacity-5 rounded-bl-full blur-2xl"></div>
-<div class="flex justify-between items-start mb-4">
-<span class="text-label-mono font-label-mono text-on-surface-variant uppercase">Mean Latency (RTO)</span>
-<span class="material-symbols-outlined text-secondary">speed</span>
-</div>
-<div class="text-[40px] font-display-lg font-bold text-on-surface mb-1">4.82<span class="text-headline-md text-on-surface-variant">ms</span></div>
-<div class="text-label-mono font-label-mono text-secondary flex items-center gap-1">
-<span class="material-symbols-outlined text-[14px]">done_all</span> Within &lt; 5ms SLA
-                        </div>
-</div>
-</div>
-<!-- Main Content Layout -->
-<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-<!-- Global Node Topology -->
-<div class="lg:col-span-2 bg-surface-container-low border border-outline-variant rounded-xl p-6">
-<div class="flex justify-between items-center mb-6">
-<h3 class="text-headline-sm font-headline-sm text-on-surface">Global Node Topology</h3>
-<span class="text-label-mono font-label-mono bg-surface-container px-2 py-1 rounded border border-outline-variant text-on-surface-variant">Live View</span>
-</div>
-<!-- Topology Canvas -->
-<div class="bg-surface rounded-lg border border-outline-variant h-[400px] relative overflow-hidden grid-bg">
-<!-- Connectors (SVG) -->
-<svg class="absolute inset-0 w-full h-full pointer-events-none" style="z-index: 0;">
-<path d="M 150 200 L 400 120" fill="none" stroke="#475569" stroke-width="2"></path>
-<path class="connector-line-active" d="M 150 200 L 400 280" fill="none" stroke="#00F5D4" stroke-width="2"></path>
-<path d="M 400 120 L 650 200" fill="none" stroke="#FF4D6D" stroke-dasharray="6,4" stroke-width="3"></path>
-<path d="M 400 280 L 650 200" fill="none" stroke="#00F5D4" stroke-width="2"></path>
-</svg>
-<!-- Node Alpha -->
-<div class="absolute left-[50px] top-[150px] w-[200px] bg-surface-container border border-outline-variant rounded-lg p-3 z-10 shadow-lg">
-<div class="flex justify-between items-center border-b border-outline-variant pb-2 mb-2">
-<span class="text-label-mono font-label-mono text-on-surface">CLUSTER ALPHA</span>
-<div class="w-2 h-2 rounded-full bg-envictica-teal pulse-teal"></div>
-</div>
-<div class="space-y-1">
-<div class="flex justify-between text-mono-data font-mono-data">
-<span class="text-on-surface-variant">Ingest:</span>
-<span class="text-on-surface">Healthy</span>
-</div>
-<div class="flex justify-between text-mono-data font-mono-data">
-<span class="text-on-surface-variant">Load:</span>
-<span class="text-on-surface">32%</span>
-</div>
-</div>
-</div>
-<!-- Node Beta -->
-<div class="absolute left-[300px] top-[70px] w-[200px] bg-surface-container border border-envictica-crimson rounded-lg p-3 z-10 shadow-lg">
-<div class="flex justify-between items-center border-b border-outline-variant pb-2 mb-2">
-<span class="text-label-mono font-label-mono text-on-surface">CLUSTER BETA</span>
-<div class="w-2 h-2 rounded-full bg-envictica-crimson"></div>
-</div>
-<div class="space-y-1">
-<div class="flex justify-between text-mono-data font-mono-data">
-<span class="text-on-surface-variant">State:</span>
-<span class="text-envictica-crimson font-bold">Debt Alert</span>
-</div>
-<div class="flex justify-between text-mono-data font-mono-data">
-<span class="text-on-surface-variant">Queue:</span>
-<span class="text-on-surface">1,402 msgs</span>
-</div>
-</div>
-</div>
-<!-- Node Gamma -->
-<div class="absolute left-[300px] top-[230px] w-[200px] bg-surface-container border border-envictica-teal rounded-lg p-3 z-10 shadow-lg shadow-[inset_0_0_15px_rgba(0,245,212,0.1)]">
-<div class="flex justify-between items-center border-b border-outline-variant pb-2 mb-2">
-<span class="text-label-mono font-label-mono text-on-surface">CLUSTER GAMMA</span>
-<div class="w-2 h-2 rounded-full bg-envictica-teal pulse-teal"></div>
-</div>
-<div class="space-y-1">
-<div class="flex justify-between text-mono-data font-mono-data">
-<span class="text-on-surface-variant">Processing:</span>
-<span class="text-envictica-teal">Active</span>
-</div>
-<div class="flex justify-between text-mono-data font-mono-data">
-<span class="text-on-surface-variant">Throughput:</span>
-<span class="text-on-surface">14k/s</span>
-</div>
-</div>
-</div>
-<!-- Node Omega (Output) -->
-<div class="absolute left-[550px] top-[150px] w-[200px] bg-surface-container border border-outline-variant rounded-lg p-3 z-10 shadow-lg">
-<div class="flex justify-between items-center border-b border-outline-variant pb-2 mb-2">
-<span class="text-label-mono font-label-mono text-on-surface">DATA VAULT</span>
-<span class="material-symbols-outlined text-[16px] text-tertiary">lock</span>
-</div>
-<div class="space-y-1">
-<div class="flex justify-between text-mono-data font-mono-data">
-<span class="text-on-surface-variant">Integrity:</span>
-<span class="text-envictica-teal">100% Verified</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-<!-- Right Column: Audit & Heartbeat -->
-<div class="flex flex-col gap-6">
-<!-- Cryptographic Heartbeat -->
-<div class="bg-surface-container-low border border-outline-variant rounded-xl p-6 flex-1">
-<div class="flex justify-between items-center mb-4">
-<h3 class="text-headline-sm font-headline-sm text-on-surface">Crypto Heartbeat</h3>
-<span class="material-symbols-outlined text-envictica-teal">monitor_heart</span>
-</div>
-<div class="bg-surface rounded border border-outline-variant p-3 h-32 flex flex-col justify-end gap-1 overflow-hidden relative">
-<!-- Simulated Chart Bars -->
-<div class="flex items-end justify-between h-full w-full gap-[2px] opacity-80">
-<div class="w-full bg-primary-fixed-dim h-[60%]"></div>
-<div class="w-full bg-primary-fixed-dim h-[80%]"></div>
-<div class="w-full bg-primary-fixed-dim h-[40%]"></div>
-<div class="w-full bg-primary-fixed-dim h-[90%]"></div>
-<div class="w-full bg-primary-fixed-dim h-[70%]"></div>
-<div class="w-full bg-envictica-crimson h-[20%]"></div>
-<div class="w-full bg-primary-fixed-dim h-[65%]"></div>
-<div class="w-full bg-primary-fixed-dim h-[85%]"></div>
-<div class="w-full bg-primary-fixed-dim h-[50%]"></div>
-<div class="w-full bg-primary-fixed-dim h-[75%]"></div>
-<div class="w-full bg-primary-fixed-dim h-[95%]"></div>
-<div class="w-full bg-primary-fixed-dim h-[60%]"></div>
-<div class="w-full bg-primary-fixed-dim h-[80%] animate-[pulse_1s_ease-in-out_infinite]"></div>
-</div>
-<div class="absolute inset-0 bg-gradient-to-t from-surface/50 to-transparent pointer-events-none"></div>
-</div>
-<div class="mt-3 flex justify-between text-mono-data font-mono-data text-on-surface-variant">
-<span>T-60s</span>
-<span class="text-envictica-teal">Steady 256-bit Hash</span>
-<span>Now</span>
-</div>
-</div>
-<!-- Lineage Chain Audit Mini -->
-<div class="bg-surface-container-low border border-outline-variant rounded-xl p-6 flex-1 flex flex-col">
-<h3 class="text-headline-sm font-headline-sm text-on-surface mb-4">Recent Lineage Audits</h3>
-<div class="space-y-3 flex-1 overflow-y-auto">
-<div class="bg-surface border border-outline-variant rounded p-3 text-sm">
-<div class="flex justify-between items-center mb-1">
-<span class="font-data-numeral text-data-numeral text-tertiary">0x7F9A...B21C</span>
-<span class="text-envictica-teal text-[10px] font-label-mono px-1.5 py-0.5 rounded border border-envictica-teal bg-envictica-teal/10">VERIFIED</span>
-</div>
-<div class="flex justify-between text-mono-data font-mono-data text-on-surface-variant">
-<span>Src: Node_Gamma</span>
-<span>14:02:45.112 UTC</span>
-</div>
-</div>
-<div class="bg-surface border border-outline-variant rounded p-3 text-sm">
-<div class="flex justify-between items-center mb-1">
-<span class="font-data-numeral text-data-numeral text-tertiary">0x1A2B...C34D</span>
-<span class="text-envictica-teal text-[10px] font-label-mono px-1.5 py-0.5 rounded border border-envictica-teal bg-envictica-teal/10">VERIFIED</span>
-</div>
-<div class="flex justify-between text-mono-data font-mono-data text-on-surface-variant">
-<span>Src: Node_Alpha</span>
-<span>14:02:44.980 UTC</span>
-</div>
-</div>
-<div class="bg-surface border border-envictica-crimson/50 rounded p-3 text-sm relative overflow-hidden">
-<div class="absolute inset-0 bg-envictica-crimson/5"></div>
-<div class="flex justify-between items-center mb-1 relative z-10">
-<span class="font-data-numeral text-data-numeral text-tertiary">0xEE54...99FA</span>
-<span class="text-envictica-crimson text-[10px] font-label-mono px-1.5 py-0.5 rounded border border-envictica-crimson bg-envictica-crimson/10 flex items-center gap-1"><span class="material-symbols-outlined text-[10px]">warning</span> DEBT</span>
-</div>
-<div class="flex justify-between text-mono-data font-mono-data text-on-surface-variant relative z-10">
-<span>Src: Node_Beta</span>
-<span>14:02:41.005 UTC</span>
-</div>
-</div>
-</div>
-<button class="mt-4 w-full text-center text-label-mono font-label-mono text-tertiary hover:text-on-surface transition-colors py-2 border border-transparent hover:border-outline-variant rounded">View Full Audit Log</button>
-</div>
-</div>
-</div>
-<!-- Detailed Data Table Section -->
-<div class="bg-surface-container-low border border-outline-variant rounded-xl overflow-hidden mt-6">
-<div class="p-4 border-b border-outline-variant bg-surface-container-highest flex justify-between items-center">
-<h3 class="text-label-mono font-label-mono text-on-surface uppercase tracking-wider">Lineage Chain Audit (Detailed)</h3>
-<div class="relative">
-<span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
-<input class="bg-surface border border-outline-variant rounded pl-8 pr-3 py-1 text-sm text-on-surface focus:outline-none focus:border-envictica-teal w-64 font-mono-data" placeholder="Search Hash or Origin..." type="text"/>
-</div>
-</div>
-<div class="overflow-x-auto">
-<table class="w-full text-left border-collapse">
-<thead>
-<tr class="bg-surface border-b border-outline-variant text-label-mono font-label-mono text-on-surface-variant">
-<th class="p-4 font-normal">Data Segment Hash</th>
-<th class="p-4 font-normal">Source Origin</th>
-<th class="p-4 font-normal">Timestamp</th>
-<th class="p-4 font-normal">Verification Status</th>
-<th class="p-4 font-normal text-right">Actions</th>
-</tr>
-</thead>
-<tbody class="text-mono-data font-mono-data">
-<tr class="border-b border-outline-variant/50 hover:bg-surface-container transition-colors">
-<td class="p-4 text-tertiary font-data-numeral">0x9F8B2C4D...E1A2</td>
-<td class="p-4 text-on-surface">Alpha_Cluster_01</td>
-<td class="p-4 text-on-surface-variant">2023-10-27T14:02:45Z</td>
-<td class="p-4">
-<span class="text-envictica-teal flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">check_circle</span> Verified</span>
-</td>
-<td class="p-4 text-right">
-<button class="text-tertiary hover:text-on-surface"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
-</td>
-</tr>
-<tr class="border-b border-outline-variant/50 hover:bg-surface-container transition-colors">
-<td class="p-4 text-tertiary font-data-numeral">0x1A2B3C4D...5E6F</td>
-<td class="p-4 text-on-surface">Gamma_Stream_X</td>
-<td class="p-4 text-on-surface-variant">2023-10-27T14:01:12Z</td>
-<td class="p-4">
-<span class="text-envictica-teal flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">check_circle</span> Verified</span>
-</td>
-<td class="p-4 text-right">
-<button class="text-tertiary hover:text-on-surface"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
-</td>
-</tr>
-<tr class="border-b border-outline-variant/50 hover:bg-surface-container transition-colors bg-envictica-crimson/5">
-<td class="p-4 text-tertiary font-data-numeral">0xEE54DD21...99FA</td>
-<td class="p-4 text-on-surface">Beta_Legacy_Sys</td>
-<td class="p-4 text-on-surface-variant">2023-10-27T13:59:04Z</td>
-<td class="p-4">
-<span class="text-envictica-crimson flex items-center gap-1.5 font-bold"><span class="material-symbols-outlined text-[16px]">error</span> Debt Alert</span>
-</td>
-<td class="p-4 text-right">
-<button class="text-envictica-crimson hover:text-white border border-envictica-crimson px-2 py-1 rounded text-xs">Inspect</button>
-</td>
-</tr>
-<tr class="border-b border-outline-variant/50 hover:bg-surface-container transition-colors">
-<td class="p-4 text-tertiary font-data-numeral">0x7F9A3B2C...1D4E</td>
-<td class="p-4 text-on-surface">Alpha_Cluster_02</td>
-<td class="p-4 text-on-surface-variant">2023-10-27T13:55:33Z</td>
-<td class="p-4">
-<span class="text-envictica-teal flex items-center gap-1.5"><span class="material-symbols-outlined text-[16px]">check_circle</span> Verified</span>
-</td>
-<td class="p-4 text-right">
-<button class="text-tertiary hover:text-on-surface"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="p-3 border-t border-outline-variant flex justify-between items-center text-sm text-on-surface-variant font-mono-data">
-<span>Showing 1-4 of 1,204 entries</span>
-<div class="flex gap-2">
-<button class="p-1 hover:text-on-surface disabled:opacity-50"><span class="material-symbols-outlined text-[18px]">chevron_left</span></button>
-<button class="p-1 hover:text-on-surface"><span class="material-symbols-outlined text-[18px]">chevron_right</span></button>
-</div>
-</div>
-</div>
-<div class="h-12"></div> <!-- Bottom padding -->
-</div>
-</main>
-</div>
 
-<style>
-/* Global Responsive Breakpoints & Mobile Fixes */
-@media (max-width: 768px) {
-  /* Force grid structures to stack in a single column */
-  .grid, .card-grid, .dashboard-grid, [class*="grid"] {
-    grid-template-columns: 1fr !important;
-  }
-  
-  /* Tables & data displays wrap cleanly with scroll support */
-  table, .table-container, [class*="table"] {
-    max-width: 100% !important;
-    overflow-x: auto !important;
-  }
-  
-  /* Prevent horizontal document overflow */
-  body, html {
-    overflow-x: hidden !important;
-  }
+<body class="flex flex-col min-h-screen font-body-md antialiased overflow-x-hidden">
+  <header class="bg-surface-container border-b border-outline-variant sticky top-0 z-50 flex justify-between items-center px-4 md:px-8 h-16">
+    <div class="flex items-center gap-3">
+      <span class="font-headline-md font-black text-white italic tracking-tighter text-xl">ENVICTICA</span>
+      <span class="h-4 w-px bg-white/10 mx-2"></span>
+      <span class="font-label-caps text-[10px] text-on-surface-variant tracking-[0.2em] uppercase">Knowledge Graph</span>
+    </div>
+    <div class="flex items-center gap-4">
+      <div class="px-3 py-1.5 border border-primary/30 bg-primary/5 rounded-sm flex items-center gap-2">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+        <span class="font-label-caps text-[9px] text-primary font-bold tracking-widest uppercase">System Healthy</span>
+      </div>
+      <button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
+        <span class="material-symbols-outlined">settings</span>
+      </button>
+    </div>
+  </header>
 
-  /* Bottom padding to prevent floating bars/dock from overlapping buttons */
-  body, main, .container, .page-wrapper {
-    padding-bottom: 90px !important;
-  }
-}
-</style>
+  <main class="flex-1 flex flex-col md:flex-row">
+    <!-- Sidebar Navigation -->
+    <nav class="w-full md:w-64 bg-surface-container border-b md:border-b-0 md:border-r border-outline-variant p-6 flex flex-col gap-8">
+      <div class="flex flex-col gap-1">
+        <span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Environment</span>
+        <span class="font-data-numeral text-xs text-white">ENV / INFRA / PIPELINE_04</span>
+      </div>
+      <div class="flex flex-col gap-2">
+        <button class="w-full py-2.5 bg-primary text-black font-label-caps text-[10px] font-bold tracking-widest rounded-sm mb-4">NEW SYSTEM AUDIT</button>
+        <div class="flex flex-col gap-1">
+          <a href="#" class="flex items-center gap-3 p-2 text-on-surface-variant hover:text-white transition-all text-xs">
+            <span class="material-symbols-outlined text-lg">lan</span> Infrastructure
+          </a>
+          <a href="#" class="flex items-center gap-3 p-2 text-on-surface-variant hover:text-white transition-all text-xs">
+            <span class="material-symbols-outlined text-lg">gavel</span> Governance
+          </a>
+          <a href="#" class="flex items-center gap-3 p-2 text-primary bg-primary/5 border-l-2 border-primary font-bold text-xs">
+            <span class="material-symbols-outlined text-lg">account_tree</span> Pipelines
+          </a>
+          <a href="#" class="flex items-center gap-3 p-2 text-on-surface-variant hover:text-white transition-all text-xs">
+            <span class="material-symbols-outlined text-lg">fact_check</span> Data Validation
+          </a>
+          <a href="#" class="flex items-center gap-3 p-2 text-on-surface-variant hover:text-white transition-all text-xs">
+            <span class="material-symbols-outlined text-lg">history</span> Audit Logs
+          </a>
+        </div>
+      </div>
+    </nav>
 
-<script src="envictica-ui.js"></script>
-</body></html>
+    <!-- Visualization Canvas -->
+    <div class="flex-1 bg-black relative overflow-hidden flex flex-col">
+      <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 40px 40px;"></div>
+
+      <!-- Graph Toolbar -->
+      <div class="absolute top-6 left-6 z-10 flex gap-2">
+        <button class="p-2 bg-surface-container border border-outline-variant text-white hover:bg-surface-bright">
+          <span class="material-symbols-outlined text-lg">zoom_in</span>
+        </button>
+        <button class="p-2 bg-surface-container border border-outline-variant text-white hover:bg-surface-bright">
+          <span class="material-symbols-outlined text-lg">zoom_out</span>
+        </button>
+        <button class="p-2 bg-surface-container border border-outline-variant text-white hover:bg-surface-bright">
+          <span class="material-symbols-outlined text-lg">fit_screen</span>
+        </button>
+      </div>
+
+      <!-- Graph UI Placeholder -->
+      <div class="flex-1 flex items-center justify-center relative p-12">
+        <div class="relative w-full max-w-2xl aspect-video border border-white/5 bg-white/[0.02] flex items-center justify-center">
+          <!-- Central Node -->
+          <div class="relative z-20">
+            <div class="w-16 h-16 rounded-lg bg-surface border-2 border-primary flex items-center justify-center node-pulse">
+              <span class="material-symbols-outlined text-primary text-3xl">domain</span>
+            </div>
+            <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 text-center whitespace-nowrap">
+              <p class="font-headline-md text-sm text-white font-bold">Alpha Holdings LLC</p>
+              <p class="font-label-caps text-[9px] text-primary">ID: CORP-8821</p>
+            </div>
+          </div>
+
+          <!-- Connector Lines -->
+          <svg class="absolute inset-0 w-full h-full pointer-events-none">
+            <line x1="50%" y1="50%" x2="70%" y2="30%" stroke="#00F5D4" stroke-width="1" stroke-dasharray="4 4" />
+            <line x1="50%" y1="50%" x2="60%" y2="80%" stroke="#00F5D4" stroke-width="1" />
+          </svg>
+
+          <div class="absolute top-[30%] right-[30%] w-12 h-12 bg-surface border border-outline-variant flex items-center justify-center">
+            <span class="material-symbols-outlined text-on-surface-variant text-xl">account_balance</span>
+          </div>
+          <div class="absolute bottom-[20%] right-[40%] w-12 h-12 bg-surface border border-outline-variant flex items-center justify-center">
+            <span class="material-symbols-outlined text-on-surface-variant text-xl">person</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Node Inspector Panel -->
+      <div class="w-full lg:w-96 bg-surface-container border-t lg:border-t-0 lg:border-l border-outline-variant absolute top-0 right-0 h-full z-30 flex flex-col">
+        <div class="p-6 border-b border-outline-variant flex justify-between items-center">
+          <h3 class="font-headline-md text-white font-bold flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary">hub</span> Node Inspector
+          </h3>
+          <button class="text-on-surface-variant hover:text-white">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+
+        <div class="flex-1 overflow-y-auto p-6 flex flex-col gap-8">
+          <div class="flex flex-col gap-2">
+            <span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Corporate Entity</span>
+            <h4 class="text-2xl font-headline-md font-bold text-white tracking-tight leading-none">Alpha Holdings LLC</h4>
+            <div class="flex gap-2 mt-2">
+              <span class="px-2 py-0.5 bg-primary/20 text-primary border border-primary/40 font-label-caps text-[9px] font-bold">ACTIVE</span>
+              <span class="font-data-numeral text-[10px] text-on-surface-variant self-center">ID: CORP-8821</span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-black/40 border border-outline-variant p-4 flex flex-col gap-2">
+              <span class="font-label-caps text-[9px] text-on-surface-variant uppercase tracking-widest">Link Confidence</span>
+              <div class="flex flex-col gap-2">
+                <span class="font-data-numeral text-2xl text-white">98<span class="text-primary text-sm">%</span></span>
+                <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                  <div class="h-full bg-primary w-[98%]"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-black/40 border border-outline-variant p-4 flex flex-col gap-2">
+              <span class="font-label-caps text-[9px] text-on-surface-variant uppercase tracking-widest">Citation Strength</span>
+              <div class="flex flex-col gap-2">
+                <span class="font-data-numeral text-2xl text-white">4.2<span class="text-on-surface-variant text-sm">/ 5</span></span>
+                <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
+                  <div class="h-full bg-white/40 w-[84%]"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-4">
+            <h5 class="font-label-caps text-[10px] text-white uppercase tracking-widest flex items-center gap-2">
+              <span class="material-symbols-outlined text-sm">verified_user</span> Source Ingestion Audit
+            </h5>
+            <div class="relative pl-6 flex flex-col gap-6 before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-px before:bg-outline-variant">
+              <div class="relative">
+                <div class="absolute -left-6 top-1 w-3 h-3 bg-primary rounded-full border-4 border-[#050608]"></div>
+                <div class="bg-white/5 border border-outline-variant p-3">
+                  <div class="flex justify-between items-start mb-2">
+                    <span class="text-primary font-bold text-xs">SEC Filing 10-K</span>
+                    <span class="font-data-numeral text-[9px] text-on-surface-variant">10:42 AM</span>
+                  </div>
+                  <p class="text-[11px] text-on-surface-variant leading-relaxed">Entity matched via CIK 0001234567. Address verified.</p>
+                </div>
+              </div>
+
+              <div class="relative">
+                <div class="absolute -left-6 top-1 w-3 h-3 bg-outline-variant rounded-full border-4 border-[#050608]"></div>
+                <div class="bg-white/5 border border-outline-variant p-3">
+                  <div class="flex justify-between items-start mb-2">
+                    <span class="text-white font-bold text-xs">Delaware State Reg</span>
+                    <span class="font-data-numeral text-[9px] text-on-surface-variant">09:15 AM</span>
+                  </div>
+                  <p class="text-[11px] text-on-surface-variant leading-relaxed">Initial extraction. Name fuzzy match score: 0.95</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="p-6 mt-auto border-t border-outline-variant bg-black/20 flex flex-col gap-3">
+          <button class="w-full py-2 bg-primary text-black font-label-caps text-[11px] font-bold tracking-widest hover:opacity-90">VALIDATE NODE</button>
+          <button class="w-full py-2 border border-outline-variant text-white font-label-caps text-[11px] hover:bg-white/5">VIEW RAW DATA</button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-surface-container border-t border-outline-variant p-6 flex justify-between items-center">
+    <div class="font-label-caps text-[10px] text-on-surface-variant tracking-widest uppercase flex items-center gap-2">
+      <span class="material-symbols-outlined text-[12px]">settings</span> SETTINGS
+    </div>
+    <div class="font-label-caps text-[10px] text-on-surface-variant tracking-widest uppercase flex items-center gap-2">
+      <span class="material-symbols-outlined text-[12px]">help</span> SUPPORT
+    </div>
+  </footer>
+</body>
+
+</html>
