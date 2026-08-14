@@ -1,206 +1,419 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
-
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Pipeline Execution & Audit Proof - Envictica</title>
-  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  <script id="tailwind-config">
-    tailwind.config = {
-      darkMode: "class",
-      theme: {
-        extend: {
-          "colors": {
-            "primary": "#00F5D4", // Electric Teal
-            "env-alert": "#FF4D6D", // Burnt Crimson
-            "surface": "#050608",
-            "surface-container": "#0b0f10",
-            "surface-bright": "#1a1c1e",
-            "on-surface": "#e3e1e9",
-            "on-surface-variant": "#9ca3af",
-            "outline-variant": "rgba(0, 245, 212, 0.1)"
-          },
-          "fontFamily": {
-            "label-caps": ["JetBrains Mono", "monospace"],
-            "headline-md": ["Sora", "sans-serif"],
-            "data-numeral": ["JetBrains Mono", "monospace"],
-            "body-md": ["Inter", "sans-serif"]
-          }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Health & Telemetry | Envictica</title>
+    <style>
+        :root {
+            --bg-primary: #0b0f19;
+            --bg-secondary: #111827;
+            --bg-card: #1f2937;
+            --border-color: #374151;
+            --text-primary: #f9fafb;
+            --text-secondary: #9ca3af;
+            --accent-blue: #3b82f6;
+            --accent-purple: #8b5cf6;
+            --accent-green: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-red: #ef4444;
         }
-      }
-    }
-  </script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@500;700&family=Sora:wght@300;600;800&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet" />
-  <style>
-    body {
-      background-color: #050608;
-      color: #e3e1e9;
-    }
 
-    .material-symbols-outlined {
-      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
 
-    .audit-table-container {
-      -webkit-overflow-scrolling: touch;
-    }
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            display: flex;
+            height: 100vh;
+            overflow: hidden;
+        }
 
-    .teal-glow {
-      box-shadow: 0 0 15px rgba(0, 245, 212, 0.1);
-    }
+        /* Sidebar Navigation */
+        .sidebar {
+            width: 260px;
+            background-color: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            padding: 1.5rem 1rem;
+        }
 
-    .crimson-glow {
-      box-shadow: 0 0 15px rgba(255, 77, 109, 0.1);
-    }
-  </style>
+        .brand {
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            color: var(--text-primary);
+            margin-bottom: 2rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .brand-badge {
+            font-size: 0.65rem;
+            background: var(--accent-purple);
+            color: white;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem 1rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+        }
+
+        .nav-item a:hover, .nav-item.active a {
+            background-color: var(--bg-card);
+            color: var(--text-primary);
+        }
+
+        .nav-item.active a {
+            border-left: 3px solid var(--accent-blue);
+        }
+
+        /* Main Workspace */
+        .main-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .header {
+            height: 64px;
+            border-bottom: 1px solid var(--border-color);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            background-color: var(--bg-secondary);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .header-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .status-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background-color: rgba(16, 185, 129, 0.15);
+            color: var(--accent-green);
+            padding: 0.35rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background-color: var(--accent-green);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--accent-green);
+        }
+
+        /* Dashboard Content Area */
+        .dashboard-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        /* Metric Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .metric-card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .metric-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+        }
+
+        .metric-sub {
+            font-size: 0.75rem;
+            color: var(--accent-green);
+        }
+
+        /* Main Grid (2 Column) */
+        .grid-2col {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .card {
+            background-color: var(--bg-secondary);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        /* Nodes Table */
+        .node-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+            text-align: left;
+        }
+
+        .node-table th {
+            color: var(--text-secondary);
+            font-weight: 500;
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .node-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .badge {
+            padding: 0.15rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .badge-green {
+            background-color: rgba(16, 185, 129, 0.2);
+            color: var(--accent-green);
+        }
+
+        /* Terminal Logs Area */
+        .terminal {
+            background-color: #050811;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            padding: 1rem;
+            font-family: "Courier New", Courier, monospace;
+            font-size: 0.8rem;
+            color: #d1d5db;
+            height: 220px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .log-entry {
+            line-height: 1.4;
+        }
+
+        .log-time {
+            color: var(--text-secondary);
+        }
+
+        .log-success {
+            color: var(--accent-green);
+        }
+
+        .log-info {
+            color: var(--accent-blue);
+        }
+    </style>
 </head>
+<body>
 
-<body class="flex flex-col min-h-screen font-body-md antialiased overflow-x-hidden">
-  <!-- Header -->
-  <header class="bg-surface-container border-b border-outline-variant sticky top-0 z-50 flex justify-between items-center px-4 md:px-8 h-16">
-    <div class="flex items-center gap-3">
-      <span class="material-symbols-outlined text-primary">shield</span>
-      <h1 class="text-xl font-black text-white italic tracking-tighter">FIDUCIARY_CORE</h1>
-    </div>
-    <div class="flex items-center gap-4">
-      <div class="px-3 py-1 border border-primary/30 bg-primary/5 rounded-sm flex items-center gap-2">
-        <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-        <span class="font-label-caps text-[9px] text-primary font-bold tracking-widest uppercase">SYS_LIVE</span>
-      </div>
-    </div>
-  </header>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="brand">
+            ENVICTICA <span class="brand-badge">Legal AI</span>
+        </div>
+        <ul class="nav-list">
+            <li class="nav-item"><a href="#">Dashboard</a></li>
+            <li class="nav-item"><a href="#">Document Ingestion</a></li>
+            <li class="nav-item"><a href="#">Knowledge Graph</a></li>
+            <li class="nav-item"><a href="#">Fact Extraction</a></li>
+            <li class="nav-item active"><a href="#">System Health</a></li>
+        </ul>
+    </aside>
 
-  <main class="flex-1 flex flex-col p-4 md:p-8 gap-8 max-w-5xl mx-auto w-full">
-    <!-- Title & Meta -->
-    <div class="flex flex-col gap-2">
-      <h2 class="text-[48px] md:text-[64px] font-headline-md font-black text-white italic leading-tight uppercase">Pipeline Execution</h2>
-      <div class="flex flex-wrap gap-x-4 gap-y-1 font-label-caps text-[11px] text-on-surface-variant tracking-widest uppercase">
-        <span>EXECUTION ID: #PE-88492-AX</span>
-        <span class="opacity-30">|</span>
-        <span>SUBSYSTEM: GOVERNANCE</span>
-      </div>
-      <div class="flex items-center gap-2 mt-2">
-        <span class="w-2 h-2 rounded-full bg-primary"></span>
-        <span class="font-label-caps text-[10px] text-white tracking-widest uppercase">SYSTEM ONLINE</span>
-      </div>
-    </div>
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Header Bar -->
+        <header class="header">
+            <h1 class="header-title">System Health & Cluster Telemetry</h1>
+            <div class="status-pill">
+                <span class="status-dot"></span>
+                <span>EC2 Cluster Healthy</span>
+            </div>
+        </header>
 
-    <!-- Verdict & Risk Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-      <div class="bg-surface-container border-l-4 border-primary p-6 flex flex-col gap-8 teal-glow">
-        <div class="flex flex-col gap-1">
-          <h3 class="text-2xl font-headline-md font-semibold text-white tracking-tight">Status Verdict</h3>
-          <span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">API.Response.Action</span>
-        </div>
-        <div class="flex flex-col">
-          <span class="text-[72px] md:text-[80px] font-headline-md font-black text-primary leading-none tracking-tighter">ALLOW</span>
-          <span class="font-label-caps text-[11px] text-primary mt-2 tracking-widest">VERIFICATION SUCCESSFUL</span>
-        </div>
-      </div>
+        <!-- Dashboard Content -->
+        <div class="dashboard-body">
+            
+            <!-- Metric Cards -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <span class="metric-label">Cluster Latency</span>
+                    <span class="metric-value">18 ms</span>
+                    <span class="metric-sub">✓ Within 25ms SLA</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">System Uptime</span>
+                    <span class="metric-value">99.98%</span>
+                    <span class="metric-sub">Past 30 Days</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">EC2 CPU Utilization</span>
+                    <span class="metric-value">24.2%</span>
+                    <span class="metric-sub">4 Cores Allocated</span>
+                </div>
+                <div class="metric-card">
+                    <span class="metric-label">DB Sync Rate</span>
+                    <span class="metric-value">1,420 /s</span>
+                    <span class="metric-sub">PostgreSQL Ledger</span>
+                </div>
+            </div>
 
-      <div class="bg-surface-container border border-outline-variant p-6 flex flex-col gap-8">
-        <div class="flex flex-col gap-1">
-          <h3 class="text-2xl font-headline-md font-semibold text-white tracking-tight">Risk Quotient</h3>
-          <span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">API.Response.RiskScore</span>
-        </div>
-        <div class="flex flex-col gap-4">
-          <div class="flex items-baseline gap-2">
-            <span class="text-[72px] md:text-[80px] font-headline-md font-black text-white leading-none tracking-tighter">15</span>
-            <span class="text-xl text-on-surface-variant font-light">/ 100</span>
-          </div>
-          <div class="w-full h-2 bg-surface-bright rounded-full overflow-hidden">
-            <div class="h-full bg-primary w-[15%]"></div>
-          </div>
-        </div>
-      </div>
-    </div>
+            <!-- Main Split Layout -->
+            <div class="grid-2col">
+                
+                <!-- Cluster Nodes Table -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">AWS Active Node Status</span>
+                    </div>
+                    <table class="node-table">
+                        <thead>
+                            <tr>
+                                <th>Node ID</th>
+                                <th>Role</th>
+                                <th>Region</th>
+                                <th>Latency</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>us-east-1a-primary</td>
+                                <td>API Gateway / Proxy</td>
+                                <td>us-east-1</td>
+                                <td>12 ms</td>
+                                <td><span class="badge badge-green">Online</span></td>
+                            </tr>
+                            <tr>
+                                <td>us-east-1b-worker1</td>
+                                <td>Graph Computation</td>
+                                <td>us-east-1</td>
+                                <td>19 ms</td>
+                                <td><span class="badge badge-green">Online</span></td>
+                            </tr>
+                            <tr>
+                                <td>us-east-1c-ledger</td>
+                                <td>PostgreSQL DB</td>
+                                <td>us-east-1</td>
+                                <td>14 ms</td>
+                                <td><span class="badge badge-green">Online</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
 
-    <!-- Compliance Details -->
-    <section class="bg-surface-container border border-outline-variant flex flex-col relative overflow-hidden">
-      <div class="p-6 md:p-8 flex flex-col gap-6">
-        <div class="flex justify-between items-start">
-          <h3 class="text-2xl font-headline-md font-semibold text-white tracking-tight uppercase">Compliance Vector</h3>
-          <span class="material-symbols-outlined text-on-surface-variant opacity-30">warning</span>
-        </div>
-        <div class="bg-black/40 border-l-2 border-outline-variant p-5 flex flex-col gap-4">
-          <span class="font-label-caps text-[9px] text-on-surface-variant uppercase tracking-widest">Flagged Anomaly</span>
-          <p class="font-data-numeral text-sm text-on-surface leading-relaxed italic">
-            'No provision for electronic/email notice delivery' detected in clause 4.2.a.
-          </p>
-        </div>
-        <div class="flex flex-col gap-2">
-          <span class="font-label-caps text-[9px] text-primary uppercase tracking-widest">Mitigation Protocol Activated</span>
-          <p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed">
-            Auto-injected standard digital notification rider (R-882). Document amended and cleared for progression.
-          </p>
-        </div>
-      </div>
-    </section>
+                <!-- Failover & Caching Stats -->
+                <div class="card">
+                    <div class="card-header">
+                        <span class="card-title">Instance Specs</span>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.85rem;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--text-secondary);">EC2 Instance Type:</span>
+                            <span>t3.xlarge</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--text-secondary);">Memory Allocated:</span>
+                            <span>16.00 GB</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--text-secondary);">Failover Target:</span>
+                            <span>us-east-2 (Standby)</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between;">
+                            <span style="color: var(--text-secondary);">SSL / TLS Cert:</span>
+                            <span style="color: var(--accent-green);">Valid (Active)</span>
+                        </div>
+                    </div>
+                </div>
 
-    <!-- Execution Log -->
-    <section class="flex flex-col gap-6">
-      <div class="flex justify-between items-end border-b border-outline-variant pb-4">
-        <h3 class="text-3xl font-headline-md font-black text-white italic uppercase tracking-tight">PostgreSQL Execution Log</h3>
-        <button class="px-4 py-2 border border-primary/40 text-primary font-label-caps text-[10px] font-bold tracking-widest hover:bg-primary/5 transition-all">EXPORT_LOGS</button>
-      </div>
-      <div class="audit-table-container overflow-x-auto">
-        <table class="w-full text-left border-collapse min-w-[600px]">
-          <thead>
-            <tr class="bg-surface-container border-b border-outline-variant text-[10px] font-label-caps text-on-surface-variant uppercase tracking-widest">
-              <th class="p-4 font-normal">SEQ</th>
-              <th class="p-4 font-normal">TIMESTAMP (UTC)</th>
-              <th class="p-4 font-normal">PROCESS ID</th>
-              <th class="p-4 font-normal">STATUS</th>
-            </tr>
-          </thead>
-          <tbody class="font-data-numeral text-[13px] divide-y divide-outline-variant/30">
-            <tr class="hover:bg-white/5 transition-colors">
-              <td class="p-4 text-on-surface-variant">10</td>
-              <td class="p-4 text-white">2026-08-13 21:30:11.104</td>
-              <td class="p-4 text-primary">PID-992-ALPHA</td>
-              <td class="p-4"><span class="text-primary font-bold">ALLOW</span></td>
-            </tr>
-            <tr class="hover:bg-white/5 transition-colors bg-white/5">
-              <td class="p-4 text-on-surface-variant">09</td>
-              <td class="p-4 text-white">2026-08-13 21:28:20.475</td>
-              <td class="p-4 text-env-alert">PID-991-DELTA</td>
-              <td class="p-4"><span class="text-env-alert font-bold">INTERCEPT</span></td>
-            </tr>
-            <tr class="hover:bg-white/5 transition-colors bg-white/5">
-              <td class="p-4 text-on-surface-variant">08</td>
-              <td class="p-4 text-white">2026-08-13 21:26:10.688</td>
-              <td class="p-4 text-env-alert">PID-990-DELTA</td>
-              <td class="p-4"><span class="text-env-alert font-bold">INTERCEPT</span></td>
-            </tr>
-            <tr class="hover:bg-white/5 transition-colors bg-white/5">
-              <td class="p-4 text-on-surface-variant">07</td>
-              <td class="p-4 text-white">2026-08-13 21:22:21.810</td>
-              <td class="p-4 text-env-alert">PID-989-DELTA</td>
-              <td class="p-4"><span class="text-env-alert font-bold">INTERCEPT</span></td>
-            </tr>
-            <tr class="hover:bg-white/5 transition-colors">
-              <td class="p-4 text-on-surface-variant">01</td>
-              <td class="p-4 text-white">2026-08-13 00:09:46.300</td>
-              <td class="p-4 text-on-surface-variant">PID-983-INIT</td>
-              <td class="p-4"><span class="text-on-surface-variant">ACTIVE</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-  </main>
+            </div>
 
-  <footer class="bg-surface-container border-t border-outline-variant p-6 mt-12 flex flex-col md:flex-row justify-between items-center gap-6">
-    <div class="flex flex-col gap-1 items-center md:items-start text-center md:text-left">
-      <span class="font-label-caps text-[10px] text-on-surface-variant tracking-widest uppercase">©2024 ENVICTICA FIDUCIARY. ALL SYSTEMS NOMINAL.</span>
-    </div>
-    <div class="flex gap-8 font-label-caps text-[10px] text-on-surface-variant tracking-widest uppercase">
-      <a href="#" class="hover:text-primary transition-colors">SECURE_LOGOUT</a>
-      <a href="#" class="hover:text-primary transition-colors">GLOBAL_STATUS</a>
-    </div>
-  </footer>
+            <!-- Real-time Console Log Stream -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Live EC2 System Logs & Heartbeat Proofs</span>
+                </div>
+                <div class="terminal" id="terminalLogs">
+                    <div class="log-entry"><span class="log-time">[01:38:02]</span> <span class="log-info">[INFO]</span> Heartbeat ping acknowledge from us-east-1a-primary (12ms)</div>
+                    <div class="log-entry"><span class="log-time">[01:38:04]</span> <span class="log-success">[SUCCESS]</span> Knowledge graph ledger commit verified. Hash: 0x8f2a...c109</div>
+                    <div class="log-entry"><span class="log-time">[01:38:06]</span> <span class="log-info">[INFO]</span> AWS EC2 health metrics synced successfully.</div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
 </body>
-
 </html>
