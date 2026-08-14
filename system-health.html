@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8" />
   <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-  <title>Knowledge Graph & Fact Mapping - Envictica</title>
+  <title>Pipeline Execution & Audit Proof - Envictica</title>
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
   <script id="tailwind-config">
     tailwind.config = {
@@ -16,6 +16,7 @@
             "env-alert": "#FF4D6D", // Burnt Crimson
             "surface": "#050608",
             "surface-container": "#0b0f10",
+            "surface-bright": "#1a1c1e",
             "on-surface": "#e3e1e9",
             "on-surface-variant": "#9ca3af",
             "outline-variant": "rgba(0, 245, 212, 0.1)"
@@ -42,202 +43,162 @@
       font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
     }
 
-    .node-pulse {
-      animation: node-glow 4s infinite alternate;
+    .audit-table-container {
+      -webkit-overflow-scrolling: touch;
     }
 
-    @keyframes node-glow {
-      0% {
-        filter: drop-shadow(0 0 2px rgba(0, 245, 212, 0.2));
-      }
+    .teal-glow {
+      box-shadow: 0 0 15px rgba(0, 245, 212, 0.1);
+    }
 
-      100% {
-        filter: drop-shadow(0 0 10px rgba(0, 245, 212, 0.6));
-      }
+    .crimson-glow {
+      box-shadow: 0 0 15px rgba(255, 77, 109, 0.1);
     }
   </style>
 </head>
 
 <body class="flex flex-col min-h-screen font-body-md antialiased overflow-x-hidden">
+  <!-- Header -->
   <header class="bg-surface-container border-b border-outline-variant sticky top-0 z-50 flex justify-between items-center px-4 md:px-8 h-16">
     <div class="flex items-center gap-3">
-      <span class="font-headline-md font-black text-white italic tracking-tighter text-xl">ENVICTICA</span>
-      <span class="h-4 w-px bg-white/10 mx-2"></span>
-      <span class="font-label-caps text-[10px] text-on-surface-variant tracking-[0.2em] uppercase">Knowledge Graph</span>
+      <span class="material-symbols-outlined text-primary">shield</span>
+      <h1 class="text-xl font-black text-white italic tracking-tighter">FIDUCIARY_CORE</h1>
     </div>
     <div class="flex items-center gap-4">
-      <div class="px-3 py-1.5 border border-primary/30 bg-primary/5 rounded-sm flex items-center gap-2">
+      <div class="px-3 py-1 border border-primary/30 bg-primary/5 rounded-sm flex items-center gap-2">
         <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-        <span class="font-label-caps text-[9px] text-primary font-bold tracking-widest uppercase">System Healthy</span>
+        <span class="font-label-caps text-[9px] text-primary font-bold tracking-widest uppercase">SYS_LIVE</span>
       </div>
-      <button class="p-2 text-on-surface-variant hover:text-primary transition-colors">
-        <span class="material-symbols-outlined">settings</span>
-      </button>
     </div>
   </header>
 
-  <main class="flex-1 flex flex-col md:flex-row">
-    <!-- Sidebar Navigation -->
-    <nav class="w-full md:w-64 bg-surface-container border-b md:border-b-0 md:border-r border-outline-variant p-6 flex flex-col gap-8">
-      <div class="flex flex-col gap-1">
-        <span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Environment</span>
-        <span class="font-data-numeral text-xs text-white">ENV / INFRA / PIPELINE_04</span>
+  <main class="flex-1 flex flex-col p-4 md:p-8 gap-8 max-w-5xl mx-auto w-full">
+    <!-- Title & Meta -->
+    <div class="flex flex-col gap-2">
+      <h2 class="text-[48px] md:text-[64px] font-headline-md font-black text-white italic leading-tight uppercase">Pipeline Execution</h2>
+      <div class="flex flex-wrap gap-x-4 gap-y-1 font-label-caps text-[11px] text-on-surface-variant tracking-widest uppercase">
+        <span>EXECUTION ID: #PE-88492-AX</span>
+        <span class="opacity-30">|</span>
+        <span>SUBSYSTEM: GOVERNANCE</span>
       </div>
-      <div class="flex flex-col gap-2">
-        <button class="w-full py-2.5 bg-primary text-black font-label-caps text-[10px] font-bold tracking-widest rounded-sm mb-4">NEW SYSTEM AUDIT</button>
+      <div class="flex items-center gap-2 mt-2">
+        <span class="w-2 h-2 rounded-full bg-primary"></span>
+        <span class="font-label-caps text-[10px] text-white tracking-widest uppercase">SYSTEM ONLINE</span>
+      </div>
+    </div>
+
+    <!-- Verdict & Risk Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="bg-surface-container border-l-4 border-primary p-6 flex flex-col gap-8 teal-glow">
         <div class="flex flex-col gap-1">
-          <a href="#" class="flex items-center gap-3 p-2 text-on-surface-variant hover:text-white transition-all text-xs">
-            <span class="material-symbols-outlined text-lg">lan</span> Infrastructure
-          </a>
-          <a href="#" class="flex items-center gap-3 p-2 text-on-surface-variant hover:text-white transition-all text-xs">
-            <span class="material-symbols-outlined text-lg">gavel</span> Governance
-          </a>
-          <a href="#" class="flex items-center gap-3 p-2 text-primary bg-primary/5 border-l-2 border-primary font-bold text-xs">
-            <span class="material-symbols-outlined text-lg">account_tree</span> Pipelines
-          </a>
-          <a href="#" class="flex items-center gap-3 p-2 text-on-surface-variant hover:text-white transition-all text-xs">
-            <span class="material-symbols-outlined text-lg">fact_check</span> Data Validation
-          </a>
-          <a href="#" class="flex items-center gap-3 p-2 text-on-surface-variant hover:text-white transition-all text-xs">
-            <span class="material-symbols-outlined text-lg">history</span> Audit Logs
-          </a>
+          <h3 class="text-2xl font-headline-md font-semibold text-white tracking-tight">Status Verdict</h3>
+          <span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">API.Response.Action</span>
         </div>
-      </div>
-    </nav>
-
-    <!-- Visualization Canvas -->
-    <div class="flex-1 bg-black relative overflow-hidden flex flex-col">
-      <div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(circle at 2px 2px, rgba(255,255,255,0.05) 1px, transparent 0); background-size: 40px 40px;"></div>
-
-      <!-- Graph Toolbar -->
-      <div class="absolute top-6 left-6 z-10 flex gap-2">
-        <button class="p-2 bg-surface-container border border-outline-variant text-white hover:bg-surface-bright">
-          <span class="material-symbols-outlined text-lg">zoom_in</span>
-        </button>
-        <button class="p-2 bg-surface-container border border-outline-variant text-white hover:bg-surface-bright">
-          <span class="material-symbols-outlined text-lg">zoom_out</span>
-        </button>
-        <button class="p-2 bg-surface-container border border-outline-variant text-white hover:bg-surface-bright">
-          <span class="material-symbols-outlined text-lg">fit_screen</span>
-        </button>
-      </div>
-
-      <!-- Graph UI Placeholder -->
-      <div class="flex-1 flex items-center justify-center relative p-12">
-        <div class="relative w-full max-w-2xl aspect-video border border-white/5 bg-white/[0.02] flex items-center justify-center">
-          <!-- Central Node -->
-          <div class="relative z-20">
-            <div class="w-16 h-16 rounded-lg bg-surface border-2 border-primary flex items-center justify-center node-pulse">
-              <span class="material-symbols-outlined text-primary text-3xl">domain</span>
-            </div>
-            <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 text-center whitespace-nowrap">
-              <p class="font-headline-md text-sm text-white font-bold">Alpha Holdings LLC</p>
-              <p class="font-label-caps text-[9px] text-primary">ID: CORP-8821</p>
-            </div>
-          </div>
-
-          <!-- Connector Lines -->
-          <svg class="absolute inset-0 w-full h-full pointer-events-none">
-            <line x1="50%" y1="50%" x2="70%" y2="30%" stroke="#00F5D4" stroke-width="1" stroke-dasharray="4 4" />
-            <line x1="50%" y1="50%" x2="60%" y2="80%" stroke="#00F5D4" stroke-width="1" />
-          </svg>
-
-          <div class="absolute top-[30%] right-[30%] w-12 h-12 bg-surface border border-outline-variant flex items-center justify-center">
-            <span class="material-symbols-outlined text-on-surface-variant text-xl">account_balance</span>
-          </div>
-          <div class="absolute bottom-[20%] right-[40%] w-12 h-12 bg-surface border border-outline-variant flex items-center justify-center">
-            <span class="material-symbols-outlined text-on-surface-variant text-xl">person</span>
-          </div>
+        <div class="flex flex-col">
+          <span class="text-[72px] md:text-[80px] font-headline-md font-black text-primary leading-none tracking-tighter">ALLOW</span>
+          <span class="font-label-caps text-[11px] text-primary mt-2 tracking-widest">VERIFICATION SUCCESSFUL</span>
         </div>
       </div>
 
-      <!-- Node Inspector Panel -->
-      <div class="w-full lg:w-96 bg-surface-container border-t lg:border-t-0 lg:border-l border-outline-variant absolute top-0 right-0 h-full z-30 flex flex-col">
-        <div class="p-6 border-b border-outline-variant flex justify-between items-center">
-          <h3 class="font-headline-md text-white font-bold flex items-center gap-2">
-            <span class="material-symbols-outlined text-primary">hub</span> Node Inspector
-          </h3>
-          <button class="text-on-surface-variant hover:text-white">
-            <span class="material-symbols-outlined">close</span>
-          </button>
+      <div class="bg-surface-container border border-outline-variant p-6 flex flex-col gap-8">
+        <div class="flex flex-col gap-1">
+          <h3 class="text-2xl font-headline-md font-semibold text-white tracking-tight">Risk Quotient</h3>
+          <span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">API.Response.RiskScore</span>
         </div>
-
-        <div class="flex-1 overflow-y-auto p-6 flex flex-col gap-8">
-          <div class="flex flex-col gap-2">
-            <span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">Corporate Entity</span>
-            <h4 class="text-2xl font-headline-md font-bold text-white tracking-tight leading-none">Alpha Holdings LLC</h4>
-            <div class="flex gap-2 mt-2">
-              <span class="px-2 py-0.5 bg-primary/20 text-primary border border-primary/40 font-label-caps text-[9px] font-bold">ACTIVE</span>
-              <span class="font-data-numeral text-[10px] text-on-surface-variant self-center">ID: CORP-8821</span>
-            </div>
+        <div class="flex flex-col gap-4">
+          <div class="flex items-baseline gap-2">
+            <span class="text-[72px] md:text-[80px] font-headline-md font-black text-white leading-none tracking-tighter">15</span>
+            <span class="text-xl text-on-surface-variant font-light">/ 100</span>
           </div>
-
-          <div class="grid grid-cols-2 gap-4">
-            <div class="bg-black/40 border border-outline-variant p-4 flex flex-col gap-2">
-              <span class="font-label-caps text-[9px] text-on-surface-variant uppercase tracking-widest">Link Confidence</span>
-              <div class="flex flex-col gap-2">
-                <span class="font-data-numeral text-2xl text-white">98<span class="text-primary text-sm">%</span></span>
-                <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                  <div class="h-full bg-primary w-[98%]"></div>
-                </div>
-              </div>
-            </div>
-
-            <div class="bg-black/40 border border-outline-variant p-4 flex flex-col gap-2">
-              <span class="font-label-caps text-[9px] text-on-surface-variant uppercase tracking-widest">Citation Strength</span>
-              <div class="flex flex-col gap-2">
-                <span class="font-data-numeral text-2xl text-white">4.2<span class="text-on-surface-variant text-sm">/ 5</span></span>
-                <div class="w-full h-1 bg-white/5 rounded-full overflow-hidden">
-                  <div class="h-full bg-white/40 w-[84%]"></div>
-                </div>
-              </div>
-            </div>
+          <div class="w-full h-2 bg-surface-bright rounded-full overflow-hidden">
+            <div class="h-full bg-primary w-[15%]"></div>
           </div>
-
-          <div class="flex flex-col gap-4">
-            <h5 class="font-label-caps text-[10px] text-white uppercase tracking-widest flex items-center gap-2">
-              <span class="material-symbols-outlined text-sm">verified_user</span> Source Ingestion Audit
-            </h5>
-            <div class="relative pl-6 flex flex-col gap-6 before:absolute before:left-[11px] before:top-2 before:bottom-2 before:w-px before:bg-outline-variant">
-              <div class="relative">
-                <div class="absolute -left-6 top-1 w-3 h-3 bg-primary rounded-full border-4 border-[#050608]"></div>
-                <div class="bg-white/5 border border-outline-variant p-3">
-                  <div class="flex justify-between items-start mb-2">
-                    <span class="text-primary font-bold text-xs">SEC Filing 10-K</span>
-                    <span class="font-data-numeral text-[9px] text-on-surface-variant">10:42 AM</span>
-                  </div>
-                  <p class="text-[11px] text-on-surface-variant leading-relaxed">Entity matched via CIK 0001234567. Address verified.</p>
-                </div>
-              </div>
-
-              <div class="relative">
-                <div class="absolute -left-6 top-1 w-3 h-3 bg-outline-variant rounded-full border-4 border-[#050608]"></div>
-                <div class="bg-white/5 border border-outline-variant p-3">
-                  <div class="flex justify-between items-start mb-2">
-                    <span class="text-white font-bold text-xs">Delaware State Reg</span>
-                    <span class="font-data-numeral text-[9px] text-on-surface-variant">09:15 AM</span>
-                  </div>
-                  <p class="text-[11px] text-on-surface-variant leading-relaxed">Initial extraction. Name fuzzy match score: 0.95</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="p-6 mt-auto border-t border-outline-variant bg-black/20 flex flex-col gap-3">
-          <button class="w-full py-2 bg-primary text-black font-label-caps text-[11px] font-bold tracking-widest hover:opacity-90">VALIDATE NODE</button>
-          <button class="w-full py-2 border border-outline-variant text-white font-label-caps text-[11px] hover:bg-white/5">VIEW RAW DATA</button>
         </div>
       </div>
     </div>
+
+    <!-- Compliance Details -->
+    <section class="bg-surface-container border border-outline-variant flex flex-col relative overflow-hidden">
+      <div class="p-6 md:p-8 flex flex-col gap-6">
+        <div class="flex justify-between items-start">
+          <h3 class="text-2xl font-headline-md font-semibold text-white tracking-tight uppercase">Compliance Vector</h3>
+          <span class="material-symbols-outlined text-on-surface-variant opacity-30">warning</span>
+        </div>
+        <div class="bg-black/40 border-l-2 border-outline-variant p-5 flex flex-col gap-4">
+          <span class="font-label-caps text-[9px] text-on-surface-variant uppercase tracking-widest">Flagged Anomaly</span>
+          <p class="font-data-numeral text-sm text-on-surface leading-relaxed italic">
+            'No provision for electronic/email notice delivery' detected in clause 4.2.a.
+          </p>
+        </div>
+        <div class="flex flex-col gap-2">
+          <span class="font-label-caps text-[9px] text-primary uppercase tracking-widest">Mitigation Protocol Activated</span>
+          <p class="font-body-md text-[15px] text-on-surface-variant leading-relaxed">
+            Auto-injected standard digital notification rider (R-882). Document amended and cleared for progression.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Execution Log -->
+    <section class="flex flex-col gap-6">
+      <div class="flex justify-between items-end border-b border-outline-variant pb-4">
+        <h3 class="text-3xl font-headline-md font-black text-white italic uppercase tracking-tight">PostgreSQL Execution Log</h3>
+        <button class="px-4 py-2 border border-primary/40 text-primary font-label-caps text-[10px] font-bold tracking-widest hover:bg-primary/5 transition-all">EXPORT_LOGS</button>
+      </div>
+      <div class="audit-table-container overflow-x-auto">
+        <table class="w-full text-left border-collapse min-w-[600px]">
+          <thead>
+            <tr class="bg-surface-container border-b border-outline-variant text-[10px] font-label-caps text-on-surface-variant uppercase tracking-widest">
+              <th class="p-4 font-normal">SEQ</th>
+              <th class="p-4 font-normal">TIMESTAMP (UTC)</th>
+              <th class="p-4 font-normal">PROCESS ID</th>
+              <th class="p-4 font-normal">STATUS</th>
+            </tr>
+          </thead>
+          <tbody class="font-data-numeral text-[13px] divide-y divide-outline-variant/30">
+            <tr class="hover:bg-white/5 transition-colors">
+              <td class="p-4 text-on-surface-variant">10</td>
+              <td class="p-4 text-white">2026-08-13 21:30:11.104</td>
+              <td class="p-4 text-primary">PID-992-ALPHA</td>
+              <td class="p-4"><span class="text-primary font-bold">ALLOW</span></td>
+            </tr>
+            <tr class="hover:bg-white/5 transition-colors bg-white/5">
+              <td class="p-4 text-on-surface-variant">09</td>
+              <td class="p-4 text-white">2026-08-13 21:28:20.475</td>
+              <td class="p-4 text-env-alert">PID-991-DELTA</td>
+              <td class="p-4"><span class="text-env-alert font-bold">INTERCEPT</span></td>
+            </tr>
+            <tr class="hover:bg-white/5 transition-colors bg-white/5">
+              <td class="p-4 text-on-surface-variant">08</td>
+              <td class="p-4 text-white">2026-08-13 21:26:10.688</td>
+              <td class="p-4 text-env-alert">PID-990-DELTA</td>
+              <td class="p-4"><span class="text-env-alert font-bold">INTERCEPT</span></td>
+            </tr>
+            <tr class="hover:bg-white/5 transition-colors bg-white/5">
+              <td class="p-4 text-on-surface-variant">07</td>
+              <td class="p-4 text-white">2026-08-13 21:22:21.810</td>
+              <td class="p-4 text-env-alert">PID-989-DELTA</td>
+              <td class="p-4"><span class="text-env-alert font-bold">INTERCEPT</span></td>
+            </tr>
+            <tr class="hover:bg-white/5 transition-colors">
+              <td class="p-4 text-on-surface-variant">01</td>
+              <td class="p-4 text-white">2026-08-13 00:09:46.300</td>
+              <td class="p-4 text-on-surface-variant">PID-983-INIT</td>
+              <td class="p-4"><span class="text-on-surface-variant">ACTIVE</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
   </main>
 
-  <footer class="bg-surface-container border-t border-outline-variant p-6 flex justify-between items-center">
-    <div class="font-label-caps text-[10px] text-on-surface-variant tracking-widest uppercase flex items-center gap-2">
-      <span class="material-symbols-outlined text-[12px]">settings</span> SETTINGS
+  <footer class="bg-surface-container border-t border-outline-variant p-6 mt-12 flex flex-col md:flex-row justify-between items-center gap-6">
+    <div class="flex flex-col gap-1 items-center md:items-start text-center md:text-left">
+      <span class="font-label-caps text-[10px] text-on-surface-variant tracking-widest uppercase">©2024 ENVICTICA FIDUCIARY. ALL SYSTEMS NOMINAL.</span>
     </div>
-    <div class="font-label-caps text-[10px] text-on-surface-variant tracking-widest uppercase flex items-center gap-2">
-      <span class="material-symbols-outlined text-[12px]">help</span> SUPPORT
+    <div class="flex gap-8 font-label-caps text-[10px] text-on-surface-variant tracking-widest uppercase">
+      <a href="#" class="hover:text-primary transition-colors">SECURE_LOGOUT</a>
+      <a href="#" class="hover:text-primary transition-colors">GLOBAL_STATUS</a>
     </div>
   </footer>
 </body>
