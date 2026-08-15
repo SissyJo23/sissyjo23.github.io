@@ -14,13 +14,6 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Locate Project Files
-        run: |
-          echo "Listing workspace root:"
-          ls -la
-          echo "Checking nested directory if present:"
-          ls -la sissyjo23.github.io || true
-
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -32,30 +25,18 @@ jobs:
           python-version: '3.10'
 
       - name: Install Node Dependencies
-        run: |
-          if [ -d "sissyjo23.github.io" ]; then
-            cd sissyjo23.github.io && npm install
-          else
-            npm install
-          fi
+        working-directory: ./sissyjo23.github.io
+        run: npm install
 
       - name: Start Envictica Server in Background
+        working-directory: ./sissyjo23.github.io
         run: |
-          if [ -d "sissyjo23.github.io" ]; then
-            cd sissyjo23.github.io
-            nohup node server.js > server.log 2>&1 &
-          else
-            nohup node server.js > server.log 2>&1 &
-          fi
+          nohup node server.js > server.log 2>&1 &
           sleep 3
 
       - name: Run Generalization Benchmark
+        working-directory: ./sissyjo23.github.io
         env:
           PORT: 3000
         run: |
-          if [ -d "sissyjo23.github.io" ]; then
-            cd sissyjo23.github.io
-            python3 run_generalization.py
-          else
-            python3 run_generalization.py
-          fi
+          python3 run_generalization.py
