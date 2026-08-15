@@ -54,6 +54,64 @@ app.get('/api/export/compliance', (req, res) => {
   const csvData = `Timestamp,Module,Actor,Action,Status\n${new Date().toISOString()},Module 00,System Automated,Compliance Check,Passed\n`;
   res.send(csvData);
 });
+app.post('/api/v1/analyze-risk', async (req, res) => {
+  const { clauseText, contractType } = req.body;
+
+  // 1. Build evaluator prompt
+  const prompt = {
+    system: `
+You are an expert legal AI specializing in commercial contract risk analysis.
+Your task is to evaluate contractual clauses and assign a risk score from 1 (safe)
+to 100 (extreme hazard). Use structural patterns: liability caps, termination windows,
+indemnity scope, obligations duration, unilateral rights, causation language.
+Return STRICT JSON ONLY.
+    `,
+    user: { clauseText, contractType }
+  };
+
+  // 2. Placeholder evaluator (you will replace this with your model later)
+  const raw = JSON.stringify({
+    risk_score: 15,
+    circuit_breaker_action: "ALLOW",
+    flagged_issues: [],
+    mitigation_recommendation: "No issues detected."
+  });
+
+  // 3. Validate JSON
+  let parsed;
+  try {
+    parsed = JSON.parse(raw);
+  } catch {
+    return res.json({
+      success: false,
+      analysis: {
+        risk_score: 99,
+        circuit_breaker_action: "REVIEW",
+        flagged_issues: ["Evaluator returned invalid JSON"],
+        mitigation_recommendation: "Human review required"
+      }
+    });
+  }
+
+  // 4. Log to Neon
+  const log = await db.query(
+    `INSERT INTO compliance_logs (risk_score, circuit_breaker_action, flagged_issues, mitigation_recommendation)
+     VALUES ($1, $2, $3, $4) RETURNING id`,
+    [
+      parsed.risk_score,
+      parsed.circuit_breaker_action,
+      JSON.stringify(parsed.flagged_issues),
+      parsed.mitigation_recommendation
+    ]
+  );
+
+  // 5. Return stable JSON
+  res.json({
+    success: true,
+    analysis: parsed,
+    compliance_log_id: log.rows[0].id
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
