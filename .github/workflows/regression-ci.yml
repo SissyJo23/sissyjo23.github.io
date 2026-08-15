@@ -9,6 +9,9 @@ on:
 jobs:
   run-benchmark:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./sissyjo23.github.io
 
     steps:
       - name: Checkout Code
