@@ -9,9 +9,6 @@ on:
 jobs:
   run-benchmark:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./sissyjo23.github.io
 
     steps:
       - name: Checkout Code
@@ -28,10 +25,13 @@ jobs:
           python-version: '3.10'
 
       - name: Install Node Dependencies
-        run: npm install
+        run: |
+          cd sissyjo23.github.io
+          npm install
 
       - name: Start Envictica Server in Background
         run: |
+          cd sissyjo23.github.io
           nohup node server.js > server.log 2>&1 &
           sleep 3
 
@@ -39,4 +39,5 @@ jobs:
         env:
           PORT: 3000
         run: |
+          cd sissyjo23.github.io
           python3 run_generalization.py
