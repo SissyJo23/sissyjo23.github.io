@@ -98,3 +98,4 @@ try {
   console.error("Evaluator error:", err);
   return res.status(500).json({ error: "Internal evaluator failure" });
 }
+});
