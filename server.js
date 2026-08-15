@@ -56,6 +56,17 @@ app.get('/api/export/compliance', (req, res) => {
 });
 app.post('/api/v1/analyze-risk', async (req, res) => {
   const { clauseText, contractType } = req.body;
+if (!contractType || typeof contractType !== "string") {
+  return res.json({
+    success: false,
+    analysis: {
+      risk_score: 99,
+      circuit_breaker_action: "REVIEW",
+      flagged_issues: ["Missing or invalid contractType"],
+      mitigation_recommendation: "Provide a contract type such as SaaS, NDA, or Employment."
+    }
+  });
+}
 
   // 1. Build evaluator prompt
   const prompt = {
