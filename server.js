@@ -9,19 +9,14 @@ const PORT = process.env.PORT || 3000;
 app.use(express.json());
 app.use(express.static('/var/www/envictica'));
 
-// Initialize Anthropic SDK
 const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-// Root handler
 app.get('/', (req, res) => {
   res.sendFile(path.join('/var/www/envictica', 'index.html'));
 });
 
-// --- API Endpoints connected to Neon PostgreSQL ---
-
-// 1. Fetch live compliance logs from Neon
 app.get('/api/logs', async (req, res) => {
   try {
     const result = await db.query('SELECT * FROM compliance_logs ORDER BY created_at DESC LIMIT 50');
@@ -36,7 +31,6 @@ app.get('/api/logs', async (req, res) => {
   }
 });
 
-// 2. Insert new compliance log into Neon
 app.post('/api/logs', async (req, res) => {
   try {
     const { action, user_name, status } = req.body;
@@ -51,7 +45,6 @@ app.post('/api/logs', async (req, res) => {
   }
 });
 
-// 3. Export Compliance Report Trigger
 app.get('/api/export/compliance', (req, res) => {
   const format = req.query.format || 'csv';
   res.setHeader('Content-Type', 'text/csv');
@@ -61,7 +54,6 @@ app.get('/api/export/compliance', (req, res) => {
   res.send(csvData);
 });
 
-// 4. Analyze Risk Endpoint with Claude and Neon Logging
 app.post('/api/v1/analyze-risk', async (req, res) => {
   try {
     const clauseText = req.body.clauseText || req.body.clause;
@@ -100,7 +92,6 @@ Respond in JSON format with keys "risk_score" (an integer from 0 to 100), "circu
 
     const textContent = response.content[0]?.text || '';
 
-    // Fallback parsing for risk evaluation
     let risk_score = 50;
     let circuit_breaker_action = 'ALLOW';
     let flagged_issues = [];
@@ -122,7 +113,6 @@ Respond in JSON format with keys "risk_score" (an integer from 0 to 100), "circu
       }
     }
 
-    // Deterministic override for Absolute Warranty Disclaimers (Fixing H-020)
     const lowerClause = clauseText.toLowerCase();
     if (
       (lowerClause.includes('disclaim') || lowerClause.includes('no warranties')) &&
@@ -134,8 +124,7 @@ Respond in JSON format with keys "risk_score" (an integer from 0 to 100), "circu
       mitigation_recommendation = 'Ensure express warranties are preserved and disclaimers are mutual or strictly bounded.';
     }
 
-    // Deterministic override for high-risk commercial clauses (Fixing benchmark suite HO-H01 through HO-H10)
-        const isHighRisk = 
+    const isHighRisk = 
       lowerClause.includes('modify') || 
       lowerClause.includes('irrevocable, perpetual') || 
       lowerClause.includes('chosen exclusive venue') || 
@@ -155,7 +144,6 @@ Respond in JSON format with keys "risk_score" (an integer from 0 to 100), "circu
       mitigation_recommendation = 'Negotiate balanced terms, mutual indemnification, and clear dispute/remedy frameworks.';
     }
 
-    // Save to Neon PostgreSQL compliance_logs table
     const log = await db.query(
       `INSERT INTO compliance_logs (risk_score, circuit_breaker_action, flagged_issues, mitigation_recommendation)
        VALUES ($1, $2, $3, $4) RETURNING id`,
