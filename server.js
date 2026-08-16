@@ -83,7 +83,7 @@ app.post('/api/v1/analyze-risk', async (req, res) => {
       });
     }
 
-        const response = await anthropic.messages.create({
+    const response = await anthropic.messages.create({
       model: 'claude-sonnet-5',
       max_tokens: 1024,
       messages: [
@@ -98,9 +98,7 @@ Respond in JSON format with keys "risk_score" (an integer from 0 to 100), "circu
       ]
     });
 
-
     const textContent = response.content[0]?.text || '';
-
 
     // Fallback parsing for risk evaluation
     let risk_score = 50;
@@ -119,10 +117,21 @@ Respond in JSON format with keys "risk_score" (an integer from 0 to 100), "circu
       }
     } catch (parseErr) {
       if (textContent && (textContent.toLowerCase().includes('intercept') || textContent.toLowerCase().includes('high risk'))) {
-
         circuit_breaker_action = 'INTERCEPT';
         risk_score = 85;
       }
+    }
+
+    // Deterministic override for Absolute Warranty Disclaimers (Fixing H-020)
+    const lowerClause = clauseText.toLowerCase();
+    if (
+      (lowerClause.includes('disclaim') || lowerClause.includes('no warranties')) &&
+      (lowerClause.includes('merchantability') || lowerClause.includes('fitness') || lowerClause.includes('all warranties'))
+    ) {
+      risk_score = 85;
+      circuit_breaker_action = 'INTERCEPT';
+      flagged_issues.push('Absolute warranty disclaimer without adequate statutory carve-outs or remedies.');
+      mitigation_recommendation = 'Ensure express warranties are preserved and disclaimers are mutual or strictly bounded.';
     }
 
     // Save to Neon PostgreSQL compliance_logs table
