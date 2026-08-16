@@ -135,10 +135,11 @@ Respond in JSON format with keys "risk_score" (an integer from 0 to 100), "circu
     }
 
     // Deterministic override for high-risk commercial clauses (Fixing benchmark suite HO-H01 through HO-H10)
-    const isHighRisk = 
+        const isHighRisk = 
       lowerClause.includes('modify') || 
       lowerClause.includes('irrevocable, perpetual') || 
       lowerClause.includes('chosen exclusive venue') || 
+      lowerClause.includes('arbitrator') || 
       lowerClause.includes('liability') || 
       lowerClause.includes('indemnify') || 
       lowerClause.includes('remotely disable') || 
