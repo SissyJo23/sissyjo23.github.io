@@ -24,27 +24,14 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Locate Files and Run Benchmark
+      - name: Locate Script and Run Benchmark
         run: |
-          echo "=== CURRENT DIRECTORY ==="
-          pwd
-          echo "=== DIRECTORY CONTENTS ==="
-          ls -la
-          
-          echo "=== INSTALLING NPM ==="
           npm install
-          
-          echo "=== STARTING SERVER ==="
           nohup node server.js > server.log 2>&1 &
           sleep 3
           
-          echo "=== RUNNING BENCHMARK ==="
-          if [ -f "run_generalization.py" ]; then
-            PORT=3000 python3 run_generalization.py
-          elif [ -f "../run_generalization.py" ]; then
-            PORT=3000 python3 ../run_generalization.py
-          elif [ -f "sissyjo23.github.io/run_generalization.py" ]; then
-            PORT=3000 python3 sissyjo23.github.io/run_generalization.py
-          else
-            python3 ../sissyjo23.github.io/run_generalization.py
-          fi
+          # Find the benchmark or generalization python script dynamically
+          SCRIPT_PATH=$(find . -name "*generalization.py" -o -name "*benchmark*.py" | head -n 1)
+          echo "Found script at: $SCRIPT_PATH"
+          
+          PORT=3000 python3 "$SCRIPT_PATH"
