@@ -24,9 +24,27 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install Dependencies and Run Benchmark
+      - name: Locate Files and Run Benchmark
         run: |
+          echo "=== CURRENT DIRECTORY ==="
+          pwd
+          echo "=== DIRECTORY CONTENTS ==="
+          ls -la
+          
+          echo "=== INSTALLING NPM ==="
           npm install
+          
+          echo "=== STARTING SERVER ==="
           nohup node server.js > server.log 2>&1 &
           sleep 3
-          PORT=3000 python3 run_generalization.py
+          
+          echo "=== RUNNING BENCHMARK ==="
+          if [ -f "run_generalization.py" ]; then
+            PORT=3000 python3 run_generalization.py
+          elif [ -f "../run_generalization.py" ]; then
+            PORT=3000 python3 ../run_generalization.py
+          elif [ -f "sissyjo23.github.io/run_generalization.py" ]; then
+            PORT=3000 python3 sissyjo23.github.io/run_generalization.py
+          else
+            python3 ../sissyjo23.github.io/run_generalization.py
+          fi
