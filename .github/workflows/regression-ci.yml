@@ -13,8 +13,6 @@ jobs:
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
-        with:
-          path: .
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -26,16 +24,10 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Install Node Dependencies
-        run: npm install
-
-      - name: Start Envictica Server in Background
+      - name: Install Dependencies and Run Benchmark
         run: |
+          cd sissyjo23.github.io
+          npm install
           nohup node server.js > server.log 2>&1 &
           sleep 3
-
-      - name: Run Generalization Benchmark
-        env:
-          PORT: 3000
-        run: |
-          python3 run_generalization.py
+          PORT=3000 python3 run_generalization.py
