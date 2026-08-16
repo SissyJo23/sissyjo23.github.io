@@ -94,7 +94,8 @@ app.post('/api/v1/analyze-risk', async (req, res) => {
       ]
     });
 
-    const textContent = response.content[0].text;
+    const textContent = response.content[0]?.text || '';
+
 
     // Fallback parsing for risk evaluation
     let risk_score = 50;
@@ -112,7 +113,8 @@ app.post('/api/v1/analyze-risk', async (req, res) => {
         if (parsed.mitigation_recommendation) mitigation_recommendation = parsed.mitigation_recommendation;
       }
     } catch (parseErr) {
-      if (textContent.toLowerCase().includes('intercept') || textContent.toLowerCase().includes('high risk')) {
+      if (textContent && (textContent.toLowerCase().includes('intercept') || textContent.toLowerCase().includes('high risk'))) {
+
         circuit_breaker_action = 'INTERCEPT';
         risk_score = 85;
       }
