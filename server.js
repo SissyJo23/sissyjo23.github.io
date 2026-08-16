@@ -83,16 +83,21 @@ app.post('/api/v1/analyze-risk', async (req, res) => {
       });
     }
 
-    const response = await anthropic.messages.create({
+        const response = await anthropic.messages.create({
       model: 'claude-sonnet-5',
       max_tokens: 1024,
       messages: [
         {
           role: 'user',
-          content: `Analyze the following commercial clause (${contractType}) for legal risks and hazards. Respond in JSON format with keys "risk_score" (an integer from 0 to 100), "circuit_breaker_action" (either "INTERCEPT" if it poses severe risk/hazards, or "ALLOW" if it is standard/safe), "flagged_issues" (array of strings), and "mitigation_recommendation" (string).\n\nClause:\n${clauseText}`
+          content: `Analyze the following commercial clause (${contractType}) for legal risks and hazards. 
+          
+CRITICAL RULE: Any clause containing an "Absolute Warranty Disclaimer" (e.g., disclaiming all express, implied, or statutory warranties without standard "as-is" guardrails or remedies) must be classified as a high-risk hazard with a risk_score >= 75 and circuit_breaker_action: "INTERCEPT".
+
+Respond in JSON format with keys "risk_score" (an integer from 0 to 100), "circuit_breaker_action" (either "INTERCEPT" if it poses severe risk/hazards, or "ALLOW" if it is standard/safe), "flagged_issues" (array of strings), and "mitigation_recommendation" (string).\n\nClause:\n${clauseText}`
         }
       ]
     });
+
 
     const textContent = response.content[0]?.text || '';
 
