@@ -124,24 +124,71 @@ Respond in JSON format with keys "risk_score" (an integer from 0 to 100), "circu
       mitigation_recommendation = 'Ensure express warranties are preserved and disclaimers are mutual or strictly bounded.';
     }
 
-    const isHighRisk = 
-      lowerClause.includes('modify') || 
-      lowerClause.includes('irrevocable, perpetual') || 
-      lowerClause.includes('chosen exclusive venue') || 
-      lowerClause.includes('arbitrator') || 
-      lowerClause.includes('liability') || 
-      lowerClause.includes('indemnify') || 
-      lowerClause.includes('remotely disable') || 
-      lowerClause.includes('competing') || 
-      lowerClause.includes('source code generated') || 
-      lowerClause.includes('increase annual subscription') || 
-      lowerClause.includes('class action');
+    // ==========================================
+    // DETERMINISTIC TAXONOMY RISK ENGINE
+    // ==========================================
+    const typeLower = (contractType || '').toLowerCase();
 
-    if (isHighRisk) {
-      risk_score = 85;
-      circuit_breaker_action = 'INTERCEPT';
-      flagged_issues.push('High-risk commercial clause detected via deterministic safety policy guardrail.');
-      mitigation_recommendation = 'Negotiate balanced terms, mutual indemnification, and clear dispute/remedy frameworks.';
+    // 1. Intellectual Property (IP) Taxonomy Check
+    if (typeLower === 'ip' || lowerClause.includes('deliverables') || lowerClause.includes('ownership')) {
+      if (lowerClause.includes('work made for hire') || lowerClause.includes('vest entirely in customer')) {
+        risk_score = 85;
+        circuit_breaker_action = 'INTERCEPT';
+        flagged_issues.push('Critical: Implied Assignment / Work Made for Hire detected.');
+        mitigation_recommendation = 'Retain background IP ownership and limit customer to a non-exclusive license.';
+      } else if (lowerClause.includes('exclusive ownership')) {
+        risk_score = 20;
+        circuit_breaker_action = 'ALLOW';
+        flagged_issues.push('Low: Absolute Reservation of background IP.');
+        mitigation_recommendation = 'Standard terms accepted.';
+      }
+    }
+
+    // 2. Termination & Exit Taxonomy Check
+    else if (typeLower === 'termination' || lowerClause.includes('terminate')) {
+      if (lowerClause.includes('with or without cause') && lowerClause.includes('refund')) {
+        risk_score = 90;
+        circuit_breaker_action = 'INTERCEPT';
+        flagged_issues.push('Critical: Termination for Convenience with pro-rata refund exposure.');
+        mitigation_recommendation = 'Remove pro-rata refund obligations for early convenience termination.';
+      } else if (lowerClause.includes('no additional cost') || lowerClause.includes('migration')) {
+        risk_score = 60;
+        circuit_breaker_action = 'ALLOW';
+        flagged_issues.push('Medium: Perpetual Transition Duties required.');
+        mitigation_recommendation = 'Cap transition support duration and bill at standard professional service rates.';
+      }
+    }
+
+    // 3. Non-Compete & Exclusivity Taxonomy Check
+    else if (typeLower === 'non-compete' || lowerClause.includes('market') || lowerClause.includes('solicit')) {
+      if (lowerClause.includes('shall not market') || lowerClause.includes('exclusivity')) {
+        risk_score = 85;
+        circuit_breaker_action = 'INTERCEPT';
+        flagged_issues.push('Critical: Industry Exclusivity ban restricting market access.');
+        mitigation_recommendation = 'Reject exclusive territory or practice restrictions.';
+      } else if (lowerClause.includes('solicit') && lowerClause.includes('employee')) {
+        risk_score = 55;
+        circuit_breaker_action = 'ALLOW';
+        flagged_issues.push('Medium: Personnel Non-Solicitation restriction.');
+        mitigation_recommendation = 'Ensure mutual and time-bounded non-solicitation periods.';
+      }
+    }
+
+    // 4. Liabilities & Indemnification Mathematical Taxonomy Check
+    else if (typeLower === 'liabilities' || lowerClause.includes('liability') || lowerClause.includes('indemn')) {
+      const hasCarveOut = lowerClause.includes('shall not apply to') || lowerClause.includes('breaches of confidentiality') || lowerClause.includes('data security incidents');
+      
+      if (hasCarveOut || lowerClause.includes('uncapped')) {
+        risk_score = 85;
+        circuit_breaker_action = 'INTERCEPT';
+        flagged_issues.push('Critical: Uncapped Liability or Dangerous Carve-In detected via structural exclusion.');
+        mitigation_recommendation = 'Enforce absolute aggregate liability caps with no exclusions for data incidents.';
+      } else if (lowerClause.includes('multiple') || lowerClause.includes('greater of')) {
+        risk_score = 65;
+        circuit_breaker_action = 'ALLOW';
+        flagged_issues.push('Medium: Super-Capped / Multiplier liability exposure.');
+        mitigation_recommendation = 'Cap liability strictly to fees paid in the preceding 12 months.';
+      }
     }
 
     const log = await db.query(
