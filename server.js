@@ -1,9 +1,16 @@
 const express = require('express');
+
+
+
+
+
 const path = require('path');
 const db = require('./db.js');
 const { Anthropic } = require('@anthropic-ai/sdk');
 
 const app = express();
+//
+
 const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
@@ -124,18 +131,22 @@ Respond in JSON format with keys "risk_score" (an integer from 0 to 100), "circu
       mitigation_recommendation = 'Ensure express warranties are preserved and disclaimers are mutual or strictly bounded.';
     }
 
+    // Refined guardrail: require actual adverse/toxic modifiers, not just topic names
+    const hasAdverseModifier = 
+      lowerClause.includes('unlimited') || 
+      lowerClause.includes('uncapped') || 
+      lowerClause.includes('sole discretion') || 
+      lowerClause.includes('unilateral') || 
+      lowerClause.includes('without limitation') || 
+      lowerClause.includes('waive') ||
+      lowerClause.includes('disclaim');
+
     const isHighRisk = 
-      lowerClause.includes('modify') || 
       lowerClause.includes('irrevocable, perpetual') || 
-      lowerClause.includes('chosen exclusive venue') || 
-      lowerClause.includes('arbitrator') || 
-      lowerClause.includes('liability') || 
-      lowerClause.includes('indemnify') || 
       lowerClause.includes('remotely disable') || 
-      lowerClause.includes('competing') || 
       lowerClause.includes('source code generated') || 
-      lowerClause.includes('increase annual subscription') || 
-      lowerClause.includes('class action');
+      lowerClause.includes('class action') ||
+      ((lowerClause.includes('liability') || lowerClause.includes('indemnify')) && hasAdverseModifier);
 
     if (isHighRisk) {
       risk_score = 85;
@@ -169,6 +180,146 @@ Respond in JSON format with keys "risk_score" (an integer from 0 to 100), "circu
     console.error('API Error:', err.message);
     return res.status(500).json({ error: err.message, circuit_breaker_action: 'ERROR', risk_score: 0 });
   }
+});
+
+
+
+app.post('/api/v1/operational-control', async (req, res) => {
+  try {
+    const {
+      ai_output = '',
+      workflow_use = '',
+      source_status = '',
+      source_reference = '',
+      owner = '',
+      human_reviewed = false,
+      verified_by_ai = false,
+      upstream_ai_output_used = false
+    } = req.body || {};
+
+    const findings = [];
+    let risk_score = 0;
+
+    const output = String(ai_output).trim();
+    const workflow = String(workflow_use).trim();
+    const sourceStatus = String(source_status).trim().toLowerCase();
+    const sourceReference = String(source_reference).trim();
+    const accountableOwner = String(owner).trim();
+
+    if (!output) {
+      return res.status(400).json({
+        success: false,
+        error: 'Missing ai_output. Provide the AI-generated output or decision being evaluated.'
+      });
+    }
+
+    if (!workflow) {
+      risk_score += 20;
+      findings.push('Operational context missing: the intended workflow use was not identified.');
+    }
+
+    if (!sourceReference || ['none', 'unknown', 'unverified', 'missing'].includes(sourceStatus)) {
+      risk_score += 35;
+      findings.push('Synthetic Inertia detected: AI output has no verified authoritative source attached.');
+    }
+
+    if (verified_by_ai === true || upstream_ai_output_used === true) {
+      risk_score += 45;
+      findings.push('Autonomous Hallucination Cascade detected: AI output was verified, grounded, or extended using another AI output rather than an authoritative source.');
+    }
+
+    if (!accountableOwner) {
+      risk_score += 20;
+      findings.push('Operational plumbing failure: no accountable human owner is assigned to the output.');
+    }
+
+    if (human_reviewed !== true) {
+      risk_score += 15;
+      findings.push('Human review gate has not been completed.');
+    }
+
+    const normalizedOutput = output.toLowerCase();
+    if (
+      normalizedOutput.includes('citation') ||
+      normalizedOutput.includes('statute') ||
+      normalizedOutput.includes('case law') ||
+      normalizedOutput.includes('legal advice')
+    ) {
+      risk_score += 10;
+      findings.push('High-consequence legal content detected: source verification and accountable review are required before use.');
+    }
+
+    risk_score = Math.min(risk_score, 100);
+
+    let circuit_breaker_action = 'ALLOW';
+    if (risk_score >= 70) {
+      circuit_breaker_action = 'INTERCEPT';
+    } else if (risk_score >= 30) {
+      circuit_breaker_action = 'REVIEW';
+    }
+
+    const mitigation_recommendation =
+      circuit_breaker_action === 'INTERCEPT'
+        ? 'Do not deploy, send, file, or rely on this output. Attach authoritative source material, assign a human owner, remove AI-to-AI verification, and complete human review before retrying.'
+        : circuit_breaker_action === 'REVIEW'
+          ? 'Pause the workflow. Add source references, identify the accountable owner, and complete documented human review before operational use.'
+          : 'Control requirements are present. Retain the source reference and review record for auditability.';
+
+    let compliance_log_id = null;
+
+    try {
+      const log = await db.query(
+        `INSERT INTO compliance_logs
+          (risk_score, circuit_breaker_action, flagged_issues, mitigation_recommendation)
+         VALUES ($1, $2, $3::jsonb, $4)
+         RETURNING id`,
+        [
+          risk_score,
+          circuit_breaker_action,
+          JSON.stringify(findings),
+          mitigation_recommendation
+        ]
+      );
+
+      compliance_log_id = log.rows[0]?.id || null;
+    } catch (logError) {
+      console.error('Operational control log error:', logError.message);
+    }
+
+    return res.json({
+      success: true,
+      risk_score,
+      circuit_breaker_action,
+      findings,
+      mitigation_recommendation,
+      controls: {
+        source_attached: Boolean(sourceReference),
+        source_status: sourceStatus || 'unknown',
+        accountable_owner: accountableOwner || null,
+        human_reviewed: human_reviewed === true,
+        verified_by_ai: verified_by_ai === true,
+        upstream_ai_output_used: upstream_ai_output_used === true
+      },
+      compliance_log_id
+    });
+  } catch (err) {
+    console.error('Operational control error:', err.message);
+    return res.status(500).json({
+      success: false,
+      error: 'Operational control evaluation failed.',
+      circuit_breaker_action: 'ERROR',
+      risk_score: 0
+    });
+  }
+});
+app.get('/api/telemetry', (req, res) => {
+  res.json({
+    status: 'online',
+    signal_depth: 0.87,
+    evidence_path: 4,
+    active_trace: 'LIVE',
+    timestamp: new Date().toISOString()
+  });
 });
 
 app.listen(PORT, () => {
