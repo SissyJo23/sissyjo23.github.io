@@ -7,8 +7,10 @@ const express = require('express');
 const path = require('path');
 const db = require('./db.js');
 const { Anthropic } = require('@anthropic-ai/sdk');
+const { createReviewRequest, decideReviewRequest } = require('./two-key-reviews');
 
 const app = express();
+app.set('trust proxy', 1);
 //
 
 const PORT = process.env.PORT || 3000;
@@ -24,35 +26,21 @@ app.get('/', (req, res) => {
   res.sendFile(path.join('/var/www/envictica', 'index.html'));
 });
 
-app.get('/api/logs', async (req, res) => {
-  try {
-    const result = await db.query('SELECT * FROM compliance_logs ORDER BY created_at DESC LIMIT 50');
-    res.json({
-      success: true,
-      total: result.rowCount,
-      data: result.rows
-    });
-  } catch (err) {
-    console.error('Neon Read Error:', err);
-    res.status(500).json({ error: 'Failed to fetch logs from database' });
-  }
+app.get('/api/logs', (req, res) => {
+  res.status(403).json({
+    success: false,
+    error: 'Audit-log access is restricted.'
+  });
 });
 
-app.post('/api/logs', async (req, res) => {
-  try {
-    const { action, user_name, status } = req.body;
-    const result = await db.query(
-      'INSERT INTO compliance_logs (action, user_name, status) VALUES ($1, $2, $3) RETURNING *',
-      [action || 'System Verification', user_name || 'System Automated', status || 'Verified']
-    );
-    res.json({ success: true, log: result.rows[0] });
-  } catch (err) {
-    console.error('Neon Write Error:', err);
-    res.status(500).json({ error: 'Failed to insert log entry' });
-  }
+app.post('/api/logs', (req, res) => {
+  res.status(403).json({
+    success: false,
+    error: 'Audit-log writes must use the operational-control workflow.'
+  });
 });
 
-app.get('/api/export/compliance', (req, res) => {
+app.get('/api/export/compliance', requireAuthenticatedSession, requireAdministrator, (req, res) => {
   const format = req.query.format || 'csv';
   res.setHeader('Content-Type', 'text/csv');
   res.setHeader('Content-Disposition', `attachment; filename="compliance_report_${Date.now()}.${format}"`);
@@ -61,7 +49,7 @@ app.get('/api/export/compliance', (req, res) => {
   res.send(csvData);
 });
 
-app.post('/api/v1/analyze-risk', async (req, res) => {
+app.post('/api/v1/analyze-risk', requireAuthenticatedSession, async (req, res) => {
   try {
     const clauseText = req.body.clauseText || req.body.clause;
     const contractType = req.body.contractType;
@@ -323,7 +311,7 @@ For every contract reviewed, you must output a structured JSON response containi
 
 
 
-app.post('/api/v1/operational-control', async (req, res) => {
+app.post('/api/v1/operational-control', requireAuthenticatedSession, async (req, res) => {
   try {
     const {
       ai_output = '',
@@ -336,10 +324,28 @@ app.post('/api/v1/operational-control', async (req, res) => {
       upstream_ai_output_used = false
     } = req.body || {};
 
-    const findings = [];
-    let risk_score = 0;
-
     const output = String(ai_output).trim();
+    let upstream = null;
+
+    try {
+      upstream = JSON.parse(output);
+    } catch (_) {
+      upstream = null;
+    }
+
+    const findings = Array.isArray(upstream?.findings)
+      ? [...upstream.findings]
+      : [];
+
+    const upstreamRisk = Number(upstream?.risk_score);
+    let risk_score = Number.isFinite(upstreamRisk)
+      ? Math.max(0, Math.min(100, upstreamRisk))
+      : 0;
+
+    const upstreamAction = String(
+      upstream?.circuit_breaker_action || ''
+    ).trim().toUpperCase();
+
     const workflow = String(workflow_use).trim();
     const sourceStatus = String(source_status).trim().toLowerCase();
     const sourceReference = String(source_reference).trim();
@@ -391,9 +397,9 @@ app.post('/api/v1/operational-control', async (req, res) => {
     risk_score = Math.min(risk_score, 100);
 
     let circuit_breaker_action = 'ALLOW';
-    if (risk_score >= 70) {
+    if (risk_score >= 70 || upstreamAction === 'INTERCEPT') {
       circuit_breaker_action = 'INTERCEPT';
-    } else if (risk_score >= 30) {
+    } else if (risk_score >= 30 || upstreamAction === 'REVIEW') {
       circuit_breaker_action = 'REVIEW';
     }
 
@@ -408,7 +414,7 @@ app.post('/api/v1/operational-control', async (req, res) => {
 
     try {
       const log = await db.query(
-        `INSERT INTO compliance_logs
+        `INSERT INTO public.compliance_logs
           (risk_score, circuit_breaker_action, flagged_issues, mitigation_recommendation)
          VALUES ($1, $2, $3::jsonb, $4)
          RETURNING id`,
@@ -451,6 +457,421 @@ app.post('/api/v1/operational-control', async (req, res) => {
     });
   }
 });
+
+const crypto = require('crypto');
+const { auth } = require('./workos-auth');
+
+const { evaluateControlDecision, buildRecordHash } = require('./control-decision-gate');
+
+app.post('/api/v1/control-decisions/evaluate', requireAuthenticatedSession, requireAdministrator, async (req, res) => {
+  let decision;
+
+  try {
+    decision = evaluateControlDecision(req.body || {});
+
+    const reviewRequestId = String(
+      req.body?.review_request_id || ''
+    ).trim();
+
+    if (reviewRequestId) {
+      const reviewLookup = await db.query(
+        `SELECT request_id, maker_user_id, reviewer_user_id, status,
+                reviewer_decision, reviewed_at, output_sha256
+         FROM review_requests
+         WHERE request_id = $1
+         LIMIT 1`,
+        [reviewRequestId]
+      );
+
+      const review = reviewLookup.rows[0] || null;
+
+      if (!review) {
+        return res.status(400).json({
+          success: false,
+          error: 'The supplied review_request_id was not found.',
+          circuit_breaker_action: 'ERROR',
+          risk_score: decision.riskScore
+        });
+      }
+
+      if (review.output_sha256 !== decision.outputSha256) {
+        return res.status(400).json({
+          success: false,
+          error: 'The approved review does not match this exact analysis output.',
+          circuit_breaker_action: 'ERROR',
+          risk_score: decision.riskScore
+        });
+      }
+
+      if (
+        review.status === 'APPROVED' &&
+        review.reviewer_decision === 'APPROVE' &&
+        review.reviewer_user_id &&
+        review.reviewed_at
+      ) {
+        decision.reviewerId = review.reviewer_user_id;
+        decision.humanReviewedAt = review.reviewed_at;
+        decision.findings.push(
+          `Independent review approved: ${review.request_id}.`
+        );
+      } else {
+        decision.findings.push(
+          'Linked review is not an approved independent review; it cannot authorize ALLOW.'
+        );
+      }
+    }
+
+    if (
+      decision.circuitBreakerAction === 'ESCALATE' &&
+      decision.riskScore < 70 &&
+      decision.sourceAuthorityStatus === 'VERIFIED' &&
+      decision.ownerId &&
+      decision.reviewerId &&
+      decision.humanReviewedAt &&
+      decision.reviewerId !== decision.ownerId &&
+      decision.verifiedByAi === false &&
+      decision.upstreamAiOutputUsed === false
+    ) {
+      decision.circuitBreakerAction = 'ALLOW';
+      decision.mitigationRecommendation =
+        'Approved independent review, verified source evidence, distinct owner and reviewer, and required controls are recorded. Retain this append-only decision record for auditability.';
+    }
+
+    if (
+      decision.circuitBreakerAction === 'ESCALATE' &&
+      !decision.reviewerId
+    ) {
+      decision.findings.push(
+        'No approved independent review is linked; ALLOW is not permitted.'
+      );
+    }
+
+    decision.decisionId = crypto.randomUUID();
+
+    const previous = await db.query(
+      'SELECT record_hash FROM control_decisions ORDER BY id DESC LIMIT 1'
+    );
+
+    decision.previousRecordHash = previous.rows[0]?.record_hash || null;
+    const recordHash = buildRecordHash(decision);
+
+    const saved = await db.query(
+      `INSERT INTO control_decisions (
+        decision_id,
+        output_sha256,
+        workflow_use,
+        source_url,
+        source_domain,
+        source_authority_status,
+        owner_id,
+        reviewer_id,
+        human_reviewed_at,
+        verified_by_ai,
+        upstream_ai_output_used,
+        risk_score,
+        circuit_breaker_action,
+        findings,
+        mitigation_recommendation,
+        previous_record_hash,
+        record_hash
+      ) VALUES (
+        $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14::jsonb, $15, $16, $17
+      ) RETURNING id, decision_id, created_at`,
+      [
+        decision.decisionId,
+        decision.outputSha256,
+        decision.workflowUse,
+        decision.sourceUrl,
+        decision.sourceDomain,
+        decision.sourceAuthorityStatus,
+        decision.ownerId,
+        decision.reviewerId,
+        decision.humanReviewedAt,
+        decision.verifiedByAi,
+        decision.upstreamAiOutputUsed,
+        decision.riskScore,
+        decision.circuitBreakerAction,
+        JSON.stringify(decision.findings),
+        decision.mitigationRecommendation,
+        decision.previousRecordHash,
+        recordHash
+      ]
+    );
+
+    return res.status(decision.circuitBreakerAction === 'INTERCEPT' ? 403 : 202).json({
+      success: true,
+      decision_id: saved.rows[0].decision_id,
+      audit_record_id: saved.rows[0].id,
+      created_at: saved.rows[0].created_at,
+      output_sha256: decision.outputSha256,
+      risk_score: decision.riskScore,
+      circuit_breaker_action: decision.circuitBreakerAction,
+      findings: decision.findings,
+      mitigation_recommendation: decision.mitigationRecommendation,
+      controls: {
+        source_authority_status: decision.sourceAuthorityStatus,
+        source_domain: decision.sourceDomain,
+        owner_id: decision.ownerId,
+        reviewer_id: decision.reviewerId,
+        human_reviewed_at: decision.humanReviewedAt,
+        authentication_required_for_allow: true
+      }
+    });
+  } catch (error) {
+    console.error('Control-decision gate error:', error.message);
+    return res.status(503).json({
+      success: false,
+      error: 'Control decision could not be recorded. Output must not be used.',
+      circuit_breaker_action: 'ERROR',
+      risk_score: 0
+    });
+  }
+});
+
+
+// WorkOS AuthKit routes
+
+
+const ADMIN_USER_IDS = new Set(
+  (process.env.ENVICTICA_ADMIN_USER_IDS || '')
+    .split(',')
+    .map((userId) => userId.trim())
+    .filter(Boolean)
+);
+
+function requireAdministrator(req, res, next) {
+  const userId = req.auth?.user?.id;
+
+  if (!userId || !ADMIN_USER_IDS.has(userId)) {
+    return res.status(403).json({
+      success: false,
+      error: 'Administrator access is required.'
+    });
+  }
+
+  return next();
+}
+
+async function requireAuthenticatedSession(req, res, next) {
+  try {
+    const session = await auth.getSession(req);
+
+    if (!session) {
+      return res.status(401).json({
+        success: false,
+        error: 'Authentication is required.'
+      });
+    }
+
+    req.auth = {
+      user: session.user ?? null,
+      organizationId: session.organizationId ?? null,
+      role: session.role ?? null
+    };
+
+    return next();
+  } catch (error) {
+    console.error('Authentication middleware failed:', error.message);
+    return res.status(401).json({
+      success: false,
+      error: 'Authentication is required.'
+    });
+  }
+}
+
+function reviewUserId(req) {
+  return req.auth?.user?.id || null;
+}
+
+async function requireReviewer(req, res, next) {
+  try {
+    const { requireActiveRole, ROLES } = require('./two-key-auth');
+    await requireActiveRole(reviewUserId(req), ROLES.REVIEWER);
+    return next();
+  } catch (error) {
+    return res.status(error.statusCode || 403).json({
+      success: false,
+      error: error.message || 'Reviewer access required.'
+    });
+  }
+}
+
+app.get(
+  '/reviews',
+  requireAuthenticatedSession,
+  requireReviewer,
+  (req, res) => {
+    res.sendFile(path.join('/var/www/envictica', 'reviews.html'));
+  }
+);
+
+app.get(
+  '/api/v1/reviews/pending',
+  requireAuthenticatedSession,
+  requireReviewer,
+  async (req, res) => {
+    try {
+      const result = await db.query(
+        'SELECT request_id, maker_user_id, source_url, ' +
+        'source_domain, source_authority_status, risk_score, ' +
+        'requested_action, created_at ' +
+        'FROM review_requests ' +
+        "WHERE status = 'PENDING' " +
+        'ORDER BY created_at ASC LIMIT 100'
+      );
+
+      return res.json({
+        success: true,
+        reviews: result.rows
+      });
+    } catch (error) {
+      console.error('Pending-review lookup failed:', error.message);
+      return res.status(500).json({
+        success: false,
+        error: 'Unable to load review queue.'
+      });
+    }
+  }
+);
+
+app.post(
+  '/api/v1/reviews/:requestId/decision',
+  requireAuthenticatedSession,
+  requireReviewer,
+  async (req, res) => {
+    try {
+      const body = req.body || {};
+      const review = await decideReviewRequest({
+        requestId: req.params.requestId,
+        reviewerUserId: reviewUserId(req),
+        decision: body.decision,
+        rationale: body.rationale
+      });
+
+      return res.json({
+        success: true,
+        review
+      });
+    } catch (error) {
+      console.error('Review decision failed:', error.message);
+      return res.status(error.statusCode || 500).json({
+        success: false,
+        error: error.message || 'Unable to record decision.'
+      });
+    }
+  }
+);
+
+app.post(
+  '/api/v1/reviews',
+  requireAuthenticatedSession,
+  async (req, res) => {
+    try {
+      const body = req.body || {};
+      const review = await createReviewRequest({
+        makerUserId: reviewUserId(req),
+        outputSha256: body.outputSha256,
+        sourceUrl: body.sourceUrl || null,
+        sourceDomain: body.sourceDomain || null,
+        sourceAuthorityStatus: body.sourceAuthorityStatus,
+        riskScore: body.riskScore,
+        requestedAction: body.requestedAction
+      });
+
+      return res.status(201).json({
+        success: true,
+        review
+      });
+    } catch (error) {
+      console.error('Review request creation failed:', error.message);
+      return res.status(error.statusCode || 500).json({
+        success: false,
+        error: error.message || 'Unable to create review request.'
+      });
+    }
+  }
+);
+
+app.get('/auth/login', async (req, res) => {
+  try {
+    const result = await auth.createSignIn(res);
+    return res.redirect(result.url);
+  } catch (error) {
+    console.error('WorkOS login initialization failed:', error.message);
+    return res.status(500).json({
+      success: false,
+      error: 'Unable to start sign-in.'
+    });
+  }
+});
+
+app.get('/auth/callback', async (req, res) => {
+  console.log('WorkOS callback received:', {
+    hasCode: Boolean(req.query.code),
+    hasState: Boolean(req.query.state),
+    host: req.get('host'),
+    forwardedProto: req.get('x-forwarded-proto') || null
+  });
+
+  try {
+    await auth.handleCallback(req, res, {
+      code: req.query.code,
+      state: req.query.state
+    });
+
+    const setCookie = res.getHeader('Set-Cookie');
+    console.log('WorkOS callback session cookie set:', {
+      present: Boolean(setCookie),
+      count: Array.isArray(setCookie) ? setCookie.length : (setCookie ? 1 : 0)
+    });
+
+    return res.redirect('/');
+  } catch (error) {
+    console.error('WorkOS callback failed:', error.message);
+    return res.status(401).json({
+      success: false,
+      error: 'Sign-in could not be completed.'
+    });
+  }
+});
+
+app.get('/auth/session', async (req, res) => {
+  try {
+    const session = await auth.getSession(req);
+
+    if (!session) {
+      return res.status(401).json({
+        authenticated: false
+      });
+    }
+
+    return res.json({
+      authenticated: true,
+      user: session.user ?? null,
+      organizationId: session.organizationId ?? null,
+      role: session.role ?? null
+    });
+  } catch (error) {
+    console.error('WorkOS session lookup failed:', error.message);
+    return res.status(401).json({
+      authenticated: false
+    });
+  }
+});
+
+app.post('/auth/logout', async (req, res) => {
+  try {
+    await auth.clearSession(res);
+    return res.status(204).end();
+  } catch (error) {
+    console.error('WorkOS logout failed:', error.message);
+    return res.status(500).json({
+      success: false,
+      error: 'Unable to sign out.'
+    });
+  }
+});
+
 app.get('/api/telemetry', (req, res) => {
   res.json({
     status: 'online',

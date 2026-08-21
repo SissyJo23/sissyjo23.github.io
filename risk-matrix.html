@@ -1,374 +1,397 @@
-<!DOCTYPE html>
-<html class="dark" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Envictica | Fiduciary Risk Matrix</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-    />
-    <style>
-      body {
-        background-color: #0d1117;
-        color: #e6edf3;
-        font-family: "Hanken Grotesk", sans-serif;
-      }
-      .sidebar {
-        background-color: #010409;
-        border-right: 1px solid #30363d;
-      }
-      .glass-card {
-        background: rgba(22, 27, 34, 0.8);
-        border: 1px solid #30363d;
-      }
-      .status-active {
-        color: #00f5d4;
-      }
-      .material-symbols-outlined {
-        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-      }
-      .matrix-grid {
-        background-image: linear-gradient(
-            rgba(255, 255, 255, 0.05) 1px,
-            transparent 1px
-          ),
-          linear-gradient(
-            90deg,
-            rgba(255, 255, 255, 0.05) 1px,
-            transparent 1px
-          );
-        background-size: 50px 50px;
-      }
-    </style>
-  </head>
-  <body class="min-h-screen flex flex-col md:flex-row overflow-x-hidden">
-    <!-- Side Navigation -->
-    <aside
-      class="w-full md:w-64 sidebar flex flex-col h-screen sticky top-0 z-50"
-    >
-      <div class="p-6 border-b border-[#30363d] mb-4">
-        <h1 class="text-xl font-black tracking-tighter text-white">
-          ENVICTICA
-        </h1>
-        <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">
-          Infrastructure Control
-        </p>
-      </div>
-      <nav class="flex-1 px-4 space-y-1">
-        <a
-          href="command-center.html"
-          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
-        >
-          <span class="material-symbols-outlined text-lg">dashboard</span>
-          Command Center
-        </a>
-        <a
-          href="pipeline-injest.html"
-          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
-        >
-          <span class="material-symbols-outlined text-lg">account_tree</span>
-          Ingestion Control
-        </a>
-        <a
-          href="governance-access.html"
-          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
-        >
-          <span class="material-symbols-outlined text-lg">gavel</span>
-          Governance
-        </a>
-        <a
-          href="risk-matrix.html"
-          class="flex items-center gap-3 px-3 py-2.5 text-[#00f5d4] bg-[#00f5d4]/5 border-l-2 border-[#00f5d4] text-sm font-semibold"
-        >
-          <span class="material-symbols-outlined text-lg">warning</span>
-          Risk Matrix
-        </a>
-        <a
-          href="compliance-logs.html"
-          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
-        >
-          <span class="material-symbols-outlined text-lg">receipt_long</span>
-          Audit Logs
-        </a>
-      </nav>
-      <div class="p-4 border-t border-[#30363d] mt-auto">
-        <div
-          class="flex items-center gap-2 px-3 py-2 text-[11px] font-bold text-[#00f5d4] uppercase tracking-widest"
-        >
-          <span class="w-2 h-2 rounded-full bg-[#00f5d4] animate-pulse"></span>
-          System Healthy
-        </div>
-      </div>
-    </aside>
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Envictica | Risk Matrix</title>
+<style>
+:root{color-scheme:dark}
+body{margin:0;background:#030712;color:#f8fafc;
+font:16px system-ui;padding:20px}
+main{max-width:760px;margin:auto}
+a{color:#00f5d4}
+.card{background:#111827;border:1px solid #334155;
+border-radius:10px;padding:16px;margin:14px 0}
+label{display:block;margin:14px 0 6px}
+input,textarea,select,button{box-sizing:border-box;width:100%;
+padding:12px;border-radius:7px;font:inherit}
+input,textarea,select{background:#0f172a;color:#f8fafc;
+border:1px solid #475569}
+textarea{min-height:130px;resize:vertical}
+button{background:#00f5d4;color:#022c22;border:0;
+font-weight:750;cursor:pointer;margin-top:14px}
+button.secondary{background:#1e293b;color:#f8fafc;
+border:1px solid #475569}
+button:disabled{opacity:.55;cursor:wait}
+pre{white-space:pre-wrap;word-break:break-word;
+background:#020617;border:1px solid #334155;
+border-radius:7px;padding:12px}
+.hidden{display:none}
+.error{color:#fda4af}
+.ok{color:#5eead4}
+.warn{color:#fde68a}
+h1{margin-bottom:4px}
+h2{font-size:18px;margin:0 0 8px}
+small{color:#94a3b8}
+.check{display:flex;gap:10px;align-items:center;margin:12px 0}
+.check input{width:auto}
+</style>
+</head>
+<body>
+<main>
+<p><a href="/">← Envictica</a></p>
+<h1>Risk Matrix</h1>
+<p id="session">Checking session…</p>
 
-    <!-- Main Content -->
-    <main class="flex-1 flex flex-col min-h-screen">
-      <header
-        class="h-16 border-b border-[#30363d] flex items-center justify-between px-8 bg-[#0d1117]/80 backdrop-blur-md sticky top-0 z-40"
-      >
-        <div
-          class="text-[11px] font-bold text-slate-500 uppercase tracking-[0.2em]"
-        >
-          PATH: ENV / INFRA / RISK_13
-        </div>
-        <div class="flex items-center gap-6">
-          <button
-            class="px-4 py-1.5 bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-widest hover:bg-white/10 transition-all"
-          >
-            EXPORT RISK MATRIX
-          </button>
-          <button
-            class="p-2 text-slate-400 hover:text-white transition-colors"
-          >
-            <span class="material-symbols-outlined">settings</span>
-          </button>
-        </div>
-      </header>
+<section id="workspace" class="hidden">
+<div class="card">
+<h2>1. Analyze clause</h2>
 
-      <div class="p-8 space-y-8">
-        <!-- Header & Parameters -->
-        <div
-          class="flex flex-col lg:flex-row justify-between items-start lg:items-end gap-6 border-b border-[#30363d] pb-8"
-        >
-          <div class="max-w-2xl">
-            <h2 class="text-3xl font-extrabold tracking-tight text-white mb-2">
-              Hallucination Propensity vs. Data Drift
-            </h2>
-            <p class="text-slate-400 leading-relaxed">
-              Translating technical model volatility into actionable boardroom
-              liability. Real-time mapping of semantic divergence across global
-              business units.
-            </p>
-          </div>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-8">
-            <div>
-              <div
-                class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1 text-center"
-              >
-                Avg Node Temp
-              </div>
-              <div class="text-xl font-mono text-white text-center">
-                42.8°C <span class="text-[10px] text-[#00f5d4]">↓1.2°</span>
-              </div>
-            </div>
-            <div>
-              <div
-                class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1 text-center"
-              >
-                Intercepts (24H)
-              </div>
-              <div class="text-xl font-mono text-white text-center">
-                1,492 <span class="text-[10px] text-[#ff4d6d]">↑14%</span>
-              </div>
-            </div>
-            <div>
-              <div
-                class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1 text-center"
-              >
-                Drift Velocity
-              </div>
-              <div class="text-xl font-mono text-white text-center">
-                0.042<span class="text-xs text-slate-500 ml-1">μ/s</span>
-              </div>
-            </div>
-            <div>
-              <div
-                class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-1 text-center"
-              >
-                Integrity Score
-              </div>
-              <div class="text-xl font-mono text-[#00f5d4] text-center">
-                98.9%
-              </div>
-            </div>
-          </div>
-        </div>
+<label for="contractType">Contract type</label>
+<select id="contractType">
+<option value="IP">Intellectual Property</option>
+<option value="Termination">Termination & Exit</option>
+<option value="Non-Compete">Non-Compete & Exclusivity</option>
+<option value="Liabilities">Liability & Indemnification</option>
+<option value="SaaS">SaaS</option>
+<option value="NDA">NDA</option>
+<option value="Employment">Employment</option>
+</select>
 
-        <!-- Risk Matrix Visualization -->
-        <div class="grid grid-cols-1 xl:grid-cols-2 gap-8">
-          <div class="glass-card rounded-sm p-8 flex flex-col gap-6">
-            <div class="flex justify-between items-center">
-              <h3 class="text-[11px] font-bold uppercase tracking-widest">
-                Active Risk Quadrants
-              </h3>
-              <div
-                class="flex items-center gap-4 text-[9px] font-bold uppercase tracking-widest"
-              >
-                <span class="flex items-center gap-1.5"
-                  ><span class="w-2 h-2 bg-[#00f5d4]"></span> Fiduciary Grade</span
-                >
-                <span class="flex items-center gap-1.5"
-                  ><span class="w-2 h-2 bg-yellow-400"></span> Drift Risk</span
-                >
-                <span class="flex items-center gap-1.5"
-                  ><span class="w-2 h-2 bg-[#ff4d6d]"></span> Critical
-                  Liability</span
-                >
-              </div>
-            </div>
-            <div
-              class="relative w-full aspect-square matrix-grid border border-[#30363d] overflow-hidden group"
-            >
-              <!-- X & Y Labels -->
-              <div
-                class="absolute bottom-2 left-1/2 -translate-x-1/2 text-[9px] font-bold text-slate-500 tracking-[0.2em] uppercase"
-              >
-                Data Drift →
-              </div>
-              <div
-                class="absolute left-2 top-1/2 -translate-y-1/2 -rotate-90 text-[9px] font-bold text-slate-500 tracking-[0.2em] uppercase whitespace-nowrap"
-              >
-                Hallucination →
-              </div>
-              <!-- Quadrant Lines -->
-              <div class="absolute inset-0 flex items-center justify-center">
-                <div class="w-full h-px bg-white/10"></div>
-                <div class="h-full w-px bg-white/10"></div>
-              </div>
-              <!-- Data Points -->
-              <div
-                class="absolute bottom-[20%] left-[15%] w-3 h-3 bg-[#00f5d4] shadow-[0_0_15px_#00f5d4] rounded-full animate-pulse cursor-pointer"
-                title="Corporate M&A"
-              ></div>
-              <div
-                class="absolute bottom-[85%] left-[80%] w-4 h-4 bg-[#ff4d6d] shadow-[0_0_20px_#ff4d6d] rounded-full animate-ping cursor-pointer"
-                title="Financial Auditing"
-              ></div>
-              <div
-                class="absolute bottom-[45%] left-[60%] w-3 h-3 bg-yellow-400 shadow-[0_0_15px_#fbbf24] rounded-full cursor-pointer"
-                title="Global Litigation"
-              ></div>
-              <div
-                class="absolute bottom-[25%] left-[40%] w-2 h-2 bg-[#00f5d4] rounded-full opacity-60"
-              ></div>
-              <div
-                class="absolute bottom-[70%] left-[30%] w-2 h-2 bg-[#ff4d6d] rounded-full opacity-40"
-              ></div>
-            </div>
-          </div>
-      
-         <div class="glass-card rounded-sm p-4 mt-6">
-        <h3 class="text-[11px] font-semibold mb-3">Clause Risk Evaluation</h3>
+<label for="clauseText">Clause text</label>
+<textarea id="clauseText"
+placeholder="Paste a contract clause to analyze."></textarea>
 
-  <button id="run-risk-eval" class="px-4 py-2 bg-[#00F5D4] text-black font-bold text-xs uppercase rounded">
-    Analyze Clause
-  </button>
-
-  <textarea id="clause-input" class="w-full bg-slate-800 text-white p-2 mt-3 rounded" rows="6"
-  placeholder="Paste contract clause here..."></textarea>
-
-  <select id="contract-type" class="w-full bg-slate-800 text-white p-2 mt-3 rounded mt-3">
-    <option value="SaaS">SaaS</option>
-    <option value="Employment">Employment</option>
-    <option value="NDA">NDA</option>
-  </select>
+<button id="analyzeButton">Analyze clause</button>
 </div>
 
-          <!-- Business Unit Table -->
-          <div class="glass-card rounded-sm overflow-hidden flex flex-col">
-            <div class="p-4 border-b border-[#30363d] bg-white/5">
-              <h3 class="text-[11px] font-bold uppercase tracking-widest">
-                Business Unit Performance
-              </h3>
-            </div>
-            <div class="overflow-x-auto">
-              <table class="w-full text-left border-collapse">
-                <thead
-                  class="text-[10px] text-slate-500 uppercase font-bold bg-black/20"
-                >
-                  <tr>
-                    <th class="px-6 py-3 border-b border-[#30363d]">Entity</th>
-                    <th class="px-6 py-3 border-b border-[#30363d] text-right">
-                      Hallucination
-                    </th>
-                    <th class="px-6 py-3 border-b border-[#30363d] text-right">
-                      Drift
-                    </th>
-                    <th class="px-6 py-3 border-b border-[#30363d] text-center">
-                      Status
-                    </th>
-                  </tr>
-                </thead>
-                <tbody class="text-[13px] font-mono">
-                  <tr
-                    class="border-b border-[#30363d] hover:bg-white/5 transition-colors"
-                  >
-                    <td class="px-6 py-4 text-white font-bold">
-                      Corporate M&A
-                    </td>
-                    <td class="px-6 py-4 text-right text-[#00f5d4]">0.12</td>
-                    <td class="px-6 py-4 text-right text-[#00f5d4]">0.4%</td>
-                    <td class="px-6 py-4 text-center">
-                      <span
-                        class="px-2 py-0.5 rounded-sm bg-[#00f5d4]/10 border border-[#00f5d4]/30 text-[#00f5d4] text-[9px] uppercase"
-                        >Nominal</span
-                      >
-                    </td>
-                  </tr>
-                  <tr
-                    class="border-b border-[#30363d] hover:bg-white/5 transition-colors"
-                  >
-                    <td class="px-6 py-4 text-white font-bold">
-                      Global Litigation
-                    </td>
-                    <td class="px-6 py-4 text-right text-yellow-400">0.45</td>
-                    <td class="px-6 py-4 text-right text-yellow-400">3.1%</td>
-                    <td class="px-6 py-4 text-center">
-                      <span
-                        class="px-2 py-0.5 rounded-sm bg-yellow-400/10 border border-yellow-400/30 text-yellow-400 text-[9px] uppercase"
-                        >Drift</span
-                      >
-                    </td>
-                  </tr>
-                  <tr
-                    class="border-b border-[#30363d] hover:bg-white/5 transition-colors bg-[#ff4d6d]/5"
-                  >
-                    <td class="px-6 py-4 text-white font-bold">
-                      Financial Auditing
-                    </td>
-                    <td class="px-6 py-4 text-right text-[#ff4d6d]">0.89</td>
-                    <td class="px-6 py-4 text-right text-[#ff4d6d]">7.2%</td>
-                    <td class="px-6 py-4 text-center">
-                      <span
-                        class="px-2 py-0.5 rounded-sm bg-[#ff4d6d]/20 border border-[#ff4d6d]/50 text-[#ff4d6d] text-[9px] uppercase font-bold"
-                        >High Risk</span
-                      >
-                    </td>
-                  </tr>
-                  <tr
-                    class="border-b border-[#30363d] hover:bg-white/5 transition-colors"
-                  >
-                    <td class="px-6 py-4 text-white font-bold">
-                      IP Compliance
-                    </td>
-                    <td class="px-6 py-4 text-right text-slate-400">0.05</td>
-                    <td class="px-6 py-4 text-right text-slate-400">1.1%</td>
-                    <td class="px-6 py-4 text-center">
-                      <span
-                        class="px-2 py-0.5 rounded-sm bg-white/5 border border-white/10 text-slate-400 text-[9px] uppercase"
-                        >Secure</span
-                      >
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="mt-auto p-6 border-t border-[#30363d]">
-              <button
-                class="w-full py-3 bg-[#00f5d4] text-black text-[11px] font-bold uppercase tracking-widest hover:bg-[#00d1b5] transition-all"
-              >
-                INITIALIZE UNIT RECALIBRATION
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </main>
-  </body>
+<section id="analysisCard" class="card hidden">
+<h2>2. Risk result</h2>
+<pre id="analysisResult"></pre>
+</section>
+
+<section id="controlCard" class="card hidden">
+<h2>3. Operational control</h2>
+
+<label for="workflowUse">Workflow use</label>
+<input id="workflowUse"
+value="Internal legal operations review">
+
+<label for="sourceReference">Source reference</label>
+<input id="sourceReference"
+placeholder="Authoritative contract or policy reference">
+
+<label for="owner">Accountable owner</label>
+<input id="owner" value="Legal Operations">
+
+<label class="check">
+<input id="humanReviewed" type="checkbox">
+<span>Review attestation recorded</span>
+</label>
+
+<button id="controlButton">Run operational control</button>
+<pre id="controlResult" class="hidden"></pre>
+</section>
+
+<section id="reviewCard" class="card hidden">
+<h2>5. Submit for independent review</h2>
+<p>
+Send this analysis to a separate reviewer for approval,
+rejection, or escalation.
+</p>
+
+<label for="reviewSourceUrl">Source URL (optional)</label>
+<input id="reviewSourceUrl" type="url"
+placeholder="https://example.com/contract">
+
+<label for="reviewSourceDomain">Source domain (optional)</label>
+<input id="reviewSourceDomain"
+placeholder="example.com">
+
+<label for="reviewAuthorityStatus">Authority status</label>
+<select id="reviewAuthorityStatus">
+<option value="verified">Verified</option>
+<option value="pending">Pending verification</option>
+<option value="unverified">Unverified</option>
+</select>
+
+<label for="reviewAction">Requested action</label>
+<select id="reviewAction">
+<option value="ESCALATE">Escalate</option>
+<option value="ALLOW">Allow</option>
+<option value="INTERCEPT">Intercept</option>
+</select>
+
+<button id="reviewButton">Submit for review</button>
+<pre id="reviewResult" class="hidden"></pre>
+</section>
+
+
+<section id="decisionCard" class="card hidden">
+<h2>4. Review decision and audit</h2>
+<p>
+The final decision creates an append-only audit record.
+Administrator access is required.
+</p>
+
+<label for="sourceUrl">Authoritative source URL</label>
+<input id="sourceUrl" type="url"
+placeholder="https://www.law.cornell.edu/...">
+
+<label for="ownerId">Owner ID</label>
+<input id="ownerId" value="Legal Operations">
+
+<label for="reviewRequestId">Approved review request ID (optional)</label>
+<input id="reviewRequestId"
+placeholder="Paste the request_id from an approved independent review">
+
+<label class="check">
+<input id="decisionHumanReviewed" type="checkbox">
+<span>Review attestation only — approval is verified server-side</span>
+</label>
+
+<button id="decisionButton">Record decision</button>
+<pre id="decisionResult" class="hidden"></pre>
+</section>
+</section>
+</main>
+
+<script>
+const $ = (id) => document.getElementById(id);
+
+let analysisData = null;
+
+try {
+  analysisData = JSON.parse(sessionStorage.getItem('envicticaRiskAnalysis') || 'null');
+} catch (_) {
+  sessionStorage.removeItem('envicticaRiskAnalysis');
+  analysisData = null;
+}
+
+function show(id) {
+  $(id).classList.remove('hidden');
+}
+
+function setBusy(button, busy, text) {
+  button.disabled = busy;
+  button.textContent = text;
+}
+
+function render(target, data) {
+  $(target).textContent = JSON.stringify(data, null, 2);
+  show(target);
+}
+
+function buildAnalysisSummary() {
+  return JSON.stringify({
+    record_type: 'envictica_risk_analysis',
+    clause_text: $('clauseText').value.trim(),
+    contract_type: $('contractType').value,
+    risk_score: analysisData.risk_score ?? null,
+    circuit_breaker_action: analysisData.circuit_breaker_action ?? null,
+    findings: analysisData.flagged_issues || [],
+    mitigation_recommendation: analysisData.mitigation_recommendation || null,
+    analysis_record_id: analysisData.compliance_log_id ?? null,
+    model_output: analysisData.analysis || null
+  });
+}
+
+async function api(url, payload) {
+  const response = await fetch(url, {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify(payload)
+  });
+
+  let data;
+  try {
+    data = await response.json();
+  } catch (_) {
+    data = {success:false, error:'Server returned an invalid response.'};
+  }
+
+  if (!response.ok) {
+    const error = new Error(data.error || 'Request failed.');
+    error.data = data;
+    error.status = response.status;
+    throw error;
+  }
+
+  return data;
+}
+
+async function checkSession() {
+  const response = await fetch('/auth/session',
+    {credentials:'same-origin'});
+  const data = await response.json();
+
+  if (!data.authenticated) {
+    $('session').innerHTML =
+      '<span class="error">Sign in is required.</span> ' +
+      '<a href="/auth/login">Sign in</a>';
+    return;
+  }
+
+  $('session').textContent =
+    'Signed in. Analyze a clause to start the controlled workflow.';
+  show('workspace');
+}
+
+$('analyzeButton').addEventListener('click', async () => {
+  const clauseText = $('clauseText').value.trim();
+
+  if (!clauseText) {
+    $('analysisResult').textContent =
+      'Enter a clause before running analysis.';
+    show('analysisCard');
+    return;
+  }
+
+  setBusy($('analyzeButton'), true, 'Analyzing…');
+
+  try {
+    analysisData = await api('/api/v1/analyze-risk', {
+      clauseText,
+      contractType: $('contractType').value
+    });
+
+    sessionStorage.setItem(
+      'envicticaRiskAnalysis',
+      JSON.stringify(analysisData)
+    );
+
+    render('analysisResult', {
+      risk_score: analysisData.risk_score,
+      circuit_breaker_action: analysisData.circuit_breaker_action,
+      findings: analysisData.flagged_issues,
+      mitigation_recommendation:
+        analysisData.mitigation_recommendation,
+      analysis: analysisData.analysis,
+      compliance_log_id: analysisData.compliance_log_id
+    });
+
+    show('analysisCard');
+    show('controlCard');
+    show('decisionCard');
+    show('reviewCard');
+  } catch (error) {
+    render('analysisResult', error.data || {
+      success:false, error:error.message
+    });
+    show('analysisCard');
+  } finally {
+    setBusy($('analyzeButton'), false, 'Analyze clause');
+  }
+});
+
+$('controlButton').addEventListener('click', async () => {
+  if (!analysisData) return;
+
+  setBusy($('controlButton'), true, 'Running control…');
+
+  try {
+    const data = await api('/api/v1/operational-control', {
+      ai_output: buildAnalysisSummary(),
+      workflow_use: $('workflowUse').value.trim(),
+      source_reference: $('sourceReference').value.trim(),
+      owner: $('owner').value.trim(),
+      human_reviewed: $('humanReviewed').checked,
+      source_status: $('sourceReference').value.trim()
+        ? 'verified' : 'missing',
+      verified_by_ai: false,
+      upstream_ai_output_used: false
+    });
+
+    render('controlResult', data);
+  } catch (error) {
+    render('controlResult', error.data || {
+      success:false, error:error.message
+    });
+  } finally {
+    setBusy($('controlButton'), false,
+      'Run operational control');
+  }
+});
+
+$('reviewButton').addEventListener('click', async () => {
+  if (!analysisData) return;
+
+  setBusy($('reviewButton'), true, 'Submitting…');
+
+  try {
+    const stableOutput = buildAnalysisSummary();
+
+    const digest = await crypto.subtle.digest(
+      'SHA-256',
+      new TextEncoder().encode(stableOutput)
+    );
+
+    const outputSha256 = Array.from(new Uint8Array(digest))
+      .map(value => value.toString(16).padStart(2, '0'))
+      .join('');
+
+    const data = await api('/api/v1/reviews', {
+      outputSha256,
+      sourceUrl: $('reviewSourceUrl').value.trim() || null,
+      sourceDomain:
+        $('reviewSourceDomain').value.trim() || null,
+      sourceAuthorityStatus:
+        $('reviewAuthorityStatus').value,
+      riskScore: Number(analysisData.risk_score),
+      requestedAction: $('reviewAction').value
+    });
+
+    render('reviewResult', data);
+  } catch (error) {
+    render('reviewResult', error.data || {
+      success:false,
+      error:error.message
+    });
+  } finally {
+    setBusy($('reviewButton'), false, 'Submit for review');
+  }
+});
+
+
+$('decisionButton').addEventListener('click', async () => {
+  if (!analysisData) return;
+
+  setBusy($('decisionButton'), true, 'Recording decision…');
+
+  try {
+    const data = await api('/api/v1/control-decisions/evaluate', {
+      ai_output: buildAnalysisSummary(),
+      workflow_use: $('workflowUse').value.trim(),
+      source_url: $('sourceUrl').value.trim(),
+      owner_id: $('ownerId').value.trim(),
+      review_request_id: $('reviewRequestId').value.trim() || null,
+      human_reviewed: $('decisionHumanReviewed').checked,
+      verified_by_ai: false,
+      upstream_ai_output_used: false
+    });
+
+    render('decisionResult', data);
+  } catch (error) {
+    const data = error.data || {
+      success:false, error:error.message
+    };
+
+    if (error.status === 403 &&
+        data.error === 'Administrator access is required.') {
+      data.next_step =
+        'Operational control is available, but an administrator must record the final audit decision.';
+    }
+
+    render('decisionResult', data);
+  } finally {
+    setBusy($('decisionButton'), false, 'Record decision');
+  }
+});
+
+checkSession().catch(() => {
+  $('session').textContent = 'Unable to verify your session.';
+});
+</script>
+</body>
 </html>
