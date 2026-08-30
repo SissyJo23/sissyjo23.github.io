@@ -15,438 +15,649 @@
             --accent-blue: #3b82f6;
             --accent-purple: #8b5cf6;
             --accent-green: #10b981;
-            --accent-amber: #f59e0b;
             --node-entity: #3b82f6;
             --node-fact: #8b5cf6;
             --node-document: #10b981;
         }
-
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family:
+                -apple-system,
+                BlinkMacSystemFont,
+                "Segoe UI",
+                Roboto,
+                Helvetica,
+                Arial,
+                sans-serif;
         }
-
+        html,
         body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
+            width: 100%;
+            height: 100%;
         }
-
-        /* Sidebar Navigation */
+        body {
+            display: flex;
+            overflow: hidden;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+        }
+        /* =========================
+           Sidebar
+           ========================= */
         .sidebar {
             width: 260px;
-            background-color: var(--bg-secondary);
-            border-right: 1px solid var(--border-color);
+            flex-shrink: 0;
             display: flex;
             flex-direction: column;
             padding: 1.5rem 1rem;
+            background: var(--bg-secondary);
+            border-right: 1px solid var(--border-color);
         }
-
         .brand {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            color: var(--text-primary);
             font-size: 1.25rem;
             font-weight: 700;
             letter-spacing: 0.05em;
-            color: var(--text-primary);
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
         }
-
         .brand-badge {
-            font-size: 0.65rem;
-            background: var(--accent-purple);
-            color: white;
             padding: 0.15rem 0.4rem;
             border-radius: 4px;
+            background: var(--accent-purple);
+            color: #ffffff;
+            font-size: 0.65rem;
+            font-weight: 600;
             text-transform: uppercase;
         }
-
         .nav-list {
-            list-style: none;
             display: flex;
             flex-direction: column;
             gap: 0.5rem;
+            list-style: none;
         }
-
         .nav-item a {
             display: flex;
             align-items: center;
-            gap: 0.75rem;
             padding: 0.75rem 1rem;
+            border-radius: 6px;
             color: var(--text-secondary);
             text-decoration: none;
-            border-radius: 6px;
             font-size: 0.9rem;
-            transition: all 0.2s ease;
+            transition:
+                background-color 0.2s ease,
+                color 0.2s ease;
         }
-
-        .nav-item a:hover, .nav-item.active a {
-            background-color: var(--bg-card);
+        .nav-item a:hover,
+        .nav-item.active a {
+            background: var(--bg-card);
             color: var(--text-primary);
         }
-
         .nav-item.active a {
             border-left: 3px solid var(--accent-blue);
         }
-
-        /* Main Workspace */
+        /* =========================
+           Main Application
+           ========================= */
         .main-content {
             flex: 1;
+            min-width: 0;
             display: flex;
             flex-direction: column;
             height: 100vh;
             overflow: hidden;
         }
-
+        /* =========================
+           Header
+           ========================= */
         .header {
-            height: 64px;
-            border-bottom: 1px solid var(--border-color);
+            min-height: 64px;
             display: flex;
             align-items: center;
             justify-content: space-between;
+            gap: 1rem;
             padding: 0 1.5rem;
-            background-color: var(--bg-secondary);
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border-color);
         }
-
         .header-title {
             font-size: 1.1rem;
             font-weight: 600;
         }
-
         .controls {
             display: flex;
-            gap: 0.75rem;
             align-items: center;
+            gap: 0.75rem;
         }
-
         .search-bar {
-            background-color: var(--bg-primary);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 0.5rem 0.75rem;
-            color: var(--text-primary);
-            font-size: 0.85rem;
             width: 240px;
-        }
-
-        .btn {
-            background-color: var(--bg-card);
+            padding: 0.5rem 0.75rem;
             border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            padding: 0.5rem 0.9rem;
             border-radius: 6px;
+            outline: none;
+            background: var(--bg-primary);
+            color: var(--text-primary);
             font-size: 0.85rem;
-            cursor: pointer;
-            transition: background 0.2s;
         }
-
-        .btn:hover {
-            background-color: var(--border-color);
+        .search-bar::placeholder {
+            color: var(--text-secondary);
         }
-
-        .btn-primary {
-            background-color: var(--accent-blue);
+        .search-bar:focus {
             border-color: var(--accent-blue);
         }
-
-        .btn-primary:hover {
-            background-color: #2563eb;
+        .btn {
+            padding: 0.5rem 0.9rem;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            background: var(--bg-card);
+            color: var(--text-primary);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition:
+                background-color 0.2s ease,
+                border-color 0.2s ease;
         }
-
-        /* Layout Area */
+        .btn:hover {
+            background: var(--border-color);
+        }
+        .btn-primary {
+            background: var(--accent-blue);
+            border-color: var(--accent-blue);
+        }
+        .btn-primary:hover {
+            background: #2563eb;
+            border-color: #2563eb;
+        }
+        /* =========================
+           Workspace
+           ========================= */
         .workspace-grid {
-            display: flex;
             flex: 1;
-            position: relative;
+            min-height: 0;
+            display: flex;
             overflow: hidden;
         }
-
-        /* Canvas / Visualizer Area */
+        /* =========================
+           Graph
+           ========================= */
         .graph-container {
-            flex: 1;
             position: relative;
+            flex: 1;
+            min-width: 0;
             background-color: var(--bg-primary);
-            background-image: radial-gradient(var(--border-color) 1px, transparent 1px);
+            background-image:
+                radial-gradient(
+                    var(--border-color) 1px,
+                    transparent 1px
+                );
             background-size: 24px 24px;
         }
-
         #graphCanvas {
+            display: block;
             width: 100%;
             height: 100%;
-            display: block;
         }
-
-        /* Graph Overlay Controls */
+        /* =========================
+           Graph Legend
+           ========================= */
         .graph-legend {
             position: absolute;
-            bottom: 1.5rem;
             left: 1.5rem;
-            background: rgba(17, 24, 39, 0.85);
-            backdrop-filter: blur(8px);
+            bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            padding: 0.75rem 1rem;
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            padding: 0.75rem 1rem;
-            display: flex;
-            gap: 1.25rem;
+            background: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(8px);
             font-size: 0.8rem;
         }
-
         .legend-item {
             display: flex;
             align-items: center;
             gap: 0.5rem;
+            white-space: nowrap;
         }
-
         .legend-dot {
             width: 10px;
             height: 10px;
+            flex-shrink: 0;
             border-radius: 50%;
         }
-
-        /* Node Inspector Panel */
+        .legend-dot.entity {
+            background: var(--node-entity);
+        }
+        .legend-dot.fact {
+            background: var(--node-fact);
+        }
+        .legend-dot.document {
+            background: var(--node-document);
+        }
+        /* =========================
+           Inspector
+           ========================= */
         .inspector-panel {
             width: 360px;
-            background-color: var(--bg-secondary);
-            border-left: 1px solid var(--border-color);
+            flex-shrink: 0;
             display: flex;
             flex-direction: column;
             overflow-y: auto;
+            background: var(--bg-secondary);
+            border-left: 1px solid var(--border-color);
         }
-
         .panel-header {
             padding: 1.25rem;
             border-bottom: 1px solid var(--border-color);
         }
-
         .panel-title {
+            margin-bottom: 0.25rem;
             font-size: 1rem;
             font-weight: 600;
-            margin-bottom: 0.25rem;
         }
-
         .panel-subtitle {
-            font-size: 0.75rem;
             color: var(--text-secondary);
+            font-size: 0.75rem;
         }
-
         .panel-section {
             padding: 1.25rem;
             border-bottom: 1px solid var(--border-color);
         }
-
         .section-label {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            color: var(--text-secondary);
             margin-bottom: 0.75rem;
+            color: var(--text-secondary);
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
         }
-
+        /* =========================
+           Metadata
+           ========================= */
         .meta-list {
             display: flex;
             flex-direction: column;
             gap: 0.75rem;
             font-size: 0.85rem;
         }
-
         .meta-item {
             display: flex;
+            align-items: flex-start;
             justify-content: space-between;
+            gap: 1rem;
         }
-
         .meta-key {
             color: var(--text-secondary);
         }
-
         .meta-value {
-            font-weight: 500;
             text-align: right;
+            font-weight: 500;
         }
-
+        /* =========================
+           Status Badge
+           ========================= */
         .badge {
             padding: 0.15rem 0.5rem;
             border-radius: 4px;
             font-size: 0.75rem;
             font-weight: 600;
         }
-
         .badge-success {
-            background-color: rgba(16, 185, 129, 0.2);
+            background: rgba(16, 185, 129, 0.2);
             color: var(--accent-green);
         }
-
+        /* =========================
+           Confidence
+           ========================= */
         .confidence-bar-bg {
             height: 6px;
-            background-color: var(--bg-card);
-            border-radius: 3px;
-            overflow: hidden;
             margin-top: 0.5rem;
+            overflow: hidden;
+            border-radius: 3px;
+            background: var(--bg-card);
         }
-
         .confidence-bar-fill {
+            width: 98.4%;
             height: 100%;
-            background-color: var(--accent-green);
-            width: 98%;
+            background: var(--accent-green);
+            transition: width 0.3s ease;
         }
-
+        /* =========================
+           Source Documents
+           ========================= */
         .source-card {
-            background-color: var(--bg-card);
+            margin-top: 0.5rem;
+            padding: 0.75rem;
             border: 1px solid var(--border-color);
             border-radius: 6px;
-            padding: 0.75rem;
-            margin-top: 0.5rem;
-            font-size: 0.8rem;
+            background: var(--bg-card);
         }
-
         .source-title {
-            font-weight: 600;
             margin-bottom: 0.25rem;
+            font-size: 0.8rem;
+            font-weight: 600;
         }
-
         .source-snippet {
             color: var(--text-secondary);
             font-size: 0.75rem;
             line-height: 1.4;
         }
+        /* =========================
+           Responsive Layout
+           ========================= */
+        @media (max-width: 1100px) {
+            .inspector-panel {
+                width: 320px;
+            }
+            .search-bar {
+                width: 190px;
+            }
+        }
+        @media (max-width: 800px) {
+            body {
+                overflow: auto;
+            }
+            .sidebar {
+                display: none;
+            }
+            .main-content {
+                min-height: 100vh;
+                height: auto;
+            }
+            .header {
+                min-height: auto;
+                flex-direction: column;
+                align-items: stretch;
+                padding: 1rem;
+            }
+            .controls {
+                flex-wrap: wrap;
+            }
+            .search-bar {
+                flex: 1;
+                min-width: 180px;
+            }
+            .workspace-grid {
+                flex-direction: column;
+                overflow: visible;
+            }
+            .graph-container {
+                min-height: 500px;
+            }
+            .inspector-panel {
+                width: 100%;
+                max-height: none;
+                border-top: 1px solid var(--border-color);
+                border-left: 0;
+            }
+            .graph-legend {
+                left: 1rem;
+                right: 1rem;
+                bottom: 1rem;
+                flex-wrap: wrap;
+                gap: 0.75rem 1rem;
+            }
+        }
+        @media (max-width: 480px) {
+            .controls {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+            }
+            .search-bar {
+                grid-column: 1 / -1;
+                width: 100%;
+            }
+            .btn {
+                width: 100%;
+            }
+            .graph-container {
+                min-height: 420px;
+            }
+            .graph-legend {
+                font-size: 0.7rem;
+            }
+        }
     </style>
 </head>
 <body>
-
     <!-- Sidebar Navigation -->
     <aside class="sidebar">
         <div class="brand">
-            ENVICTICA <span class="brand-badge">Legal AI</span>
+            ENVICTICA
+            <span class="brand-badge">Legal AI</span>
         </div>
         <ul class="nav-list">
-            <li class="nav-item"><a href="#">Dashboard</a></li>
-            <li class="nav-item"><a href="#">Document Ingestion</a></li>
-            <li class="nav-item active"><a href="#">Knowledge Graph</a></li>
-            <li class="nav-item"><a href="#">Fact Extraction</a></li>
-            <li class="nav-item"><a href="#">System Health</a></li>
+            <li class="nav-item">
+                <a href="#">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a href="#">Document Ingestion</a>
+            </li>
+            <li class="nav-item active">
+                <a href="#">Knowledge Graph</a>
+            </li>
+            <li class="nav-item">
+                <a href="#">Fact Extraction</a>
+            </li>
+            <li class="nav-item">
+                <a href="#">System Health</a>
+            </li>
         </ul>
     </aside>
-
-    <!-- Main Content Area -->
+    <!-- Main Application -->
     <main class="main-content">
-        <!-- Header Bar -->
+        <!-- Header -->
         <header class="header">
-            <h1 class="header-title">Knowledge Graph & Fact Mapping</h1>
+            <h1 class="header-title">
+                Knowledge Graph &amp; Fact Mapping
+            </h1>
             <div class="controls">
-                <input type="text" class="search-bar" placeholder="Search entities, SEC filings, facts...">
-                <button class="btn">Filter</button>
-                <button class="btn btn-primary">+ Ingest Source</button>
+                <input
+                    type="search"
+                    class="search-bar"
+                    placeholder="Search entities, filings, facts..."
+                    aria-label="Search knowledge graph"
+                />
+                <button type="button" class="btn">
+                    Filter
+                </button>
+                <button type="button" class="btn btn-primary">
+                    + Ingest Source
+                </button>
             </div>
         </header>
-
-        <!-- Main Workspace -->
+        <!-- Workspace -->
         <div class="workspace-grid">
-            <!-- Graph Canvas Container -->
-            <div class="graph-container">
+            <!-- Graph -->
+            <section class="graph-container" aria-label="Knowledge graph visualization">
                 <canvas id="graphCanvas"></canvas>
-
-                <!-- Legend Overlay -->
                 <div class="graph-legend">
                     <div class="legend-item">
-                        <span class="legend-dot" style="background-color: var(--node-entity);"></span>
+                        <span class="legend-dot entity"></span>
                         <span>Corporate Entity</span>
                     </div>
                     <div class="legend-item">
-                        <span class="legend-dot" style="background-color: var(--node-fact);"></span>
+                        <span class="legend-dot fact"></span>
                         <span>Extracted Fact</span>
                     </div>
                     <div class="legend-item">
-                        <span class="legend-dot" style="background-color: var(--node-document);"></span>
+                        <span class="legend-dot document"></span>
                         <span>Source Filing</span>
                     </div>
                 </div>
-            </div>
-
-            <!-- Inspector Panel -->
+            </section>
+            <!-- Inspector -->
             <aside class="inspector-panel">
                 <div class="panel-header">
-                    <div class="panel-title" id="selectedNodeTitle">Alpha Holdings LLC</div>
-                    <div class="panel-subtitle" id="selectedNodeType">Entity Node • ID: #ENT-9082</div>
+                    <div
+                        class="panel-title"
+                        id="selectedNodeTitle"
+                    >
+                        Alpha Holdings LLC
+                    </div>
+                    <div
+                        class="panel-subtitle"
+                        id="selectedNodeType"
+                    >
+                        Entity Node • ID: #ENT-9082
+                    </div>
                 </div>
-
-                <div class="panel-section">
-                    <div class="section-label">Link Confidence Score</div>
+                <!-- Confidence -->
+                <section class="panel-section">
+                    <div class="section-label">
+                        Link Confidence Score
+                    </div>
                     <div class="meta-item">
-                        <span class="meta-key">Resolution Certainty</span>
-                        <span class="meta-value" id="confidenceValue">98.4%</span>
+                        <span class="meta-key">
+                            Resolution Certainty
+                        </span>
+                        <span
+                            class="meta-value"
+                            id="confidenceValue"
+                        >
+                            98.4%
+                        </span>
                     </div>
                     <div class="confidence-bar-bg">
-                        <div class="confidence-bar-fill" id="confidenceBar" style="width: 98.4%;"></div>
+                        <div
+                            class="confidence-bar-fill"
+                            id="confidenceBar"
+                        ></div>
                     </div>
-                </div>
-
-                <div class="panel-section">
-                    <div class="section-label">Node Attributes</div>
+                </section>
+                <!-- Attributes -->
+                <section class="panel-section">
+                    <div class="section-label">
+                        Node Attributes
+                    </div>
                     <div class="meta-list">
                         <div class="meta-item">
-                            <span class="meta-key">Entity Type</span>
-                            <span class="meta-value">Limited Liability Co.</span>
+                            <span class="meta-key">
+                                Entity Type
+                            </span>
+                            <span class="meta-value">
+                                Limited Liability Co.
+                            </span>
                         </div>
                         <div class="meta-item">
-                            <span class="meta-key">Jurisdiction</span>
-                            <span class="meta-value">Delaware, US</span>
+                            <span class="meta-key">
+                                Jurisdiction
+                            </span>
+                            <span class="meta-value">
+                                Delaware, US
+                            </span>
                         </div>
                         <div class="meta-item">
-                            <span class="meta-key">Status</span>
-                            <span class="badge badge-success">Active Verified</span>
+                            <span class="meta-key">
+                                Status
+                            </span>
+                            <span class="badge badge-success">
+                                Active Verified
+                            </span>
                         </div>
                         <div class="meta-item">
-                            <span class="meta-key">Connected Edges</span>
-                            <span class="meta-value">14 Links</span>
+                            <span class="meta-key">
+                                Connected Edges
+                            </span>
+                            <span class="meta-value">
+                                14 Links
+                            </span>
                         </div>
                     </div>
-                </div>
-
-                <div class="panel-section">
-                    <div class="section-label">Source Document Mapping</div>
+                </section>
+                <!-- Source Mapping -->
+                <section class="panel-section">
+                    <div class="section-label">
+                        Source Document Mapping
+                    </div>
                     <div class="source-card">
-                        <div class="source-title">SEC Form 10-K (2025)</div>
+                        <div class="source-title">
+                            SEC Form 10-K (2025)
+                        </div>
                         <div class="source-snippet">
-                            "...Alpha Holdings LLC maintains controlling interest in subsidiary operations under CIK #0001234567 as of Q4 audit..."
+                            "...Alpha Holdings LLC maintains controlling
+                            interest in subsidiary operations under CIK
+                            #0001234567 as of Q4 audit..."
                         </div>
                     </div>
                     <div class="source-card">
-                        <div class="source-title">Credit Agreement Exhibit 99.1</div>
+                        <div class="source-title">
+                            Credit Agreement Exhibit 99.1
+                        </div>
                         <div class="source-snippet">
-                            "...Obligations guaranteed by parent entity Alpha Holdings LLC under primary debt covenants..."
+                            "...Obligations guaranteed by parent entity
+                            Alpha Holdings LLC under primary debt
+                            covenants..."
                         </div>
                     </div>
-                </div>
+                </section>
             </aside>
         </div>
     </main>
-
-    <!-- Graph Rendering Script -->
     <script>
-        const canvas = document.getElementById('graphCanvas');
-        const ctx = canvas.getContext('2d');
-
-        function resizeCanvas() {
-            canvas.width = canvas.parentElement.clientWidth;
-            canvas.height = canvas.parentElement.clientHeight;
-        }
-        window.addEventListener('resize', resizeCanvas);
-        resizeCanvas();
-
-        // Sample Node & Edge Topology Data
+        const canvas = document.getElementById("graphCanvas");
+        const ctx = canvas.getContext("2d");
+        const graphContainer = canvas.parentElement;
         const nodes = [
-            { id: 1, label: 'Alpha Holdings LLC', type: 'entity', x: 0.4, y: 0.45, radius: 18, color: '#3b82f6' },
-            { id: 2, label: 'SEC Form 10-K', type: 'document', x: 0.25, y: 0.3, radius: 14, color: '#10b981' },
-            { id: 3, label: 'Sub-Entity Beta Corp', type: 'entity', x: 0.6, y: 0.35, radius: 14, color: '#3b82f6' },
-            { id: 4, label: 'Majority Ownership (85%)', type: 'fact', x: 0.5, y: 0.22, radius: 10, color: '#8b5cf6' },
-            { id: 5, label: 'Credit Agreement Ex. 99.1', type: 'document', x: 0.3, y: 0.65, radius: 14, color: '#10b981' },
-            { id: 6, label: '$500M Debt Guarantee', type: 'fact', x: 0.55, y: 0.6, radius: 10, color: '#8b5cf6' }
+            {
+                id: 1,
+                label: "Alpha Holdings LLC",
+                type: "entity",
+                x: 0.40,
+                y: 0.45,
+                radius: 18,
+                color: "#3b82f6"
+            },
+            {
+                id: 2,
+                label: "SEC Form 10-K",
+                type: "document",
+                x: 0.25,
+                y: 0.30,
+                radius: 14,
+                color: "#10b981"
+            },
+            {
+                id: 3,
+                label: "Sub-Entity Beta Corp",
+                type: "entity",
+                x: 0.60,
+                y: 0.35,
+                radius: 14,
+                color: "#3b82f6"
+            },
+            {
+                id: 4,
+                label: "Majority Ownership (85%)",
+                type: "fact",
+                x: 0.50,
+                y: 0.22,
+                radius: 10,
+                color: "#8b5cf6"
+            },
+            {
+                id: 5,
+                label: "Credit Agreement Ex. 99.1",
+                type: "document",
+                x: 0.30,
+                y: 0.65,
+                radius: 14,
+                color: "#10b981"
+            },
+            {
+                id: 6,
+                label: "$500M Debt Guarantee",
+                type: "fact",
+                x: 0.55,
+                y: 0.60,
+                radius: 10,
+                color: "#8b5cf6"
+            }
         ];
-
         const edges = [
             { from: 1, to: 2 },
             { from: 1, to: 4 },
@@ -454,50 +665,90 @@
             { from: 1, to: 5 },
             { from: 1, to: 6 }
         ];
-
+        function resizeCanvas() {
+            const rect = graphContainer.getBoundingClientRect();
+            const pixelRatio = window.devicePixelRatio || 1;
+            canvas.width = rect.width * pixelRatio;
+            canvas.height = rect.height * pixelRatio;
+            canvas.style.width = `${rect.width}px`;
+            canvas.style.height = `${rect.height}px`;
+            ctx.setTransform(
+                pixelRatio,
+                0,
+                0,
+                pixelRatio,
+                0,
+                0
+            );
+            drawGraph();
+        }
         function drawGraph() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            const width = canvas.width;
-            const height = canvas.height;
-
-            // Draw Edges
-            ctx.strokeStyle = '#374151';
+            const width = graphContainer.clientWidth;
+            const height = graphContainer.clientHeight;
+            ctx.clearRect(0, 0, width, height);
+            /*
+             * Draw edges first so nodes appear above connections.
+             */
+            ctx.strokeStyle = "#374151";
             ctx.lineWidth = 2;
             edges.forEach(edge => {
-                const source = nodes.find(n => n.id === edge.from);
-                const target = nodes.find(n => n.id === edge.to);
-
+                const source = nodes.find(
+                    node => node.id === edge.from
+                );
+                const target = nodes.find(
+                    node => node.id === edge.to
+                );
+                if (!source || !target) {
+                    return;
+                }
                 ctx.beginPath();
-                ctx.moveTo(source.x * width, source.y * height);
-                ctx.lineTo(target.x * width, target.y * height);
+                ctx.moveTo(
+                    source.x * width,
+                    source.y * height
+                );
+                ctx.lineTo(
+                    target.x * width,
+                    target.y * height
+                );
                 ctx.stroke();
             });
-
-            // Draw Nodes
+            /*
+             * Draw nodes and labels.
+             */
             nodes.forEach(node => {
-                const nx = node.x * width;
-                const ny = node.y * height;
-
+                const x = node.x * width;
+                const y = node.y * height;
                 ctx.beginPath();
-                ctx.arc(nx, ny, node.radius, 0, Math.PI * 2);
+                ctx.arc(
+                    x,
+                    y,
+                    node.radius,
+                    0,
+                    Math.PI * 2
+                );
                 ctx.fillStyle = node.color;
                 ctx.fill();
-                ctx.strokeStyle = '#111827';
+                ctx.strokeStyle = "#111827";
                 ctx.lineWidth = 3;
                 ctx.stroke();
-
-                // Draw Text Label
-                ctx.fillStyle = '#f9fafb';
-                ctx.font = '12px -apple-system, BlinkMacSystemFont, sans-serif';
-                ctx.textAlign = 'center';
-                ctx.fillText(node.label, nx, ny + node.radius + 16);
+                ctx.fillStyle = "#f9fafb";
+                ctx.font =
+                    '12px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif';
+                ctx.textAlign = "center";
+                ctx.textBaseline = "top";
+                ctx.fillText(
+                    node.label,
+                    x,
+                    y + node.radius + 8
+                );
             });
-
-            requestAnimationFrame(drawGraph);
         }
-
-        drawGraph();
+        window.addEventListener(
+            "resize",
+            resizeCanvas,
+            { passive: true }
+        );
+        resizeCanvas();
     </script>
 </body>
 </html>
