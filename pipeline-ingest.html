@@ -1,361 +1,452 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Envictica | Ingestion Control</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-    />
-    <style>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Envictica | Ingestion Control</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;600;700&family=JetBrains+Mono:wght@400;700&display=swap"
+    rel="stylesheet"
+  >
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet"
+  >
+  <style>
+    body {
+      background-color: #0d1117;
+      color: #e6edf3;
+      font-family: "Hanken Grotesk", sans-serif;
+    }
+    .sidebar {
+      background-color: #010409;
+      border-right: 1px solid #30363d;
+    }
+    .glass-card {
+      background: rgba(22, 27, 34, 0.8);
+      border: 1px solid #30363d;
+    }
+    .status-active {
+      color: #00f5d4;
+    }
+    .material-symbols-outlined {
+      font-variation-settings:
+        "FILL" 0,
+        "wght" 400,
+        "GRAD" 0,
+        "opsz" 24;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #0d1117;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #30363d;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #484f58;
+    }
+    @media (max-width: 768px) {
+      html,
       body {
-        background-color: #0d1117;
-        color: #e6edf3;
-        font-family: "Hanken Grotesk", sans-serif;
+        overflow-x: hidden;
       }
       .sidebar {
-        background-color: #010409;
-        border-right: 1px solid #30363d;
+        position: relative;
+        height: auto;
       }
-      .glass-card {
-        background: rgba(22, 27, 34, 0.8);
-        border: 1px solid #30363d;
+      main {
+        min-width: 0;
       }
-      .status-active {
-        color: #00f5d4;
+      table {
+        min-width: 700px;
       }
-      .material-symbols-outlined {
-        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
-      }
-    </style>
-  </head>
-  <body class="min-h-screen flex flex-col md:flex-row overflow-x-hidden">
-    <!-- Side Navigation -->
-    <aside
-      class="w-full md:w-64 sidebar flex flex-col h-screen sticky top-0 z-50"
-    >
-      <div class="p-6 border-b border-[#30363d] mb-4">
-        <h1 class="text-xl font-black tracking-tighter text-white">
-          ENVICTICA
-        </h1>
-        <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">
-          Infrastructure Control
-        </p>
-      </div>
-      <nav class="flex-1 px-4 space-y-1">
-        <a
-          href="command-center.html"
-          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
-        >
-          <span class="material-symbols-outlined text-lg">dashboard</span>
-          Command Center
-        </a>
-        <a
-          href="pipeline-injest.html"
-          class="flex items-center gap-3 px-3 py-2.5 text-[#00f5d4] bg-[#00f5d4]/5 border-l-2 border-[#00f5d4] text-sm font-semibold"
-        >
-          <span class="material-symbols-outlined text-lg">account_tree</span>
-          Ingestion Control
-        </a>
-        <a
-          href="governance-access.html"
-          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
-        >
-          <span class="material-symbols-outlined text-lg">gavel</span>
-          Governance
-        </a>
-        <a
-          href="risk-matrix.html"
-          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
-        >
-          <span class="material-symbols-outlined text-lg">warning</span>
-          Risk Matrix
-        </a>
-        <a
-          href="compliance-logs.html"
-          class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
-        >
-          <span class="material-symbols-outlined text-lg">receipt_long</span>
-          Audit Logs
-        </a>
-      </nav>
-      <div class="p-4 border-t border-[#30363d] mt-auto">
-        <div
-          class="flex items-center gap-2 px-3 py-2 text-[11px] font-bold text-[#00f5d4] uppercase tracking-widest"
-        >
-          <span class="w-2 h-2 rounded-full bg-[#00f5d4] animate-pulse"></span>
-          System Healthy
-        </div>
-      </div>
-    </aside>
-
-    <!-- Main Content -->
-    <main class="flex-1 flex flex-col min-h-screen">
-      <header
-        class="h-16 border-b border-[#30363d] flex items-center justify-between px-8 bg-[#0d1117]/80 backdrop-blur-md sticky top-0 z-40"
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col md:flex-row overflow-x-hidden">
+  <!-- Side Navigation -->
+  <aside
+    class="w-full md:w-64 sidebar flex flex-col md:h-screen md:sticky md:top-0 z-50"
+  >
+    <div class="p-6 border-b border-[#30363d] mb-4">
+      <h1 class="text-xl font-black tracking-tighter text-white">
+        ENVICTICA
+      </h1>
+      <p class="text-[10px] text-slate-500 uppercase tracking-widest mt-1">
+        Infrastructure Control
+      </p>
+    </div>
+    <nav class="flex-1 px-4 space-y-1">
+      <a
+        href="command-center.html"
+        class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
       >
-        <div
-          class="text-[11px] font-bold text-slate-500 uppercase tracking-[0.2em]"
-        >
-          PATH: ENV / INFRA / PIPELINE_06
-        </div>
-        <div class="flex items-center gap-6">
-          <div class="flex items-center gap-2">
-            <span
-              class="text-[10px] text-slate-500 font-bold uppercase tracking-widest"
-            >
-              Uptime
-            </span>
-            <span class="text-[14px] font-mono text-white">99.999%</span>
-          </div>
-          <button
-            class="p-2 text-slate-400 hover:text-white transition-colors"
+        <span class="material-symbols-outlined text-lg">
+          dashboard
+        </span>
+        Command Center
+      </a>
+      <a
+        href="pipeline-ingest.html"
+        class="flex items-center gap-3 px-3 py-2.5 text-[#00f5d4] bg-[#00f5d4]/5 border-l-2 border-[#00f5d4] text-sm font-semibold"
+      >
+        <span class="material-symbols-outlined text-lg">
+          account_tree
+        </span>
+        Ingestion Control
+      </a>
+      <a
+        href="governance-access.html"
+        class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
+      >
+        <span class="material-symbols-outlined text-lg">
+          gavel
+        </span>
+        Governance
+      </a>
+      <a
+        href="risk-matrix.html"
+        class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
+      >
+        <span class="material-symbols-outlined text-lg">
+          warning
+        </span>
+        Risk Matrix
+      </a>
+      <a
+        href="compliance-logs.html"
+        class="flex items-center gap-3 px-3 py-2.5 text-slate-400 hover:text-white transition-all text-sm rounded hover:bg-white/5"
+      >
+        <span class="material-symbols-outlined text-lg">
+          receipt_long
+        </span>
+        Audit Logs
+      </a>
+    </nav>
+    <div class="p-4 border-t border-[#30363d] mt-auto">
+      <div
+        class="flex items-center gap-2 px-3 py-2 text-[11px] font-bold text-[#00f5d4] uppercase tracking-widest"
+      >
+        <span class="w-2 h-2 rounded-full bg-[#00f5d4] animate-pulse"></span>
+        System Healthy
+      </div>
+    </div>
+  </aside>
+  <!-- Main Content -->
+  <main class="flex-1 flex flex-col min-h-screen min-w-0">
+    <!-- Header -->
+    <header
+      class="h-16 border-b border-[#30363d] flex items-center justify-between px-8 bg-[#0d1117]/80 backdrop-blur-md sticky top-0 z-40"
+    >
+      <div
+        class="text-[11px] font-bold text-slate-500 uppercase tracking-[0.2em]"
+      >
+        PATH: ENV / INFRA / INGESTION
+      </div>
+      <div class="flex items-center gap-6">
+        <div class="flex items-center gap-2">
+          <span
+            class="text-[10px] text-slate-500 font-bold uppercase tracking-widest"
           >
-            <span class="material-symbols-outlined">settings</span>
-          </button>
+            Uptime
+          </span>
+          <span class="text-[14px] font-mono text-white">
+            99.999%
+          </span>
         </div>
-      </header>
-
-      <div class="p-8 space-y-8">
-        <!-- Metrics Row -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <div class="glass-card p-6 rounded-sm">
-            <div
-              class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
-            >
-              Ingestion Velocity
-            </div>
-            <div class="text-3xl font-mono text-white">
-              12.4k<span class="text-xs text-slate-500 ml-1">cls/sec</span>
-            </div>
+        <button
+          type="button"
+          aria-label="Settings"
+          class="p-2 text-slate-400 hover:text-white transition-colors"
+        >
+          <span class="material-symbols-outlined">
+            settings
+          </span>
+        </button>
+      </div>
+    </header>
+    <!-- Workspace -->
+    <div class="p-8 space-y-8">
+      <!-- Metrics -->
+      <section
+        class="grid grid-cols-1 md:grid-cols-4 gap-4"
+        aria-label="Ingestion metrics"
+      >
+        <div class="glass-card p-6 rounded-sm">
+          <div
+            class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
+          >
+            Ingestion Velocity
           </div>
-          <div class="glass-card p-6 rounded-sm">
-            <div
-              class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
-            >
-              Structural Integrity
-            </div>
-            <div class="text-3xl font-mono text-[#00f5d4]">99.9%</div>
-          </div>
-          <div class="glass-card p-6 rounded-sm border-[#ff4d6d]/20">
-            <div
-              class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
-            >
-              ACB Status
-            </div>
-            <div class="text-xl font-mono text-slate-400">
-              Passive Monitoring
-            </div>
-          </div>
-          <div class="glass-card p-6 rounded-sm">
-            <div
-              class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
-            >
-              Data Debt Mitigated
-            </div>
-            <div class="text-3xl font-mono text-white">$4.2M</div>
+          <div class="text-3xl font-mono text-white">
+            12.4k
+            <span class="text-xs text-slate-500 ml-1">
+              cls/sec
+            </span>
           </div>
         </div>
-
-        <!-- Content Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-          <!-- Live Feed -->
-          <div class="lg:col-span-2 glass-card rounded-sm flex flex-col">
-            <div
-              class="p-4 border-b border-[#30363d] flex justify-between items-center bg-white/5"
+        <div class="glass-card p-6 rounded-sm">
+          <div
+            class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
+          >
+            Structural Integrity
+          </div>
+          <div class="text-3xl font-mono text-[#00f5d4]">
+            99.9%
+          </div>
+        </div>
+        <div class="glass-card p-6 rounded-sm border-[#ff4d6d]/20">
+          <div
+            class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
+          >
+            ACB Status
+          </div>
+          <div class="text-xl font-mono text-slate-400">
+            Passive Monitoring
+          </div>
+        </div>
+        <div class="glass-card p-6 rounded-sm">
+          <div
+            class="text-[10px] font-bold text-slate-500 uppercase tracking-widest mb-2"
+          >
+            Data Debt Mitigated
+          </div>
+          <div class="text-3xl font-mono text-white">
+            $4.2M
+          </div>
+        </div>
+      </section>
+      <!-- Content Grid -->
+      <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Live Feed -->
+        <div class="lg:col-span-2 glass-card rounded-sm flex flex-col">
+          <div
+            class="p-4 border-b border-[#30363d] flex justify-between items-center bg-white/5"
+          >
+            <h2
+              class="text-[11px] font-bold uppercase tracking-widest flex items-center gap-2"
             >
-              <h2
-                class="text-[11px] font-bold uppercase tracking-widest flex items-center gap-2"
-              >
-                <span class="material-symbols-outlined text-sm text-[#00f5d4]">
-                  bolt
-                </span>
-                Live Ingestion Feed
-              </h2>
-              <span
-                class="text-[9px] font-mono text-[#00f5d4] animate-pulse"
-              >
-                ACTIVE POLLING
+              <span class="material-symbols-outlined text-sm text-[#00f5d4]">
+                bolt
               </span>
-            </div>
-            <div class="overflow-x-auto">
-              <table class="w-full text-left border-collapse">
-                <thead
-                  class="text-[10px] text-slate-500 uppercase font-bold bg-black/20"
-                >
-                  <tr>
-                    <th class="px-6 py-3 border-b border-[#30363d]">Status</th>
-                    <th class="px-6 py-3 border-b border-[#30363d]">
-                      Batch Name / Source
-                    </th>
-                    <th class="px-6 py-3 border-b border-[#30363d]">
-                      Progress
-                    </th>
-                    <th class="px-6 py-3 border-b border-[#30363d] text-right">
-                      Size
-                    </th>
-                  </tr>
-                </thead>
-                <tbody class="text-[13px] font-mono">
-                  <tr class="border-b border-[#30363d] hover:bg-white/5">
-                    <td class="px-6 py-4">
-                      <span
-                        class="material-symbols-outlined text-[#00f5d4] animate-spin"
-                      >
-                        sync
-                      </span>
-                    </td>
-                    <td class="px-6 py-4">
-                      <div class="text-white">Volume 12 Case Files</div>
-                      <div class="text-[10px] text-slate-500">
-                        s3://lex-client-alpha/raw/
-                      </div>
-                    </td>
-                    <td class="px-6 py-4">
-                      <div
-                        class="w-full bg-slate-800 h-1 rounded-full overflow-hidden"
-                      >
-                        <div
-                          class="bg-[#00f5d4] h-full"
-                          style="width: 78%"
-                        ></div>
-                      </div>
-                      <div class="text-[9px] text-slate-500 mt-1">
-                        78% COMPLETE
-                      </div>
-                    </td>
-                    <td class="px-6 py-4 text-right text-slate-400">4.2 GB</td>
-                  </tr>
-                  <tr class="border-b border-[#30363d] hover:bg-white/5">
-                    <td class="px-6 py-4">
-                      <span class="material-symbols-outlined text-[#00f5d4]">
-                        check_circle
-                      </span>
-                    </td>
-                    <td class="px-6 py-4">
-                      <div class="text-white">
-                        Deposition Transcripts - Smith
-                      </div>
-                      <div class="text-[10px] text-slate-500">
-                        sharepoint://legal-ops/transcripts/
-                      </div>
-                    </td>
-                    <td class="px-6 py-4">
-                      <div
-                        class="w-full bg-slate-800 h-1 rounded-full overflow-hidden"
-                      >
-                        <div
-                          class="bg-[#00f5d4] h-full"
-                          style="width: 100%"
-                        ></div>
-                      </div>
-                      <div class="text-[9px] text-[#00f5d4] mt-1">VERIFIED</div>
-                    </td>
-                    <td class="px-6 py-4 text-right text-slate-400">850 MB</td>
-                  </tr>
-                  <tr class="hover:bg-white/5 border-b border-[#30363d]">
-                    <td class="px-6 py-4">
-                      <span class="material-symbols-outlined text-[#ff4d6d]">
-                        error
-                      </span>
-                    </td>
-                    <td class="px-6 py-4">
-                      <div class="text-[#ff4d6d]">Legacy Contract Archive</div>
-                      <div class="text-[10px] text-slate-500">
-                        s3://lex-archive-cold/2018/
-                      </div>
-                    </td>
-                    <td class="px-6 py-4">
-                      <div
-                        class="w-full bg-slate-800 h-1 rounded-full overflow-hidden"
-                      >
-                        <div
-                          class="bg-[#ff4d6d] h-full"
-                          style="width: 45%"
-                        ></div>
-                      </div>
-                      <div class="text-[9px] text-[#ff4d6d] mt-1">
-                        SCHEMA MISMATCH
-                      </div>
-                    </td>
-                    <td class="px-6 py-4 text-right text-slate-400">12 GB</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <!-- Source Connections -->
-          <div class="glass-card rounded-sm p-6 flex flex-col gap-6">
-            <div class="flex justify-between items-center">
-              <h2 class="text-[11px] font-bold uppercase tracking-widest">
-                Source Connections
-              </h2>
-              <button class="text-[#00f5d4] hover:opacity-80">
-                <span class="material-symbols-outlined text-lg">
-                  add_circle
-                </span>
-              </button>
-            </div>
-            <div class="space-y-3">
-              <div
-                class="p-4 bg-white/5 border border-[#30363d] rounded flex items-center gap-4"
-              >
-                <span class="material-symbols-outlined text-white/50">
-                  cloud_done
-                </span>
-                <div>
-                  <div class="text-sm font-bold">AWS S3 Bucket</div>
-                  <div
-                    class="text-[10px] text-slate-500 font-mono text-ellipsis overflow-hidden"
-                  >
-                    lex-client-alpha
-                  </div>
-                </div>
-              </div>
-              <div
-                class="p-4 bg-white/5 border border-[#30363d] rounded flex items-center gap-4"
-              >
-                <span class="material-symbols-outlined text-white/50">
-                  folder_shared
-                </span>
-                <div>
-                  <div class="text-sm font-bold">SharePoint Legal Ops</div>
-                  <div
-                    class="text-[10px] text-slate-500 font-mono text-ellipsis overflow-hidden"
-                  >
-                    /transcripts/2023
-                  </div>
-                </div>
-              </div>
-              <div
-                class="p-4 bg-white/5 border border-[#30363d] rounded flex items-center gap-4 opacity-50 grayscale"
-              >
-                <span class="material-symbols-outlined">storage</span>
-                <div>
-                  <div class="text-sm font-bold text-slate-400">
-                    Legacy FTP Server
-                  </div>
-                  <div class="text-[10px] text-slate-500 font-mono">
-                    ftp://edgar-mirror.local
-                  </div>
-                </div>
-              </div>
-            </div>
-            <button
-              class="w-full mt-auto py-3 bg-white/5 border border-white/10 text-[11px] font-bold uppercase tracking-widest hover:bg-white/10 transition-all"
+              Live Ingestion Feed
+            </h2>
+            <span
+              class="text-[9px] font-mono text-[#00f5d4] animate-pulse"
             >
-              NEW SYSTEM AUDIT
+              ACTIVE POLLING
+            </span>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead
+                class="text-[10px] text-slate-500 uppercase font-bold bg-black/20"
+              >
+                <tr>
+                  <th class="px-6 py-3 border-b border-[#30363d]">
+                    Status
+                  </th>
+                  <th class="px-6 py-3 border-b border-[#30363d]">
+                    Batch Name / Source
+                  </th>
+                  <th class="px-6 py-3 border-b border-[#30363d]">
+                    Progress
+                  </th>
+                  <th
+                    class="px-6 py-3 border-b border-[#30363d] text-right"
+                  >
+                    Size
+                  </th>
+                </tr>
+              </thead>
+              <tbody class="text-[13px] font-mono">
+                <!-- Active Batch -->
+                <tr class="border-b border-[#30363d] hover:bg-white/5">
+                  <td class="px-6 py-4">
+                    <span
+                      class="material-symbols-outlined text-[#00f5d4] animate-spin"
+                    >
+                      sync
+                    </span>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-white">
+                      Volume 12 Case Files
+                    </div>
+                    <div class="text-[10px] text-slate-500">
+                      s3://lex-client-alpha/raw/
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div
+                      class="w-full bg-slate-800 h-1 rounded-full overflow-hidden"
+                    >
+                      <div
+                        class="bg-[#00f5d4] h-full"
+                        style="width: 78%"
+                      ></div>
+                    </div>
+                    <div class="text-[9px] text-slate-500 mt-1">
+                      78% COMPLETE
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 text-right text-slate-400">
+                    4.2 GB
+                  </td>
+                </tr>
+                <!-- Verified Batch -->
+                <tr class="border-b border-[#30363d] hover:bg-white/5">
+                  <td class="px-6 py-4">
+                    <span class="material-symbols-outlined text-[#00f5d4]">
+                      check_circle
+                    </span>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-white">
+                      Deposition Transcripts - Smith
+                    </div>
+                    <div class="text-[10px] text-slate-500">
+                      sharepoint://legal-ops/transcripts/
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div
+                      class="w-full bg-slate-800 h-1 rounded-full overflow-hidden"
+                    >
+                      <div
+                        class="bg-[#00f5d4] h-full"
+                        style="width: 100%"
+                      ></div>
+                    </div>
+                    <div class="text-[9px] text-[#00f5d4] mt-1">
+                      VERIFIED
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 text-right text-slate-400">
+                    850 MB
+                  </td>
+                </tr>
+                <!-- Schema Mismatch -->
+                <tr class="border-b border-[#30363d] hover:bg-white/5">
+                  <td class="px-6 py-4">
+                    <span class="material-symbols-outlined text-[#ff4d6d]">
+                      error
+                    </span>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div class="text-[#ff4d6d]">
+                      Legacy Contract Archive
+                    </div>
+                    <div class="text-[10px] text-slate-500">
+                      s3://lex-archive-cold/2018/
+                    </div>
+                  </td>
+                  <td class="px-6 py-4">
+                    <div
+                      class="w-full bg-slate-800 h-1 rounded-full overflow-hidden"
+                    >
+                      <div
+                        class="bg-[#ff4d6d] h-full"
+                        style="width: 45%"
+                      ></div>
+                    </div>
+                    <div class="text-[9px] text-[#ff4d6d] mt-1">
+                      SCHEMA MISMATCH
+                    </div>
+                  </td>
+                  <td class="px-6 py-4 text-right text-slate-400">
+                    12 GB
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <!-- Source Connections -->
+        <aside class="glass-card rounded-sm p-6 flex flex-col gap-6">
+          <div class="flex justify-between items-center">
+            <h2 class="text-[11px] font-bold uppercase tracking-widest">
+              Source Connections
+            </h2>
+            <button
+              type="button"
+              aria-label="Add source connection"
+              class="text-[#00f5d4] hover:opacity-80"
+            >
+              <span class="material-symbols-outlined text-lg">
+                add_circle
+              </span>
             </button>
           </div>
-        </div>
-      </div>
-    </main>
-  </body>
+          <div class="space-y-3">
+            <!-- AWS -->
+            <div
+              class="p-4 bg-white/5 border border-[#30363d] rounded flex items-center gap-4"
+            >
+              <span class="material-symbols-outlined text-white/50">
+                cloud_done
+              </span>
+              <div class="min-w-0">
+                <div class="text-sm font-bold">
+                  AWS S3 Bucket
+                </div>
+                <div
+                  class="text-[10px] text-slate-500 font-mono truncate"
+                >
+                  lex-client-alpha
+                </div>
+              </div>
+            </div>
+            <!-- SharePoint -->
+            <div
+              class="p-4 bg-white/5 border border-[#30363d] rounded flex items-center gap-4"
+            >
+              <span class="material-symbols-outlined text-white/50">
+                folder_shared
+              </span>
+              <div class="min-w-0">
+                <div class="text-sm font-bold">
+                  SharePoint Legal Ops
+                </div>
+                <div
+                  class="text-[10px] text-slate-500 font-mono truncate"
+                >
+                  /transcripts/2023
+                </div>
+              </div>
+            </div>
+            <!-- Legacy -->
+            <div
+              class="p-4 bg-white/5 border border-[#30363d] rounded flex items-center gap-4 opacity-50 grayscale"
+            >
+              <span class="material-symbols-outlined">
+                storage
+              </span>
+              <div class="min-w-0">
+                <div class="text-sm font-bold text-slate-400">
+                  Legacy FTP Server
+                </div>
+                <div class="text-[10px] text-slate-500 font-mono truncate">
+                  ftp://edgar-mirror.local
+                </div>
+              </div>
+            </div>
+          </div>
+          <button
+            type="button"
+            class="w-full mt-auto py-3 bg-white/5 border border-white/10 text-[11px] font-bold uppercase tracking-widest hover:bg-white/10 transition-all"
+          >
+            New System Audit
+          </button>
+        </aside>
+      </section>
+    </div>
+  </main>
+</body>
 </html>
