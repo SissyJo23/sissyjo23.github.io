@@ -2,265 +2,347 @@
 <html class="dark" lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Envictica | Stress-Test Suite</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap"
-      rel="stylesheet"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-    />
-    <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              primary: "#00F5D4",
-              "env-alert": "#FF4D6D",
-              surface: "#0A0B0E",
-              "surface-container": "#13151B",
-              outline: "#2A2E39",
-              "on-surface-variant": "#9CA3AF",
-            },
-            fontFamily: {
-              display: ["Sora", "sans-serif"],
-              mono: ["JetBrains Mono", "monospace"],
-              body: ["Inter", "sans-serif"],
-            },
-          },
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Envictica | Stress-Test</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link
+  href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;600&display=swap"
+  rel="stylesheet"
+/>
+<link
+  href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+  rel="stylesheet"
+/>
+<script>
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        colors: {
+          primary: "#00F5D4",
+          "env-alert": "#FF4D6D",
+          surface: "#0A0B0E",
+          "surface-container": "#13151B",
+          outline: "#2A2E39",
+          "on-surface-variant": "#9CA3AF",
         },
-      };
-    </script>
-    <style>
-      body {
-        background-color: #050608;
-        color: #e3e1e9;
-      }
-      .node-grid {
-        display: grid;
-        grid-template-columns: repeat(8, 1fr);
-        gap: 8px;
-      }
-      .node-square {
-        aspect-ratio: 1/1;
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        transition: all 0.3s;
-      }
-      .node-failing {
-        background: rgba(255, 77, 109, 0.2);
-        border-color: #ff4d6d;
-        box-shadow: 0 0 10px rgba(255, 77, 109, 0.4);
-      }
-      .node-rerouting {
-        background: rgba(0, 245, 212, 0.2);
-        border-color: #00f5d4;
-      }
-      .glow-crimson {
-        text-shadow: 0 0 10px #ff4d6d;
-      }
-    </style>
-  </head>
-  <body class="font-body antialiased min-h-screen">
-    <!-- Top Module Bar -->
-    <div
-      class="fixed top-0 left-0 w-full bg-primary text-[#002022] z-50 h-8 flex items-center justify-center font-mono text-[10px] tracking-[0.3em] font-bold uppercase"
-    >
-      Official Envictica Module: 04 of 17
-    </div>
-
-    <div class="pt-8 flex flex-col md:flex-row h-screen">
-      <!-- Sidebar -->
-      <nav
-        class="w-64 bg-surface-container border-r border-outline p-6 flex flex-col gap-8"
-      >
-        <div class="flex flex-col gap-1">
-          <span
-            class="font-display text-2xl font-black italic tracking-tighter text-white"
-            >ENVICTICA</span
-          >
-          <span
-            class="font-mono text-[10px] text-primary tracking-widest uppercase"
-            >Resilience Suite</span
-          >
-        </div>
-        <div class="flex flex-col gap-2">
-          <div
-            class="p-3 flex items-center gap-3 text-on-surface-variant hover:text-white transition-colors cursor-pointer"
-          >
-            <span class="material-symbols-outlined text-lg">terminal</span>
-            <span class="font-mono text-xs uppercase tracking-wider"
-              >Command</span
-            >
-          </div>
-          <div
-            class="bg-primary/10 border border-primary/20 p-3 rounded flex items-center gap-3 text-primary"
-          >
-            <span class="material-symbols-outlined text-lg">bolt</span>
-            <span class="font-mono text-xs font-bold uppercase tracking-wider"
-              >Stress-Test</span
-            >
-          </div>
-          <div
-            class="p-3 flex items-center gap-3 text-on-surface-variant hover:text-white transition-colors cursor-pointer"
-          >
-            <span class="material-symbols-outlined text-lg">history_edu</span>
-            <span class="font-mono text-xs uppercase tracking-wider"
-              >Audit Log</span
-            >
-          </div>
-        </div>
-      </nav>
-
-      <!-- Main Content -->
-      <main class="flex-1 overflow-y-auto p-8">
-        <header
-          class="flex justify-between items-end mb-12 border-b border-outline pb-8"
-        >
-          <div class="flex flex-col gap-2">
-            <h2
-              class="font-display text-4xl font-black text-white uppercase tracking-tight"
-            >
-              System Stress-Test Suite
-            </h2>
-            <p class="text-on-surface-variant max-w-xl">
-              Active simulation of infrastructure failure vectors to verify
-              sub-5ms failover protocols and RTO targets.
-            </p>
-          </div>
-          <div class="flex gap-4">
-            <button
-              class="bg-env-alert/10 border border-env-alert text-env-alert px-4 py-2 text-[10px] font-mono uppercase tracking-widest hover:bg-env-alert/20 transition-colors"
-            >
-              Abort Test
-            </button>
-            <button
-              class="bg-primary text-[#002022] px-4 py-2 text-[10px] font-mono font-bold uppercase tracking-widest hover:opacity-90 transition-opacity"
-            >
-              Simulate Cloud Blackout
-            </button>
-          </div>
-        </header>
-
-        <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
-          <!-- Status Grid -->
-          <div class="xl:col-span-2 flex flex-col gap-6">
-            <div class="bg-surface-container border border-outline p-6">
-              <div class="flex justify-between items-center mb-6">
-                <h3
-                  class="font-mono text-xs font-bold text-on-surface-variant uppercase tracking-widest"
-                >
-                  Global Node Status
-                </h3>
-                <span class="font-mono text-[10px] text-env-alert animate-pulse"
-                  >CRITICAL STRESS LOAD: 98%</span
-                >
-              </div>
-              <div class="node-grid">
-                <!-- Simulated Nodes -->
-                <div class="node-square node-failing"></div>
-                <div class="node-square node-failing"></div>
-                <div class="node-square"></div>
-                <div class="node-square"></div>
-                <div class="node-square node-rerouting"></div>
-                <div class="node-square node-rerouting"></div>
-                <div class="node-square"></div>
-                <div class="node-square"></div>
-                <div class="node-square node-failing"></div>
-                <div class="node-square"></div>
-                <div class="node-square"></div>
-                <div class="node-square"></div>
-                <div class="node-square node-rerouting"></div>
-                <div class="node-square node-rerouting"></div>
-                <div class="node-square"></div>
-                <div class="node-square"></div>
-              </div>
-            </div>
-
-            <div
-              class="bg-black/40 border border-outline p-4 font-mono text-[10px] text-on-surface-variant h-32 overflow-hidden flex flex-col gap-1"
-            >
-              <div class="text-env-alert">
-                [CRITICAL] High packet loss on Node Alpha-4
-              </div>
-              <div class="text-primary">
-                [RESOLVED] Traffic rerouted to Localized Node A
-              </div>
-              <div class="text-env-alert">
-                [CRITICAL] API Connection timeout: OpenAI-Gpt4o
-              </div>
-              <div class="text-primary">
-                [STATUS] Sub-5ms Hot-Swap Triggered...
-              </div>
-            </div>
-          </div>
-
-          <!-- Recovery Metrics -->
-          <div class="xl:col-span-1 flex flex-col gap-6">
-            <div
-              class="bg-surface-container border border-outline p-8 flex flex-col items-center justify-center text-center"
-            >
-              <span
-                class="font-mono text-[10px] text-on-surface-variant uppercase tracking-[0.2em] mb-4"
-                >Current RTO</span
-              >
-              <div
-                class="text-6xl font-mono text-white tracking-tighter mb-2 glow-crimson"
-              >
-                4.82ms
-              </div>
-              <span class="font-mono text-[10px] text-primary uppercase"
-                >Within &lt; 5ms SLA</span
-              >
-            </div>
-
-            <div class="bg-surface-container border border-outline p-6">
-              <span
-                class="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest"
-                >Liability Avoided</span
-              >
-              <div class="text-3xl font-mono text-white mt-2">$12.4M</div>
-              <div
-                class="mt-4 text-[10px] text-on-surface-variant leading-relaxed"
-              >
-                Projected operational loss mitigated through automated drift
-                detection and failover.
-              </div>
-            </div>
-          </div>
-        </div>
-      </main>
-    </div>
-  
+        fontFamily: {
+          display: ["Sora", "sans-serif"],
+          mono: ["JetBrains Mono", "monospace"],
+          body: ["Inter", "sans-serif"],
+        },
+      },
+    },
+  };
+</script>
 <style>
-/* Global Responsive Breakpoints & Mobile Fixes */
-@media (max-width: 768px) {
-  /* Force grid structures to stack in a single column */
-  .grid, .card-grid, .dashboard-grid, [class*="grid"] {
-    grid-template-columns: 1fr !important;
+  :root {
+    color-scheme: dark;
   }
-  
-  /* Tables & data displays wrap cleanly with scroll support */
-  table, .table-container, [class*="table"] {
-    max-width: 100% !important;
-    overflow-x: auto !important;
+  * {
+    box-sizing: border-box;
   }
-  
-  /* Prevent horizontal document overflow */
-  body, html {
-    overflow-x: hidden !important;
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+    background: #050608;
   }
-
-  /* Bottom padding to prevent floating bars/dock from overlapping buttons */
-  body, main, .container, .page-wrapper {
-    padding-bottom: 90px !important;
+  body {
+    color: #e3e1e9;
+    font-family: Inter, sans-serif;
   }
-}
+  .node-grid {
+    display: grid;
+    grid-template-columns: repeat(8, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .node-square {
+    aspect-ratio: 1 / 1;
+    min-width: 0;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(255, 255, 255, 0.02);
+  }
+  .node-failing {
+    background: rgba(255, 77, 109, 0.2);
+    border-color: #ff4d6d;
+    box-shadow: 0 0 10px rgba(255, 77, 109, 0.35);
+  }
+  .node-rerouting {
+    background: rgba(0, 245, 212, 0.16);
+    border-color: #00f5d4;
+  }
+  .glow-crimson {
+    text-shadow: 0 0 10px rgba(255, 77, 109, 0.8);
+  }
+  @media (max-width: 768px) {
+    .node-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    body {
+      overflow-x: hidden;
+    }
+    main {
+      padding-bottom: 90px;
+    }
+  }
 </style>
-
+  </head>
+  <body class="font-body antialiased min-h-screen bg-[#050608]">
+<div class="flex min-h-screen flex-col md:flex-row">
+  <!-- Sidebar -->
+  <nav
+    class="w-full md:w-64 shrink-0 bg-surface-container border-b md:border-b-0 md:border-r border-outline p-6 flex flex-col gap-8"
+    aria-label="Primary navigation"
+  >
+    <div class="flex flex-col gap-1">
+      <span
+        class="font-display text-2xl font-black italic tracking-tighter text-white"
+      >
+        ENVICTICA
+      </span>
+      <span
+        class="font-mono text-[10px] text-primary tracking-widest uppercase"
+      >
+        Resilience Suite
+      </span>
+    </div>
+    <div class="flex flex-col gap-2">
+      <a
+        href="/"
+        class="p-3 flex items-center gap-3 text-on-surface-variant hover:text-white transition-colors"
+      >
+        <span class="material-symbols-outlined text-lg">terminal</span>
+        <span class="font-mono text-xs uppercase tracking-wider">
+          Command
+        </span>
+      </a>
+      <a
+        href="/stress-test.html"
+        aria-current="page"
+        class="bg-primary/10 border border-primary/20 p-3 rounded flex items-center gap-3 text-primary"
+      >
+        <span class="material-symbols-outlined text-lg">bolt</span>
+        <span class="font-mono text-xs font-bold uppercase tracking-wider">
+          Stress-Test
+        </span>
+      </a>
+      <a
+        href="/compliance-logs.html"
+        class="p-3 flex items-center gap-3 text-on-surface-variant hover:text-white transition-colors"
+      >
+        <span class="material-symbols-outlined text-lg">history_edu</span>
+        <span class="font-mono text-xs uppercase tracking-wider">
+          Audit Log
+        </span>
+      </a>
+    </div>
+  </nav>
+  <!-- Main Content -->
+  <main class="flex-1 overflow-y-auto p-6 md:p-8">
+    <header
+      class="flex flex-col gap-6 xl:flex-row xl:items-end xl:justify-between mb-10 border-b border-outline pb-8"
+    >
+      <div class="flex flex-col gap-2">
+        <h1
+          class="font-display text-3xl md:text-4xl font-black text-white uppercase tracking-tight"
+        >
+          System Stress-Test
+        </h1>
+        <p class="text-on-surface-variant max-w-2xl leading-relaxed">
+          Controlled simulation of infrastructure failure conditions used
+          to evaluate recovery behavior, routing integrity, and operational
+          resilience.
+        </p>
+      </div>
+      <div class="flex flex-wrap gap-3">
+        <button
+          type="button"
+          id="abortTest"
+          class="bg-env-alert/10 border border-env-alert text-env-alert px-4 py-2 text-[10px] font-mono uppercase tracking-widest hover:bg-env-alert/20 transition-colors"
+        >
+          Abort Test
+        </button>
+        <button
+          type="button"
+          id="simulateBlackout"
+          class="bg-primary text-[#002022] px-4 py-2 text-[10px] font-mono font-bold uppercase tracking-widest hover:opacity-90 transition-opacity"
+        >
+          Simulate Failure
+        </button>
+      </div>
+    </header>
+    <div class="grid grid-cols-1 xl:grid-cols-3 gap-8">
+      <!-- Status -->
+      <section class="xl:col-span-2 flex flex-col gap-6">
+        <div class="bg-surface-container border border-outline p-6">
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-6">
+            <h2
+              class="font-mono text-xs font-bold text-on-surface-variant uppercase tracking-widest"
+            >
+              Node Status
+            </h2>
+            <span
+              id="stressStatus"
+              class="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest"
+            >
+              IDLE
+            </span>
+          </div>
+          <div
+            class="node-grid"
+            id="nodeGrid"
+            aria-label="Stress-test node visualization"
+          >
+            <div class="node-square"></div>
+            <div class="node-square"></div>
+            <div class="node-square"></div>
+            <div class="node-square"></div>
+            <div class="node-square"></div>
+            <div class="node-square"></div>
+            <div class="node-square"></div>
+            <div class="node-square"></div>
+            <div class="node-square"></div>
+            <div class="node-square"></div>
+            <div class="node-square"></div>
+            <div class="node-square"></div>
+            <div class="node-square"></div>
+            <div class="node-square"></div>
+            <div class="node-square"></div>
+            <div class="node-square"></div>
+          </div>
+        </div>
+        <!-- Event Log -->
+        <div
+          class="bg-black/40 border border-outline p-4 font-mono text-[10px] text-on-surface-variant min-h-32 max-h-48 overflow-y-auto flex flex-col gap-2"
+          id="eventLog"
+          aria-live="polite"
+        >
+          <div>
+            <span class="text-on-surface-variant">[SYSTEM]</span>
+            Stress-test suite ready.
+          </div>
+          <div>
+            <span class="text-on-surface-variant">[SYSTEM]</span>
+            Awaiting test command.
+          </div>
+        </div>
+      </section>
+      <!-- Metrics -->
+      <aside class="xl:col-span-1 flex flex-col gap-6">
+        <div
+          class="bg-surface-container border border-outline p-8 flex flex-col items-center justify-center text-center"
+        >
+          <span
+            class="font-mono text-[10px] text-on-surface-variant uppercase tracking-[0.2em] mb-4"
+          >
+            Recovery Time
+          </span>
+          <div
+            id="rtoValue"
+            class="text-5xl md:text-6xl font-mono text-white tracking-tighter mb-2"
+          >
+            —
+          </div>
+          <span
+            id="rtoStatus"
+            class="font-mono text-[10px] text-on-surface-variant uppercase"
+          >
+            No test result
+          </span>
+        </div>
+        <div class="bg-surface-container border border-outline p-6">
+          <span
+            class="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest"
+          >
+            Test Result
+          </span>
+          <div
+            id="testResult"
+            class="text-2xl font-mono text-white mt-2"
+          >
+            NOT RUN
+          </div>
+          <div
+            id="testDescription"
+            class="mt-4 text-[10px] text-on-surface-variant leading-relaxed"
+          >
+            No infrastructure claims are displayed until a test produces
+            an actual result.
+          </div>
+        </div>
+      </aside>
+    </div>
+  </main>
+</div>
+<script>
+  const status = document.getElementById("stressStatus");
+  const rtoValue = document.getElementById("rtoValue");
+  const rtoStatus = document.getElementById("rtoStatus");
+  const testResult = document.getElementById("testResult");
+  const testDescription = document.getElementById("testDescription");
+  const eventLog = document.getElementById("eventLog");
+  const nodeGrid = document.getElementById("nodeGrid");
+  function log(message, type = "SYSTEM") {
+    const entry = document.createElement("div");
+    const timestamp = new Date().toLocaleTimeString([], {
+      hour12: false,
+    });
+    entry.innerHTML =
+      '<span class="text-on-surface-variant">[' +
+      timestamp +
+      "] [" +
+      type +
+      "]</span> " +
+      message;
+    eventLog.appendChild(entry);
+    eventLog.scrollTop = eventLog.scrollHeight;
+  }
+  function resetNodes() {
+    [...nodeGrid.children].forEach((node) => {
+      node.classList.remove("node-failing", "node-rerouting");
+    });
+  }
+  document
+    .getElementById("simulateBlackout")
+    .addEventListener("click", () => {
+      resetNodes();
+      status.textContent = "SIMULATION RUNNING";
+      status.className =
+        "font-mono text-[10px] text-env-alert uppercase tracking-widest animate-pulse";
+      testResult.textContent = "RUNNING";
+      rtoValue.textContent = "—";
+      rtoStatus.textContent = "Awaiting measured result";
+      testDescription.textContent =
+        "Failure simulation is active. Recovery metrics will only be displayed when produced by the underlying system.";
+      log("Failure simulation initiated.", "TEST");
+      const nodes = [...nodeGrid.children];
+      nodes[0].classList.add("node-failing");
+      nodes[1].classList.add("node-failing");
+      nodes[8].classList.add("node-failing");
+      setTimeout(() => {
+        nodes[4].classList.add("node-rerouting");
+        nodes[5].classList.add("node-rerouting");
+        nodes[12].classList.add("node-rerouting");
+        nodes[13].classList.add("node-rerouting");
+        log("Routing response detected.", "EVENT");
+      }, 500);
+    });
+  document
+    .getElementById("abortTest")
+    .addEventListener("click", () => {
+      resetNodes();
+      status.textContent = "ABORTED";
+      status.className =
+        "font-mono text-[10px] text-env-alert uppercase tracking-widest";
+      testResult.textContent = "ABORTED";
+      rtoValue.textContent = "—";
+      rtoStatus.textContent = "No recovery result";
+      testDescription.textContent =
+        "The active stress simulation was stopped before a final recovery measurement was produced.";
+      log("Stress simulation aborted.", "CONTROL");
+    });
+</script>
 <script src="envictica-ui.js"></script>
-</body>
+  </body>
 </html>
