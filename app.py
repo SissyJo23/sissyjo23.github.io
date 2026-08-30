@@ -1,9 +1,6 @@
-import sys
-
-T = "\033[38;2;0;245;212m"   # Teal / Active
-G = "\033[38;2;80;250;123m"  # Green / Verified
+T = "\033[38;2;0;245;212m"   # Active
+G = "\033[38;2;80;250;123m"  # Verified
 R = "\033[0m"                # Reset
-
 print(f"\n{T}=== Envictica Fiduciary Systems v4.02 ==={R}")
 print(f"| Core Governance Kernel: {T}ONLINE{R}")
 print(f"| Fiduciary Risk Engine:  {T}NOMINAL{R}")
