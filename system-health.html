@@ -3,417 +3,429 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>System Health & Telemetry | Envictica</title>
-    <style>
-        :root {
-            --bg-primary: #0b0f19;
-            --bg-secondary: #111827;
-            --bg-card: #1f2937;
-            --border-color: #374151;
-            --text-primary: #f9fafb;
-            --text-secondary: #9ca3af;
-            --accent-blue: #3b82f6;
-            --accent-purple: #8b5cf6;
-            --accent-green: #10b981;
-            --accent-amber: #f59e0b;
-            --accent-red: #ef4444;
+    <meta name="description" content="Envictica system health and operational status.">
+    <title>System Health | Envictica</title>
+<style>
+    :root {
+        --bg: #0b0f19;
+        --panel: #111827;
+        --panel-alt: #0f172a;
+        --border: #263244;
+        --text: #f8fafc;
+        --muted: #94a3b8;
+        --blue: #60a5fa;
+        --green: #34d399;
+        --amber: #fbbf24;
+        --red: #f87171;
+    }
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+    body {
+        min-height: 100vh;
+        background: var(--bg);
+        color: var(--text);
+        font-family:
+            -apple-system,
+            BlinkMacSystemFont,
+            "Segoe UI",
+            Roboto,
+            Helvetica,
+            Arial,
+            sans-serif;
+    }
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+    .layout {
+        min-height: 100vh;
+        display: grid;
+        grid-template-columns: 240px 1fr;
+    }
+    .sidebar {
+        background: var(--panel);
+        border-right: 1px solid var(--border);
+        padding: 24px 16px;
+    }
+    .brand {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 32px;
+        padding: 0 10px;
+    }
+    .brand-name {
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+    }
+    .brand-badge {
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 10px;
+        padding: 3px 7px;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+    }
+    .nav {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+    }
+    .nav a {
+        border-radius: 6px;
+        color: var(--muted);
+        font-size: 14px;
+        padding: 10px 12px;
+    }
+    .nav a:hover,
+    .nav a[aria-current="page"] {
+        background: var(--panel-alt);
+        color: var(--text);
+    }
+    .nav a[aria-current="page"] {
+        box-shadow: inset 2px 0 0 var(--blue);
+    }
+    .main {
+        min-width: 0;
+    }
+    .header {
+        min-height: 68px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 20px;
+        padding: 0 28px;
+        border-bottom: 1px solid var(--border);
+        background: var(--panel);
+    }
+    .header h1 {
+        font-size: 18px;
+        font-weight: 600;
+    }
+    .header-status {
+        color: var(--muted);
+        font-size: 13px;
+    }
+    .content {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 32px 28px 48px;
+    }
+    .intro {
+        margin-bottom: 28px;
+    }
+    .intro h2 {
+        font-size: 28px;
+        margin-bottom: 8px;
+    }
+    .intro p {
+        max-width: 720px;
+        color: var(--muted);
+        line-height: 1.6;
+    }
+    .notice {
+        margin-bottom: 24px;
+        padding: 14px 16px;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        background: var(--panel);
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.5;
+    }
+    .notice strong {
+        color: var(--text);
+    }
+    .health-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 16px;
+    }
+    .health-card {
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        padding: 20px;
+    }
+    .health-card-header {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 16px;
+        margin-bottom: 16px;
+    }
+    .health-card h3 {
+        font-size: 15px;
+        font-weight: 600;
+    }
+    .health-card p {
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.5;
+    }
+    .state {
+        flex: 0 0 auto;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        color: var(--muted);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+        padding: 4px 8px;
+    }
+    .state.unknown {
+        color: var(--amber);
+        border-color: rgba(251, 191, 36, 0.35);
+    }
+    .state.ok {
+        color: var(--green);
+        border-color: rgba(52, 211, 153, 0.35);
+    }
+    .state.failed {
+        color: var(--red);
+        border-color: rgba(248, 113, 113, 0.35);
+    }
+    .details {
+        display: grid;
+        gap: 10px;
+        margin-top: 16px;
+    }
+    .detail {
+        display: flex;
+        justify-content: space-between;
+        gap: 20px;
+        padding-top: 10px;
+        border-top: 1px solid var(--border);
+        font-size: 13px;
+    }
+    .detail-label {
+        color: var(--muted);
+    }
+    .detail-value {
+        text-align: right;
+        overflow-wrap: anywhere;
+    }
+    .empty-state {
+        grid-column: 1 / -1;
+        padding: 32px;
+        border: 1px dashed var(--border);
+        border-radius: 10px;
+        text-align: center;
+        background: var(--panel);
+    }
+    .empty-state h3 {
+        margin-bottom: 8px;
+        font-size: 16px;
+    }
+    .empty-state p {
+        max-width: 620px;
+        margin: 0 auto;
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.6;
+    }
+    .footer {
+        margin-top: 32px;
+        color: var(--muted);
+        font-size: 12px;
+    }
+    @media (max-width: 800px) {
+        .layout {
+            grid-template-columns: 1fr;
         }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            display: flex;
-            height: 100vh;
-            overflow: hidden;
-        }
-
-        /* Sidebar Navigation */
         .sidebar {
-            width: 260px;
-            background-color: var(--bg-secondary);
-            border-right: 1px solid var(--border-color);
-            display: flex;
-            flex-direction: column;
-            padding: 1.5rem 1rem;
+            border-right: 0;
+            border-bottom: 1px solid var(--border);
         }
-
-        .brand {
-            font-size: 1.25rem;
-            font-weight: 700;
-            letter-spacing: 0.05em;
-            color: var(--text-primary);
-            margin-bottom: 2rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
+        .nav {
+            flex-direction: row;
+            flex-wrap: wrap;
         }
-
-        .brand-badge {
-            font-size: 0.65rem;
-            background: var(--accent-purple);
-            color: white;
-            padding: 0.15rem 0.4rem;
-            border-radius: 4px;
-            text-transform: uppercase;
-        }
-
-        .nav-list {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .nav-item a {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 0.75rem 1rem;
-            color: var(--text-secondary);
-            text-decoration: none;
-            border-radius: 6px;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-        }
-
-        .nav-item a:hover, .nav-item.active a {
-            background-color: var(--bg-card);
-            color: var(--text-primary);
-        }
-
-        .nav-item.active a {
-            border-left: 3px solid var(--accent-blue);
-        }
-
-        /* Main Workspace */
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            overflow-y: auto;
-        }
-
         .header {
-            height: 64px;
-            border-bottom: 1px solid var(--border-color);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 1.5rem;
-            background-color: var(--bg-secondary);
-            position: sticky;
-            top: 0;
-            z-index: 10;
+            padding: 0 18px;
         }
-
-        .header-title {
-            font-size: 1.1rem;
-            font-weight: 600;
+        .content {
+            padding: 24px 18px 36px;
         }
-
-        .status-pill {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background-color: rgba(16, 185, 129, 0.15);
-            color: var(--accent-green);
-            padding: 0.35rem 0.75rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border: 1px solid rgba(16, 185, 129, 0.3);
+        .health-grid {
+            grid-template-columns: 1fr;
         }
-
-        .status-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-green);
-            border-radius: 50%;
-            box-shadow: 0 0 8px var(--accent-green);
-        }
-
-        /* Dashboard Content Area */
-        .dashboard-body {
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-
-        /* Metric Grid */
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1rem;
-        }
-
-        .metric-card {
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1.25rem;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-        }
-
-        .metric-label {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .metric-value {
-            font-size: 1.75rem;
-            font-weight: 700;
-        }
-
-        .metric-sub {
-            font-size: 0.75rem;
-            color: var(--accent-green);
-        }
-
-        /* Main Grid (2 Column) */
-        .grid-2col {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 1.5rem;
-        }
-
-        .card {
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 1.25rem;
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .card-title {
-            font-size: 0.95rem;
-            font-weight: 600;
-        }
-
-        /* Nodes Table */
-        .node-table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.85rem;
-            text-align: left;
-        }
-
-        .node-table th {
-            color: var(--text-secondary);
-            font-weight: 500;
-            padding: 0.75rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .node-table td {
-            padding: 0.75rem;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .badge {
-            padding: 0.15rem 0.5rem;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .badge-green {
-            background-color: rgba(16, 185, 129, 0.2);
-            color: var(--accent-green);
-        }
-
-        /* Terminal Logs Area */
-        .terminal {
-            background-color: #050811;
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 1rem;
-            font-family: "Courier New", Courier, monospace;
-            font-size: 0.8rem;
-            color: #d1d5db;
-            height: 220px;
-            overflow-y: auto;
-            display: flex;
-            flex-direction: column;
-            gap: 0.4rem;
-        }
-
-        .log-entry {
-            line-height: 1.4;
-        }
-
-        .log-time {
-            color: var(--text-secondary);
-        }
-
-        .log-success {
-            color: var(--accent-green);
-        }
-
-        .log-info {
-            color: var(--accent-blue);
-        }
-    </style>
+    }
+</style>
 </head>
 <body>
-
-    <!-- Sidebar Navigation -->
-    <aside class="sidebar">
-        <div class="brand">
-            ENVICTICA <span class="brand-badge">Legal AI</span>
-        </div>
-        <ul class="nav-list">
-            <li class="nav-item"><a href="#">Dashboard</a></li>
-            <li class="nav-item"><a href="#">Document Ingestion</a></li>
-            <li class="nav-item"><a href="#">Knowledge Graph</a></li>
-            <li class="nav-item"><a href="#">Fact Extraction</a></li>
-            <li class="nav-item active"><a href="#">System Health</a></li>
-        </ul>
+    <div class="layout">
+        <aside class="sidebar" aria-label="Primary navigation">
+            <div class="brand">
+                <span class="brand-name">ENVICTICA</span>
+                <span class="brand-badge">Legal AI</span>
+            </div>
+        <nav class="nav">
+            <a href="/">Dashboard</a>
+            <a href="pipeline-ingest.html">Document Ingestion</a>
+            <a href="knowledge-graph.html">Knowledge Graph</a>
+            <a href="node-inspector.html">Fact Extraction</a>
+            <a href="system-health.html" aria-current="page">System Health</a>
+        </nav>
     </aside>
-
-    <!-- Main Content Area -->
-    <main class="main-content">
-        <!-- Header Bar -->
+    <main class="main">
         <header class="header">
-            <h1 class="header-title">System Health & Cluster Telemetry</h1>
-            <div class="status-pill">
-                <span class="status-dot"></span>
-                <span>EC2 Cluster Healthy</span>
+            <h1>System Health</h1>
+            <div class="header-status" id="overallStatus">
+                Status: UNKNOWN
             </div>
         </header>
-
-        <!-- Dashboard Content -->
-        <div class="dashboard-body">
-            
-            <!-- Metric Cards -->
-            <div class="metrics-grid">
-                <div class="metric-card">
-                    <span class="metric-label">Cluster Latency</span>
-                    <span class="metric-value">18 ms</span>
-                    <span class="metric-sub">✓ Within 25ms SLA</span>
-                </div>
-                <div class="metric-card">
-                    <span class="metric-label">System Uptime</span>
-                    <span class="metric-value">99.98%</span>
-                    <span class="metric-sub">Past 30 Days</span>
-                </div>
-                <div class="metric-card">
-                    <span class="metric-label">EC2 CPU Utilization</span>
-                    <span class="metric-value">24.2%</span>
-                    <span class="metric-sub">4 Cores Allocated</span>
-                </div>
-                <div class="metric-card">
-                    <span class="metric-label">DB Sync Rate</span>
-                    <span class="metric-value">1,420 /s</span>
-                    <span class="metric-sub">PostgreSQL Ledger</span>
-                </div>
+        <section class="content">
+            <div class="intro">
+                <h2>System Health &amp; Telemetry</h2>
+                <p>
+                    Envictica reports only conditions that have been established by
+                    actual system checks. Unverified infrastructure state is not
+                    represented as healthy.
+                </p>
             </div>
-
-            <!-- Main Split Layout -->
-            <div class="grid-2col">
-                
-                <!-- Cluster Nodes Table -->
-                <div class="card">
-                    <div class="card-header">
-                        <span class="card-title">AWS Active Node Status</span>
+            <div class="notice">
+                <strong>Evidence rule:</strong>
+                No synthetic telemetry. No invented uptime. No assumed connectivity.
+                If the system has not established a condition, the condition remains
+                <strong>UNKNOWN</strong>.
+            </div>
+            <div class="health-grid">
+                <article class="health-card">
+                    <div class="health-card-header">
+                        <div>
+                            <h3>Application</h3>
+                            <p>Application process and health endpoint.</p>
+                        </div>
+                        <span class="state unknown" id="applicationState">
+                            UNKNOWN
+                        </span>
                     </div>
-                    <table class="node-table">
-                        <thead>
-                            <tr>
-                                <th>Node ID</th>
-                                <th>Role</th>
-                                <th>Region</th>
-                                <th>Latency</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>us-east-1a-primary</td>
-                                <td>API Gateway / Proxy</td>
-                                <td>us-east-1</td>
-                                <td>12 ms</td>
-                                <td><span class="badge badge-green">Online</span></td>
-                            </tr>
-                            <tr>
-                                <td>us-east-1b-worker1</td>
-                                <td>Graph Computation</td>
-                                <td>us-east-1</td>
-                                <td>19 ms</td>
-                                <td><span class="badge badge-green">Online</span></td>
-                            </tr>
-                            <tr>
-                                <td>us-east-1c-ledger</td>
-                                <td>PostgreSQL DB</td>
-                                <td>us-east-1</td>
-                                <td>14 ms</td>
-                                <td><span class="badge badge-green">Online</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Failover & Caching Stats -->
-                <div class="card">
-                    <div class="card-header">
-                        <span class="card-title">Instance Specs</span>
-                    </div>
-                    <div style="display: flex; flex-direction: column; gap: 0.75rem; font-size: 0.85rem;">
-                        <div style="display: flex; justify-content: space-between;">
-                            <span style="color: var(--text-secondary);">EC2 Instance Type:</span>
-                            <span>t3.xlarge</span>
+                    <div class="details">
+                        <div class="detail">
+                            <span class="detail-label">Status</span>
+                            <span class="detail-value" id="applicationStatus">
+                                Not checked
+                            </span>
                         </div>
-                        <div style="display: flex; justify-content: space-between;">
-                            <span style="color: var(--text-secondary);">Memory Allocated:</span>
-                            <span>16.00 GB</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between;">
-                            <span style="color: var(--text-secondary);">Failover Target:</span>
-                            <span>us-east-2 (Standby)</span>
-                        </div>
-                        <div style="display: flex; justify-content: space-between;">
-                            <span style="color: var(--text-secondary);">SSL / TLS Cert:</span>
-                            <span style="color: var(--accent-green);">Valid (Active)</span>
+                        <div class="detail">
+                            <span class="detail-label">Last check</span>
+                            <span class="detail-value" id="applicationChecked">
+                                Not checked
+                            </span>
                         </div>
                     </div>
+                </article>
+                <article class="health-card">
+                    <div class="health-card-header">
+                        <div>
+                            <h3>Database</h3>
+                            <p>Database connectivity and availability.</p>
+                        </div>
+                        <span class="state unknown" id="databaseState">
+                            UNKNOWN
+                        </span>
+                    </div>
+                    <div class="details">
+                        <div class="detail">
+                            <span class="detail-label">Status</span>
+                            <span class="detail-value" id="databaseStatus">
+                                Not checked
+                            </span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-label">Last check</span>
+                            <span class="detail-value" id="databaseChecked">
+                                Not checked
+                            </span>
+                        </div>
+                    </div>
+                </article>
+                <article class="health-card">
+                    <div class="health-card-header">
+                        <div>
+                            <h3>AI Service</h3>
+                            <p>Availability of the configured analysis provider.</p>
+                        </div>
+                        <span class="state unknown" id="aiState">
+                            UNKNOWN
+                        </span>
+                    </div>
+                    <div class="details">
+                        <div class="detail">
+                            <span class="detail-label">Status</span>
+                            <span class="detail-value" id="aiStatus">
+                                Not checked
+                            </span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-label">Last check</span>
+                            <span class="detail-value" id="aiChecked">
+                                Not checked
+                            </span>
+                        </div>
+                    </div>
+                </article>
+                <article class="health-card">
+                    <div class="health-card-header">
+                        <div>
+                            <h3>Infrastructure</h3>
+                            <p>Infrastructure metrics are shown only when verified.</p>
+                        </div>
+                        <span class="state unknown" id="infrastructureState">
+                            UNKNOWN
+                        </span>
+                    </div>
+                    <div class="details">
+                        <div class="detail">
+                            <span class="detail-label">Region</span>
+                            <span class="detail-value" id="infrastructureRegion">
+                                Not established
+                            </span>
+                        </div>
+                        <div class="detail">
+                            <span class="detail-label">Instance</span>
+                            <span class="detail-value" id="infrastructureInstance">
+                                Not established
+                            </span>
+                        </div>
+                    </div>
+                </article>
+                <div class="empty-state">
+                    <h3>Telemetry endpoint not connected</h3>
+                    <p>
+                        No live health endpoint is assumed by this page. Once the
+                        backend health contract is implemented, this interface can
+                        consume verified results instead of displaying fabricated
+                        telemetry.
+                    </p>
                 </div>
-
             </div>
-
-            <!-- Real-time Console Log Stream -->
-            <div class="card">
-                <div class="card-header">
-                    <span class="card-title">Live EC2 System Logs & Heartbeat Proofs</span>
-                </div>
-                <div class="terminal" id="terminalLogs">
-                    <div class="log-entry"><span class="log-time">[01:38:02]</span> <span class="log-info">[INFO]</span> Heartbeat ping acknowledge from us-east-1a-primary (12ms)</div>
-                    <div class="log-entry"><span class="log-time">[01:38:04]</span> <span class="log-success">[SUCCESS]</span> Knowledge graph ledger commit verified. Hash: 0x8f2a...c109</div>
-                    <div class="log-entry"><span class="log-time">[01:38:06]</span> <span class="log-info">[INFO]</span> AWS EC2 health metrics synced successfully.</div>
-                </div>
+            <div class="footer">
+                Envictica · Clean In → Clean Out
             </div>
-
-        </div>
+        </section>
     </main>
-
+</div>
+<script>
+    /*
+     * Intentionally no synthetic telemetry.
+     *
+     * This page currently renders UNKNOWN until a real backend health
+     * contract is connected. Do not replace UNKNOWN values with guessed,
+     * hard-coded, or simulated infrastructure measurements.
+     */
+    (() => {
+        const overallStatus = document.getElementById("overallStatus");
+        if (overallStatus) {
+            overallStatus.textContent = "Status: UNKNOWN";
+        }
+    })();
+</script>
 </body>
 </html>
