@@ -1,11 +1,9 @@
 const crypto = require('crypto');
 const { URL } = require('url');
-
 const MAX_OUTPUT_CHARS = 50000;
 const MAX_WORKFLOW_CHARS = 500;
 const MAX_OWNER_CHARS = 200;
 const MAX_SOURCE_URL_CHARS = 2048;
-
 const APPROVED_AUTHORITY_DOMAINS = new Set([
   'supremecourt.gov',
   'law.cornell.edu',
@@ -21,24 +19,24 @@ const APPROVED_AUTHORITY_DOMAINS = new Set([
   'federalregister.gov',
   'eur-lex.europa.eu'
 ]);
-
 function sha256(value) {
-  return crypto.createHash('sha256').update(String(value), 'utf8').digest('hex');
+  return crypto
+    .createHash('sha256')
+    .update(String(value), 'utf8')
+    .digest('hex');
 }
-
 function asTrimmedString(value, maxLength) {
-  if (typeof value !== 'string') return '';
+  if (typeof value !== 'string') {
+    return '';
+  }
   return value.trim().slice(0, maxLength);
 }
-
 function isApprovedAuthorityDomain(hostname) {
   const host = hostname.toLowerCase().replace(/^www\./, '');
   return APPROVED_AUTHORITY_DOMAINS.has(host);
 }
-
 function inspectSourceUrl(rawValue) {
   const sourceUrl = asTrimmedString(rawValue, MAX_SOURCE_URL_CHARS);
-
   if (!sourceUrl) {
     return {
       sourceUrl: null,
@@ -47,11 +45,10 @@ function inspectSourceUrl(rawValue) {
       finding: 'Authoritative source evidence is missing.'
     };
   }
-
   let parsed;
   try {
     parsed = new URL(sourceUrl);
-  } catch (_) {
+  } catch {
     return {
       sourceUrl: null,
       sourceDomain: null,
@@ -59,9 +56,9 @@ function inspectSourceUrl(rawValue) {
       finding: 'Source URL is invalid and cannot be verified.'
     };
   }
-
-  const hostname = parsed.hostname.toLowerCase().replace(/^www\./, '');
-
+  const hostname = parsed.hostname
+    .toLowerCase()
+    .replace(/^www\./, '');
   if (parsed.protocol !== 'https:') {
     return {
       sourceUrl: parsed.toString(),
@@ -70,16 +67,14 @@ function inspectSourceUrl(rawValue) {
       finding: 'Source URL must use HTTPS.'
     };
   }
-
   if (!isApprovedAuthorityDomain(hostname)) {
     return {
       sourceUrl: parsed.toString(),
       sourceDomain: hostname || null,
       authorityStatus: 'UNVERIFIED',
-      finding: `Source domain "${hostname}" is not in the pilot authoritative-source registry.`
+      finding: `Source domain "${hostname}" is not in the approved authoritative-source registry.`
     };
   }
-
   return {
     sourceUrl: parsed.toString(),
     sourceDomain: hostname,
@@ -87,24 +82,28 @@ function inspectSourceUrl(rawValue) {
     finding: null
   };
 }
-
 function evaluateControlDecision(body = {}) {
   const output = asTrimmedString(body.ai_output, MAX_OUTPUT_CHARS);
   let upstream = null;
-
   try {
     upstream = JSON.parse(output);
-  } catch (_) {
+  } catch {
     upstream = null;
   }
-
   const upstreamRisk = Number(upstream?.risk_score);
   const upstreamAction = String(
     upstream?.circuit_breaker_action || ''
-  ).trim().toUpperCase();
-
-  const workflowUse = asTrimmedString(body.workflow_use, MAX_WORKFLOW_CHARS);
-  const ownerId = asTrimmedString(body.owner_id, MAX_OWNER_CHARS);
+  )
+    .trim()
+    .toUpperCase();
+  const workflowUse = asTrimmedString(
+    body.workflow_use,
+    MAX_WORKFLOW_CHARS
+  );
+  const ownerId = asTrimmedString(
+    body.owner_id,
+    MAX_OWNER_CHARS
+  );
   const verifiedByAi = body.verified_by_ai === true;
   const upstreamAiOutputUsed = body.upstream_ai_output_used === true;
   const claimedHumanReviewed = body.human_reviewed === true;
@@ -112,44 +111,46 @@ function evaluateControlDecision(body = {}) {
   const findings = Array.isArray(upstream?.findings)
     ? [...upstream.findings]
     : [];
-
   let riskScore = Number.isFinite(upstreamRisk)
     ? Math.max(0, Math.min(100, upstreamRisk))
     : 0;
-
   if (!output) {
     riskScore += 40;
-    findings.push('Missing AI output: no content is available for a control decision.');
+    findings.push(
+      'Missing AI output: no content is available for a control decision.'
+    );
   }
-
   if (!workflowUse) {
     riskScore += 20;
-    findings.push('Operational context missing: workflow_use is required.');
+    findings.push(
+      'Operational context missing: workflow_use is required.'
+    );
   }
-
   if (!ownerId) {
     riskScore += 20;
-    findings.push('Accountability gate failed: owner_id is required.');
+    findings.push(
+      'Accountability gate failed: owner_id is required.'
+    );
   }
-
   if (source.finding) {
-    riskScore += source.authorityStatus === 'MISSING' ? 35 : 25;
+    riskScore += source.authorityStatus === 'MISSING'
+      ? 35
+      : 25;
     findings.push(source.finding);
   }
-
   if (verifiedByAi || upstreamAiOutputUsed) {
     riskScore = Math.max(riskScore, 90);
-    findings.push('AI-to-AI verification is prohibited: evidence must originate from an authoritative non-AI source.');
+    findings.push(
+      'AI-to-AI verification is prohibited: evidence must originate from an authoritative non-AI source.'
+    );
   }
-
   if (claimedHumanReviewed) {
-    findings.push('Review attestation recorded; ALLOW requires a linked approved independent review.');
+    findings.push(
+      'Review attestation recorded; ALLOW requires a linked approved independent review.'
+    );
   }
-
   riskScore = Math.min(100, riskScore);
-
   let action = 'ESCALATE';
-
   if (
     upstreamAction === 'INTERCEPT' ||
     riskScore >= 70 ||
@@ -160,16 +161,13 @@ function evaluateControlDecision(body = {}) {
   ) {
     action = 'INTERCEPT';
   }
-
   if (verifiedByAi || upstreamAiOutputUsed) {
     action = 'INTERCEPT';
   }
-
   const mitigation =
     action === 'INTERCEPT'
-      ? 'Do not deploy, send, file, or rely on this output. Provide the missing control evidence and submit again after the required workflow controls are completed.'
+      ? 'Do not deploy, send, file, or rely on this output. Provide the missing control evidence and resubmit after the required workflow controls are completed.'
       : 'Escalate for authenticated reviewer assessment. A linked approved independent review is required before ALLOW can be considered.';
-
   return {
     outputSha256: sha256(output),
     workflowUse,
@@ -187,7 +185,6 @@ function evaluateControlDecision(body = {}) {
     mitigationRecommendation: mitigation
   };
 }
-
 function buildRecordHash(decision) {
   const canonical = JSON.stringify({
     decision_id: decision.decisionId,
@@ -207,10 +204,8 @@ function buildRecordHash(decision) {
     mitigation_recommendation: decision.mitigationRecommendation,
     previous_record_hash: decision.previousRecordHash
   });
-
   return sha256(canonical);
 }
-
 module.exports = {
   evaluateControlDecision,
   buildRecordHash,
