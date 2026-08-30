@@ -19,8 +19,8 @@
         theme: {
           extend: {
             colors: {
-              primary: "#00F5D4", // Electric Teal
-              "env-alert": "#FF4D6D", // Burnt Crimson
+              primary: "#00F5D4",
+              "env-alert": "#FF4D6D",
               surface: "#0A0B0E",
               "surface-container": "#13151B",
               outline: "#2A2E39",
@@ -60,60 +60,58 @@
     </style>
   </head>
   <body class="font-body antialiased min-h-screen pb-24">
-    <!-- Top Module Bar -->
-    <div
-      class="fixed top-0 left-0 w-full bg-primary text-[#002113] z-50 h-8 flex items-center justify-center font-mono text-[10px] tracking-[0.3em] font-bold uppercase"
-    >
-      Official Envictica Module: 11 of 17
-    </div>
-
-    <!-- Header -->
-    <header class="pt-12 px-6 pb-6 flex justify-between items-end">
+    <header class="px-6 pt-6 pb-6 flex justify-between items-end">
       <div class="flex flex-col gap-1">
         <span
           class="font-display text-2xl font-black italic tracking-tighter text-white leading-none"
-          >ENVICTICA</span
         >
+          ENVICTICA
+        </span>
         <span
           class="font-mono text-[10px] text-primary tracking-widest uppercase"
-          >Infrastructure Mobile</span
         >
+          Infrastructure Mobile
+        </span>
       </div>
       <div class="flex items-center gap-2">
         <div class="w-2 h-2 rounded-full bg-primary status-pulse"></div>
-        <span class="font-mono text-[10px] text-primary uppercase">Live</span>
+        <span class="font-mono text-[10px] text-primary uppercase">
+          Live
+        </span>
       </div>
     </header>
-
-    <!-- Main Content -->
     <main class="px-6 flex flex-col gap-6">
-      <!-- System Health Mini -->
       <section class="glass-card p-5 rounded-sm">
         <span
           class="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest block mb-4"
-          >System Health</span
         >
+          System Health
+        </span>
         <div class="flex justify-between items-baseline">
-          <span class="font-mono text-4xl text-white font-light">99.999%</span>
-          <span class="font-mono text-[10px] text-primary uppercase"
-            >Fiduciary Grade</span
-          >
+          <span class="font-mono text-4xl text-white font-light">
+            99.999%
+          </span>
+          <span class="font-mono text-[10px] text-primary uppercase">
+            Fiduciary Grade
+          </span>
         </div>
       </section>
-
-      <!-- Active Ingestion -->
       <section class="glass-card p-5 rounded-sm">
         <div class="flex justify-between items-center mb-4">
           <span
             class="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest"
-            >Global Ingestion</span
           >
-          <span class="material-symbols-outlined text-primary text-sm"
-            >trending_up</span
-          >
+            Global Ingestion
+          </span>
+          <span class="material-symbols-outlined text-primary text-sm">
+            trending_up
+          </span>
         </div>
         <div class="font-mono text-2xl text-white mb-1">
-          12.4k <span class="text-xs text-on-surface-variant">Clauses/Sec</span>
+          12.4k
+          <span class="text-xs text-on-surface-variant">
+            Clauses/Sec
+          </span>
         </div>
         <div
           class="w-full h-1 bg-surface-container rounded-full overflow-hidden"
@@ -121,95 +119,88 @@
           <div class="w-3/4 h-full bg-primary"></div>
         </div>
       </section>
-
-      <!-- Emergency Alerts -->
       <section class="flex flex-col gap-4">
         <span
           class="font-mono text-[10px] text-on-surface-variant uppercase tracking-widest"
-          >Critical Intercepts</span
         >
+          Critical Intercepts
+        </span>
         <div
           class="glass-card p-4 rounded-sm border-l-2 border-env-alert flex items-start gap-4"
         >
-          <span class="material-symbols-outlined text-env-alert"
-            >gpp_maybe</span
-          >
+          <span class="material-symbols-outlined text-env-alert">
+            gpp_maybe
+          </span>
           <div class="flex flex-col gap-1">
-            <span class="font-mono text-[11px] text-white font-bold"
-              >Autonomous Cascade Intercepted</span
-            >
-            <span class="text-[10px] text-on-surface-variant"
-              >1,400 unverified clauses blocked from Procurement
-              database.</span
-            >
+            <span class="font-mono text-[11px] text-white font-bold">
+              Autonomous Cascade Intercepted
+            </span>
+            <span class="text-[10px] text-on-surface-variant">
+              1,400 unverified clauses blocked from Procurement database.
+            </span>
           </div>
         </div>
       </section>
-
-      <!-- Control Actions -->
       <div class="grid grid-cols-2 gap-4 mt-2">
         <button
+          type="button"
           class="bg-surface-container border border-outline py-4 rounded-sm flex flex-col items-center gap-2"
         >
-          <span class="material-symbols-outlined text-primary"
-            >analytics</span
-          >
-          <span class="font-mono text-[9px] uppercase tracking-widest"
-            >Reports</span
-          >
+          <span class="material-symbols-outlined text-primary">
+            analytics
+          </span>
+          <span class="font-mono text-[9px] uppercase tracking-widest">
+            Reports
+          </span>
         </button>
         <button
+          type="button"
           class="bg-env-alert/10 border border-env-alert/20 py-4 rounded-sm flex flex-col items-center gap-2"
         >
-          <span class="material-symbols-outlined text-env-alert">bolt</span>
+          <span class="material-symbols-outlined text-env-alert">
+            bolt
+          </span>
           <span
             class="font-mono text-[9px] uppercase tracking-widest text-env-alert"
-            >Kill Switch</span
           >
+            Kill Switch
+          </span>
         </button>
       </div>
     </main>
-
-    <!-- Bottom Navigation -->
     <nav
       class="fixed bottom-0 left-0 w-full bg-surface-container border-t border-outline flex justify-around items-center h-20 px-4 z-50"
+      aria-label="Primary navigation"
     >
-      <span class="material-symbols-outlined text-primary">dashboard</span>
-      <span class="material-symbols-outlined text-on-surface-variant">lan</span>
-      <span class="material-symbols-outlined text-on-surface-variant"
-        >gavel</span
+      <button
+        type="button"
+        aria-label="Command Center"
+        class="material-symbols-outlined text-primary"
       >
-      <span class="material-symbols-outlined text-on-surface-variant"
-        >history</span
+        dashboard
+      </button>
+      <button
+        type="button"
+        aria-label="Infrastructure"
+        class="material-symbols-outlined text-on-surface-variant"
       >
+        lan
+      </button>
+      <button
+        type="button"
+        aria-label="Governance"
+        class="material-symbols-outlined text-on-surface-variant"
+      >
+        gavel
+      </button>
+      <button
+        type="button"
+        aria-label="History"
+        class="material-symbols-outlined text-on-surface-variant"
+      >
+        history
+      </button>
     </nav>
-  
-<style>
-/* Global Responsive Breakpoints & Mobile Fixes */
-@media (max-width: 768px) {
-  /* Force grid structures to stack in a single column */
-  .grid, .card-grid, .dashboard-grid, [class*="grid"] {
-    grid-template-columns: 1fr !important;
-  }
-  
-  /* Tables & data displays wrap cleanly with scroll support */
-  table, .table-container, [class*="table"] {
-    max-width: 100% !important;
-    overflow-x: auto !important;
-  }
-  
-  /* Prevent horizontal document overflow */
-  body, html {
-    overflow-x: hidden !important;
-  }
-
-  /* Bottom padding to prevent floating bars/dock from overlapping buttons */
-  body, main, .container, .page-wrapper {
-    padding-bottom: 90px !important;
-  }
-}
-</style>
-
-<script src="envictica-ui.js"></script>
-</body>
+    <script src="envictica-ui.js"></script>
+  </body>
 </html>
