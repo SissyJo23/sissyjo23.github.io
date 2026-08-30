@@ -1,229 +1,458 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Envictica Command Bridge | Network Operations</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;800&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        envictica: {
-                            slate: '#0F172A',
-                            slate_light: '#1E293B',
-                            slate_border: '#334155',
-                            teal: '#00F5D4',
-                            teal_dim: 'rgba(0, 245, 212, 0.2)',
-                            crimson: '#FF4D6D',
-                            crimson_dim: 'rgba(255, 77, 109, 0.2)',
-                            text_primary: '#F8FAFC',
-                            text_secondary: '#94A3B8'
-                        }
-                    },
-                    fontFamily: {
-                        sans: ['"Hanken Grotesk"', 'sans-serif'],
-                        mono: ['"JetBrains Mono"', 'monospace']
-                    }
-                }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Envictica | Network Command Bridge</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;800&family=JetBrains+Mono:wght@500;700&display=swap"
+    rel="stylesheet"
+  />
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            envictica: {
+              slate: "#0F172A",
+              slateLight: "#1E293B",
+              slateBorder: "#334155",
+              teal: "#00F5D4",
+              crimson: "#FF4D6D",
+              textPrimary: "#F8FAFC",
+              textSecondary: "#94A3B8"
             }
+          },
+          fontFamily: {
+            sans: ['"Hanken Grotesk"', "sans-serif"],
+            mono: ['"JetBrains Mono"', "monospace"]
+          }
         }
-    </script>
-<style>
-        body { background-color: #0F172A; color: #F8FAFC; }
-        .glass-panel {
-            background-color: #1E293B;
-            border: 1px solid #334155;
-        }
-        .glow-teal { box-shadow: 0 0 15px 2px rgba(0, 245, 212, 0.2); }
-        .status-dot { position: relative; width: 8px; height: 8px; border-radius: 50%; }
-        .status-dot.teal { background-color: #00F5D4; }
-        .status-dot.teal::before {
-            content: ''; position: absolute; left: -4px; top: -4px; right: -4px; bottom: -4px;
-            border-radius: 50%; border: 2px solid #00F5D4;
-            animation: pulse-ring 2s infinite cubic-bezier(0.215, 0.61, 0.355, 1);
-        }
-        @keyframes pulse-ring { 0% { transform: scale(0.8); opacity: 0.5; } 100% { transform: scale(2); opacity: 0; } }
-        .tech-border { position: relative; }
-        .tech-border::before {
-            content: ''; position: absolute; top: 0; left: 0; width: 20px; height: 20px;
-            border-top: 2px solid #00F5D4; border-left: 2px solid #00F5D4;
-            pointer-events: none;
-        }
-        .tech-border::after {
-            content: ''; position: absolute; bottom: 0; right: 0; width: 20px; height: 20px;
-            border-bottom: 2px solid #00F5D4; border-right: 2px solid #00F5D4;
-            pointer-events: none;
-        }
-    </style>
+      }
+    };
+  </script>
+  <style>
+    :root {
+      --env-slate: #0f172a;
+      --env-slate-light: #1e293b;
+      --env-border: #334155;
+      --env-teal: #00f5d4;
+      --env-crimson: #ff4d6d;
+      --env-text: #f8fafc;
+      --env-muted: #94a3b8;
+    }
+    html,
+    body {
+      min-height: 100%;
+      background: var(--env-slate);
+    }
+    body {
+      color: var(--env-text);
+      font-family: "Hanken Grotesk", sans-serif;
+      overflow-x: hidden;
+    }
+    .glass-panel {
+      background: var(--env-slate-light);
+      border: 1px solid var(--env-border);
+    }
+    .status-dot {
+      position: relative;
+      width: 8px;
+      height: 8px;
+      flex: 0 0 8px;
+      border-radius: 9999px;
+      background: var(--env-teal);
+    }
+    .status-dot::before {
+      content: "";
+      position: absolute;
+      inset: -4px;
+      border: 2px solid var(--env-teal);
+      border-radius: 9999px;
+      animation: pulse-ring 2s infinite
+        cubic-bezier(0.215, 0.61, 0.355, 1);
+    }
+    .tech-border {
+      position: relative;
+    }
+    .tech-border::before,
+    .tech-border::after {
+      content: "";
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      pointer-events: none;
+    }
+    .tech-border::before {
+      top: 0;
+      left: 0;
+      border-top: 2px solid var(--env-teal);
+      border-left: 2px solid var(--env-teal);
+    }
+    .tech-border::after {
+      right: 0;
+      bottom: 0;
+      border-right: 2px solid var(--env-teal);
+      border-bottom: 2px solid var(--env-teal);
+    }
+    .topology-grid {
+      background-image:
+        linear-gradient(
+          rgba(0, 245, 212, 0.03) 1px,
+          transparent 1px
+        ),
+        linear-gradient(
+          90deg,
+          rgba(0, 245, 212, 0.03) 1px,
+          transparent 1px
+        );
+      background-size: 20px 20px;
+    }
+    @keyframes pulse-ring {
+      0% {
+        transform: scale(0.8);
+        opacity: 0.5;
+      }
+      100% {
+        transform: scale(2);
+        opacity: 0;
+      }
+    }
+    @media (max-width: 768px) {
+      body {
+        padding-bottom: 90px;
+      }
+      .mobile-stack {
+        grid-template-columns: 1fr !important;
+      }
+      .mobile-scroll {
+        max-width: 100%;
+        overflow-x: auto;
+      }
+    }
+  </style>
 </head>
-<body class="antialiased min-h-screen flex flex-col md:flex-row font-sans bg-[#0F172A] text-[#F8FAFC]">
-<!-- SideNavBar -->
-<nav class="hidden md:flex flex-col h-full w-64 left-0 fixed border-r border-[#334155] bg-[#0F172A] py-6 px-4 z-40">
-<div class="mb-8">
-<a href="index.html" class="font-sans text-2xl font-extrabold text-[#F8FAFC] tracking-tight hover:text-[#00F5D4]">Envictica</a>
-<p class="font-mono text-xs text-[#94A3B8] mt-1 tracking-widest uppercase">Command Bridge</p>
-</div>
-<div class="flex-1 space-y-2 overflow-y-auto">
-<a class="flex items-center gap-3 px-3 py-2 text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#1E293B] transition-all rounded-sm" href="index.html">
-<span class="material-symbols-outlined text-sm">grid_view</span>
-<span class="font-mono text-xs uppercase tracking-widest">Dashboard</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 border-l-2 border-[#00F5D4] text-[#00F5D4] bg-[#1E293B] transition-all rounded-r-sm bg-[#00F5D4]/10" href="command-center.html">
-<span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">terminal</span>
-<span class="font-mono text-xs uppercase tracking-widest font-bold">Network Bridge</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#1E293B] transition-all rounded-sm" href="company-profile-registry.html">
-<span class="material-symbols-outlined text-sm">corporate_fare</span>
-<span class="font-mono text-xs uppercase tracking-widest">Assets</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#1E293B] transition-all rounded-sm" href="compliance-logs.html">
-<span class="material-symbols-outlined text-sm">history_edu</span>
-<span class="font-mono text-xs uppercase tracking-widest">Compliance</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-2 text-[#94A3B8] hover:text-[#F8FAFC] hover:bg-[#1E293B] transition-all rounded-sm" href="autonomous-circuit-breaker.html">
-<span class="material-symbols-outlined text-sm">bolt</span>
-<span class="font-mono text-xs uppercase tracking-widest">Module 17 (ACB)</span>
-</a>
-</div>
-<div class="mt-auto space-y-2 pt-6 border-t border-[#334155]">
-<div class="px-3 py-2">
-<p class="font-mono text-[10px] text-[#00F5D4] flex items-center gap-2 uppercase tracking-widest">
-<span class="status-dot teal"></span> Bridge Feed: Active
-                </p>
-</div>
-</div>
-</nav>
-
-<!-- TopNavBar (Mobile) -->
-<nav class="md:hidden flex justify-between items-center w-full px-4 py-3 bg-[#0F172A] border-b border-[#334155] sticky top-0 z-40">
-<div>
-<a href="index.html" class="font-sans text-xl font-bold text-[#F8FAFC] tracking-tight">Envictica</a>
-<p class="font-mono text-[10px] text-[#94A3B8] uppercase">COMMAND_BRIDGE</p>
-</div>
-<div class="flex gap-4 text-[#94A3B8]">
-<span class="material-symbols-outlined text-sm">settings</span>
-<span class="material-symbols-outlined text-sm text-[#00F5D4]">notifications_active</span>
-</div>
-</nav>
-
-<!-- Main Content -->
-<main class="flex-1 md:ml-64 p-6 lg:p-10 max-w-[1600px] mx-auto w-full pb-24 md:pb-10 bg-[#0F172A]">
-<header class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4 border-b border-[#334155] pb-6">
-<div>
-<p class="font-mono text-[10px] text-[#94A3B8] mb-2 tracking-widest uppercase">Path: Env / Infrastructure / Command_Bridge</p>
-<h2 class="font-sans text-3xl md:text-5xl font-extrabold text-white tracking-tight">Network Command Bridge</h2>
-</div>
-<div class="glass-panel px-4 py-2 rounded-sm border-l-2 border-[#00F5D4] bg-[#00F5D4]/10 flex items-center gap-3">
-<div class="status-dot teal"></div>
-<span class="font-mono text-xs text-[#00F5D4] tracking-widest uppercase font-bold">Ingestion: 12.4k Clauses/Sec</span>
-</div>
-</header>
-
-<div class="grid grid-cols-1 xl:grid-cols-12 gap-6">
-<!-- Left Panel: Telemetry Grid (8 cols) -->
-<div class="xl:col-span-8 flex flex-col gap-6">
-<div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
-<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 border-t-2 border-[#00F5D4] bg-[#1E293B]">
-<span class="font-mono text-[10px] uppercase tracking-widest text-[#F8FAFC] font-bold">Global Uptime</span>
-<span class="font-mono text-3xl font-bold text-[#00F5D4]">99.999%</span>
-</div>
-<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 bg-[#1E293B]">
-<span class="font-mono text-[10px] uppercase tracking-widest text-[#F8FAFC] font-bold">Data Debt Mitigated</span>
-<span class="font-mono text-3xl font-bold text-[#F8FAFC]">$14.2M</span>
-</div>
-<div class="glass-panel p-4 rounded-sm flex flex-col justify-between h-28 bg-[#1E293B] border-r-2 border-[#00F5D4]">
-<span class="font-mono text-[10px] uppercase tracking-widest text-[#F8FAFC] font-bold">MAL Failover State</span>
-<span class="font-mono text-xl font-bold text-[#00F5D4] animate-pulse">READY</span>
-</div>
-</div>
-
-<!-- Visualization Panel -->
-<div class="glass-panel rounded-sm overflow-hidden flex flex-col h-[450px] tech-border bg-[#050B14]">
-<div class="p-4 border-b border-[#334155] flex justify-between items-center bg-[#0F172A]/80 backdrop-blur-sm z-10">
-<div class="flex items-center gap-3">
-<span class="material-symbols-outlined text-[#00F5D4] text-sm">hub</span>
-<h3 class="font-mono text-xs uppercase tracking-widest text-[#F8FAFC]">Primary Routing Matrix Topology</h3>
-</div>
-<span class="px-2 py-1 bg-[#00F5D4]/10 rounded-sm text-[10px] font-mono text-[#00F5D4] border border-[#00F5D4]/30">ONLINE</span>
-</div>
-<div class="flex-1 flex items-center justify-center relative p-6">
-<div class="absolute inset-0 bg-[linear-gradient(rgba(0,245,212,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(0,245,212,0.03)_1px,transparent_1px)] bg-[size:20px_20px] pointer-events-none"></div>
-<div class="text-center space-y-2 z-10">
-<span class="material-symbols-outlined text-5xl text-[#00F5D4] animate-pulse">settings_ethernet</span>
-<p class="font-mono text-xs text-[#94A3B8] uppercase tracking-widest">Active Schematics Stream Synchronized</p>
-<p class="font-mono text-[10px] text-[#00F5D4]">All nodes reporting nominal cluster execution rates.</p>
-</div>
-</div>
-</div>
-</div>
-
-<!-- Right Panel: Quick Navigation & Status Logs (4 cols) -->
-<div class="xl:col-span-4 flex flex-col gap-6">
-<div class="glass-panel rounded-sm flex flex-col p-6 bg-[#1E293B]">
-<h3 class="font-sans text-lg font-bold text-white mb-4 uppercase tracking-tight">Bridge Controls</h3>
-<div class="space-y-3">
-<a href="autonomous-circuit-breaker.html" class="flex items-center justify-between p-3 bg-[#0F172A] border border-[#334155] hover:border-[#00F5D4] transition-all rounded-sm group">
-<span class="font-mono text-xs text-[#F8FAFC] group-hover:text-[#00F5D4]">Launch Module 17 (ACB)</span>
-<span class="material-symbols-outlined text-sm text-[#00F5D4]">arrow_forward</span>
-</a>
-<a href="company-profile-registry.html" class="flex items-center justify-between p-3 bg-[#0F172A] border border-[#334155] hover:border-[#00F5D4] transition-all rounded-sm group">
-<span class="font-mono text-xs text-[#F8FAFC] group-hover:text-[#00F5D4]">Open Asset Registry</span>
-<span class="material-symbols-outlined text-sm text-[#00F5D4]">arrow_forward</span>
-</a>
-<a href="compliance-logs.html" class="flex items-center justify-between p-3 bg-[#0F172A] border border-[#334155] hover:border-[#00F5D4] transition-all rounded-sm group">
-<span class="font-mono text-xs text-[#F8FAFC] group-hover:text-[#00F5D4]">View Compliance Ledgers</span>
-<span class="material-symbols-outlined text-sm text-[#00F5D4]">arrow_forward</span>
-</a>
-</div>
-</div>
-
-<div class="glass-panel rounded-sm flex flex-col flex-1 min-h-[220px] bg-[#1E293B]">
-<div class="p-4 border-b border-[#334155] flex items-center gap-2 bg-[#1E293B]">
-<span class="material-symbols-outlined text-[#00F5D4] text-sm">terminal</span>
-<h3 class="font-mono text-xs uppercase tracking-widest text-[#F8FAFC]">Bridge Kernel Logs</h3>
-</div>
-<div class="p-4 flex-1 overflow-y-auto font-mono text-[11px] text-slate-300 space-y-1">
-<p class="text-[#00F5D4]">[00:01] Gateway socket opened.</p>
-<p>[00:02] Token validation verified.</p>
-<p>[00:04] Sub-routines synchronized across 17 vectors.</p>
-<p class="text-[#00F5D4]">[00:05] Command Bridge ready for operation.</p>
-</div>
-</div>
-</div>
-</div>
-</main>
-
-<style>
-/* Global Responsive Breakpoints & Mobile Fixes */
-@media (max-width: 768px) {
-  /* Force grid structures to stack in a single column */
-  .grid, .card-grid, .dashboard-grid, [class*="grid"] {
-    grid-template-columns: 1fr !important;
-  }
-  
-  /* Tables & data displays wrap cleanly with scroll support */
-  table, .table-container, [class*="table"] {
-    max-width: 100% !important;
-    overflow-x: auto !important;
-  }
-  
-  /* Prevent horizontal document overflow */
-  body, html {
-    overflow-x: hidden !important;
-  }
-
-  /* Bottom padding to prevent floating bars/dock from overlapping buttons */
-  body, main, .container, .page-wrapper {
-    padding-bottom: 90px !important;
-  }
-}
-</style>
-
-<script src="envictica-ui.js"></script>
+<body class="antialiased min-h-screen bg-[#0F172A] text-[#F8FAFC]">
+  <!-- Desktop Navigation -->
+  <nav
+    class="hidden md:flex fixed left-0 top-0 z-40 h-screen w-64 flex-col border-r border-[#334155] bg-[#0F172A] px-4 py-6"
+  >
+    <div class="mb-8">
+      <a
+        href="index.html"
+        class="text-2xl font-extrabold tracking-tight text-white transition-colors hover:text-[#00F5D4]"
+      >
+        Envictica
+      </a>
+      <p class="mt-1 font-mono text-xs uppercase tracking-widest text-[#94A3B8]">
+        Command Bridge
+      </p>
+    </div>
+    <div class="flex-1 space-y-2 overflow-y-auto">
+      <a
+        href="index.html"
+        class="flex items-center gap-3 rounded-sm px-3 py-2 text-[#94A3B8] transition-all hover:bg-[#1E293B] hover:text-white"
+      >
+        <span class="material-symbols-outlined text-sm">grid_view</span>
+        <span class="font-mono text-xs uppercase tracking-widest">
+          Dashboard
+        </span>
+      </a>
+      <a
+        href="command-center.html"
+        aria-current="page"
+        class="flex items-center gap-3 rounded-r-sm border-l-2 border-[#00F5D4] bg-[#00F5D4]/10 px-3 py-2 text-[#00F5D4] transition-all"
+      >
+        <span
+          class="material-symbols-outlined text-sm"
+          style="font-variation-settings: 'FILL' 1;"
+        >
+          terminal
+        </span>
+        <span class="font-mono text-xs font-bold uppercase tracking-widest">
+          Network Bridge
+        </span>
+      </a>
+      <a
+        href="company-profile-registry.html"
+        class="flex items-center gap-3 rounded-sm px-3 py-2 text-[#94A3B8] transition-all hover:bg-[#1E293B] hover:text-white"
+      >
+        <span class="material-symbols-outlined text-sm">
+          corporate_fare
+        </span>
+        <span class="font-mono text-xs uppercase tracking-widest">
+          Assets
+        </span>
+      </a>
+      <a
+        href="compliance-logs.html"
+        class="flex items-center gap-3 rounded-sm px-3 py-2 text-[#94A3B8] transition-all hover:bg-[#1E293B] hover:text-white"
+      >
+        <span class="material-symbols-outlined text-sm">
+          history_edu
+        </span>
+        <span class="font-mono text-xs uppercase tracking-widest">
+          Compliance
+        </span>
+      </a>
+      <a
+        href="autonomous-circuit-breaker.html"
+        class="flex items-center gap-3 rounded-sm px-3 py-2 text-[#94A3B8] transition-all hover:bg-[#1E293B] hover:text-white"
+      >
+        <span class="material-symbols-outlined text-sm">bolt</span>
+        <span class="font-mono text-xs uppercase tracking-widest">
+          Circuit Breaker
+        </span>
+      </a>
+    </div>
+    <div class="mt-auto border-t border-[#334155] pt-6">
+      <div class="px-3 py-2">
+        <p
+          class="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-[#00F5D4]"
+        >
+          <span class="status-dot"></span>
+          Bridge Feed: Active
+        </p>
+      </div>
+    </div>
+  </nav>
+  <!-- Mobile Navigation -->
+  <nav
+    class="sticky top-0 z-40 flex w-full items-center justify-between border-b border-[#334155] bg-[#0F172A] px-4 py-3 md:hidden"
+  >
+    <div>
+      <a
+        href="index.html"
+        class="text-xl font-bold tracking-tight text-white"
+      >
+        Envictica
+      </a>
+      <p class="font-mono text-[10px] uppercase text-[#94A3B8]">
+        Command Bridge
+      </p>
+    </div>
+    <div class="flex gap-4 text-[#94A3B8]">
+      <span class="material-symbols-outlined text-sm">settings</span>
+      <span class="material-symbols-outlined text-sm text-[#00F5D4]">
+        notifications_active
+      </span>
+    </div>
+  </nav>
+  <!-- Main Content -->
+  <main
+    class="w-full max-w-[1600px] flex-1 px-6 pb-24 pt-6 md:ml-64 md:px-10 md:pb-10 md:pt-10"
+  >
+    <!-- Page Header -->
+    <header
+      class="mb-8 flex flex-col items-start justify-between gap-4 border-b border-[#334155] pb-6 md:flex-row md:items-center"
+    >
+      <div>
+        <p
+          class="mb-2 font-mono text-[10px] uppercase tracking-widest text-[#94A3B8]"
+        >
+          Path: Env / Infrastructure / Command_Bridge
+        </p>
+        <h1
+          class="text-3xl font-extrabold tracking-tight text-white md:text-5xl"
+        >
+          Network Command Bridge
+        </h1>
+      </div>
+      <div
+        class="glass-panel flex items-center gap-3 rounded-sm border-l-2 border-[#00F5D4] bg-[#00F5D4]/10 px-4 py-2"
+      >
+        <span class="status-dot"></span>
+        <span
+          class="font-mono text-xs font-bold uppercase tracking-widest text-[#00F5D4]"
+        >
+          Ingestion: 12.4k Clauses/Sec
+        </span>
+      </div>
+    </header>
+    <div class="grid grid-cols-1 gap-6 xl:grid-cols-12">
+      <!-- Telemetry & Topology -->
+      <section class="flex flex-col gap-6 xl:col-span-8">
+        <!-- Telemetry -->
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <article
+            class="glass-panel flex h-28 flex-col justify-between rounded-sm border-t-2 border-[#00F5D4] p-4"
+          >
+            <span
+              class="font-mono text-[10px] font-bold uppercase tracking-widest text-white"
+            >
+              Global Uptime
+            </span>
+            <span class="font-mono text-3xl font-bold text-[#00F5D4]">
+              99.999%
+            </span>
+          </article>
+          <article
+            class="glass-panel flex h-28 flex-col justify-between rounded-sm p-4"
+          >
+            <span
+              class="font-mono text-[10px] font-bold uppercase tracking-widest text-white"
+            >
+              Data Debt Mitigated
+            </span>
+            <span class="font-mono text-3xl font-bold text-white">
+              $14.2M
+            </span>
+          </article>
+          <article
+            class="glass-panel flex h-28 flex-col justify-between rounded-sm border-r-2 border-[#00F5D4] p-4"
+          >
+            <span
+              class="font-mono text-[10px] font-bold uppercase tracking-widest text-white"
+            >
+              MAL Failover State
+            </span>
+            <span
+              class="font-mono text-xl font-bold text-[#00F5D4] animate-pulse"
+            >
+              READY
+            </span>
+          </article>
+        </div>
+        <!-- Routing Topology -->
+        <section
+          class="tech-border glass-panel flex h-[450px] flex-col overflow-hidden rounded-sm bg-[#050B14]"
+        >
+          <div
+            class="z-10 flex items-center justify-between border-b border-[#334155] bg-[#0F172A]/80 p-4 backdrop-blur-sm"
+          >
+            <div class="flex items-center gap-3">
+              <span class="material-symbols-outlined text-sm text-[#00F5D4]">
+                hub
+              </span>
+              <h2
+                class="font-mono text-xs uppercase tracking-widest text-white"
+              >
+                Primary Routing Matrix Topology
+              </h2>
+            </div>
+            <span
+              class="rounded-sm border border-[#00F5D4]/30 bg-[#00F5D4]/10 px-2 py-1 font-mono text-[10px] text-[#00F5D4]"
+            >
+              ONLINE
+            </span>
+          </div>
+          <div
+            class="relative flex flex-1 items-center justify-center p-6"
+          >
+            <div
+              class="topology-grid absolute inset-0 pointer-events-none"
+            ></div>
+            <div class="z-10 space-y-2 text-center">
+              <span
+                class="material-symbols-outlined text-5xl text-[#00F5D4] animate-pulse"
+              >
+                settings_ethernet
+              </span>
+              <p
+                class="font-mono text-xs uppercase tracking-widest text-[#94A3B8]"
+              >
+                Active Schematics Stream Synchronized
+              </p>
+              <p class="font-mono text-[10px] text-[#00F5D4]">
+                All nodes reporting nominal cluster execution rates.
+              </p>
+            </div>
+          </div>
+        </section>
+      </section>
+      <!-- Controls & Logs -->
+      <aside class="flex flex-col gap-6 xl:col-span-4">
+        <!-- Bridge Controls -->
+        <section class="glass-panel rounded-sm p-6">
+          <h2
+            class="mb-4 text-lg font-bold uppercase tracking-tight text-white"
+          >
+            Bridge Controls
+          </h2>
+          <div class="space-y-3">
+            <a
+              href="autonomous-circuit-breaker.html"
+              class="group flex items-center justify-between rounded-sm border border-[#334155] bg-[#0F172A] p-3 transition-all hover:border-[#00F5D4]"
+            >
+              <span
+                class="font-mono text-xs text-white transition-colors group-hover:text-[#00F5D4]"
+              >
+                Open Circuit Breaker
+              </span>
+              <span class="material-symbols-outlined text-sm text-[#00F5D4]">
+                arrow_forward
+              </span>
+            </a>
+            <a
+              href="company-profile-registry.html"
+              class="group flex items-center justify-between rounded-sm border border-[#334155] bg-[#0F172A] p-3 transition-all hover:border-[#00F5D4]"
+            >
+              <span
+                class="font-mono text-xs text-white transition-colors group-hover:text-[#00F5D4]"
+              >
+                Open Asset Registry
+              </span>
+              <span class="material-symbols-outlined text-sm text-[#00F5D4]">
+                arrow_forward
+              </span>
+            </a>
+            <a
+              href="compliance-logs.html"
+              class="group flex items-center justify-between rounded-sm border border-[#334155] bg-[#0F172A] p-3 transition-all hover:border-[#00F5D4]"
+            >
+              <span
+                class="font-mono text-xs text-white transition-colors group-hover:text-[#00F5D4]"
+              >
+                View Compliance Ledgers
+              </span>
+              <span class="material-symbols-outlined text-sm text-[#00F5D4]">
+                arrow_forward
+              </span>
+            </a>
+          </div>
+        </section>
+        <!-- Kernel Logs -->
+        <section
+          class="glass-panel flex min-h-[220px] flex-1 flex-col rounded-sm"
+        >
+          <div
+            class="flex items-center gap-2 border-b border-[#334155] p-4"
+          >
+            <span class="material-symbols-outlined text-sm text-[#00F5D4]">
+              terminal
+            </span>
+            <h2
+              class="font-mono text-xs uppercase tracking-widest text-white"
+            >
+              Bridge Kernel Logs
+            </h2>
+          </div>
+          <div
+            class="flex-1 space-y-1 overflow-y-auto p-4 font-mono text-[11px] text-slate-300"
+          >
+            <p class="text-[#00F5D4]">
+              [00:01] Gateway socket opened.
+            </p>
+            <p>
+              [00:02] Token validation verified.
+            </p>
+            <p>
+              [00:04] Sub-routines synchronized across active vectors.
+            </p>
+            <p class="text-[#00F5D4]">
+              [00:05] Command Bridge ready for operation.
+            </p>
+          </div>
+        </section>
+      </aside>
+    </div>
+  </main>
+  <script src="envictica-ui.js"></script>
 </body>
 </html>
