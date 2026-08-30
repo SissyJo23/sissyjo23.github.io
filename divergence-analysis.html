@@ -1,248 +1,190 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Envictica: Divergence Analysis</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
-      rel="stylesheet"
-    />
-    <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              primary: "#00F5D4",
-              "env-alert": "#FF4D6D",
-              surface: "#121318",
-              "on-surface": "#e3e1e9",
-              "on-surface-variant": "#8a8b94",
-              outline: "#2a2b32",
-              "surface-container": "#1d1e24",
-            },
-            fontFamily: {
-              "label-caps": ["JetBrains Mono", "monospace"],
-              "data-numeral": ["JetBrains Mono", "monospace"],
-              headline: ["Sora", "sans-serif"],
-            },
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Envictica — Divergence Analysis</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&family=Sora:wght@400;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#00F5D4",
+            "env-alert": "#FF4D6D",
+            surface: "#121318",
+            "on-surface": "#e3e1e9",
+            "on-surface-variant": "#8a8b94",
+            outline: "#2a2b32",
+            "surface-container": "#1d1e24"
           },
-        },
-      };
-    </script>
-    <style>
+          fontFamily: {
+            "label-caps": ["JetBrains Mono", "monospace"],
+            "data-numeral": ["JetBrains Mono", "monospace"],
+            headline: ["Sora", "sans-serif"]
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    body {
+      background-color: #0b0c10;
+      color: #e3e1e9;
+    }
+    .diff-added {
+      color: #00f5d4;
+      background-color: rgba(0, 245, 212, 0.1);
+    }
+    .diff-removed {
+      color: #ff4d6d;
+      background-color: rgba(255, 77, 109, 0.1);
+      text-decoration: line-through;
+    }
+    @media (max-width: 768px) {
       body {
-        background-color: #0b0c10;
-        color: #e3e1e9;
+        overflow-x: hidden;
+        padding: 1rem;
       }
-      .diff-added {
-        color: #00f5d4;
-        background-color: rgba(0, 245, 212, 0.1);
+      .comparison-grid {
+        grid-template-columns: 1fr !important;
       }
-      .diff-removed {
-        color: #ff4d6d;
-        background-color: rgba(255, 77, 109, 0.1);
-        text-decoration: line-through;
+      .page-content {
+        padding-bottom: 90px;
       }
-    </style>
-  </head>
-  <body class="font-sans antialiased min-h-screen flex flex-col p-8 gap-8">
-    <div class="max-w-5xl mx-auto w-full flex flex-col gap-8">
-      <!-- Header -->
-      <div
-        class="flex justify-between items-end border-b border-outline pb-6"
-      >
+    }
+  </style>
+</head>
+<body class="min-h-screen font-sans antialiased">
+  <main class="page-content mx-auto flex w-full max-w-5xl flex-col gap-8">
+<header class="flex flex-col gap-4 border-b border-outline pb-6 md:flex-row md:items-end md:justify-between">
+  <div class="flex flex-col gap-2">
+    <span class="w-fit rounded-sm border border-primary/30 bg-primary/10 px-3 py-1 font-label-caps text-[11px] uppercase tracking-widest text-primary">
+      Analysis
+    </span>
+    <h1 class="font-headline text-4xl font-black uppercase tracking-tight text-white md:text-5xl">
+      Divergence Analysis
+    </h1>
+  </div>
+  <div class="flex flex-col text-left md:items-end md:text-right">
+    <span class="font-label-caps text-[10px] uppercase tracking-widest text-on-surface-variant">
+      Logic Node
+    </span>
+    <span class="font-data-numeral text-lg text-white">
+      PROCUREMENT_ALPHA_06
+    </span>
+  </div>
+</header>
+<section class="comparison-grid grid grid-cols-1 gap-8 lg:grid-cols-3">
+  <div class="flex flex-col gap-6 lg:col-span-2">
+    <article class="overflow-hidden rounded-sm border border-outline bg-surface">
+      <div class="flex items-center justify-between border-b border-outline bg-surface-container p-4">
+        <h2 class="font-label-caps text-[11px] font-bold uppercase tracking-widest text-white">
+          Clause Comparison
+        </h2>
+        <span class="font-data-numeral text-[10px] text-env-alert">
+          VARIANCE: 0.84
+        </span>
+      </div>
+      <div class="flex flex-col gap-6 p-6 font-mono text-sm leading-relaxed">
         <div class="flex flex-col gap-2">
-          <span
-            class="bg-primary/10 text-primary font-label-caps text-[11px] px-3 py-1 rounded-sm border border-primary/30 w-fit tracking-widest uppercase"
-          >
-            Step 2: Analysis
+          <span class="font-label-caps text-[10px] uppercase text-on-surface-variant">
+            Ground Truth
           </span>
-          <h1
-            class="font-headline text-4xl font-black text-white tracking-tight uppercase"
-          >
-            Divergence Analysis
-          </h1>
-        </div>
-        <div class="flex flex-col items-end text-right">
-          <span
-            class="font-label-caps text-[10px] text-on-surface-variant tracking-widest uppercase"
-            >Logic Node</span
-          >
-          <span class="font-data-numeral text-lg text-white"
-            >PROCUREMENT_ALPHA_06</span
-          >
-        </div>
-      </div>
-
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <!-- Left: Comparison View -->
-        <div class="lg:col-span-2 flex flex-col gap-6">
-          <div
-            class="bg-surface border border-outline rounded-sm overflow-hidden"
-          >
-            <div
-              class="p-4 border-b border-outline bg-surface-container flex justify-between items-center"
-            >
-              <h3
-                class="font-label-caps text-[11px] text-white tracking-widest uppercase font-bold"
-              >
-                Clause Comparison
-              </h3>
-              <span class="text-[10px] font-data-numeral text-env-alert"
-                >VARIANCE: 0.84</span
-              >
-            </div>
-            <div
-              class="p-6 flex flex-col gap-6 font-mono text-sm leading-relaxed"
-            >
-              <div class="flex flex-col gap-2">
-                <span
-                  class="text-[10px] font-label-caps text-on-surface-variant uppercase"
-                  >Ground Truth (Schema DNA)</span
-                >
-                <div
-                  class="p-4 bg-black/40 border border-white/5 rounded-sm italic text-on-surface-variant"
-                >
-                  "The vendor shall maintain data redundancy across three
-                  independent geographic zones."
-                </div>
-              </div>
-              <div class="flex flex-col gap-2">
-                <span
-                  class="text-[10px] font-label-caps text-env-alert uppercase"
-                  >Model Output (High Entropy)</span
-                >
-                <div
-                  class="p-4 bg-env-alert/5 border border-env-alert/20 rounded-sm text-white"
-                >
-                  "The vendor
-                  <span class="diff-removed">shall maintain data redundancy</span>
-                  <span class="diff-added">may attempt to facilitate storage</span>
-                  across
-                  <span class="diff-removed">three independent</span>
-                  <span class="diff-added">various available</span>
-                  geographic zones."
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Attribution -->
-          <div class="bg-surface/40 border border-outline p-6 rounded-sm">
-            <h3
-              class="font-label-caps text-[11px] text-on-surface-variant tracking-widest uppercase mb-4"
-            >
-              Internal Attribution
-            </h3>
-            <div class="flex items-center gap-6">
-              <div class="flex flex-col gap-1">
-                <span
-                  class="text-[10px] font-label-caps text-on-surface-variant uppercase"
-                  >Primary Model</span
-                >
-                <span class="font-data-numeral text-white uppercase"
-                  >GPT-4o_INFRA</span
-                >
-              </div>
-              <div class="w-px h-8 bg-outline"></div>
-              <div class="flex flex-col gap-1">
-                <span
-                  class="text-[10px] font-label-caps text-on-surface-variant uppercase"
-                  >Failover Target</span
-                >
-                <span class="font-data-numeral text-primary uppercase"
-                  >CLAUDE_3.5_STABLE</span
-                >
-              </div>
-            </div>
+          <div class="rounded-sm border border-white/5 bg-black/40 p-4 italic text-on-surface-variant">
+            "The vendor shall maintain data redundancy across three independent geographic zones."
           </div>
         </div>
-
-        <!-- Right: Decision Metrics -->
-        <div class="flex flex-col gap-6">
-          <div
-            class="bg-surface border border-outline p-6 rounded-sm flex flex-col gap-6"
-          >
-            <h3
-              class="font-label-caps text-[11px] text-white tracking-widest uppercase font-bold border-b border-outline pb-4"
-            >
-              Decision Engine
-            </h3>
-            <div class="flex flex-col gap-2">
-              <div
-                class="flex justify-between font-label-caps text-[10px] text-on-surface-variant"
-              >
-                <span>Hallucination Probability</span>
-                <span class="text-env-alert">CRITICAL</span>
-              </div>
-              <div class="h-1 w-full bg-white/5 rounded-full overflow-hidden">
-                <div class="bg-env-alert h-full w-[92%]"></div>
-              </div>
-            </div>
-            <div class="flex flex-col gap-2">
-              <div
-                class="flex justify-between font-label-caps text-[10px] text-on-surface-variant"
-              >
-                <span>Semantic Alignment</span>
-                <span class="text-env-alert">LOW</span>
-              </div>
-              <div class="h-1 w-full bg-white/5 rounded-full overflow-hidden">
-                <div class="bg-white/20 h-full w-[15%]"></div>
-              </div>
-            </div>
-            <div
-              class="mt-4 p-4 bg-black/40 border border-outline-variant text-[12px] leading-relaxed"
-            >
-              <p class="text-on-surface-variant italic">
-                Recommendation: Block ingestion to production database. Drift
-                velocity exceeds 15% threshold for mission-critical legal
-                pipelines.
-              </p>
-            </div>
-            <button
-              class="w-full bg-primary text-[#002113] font-label-caps text-[13px] py-4 rounded-sm font-bold tracking-widest hover:opacity-90 active:scale-95 transition-all uppercase"
-            >
-              Confirm Manual Failover
-            </button>
-            <button
-              class="w-full border border-env-alert text-env-alert font-label-caps text-[13px] py-4 rounded-sm font-bold tracking-widest hover:bg-env-alert/5 active:scale-95 transition-all uppercase"
-            >
-              Activate Kill-Switch
-            </button>
+        <div class="flex flex-col gap-2">
+          <span class="font-label-caps text-[10px] uppercase text-env-alert">
+            Model Output
+          </span>
+          <div class="rounded-sm border border-env-alert/20 bg-env-alert/5 p-4 text-white">
+            "The vendor
+            <span class="diff-removed">shall maintain data redundancy</span>
+            <span class="diff-added">may attempt to facilitate storage</span>
+            across
+            <span class="diff-removed">three independent</span>
+            <span class="diff-added">various available</span>
+            geographic zones."
           </div>
         </div>
       </div>
-    </div>
-  
-<style>
-/* Global Responsive Breakpoints & Mobile Fixes */
-@media (max-width: 768px) {
-  /* Force grid structures to stack in a single column */
-  .grid, .card-grid, .dashboard-grid, [class*="grid"] {
-    grid-template-columns: 1fr !important;
-  }
-  
-  /* Tables & data displays wrap cleanly with scroll support */
-  table, .table-container, [class*="table"] {
-    max-width: 100% !important;
-    overflow-x: auto !important;
-  }
-  
-  /* Prevent horizontal document overflow */
-  body, html {
-    overflow-x: hidden !important;
-  }
-
-  /* Bottom padding to prevent floating bars/dock from overlapping buttons */
-  body, main, .container, .page-wrapper {
-    padding-bottom: 90px !important;
-  }
-}
-</style>
-
-<script src="envictica-ui.js"></script>
+    </article>
+    <article class="rounded-sm border border-outline bg-surface/40 p-6">
+      <h2 class="mb-4 font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant">
+        Internal Attribution
+      </h2>
+      <div class="flex flex-col gap-5 sm:flex-row sm:items-center sm:gap-6">
+        <div class="flex flex-col gap-1">
+          <span class="font-label-caps text-[10px] uppercase text-on-surface-variant">
+            Primary Model
+          </span>
+          <span class="font-data-numeral uppercase text-white">
+            GPT-4o_INFRA
+          </span>
+        </div>
+        <div class="hidden h-8 w-px bg-outline sm:block"></div>
+        <div class="flex flex-col gap-1">
+          <span class="font-label-caps text-[10px] uppercase text-on-surface-variant">
+            Failover Target
+          </span>
+          <span class="font-data-numeral uppercase text-primary">
+            CLAUDE_3.5_STABLE
+          </span>
+        </div>
+      </div>
+    </article>
+  </div>
+  <aside class="flex flex-col gap-6">
+    <article class="flex flex-col gap-6 rounded-sm border border-outline bg-surface p-6">
+      <h2 class="border-b border-outline pb-4 font-label-caps text-[11px] font-bold uppercase tracking-widest text-white">
+        Decision Engine
+      </h2>
+      <div class="flex flex-col gap-2">
+        <div class="flex justify-between font-label-caps text-[10px] text-on-surface-variant">
+          <span>Hallucination Probability</span>
+          <span class="text-env-alert">CRITICAL</span>
+        </div>
+        <div class="h-1 w-full overflow-hidden rounded-full bg-white/5">
+          <div class="h-full w-[92%] bg-env-alert"></div>
+        </div>
+      </div>
+      <div class="flex flex-col gap-2">
+        <div class="flex justify-between font-label-caps text-[10px] text-on-surface-variant">
+          <span>Semantic Alignment</span>
+          <span class="text-env-alert">LOW</span>
+        </div>
+        <div class="h-1 w-full overflow-hidden rounded-full bg-white/5">
+          <div class="h-full w-[15%] bg-white/20"></div>
+        </div>
+      </div>
+      <div class="rounded-sm border border-outline bg-black/40 p-4 text-[12px] leading-relaxed">
+        <p class="italic text-on-surface-variant">
+          Recommendation: Block ingestion to production database. Drift velocity exceeds the defined threshold for mission-critical legal pipelines.
+        </p>
+      </div>
+      <button
+        type="button"
+        class="w-full rounded-sm bg-primary py-4 font-label-caps text-[13px] font-bold uppercase tracking-widest text-[#002113] transition-all hover:opacity-90 active:scale-95"
+      >
+        Confirm Manual Failover
+      </button>
+      <button
+        type="button"
+        class="w-full rounded-sm border border-env-alert py-4 font-label-caps text-[13px] font-bold uppercase tracking-widest text-env-alert transition-all hover:bg-env-alert/5 active:scale-95"
+      >
+        Activate Kill-Switch
+      </button>
+    </article>
+  </aside>
+</section>
+  </main>
+  <script src="envictica-ui.js"></script>
 </body>
 </html>
