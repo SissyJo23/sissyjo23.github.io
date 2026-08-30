@@ -1,22 +1,18 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="utf-8" />
-  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Compliance Audit Logs - Envictica</title>
-  
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  
-  <!-- Tailwind Custom Configuration -->
-  <script id="tailwind-config">
+  <script>
     tailwind.config = {
       darkMode: "class",
       theme: {
         extend: {
           colors: {
-            primary: "#00F5D4",         // Electric Teal
-            "env-alert": "#FF4D6D",      // Burnt Crimson
+            primary: "#00F5D4",
+            "env-alert": "#FF4D6D",
             surface: "#0b0f10",
             "surface-container": "#121318",
             "on-surface": "#e3e1e9",
@@ -33,20 +29,27 @@
       }
     };
   </script>
-  
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@500;700&family=Sora:wght@300;600;800&display=swap" rel="stylesheet" />
-  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap" rel="stylesheet" />
-  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@500;700&family=Sora:wght@300;600;800&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap"
+    rel="stylesheet"
+  />
   <style>
     body {
       background-color: #050608;
       color: #e3e1e9;
     }
     .material-symbols-outlined {
-      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      font-variation-settings:
+        "FILL" 0,
+        "wght" 400,
+        "GRAD" 0,
+        "opsz" 24;
     }
     .audit-table-container {
       -webkit-overflow-scrolling: touch;
@@ -54,96 +57,225 @@
     .teal-glow {
       box-shadow: 0 0 15px rgba(0, 245, 212, 0.15);
     }
+    @media (max-width: 768px) {
+      html,
+      body {
+        overflow-x: hidden;
+      }
+      body {
+        padding-bottom: 24px;
+      }
+      main {
+        padding-bottom: 24px;
+      }
+      .audit-table-container {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: auto;
+      }
+    }
   </style>
 </head>
-
-<body class="flex flex-col min-h-screen font-body-md antialiased overflow-x-hidden">
-  
+<body class="flex min-h-screen flex-col overflow-x-hidden font-body-md antialiased">
   <!-- Header -->
-  <header class="bg-surface-container border-b border-outline-variant sticky top-0 z-50 flex justify-between items-center px-4 md:px-8 h-16">
-    <h1 class="text-2xl font-black text-white italic tracking-tighter">ENVICTICA</h1>
+  <header
+    class="sticky top-0 z-50 flex h-16 items-center justify-between border-b border-outline-variant bg-surface-container px-4 md:px-8"
+  >
+    <h1 class="text-2xl font-black italic tracking-tighter text-white">
+      ENVICTICA
+    </h1>
     <div class="flex items-center gap-4">
-      <div class="px-3 py-1.5 border border-primary bg-primary/10 rounded-sm hidden xs:flex items-center gap-2">
-        <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
-        <span class="font-label-caps text-[10px] text-primary font-bold tracking-widest">LOGGING: ACTIVE</span>
+      <div
+        class="hidden items-center gap-2 rounded-sm border border-primary bg-primary/10 px-3 py-1.5 sm:flex"
+      >
+        <span class="h-1.5 w-1.5 animate-pulse rounded-full bg-primary"></span>
+        <span
+          class="font-label-caps text-[10px] font-bold tracking-widest text-primary"
+        >
+          LOGGING: ACTIVE
+        </span>
       </div>
-      <button class="p-2 text-on-surface-variant hover:text-primary transition-colors" aria-label="Settings">
+      <button
+        type="button"
+        class="p-2 text-on-surface-variant transition-colors hover:text-primary"
+        aria-label="Settings"
+      >
         <span class="material-symbols-outlined">settings</span>
       </button>
     </div>
   </header>
-
   <!-- Main Content -->
-  <main class="flex-1 flex flex-col p-4 md:p-8 gap-8">
+  <main class="flex flex-1 flex-col gap-8 p-4 md:p-8">
+    <!-- Page Heading -->
     <div class="flex flex-col gap-2">
-      <h2 class="text-3xl font-headline-md font-black text-white italic uppercase tracking-tight">Compliance Ledger</h2>
-      <p class="font-label-caps text-[11px] text-on-surface-variant tracking-widest uppercase">Envictica Fiduciary Data Infrastructure</p>
+      <h2
+        class="font-headline-md text-3xl font-black italic uppercase tracking-tight text-white"
+      >
+        Compliance Ledger
+      </h2>
+      <p
+        class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant"
+      >
+        Envictica Fiduciary Data Infrastructure
+      </p>
     </div>
-
-    <!-- Metrics Grid -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-      <div class="bg-surface border border-outline-variant p-5 flex flex-col gap-4 teal-glow">
-        <span class="font-label-caps text-[10px] text-white uppercase tracking-widest font-bold">Total Audit Events</span>
-        <span class="font-data-numeral text-4xl text-primary font-light">14,208</span>
+    <!-- Metrics -->
+    <section class="grid grid-cols-1 gap-4 md:grid-cols-3">
+      <div
+        class="flex flex-col gap-4 border border-outline-variant bg-surface p-5 teal-glow"
+      >
+        <span
+          class="font-label-caps text-[10px] font-bold uppercase tracking-widest text-white"
+        >
+          Total Audit Events
+        </span>
+        <span
+          class="font-data-numeral text-4xl font-light text-primary"
+        >
+          14,208
+        </span>
       </div>
-      <div class="bg-surface border border-outline-variant p-5 flex flex-col gap-4">
-        <span class="font-label-caps text-[10px] text-white uppercase tracking-widest font-bold">Active Security Monitors</span>
+      <div
+        class="flex flex-col gap-4 border border-outline-variant bg-surface p-5"
+      >
+        <span
+          class="font-label-caps text-[10px] font-bold uppercase tracking-widest text-white"
+        >
+          Active Security Monitors
+        </span>
         <div class="flex items-baseline gap-2">
-          <span class="font-data-numeral text-4xl text-white font-light">42</span>
-          <span class="text-[12px] text-on-surface-variant font-data-numeral">/ 42</span>
+          <span
+            class="font-data-numeral text-4xl font-light text-white"
+          >
+            42
+          </span>
+          <span
+            class="font-data-numeral text-[12px] text-on-surface-variant"
+          >
+            / 42
+          </span>
         </div>
       </div>
-      <div class="bg-surface border border-outline-variant p-5 flex flex-col gap-4">
-        <span class="font-label-caps text-[10px] text-white uppercase tracking-widest font-bold">Last Verified Hash</span>
-        <span class="font-data-numeral text-[13px] text-primary truncate">0x9f8c47b1a2e3d4f5...a1b2</span>
+      <div
+        class="flex flex-col gap-4 border border-outline-variant bg-surface p-5"
+      >
+        <span
+          class="font-label-caps text-[10px] font-bold uppercase tracking-widest text-white"
+        >
+          Last Verified Hash
+        </span>
+        <span
+          class="font-data-numeral truncate text-[13px] text-primary"
+          title="0x9f8c47b1a2e3d4f5...a1b2"
+        >
+          0x9f8c47b1a2e3d4f5...a1b2
+        </span>
       </div>
-    </div>
-
-    <!-- Audit Table Section -->
-    <section class="bg-surface border border-outline-variant flex flex-col">
-      <div class="p-4 border-b border-outline-variant bg-white/5 flex flex-wrap gap-2">
-        <button class="px-4 py-2 bg-primary text-black font-label-caps text-[10px] font-bold tracking-widest">SECURITY LOGS</button>
-        <button class="px-4 py-2 bg-surface-container text-on-surface font-label-caps text-[10px] tracking-widest hover:bg-surface-container/80">DATA INGESTION</button>
-        <button class="px-4 py-2 bg-surface-container text-on-surface font-label-caps text-[10px] tracking-widest hover:bg-surface-container/80">LLM DRIFT CHECKS</button>
+    </section>
+    <!-- Audit Ledger -->
+    <section class="flex flex-col border border-outline-variant bg-surface">
+      <!-- Filters -->
+      <div
+        class="flex flex-wrap gap-2 border-b border-outline-variant bg-white/5 p-4"
+      >
+        <button
+          type="button"
+          class="bg-primary px-4 py-2 font-label-caps text-[10px] font-bold tracking-widest text-black"
+        >
+          SECURITY LOGS
+        </button>
+        <button
+          type="button"
+          class="bg-surface-container px-4 py-2 font-label-caps text-[10px] tracking-widest text-on-surface transition-colors hover:bg-white/10"
+        >
+          DATA INGESTION
+        </button>
+        <button
+          type="button"
+          class="bg-surface-container px-4 py-2 font-label-caps text-[10px] tracking-widest text-on-surface transition-colors hover:bg-white/10"
+        >
+          LLM DRIFT CHECKS
+        </button>
       </div>
-
+      <!-- Table -->
       <div class="audit-table-container overflow-x-auto">
-        <table class="w-full text-left border-collapse min-w-[700px]">
+        <table class="w-full min-w-[700px] border-collapse text-left">
           <thead>
-            <tr class="bg-surface-container/50 border-b border-outline-variant text-[10px] font-label-caps text-on-surface-variant uppercase tracking-widest">
-              <th class="p-4 font-normal">Timestamp (UTC)</th>
-              <th class="p-4 font-normal">Actor/Role</th>
-              <th class="p-4 font-normal">Action Type</th>
-              <th class="p-4 font-normal text-right">Status</th>
+            <tr
+              class="border-b border-outline-variant bg-surface-container/50 font-label-caps text-[10px] uppercase tracking-widest text-on-surface-variant"
+            >
+              <th class="p-4 font-normal">
+                Timestamp (UTC)
+              </th>
+              <th class="p-4 font-normal">
+                Actor / Role
+              </th>
+              <th class="p-4 font-normal">
+                Action Type
+              </th>
+              <th class="p-4 text-right font-normal">
+                Status
+              </th>
             </tr>
           </thead>
-          <tbody class="font-data-numeral text-[12px] divide-y divide-outline-variant/30">
-            <tr class="hover:bg-white/5 transition-colors">
-              <td class="p-4 text-on-surface-variant">2023-10-27 <span class="text-white">14:32:01Z</span></td>
-              <td class="p-4 text-white font-bold">SYS_ADMIN <span class="text-on-surface-variant opacity-50 text-[10px]">[ID:8092]</span></td>
-              <td class="p-4 text-on-surface-variant uppercase">Schema Modification</td>
+          <tbody
+            class="divide-y divide-outline-variant/30 font-data-numeral text-[12px]"
+          >
+            <tr class="transition-colors hover:bg-white/5">
+              <td class="p-4 text-on-surface-variant">
+                2023-10-27
+                <span class="text-white">14:32:01Z</span>
+              </td>
+              <td class="p-4 font-bold text-white">
+                SYS_ADMIN
+                <span class="text-[10px] text-on-surface-variant opacity-50">
+                  [ID:8092]
+                </span>
+              </td>
+              <td class="p-4 uppercase text-on-surface-variant">
+                Schema Modification
+              </td>
               <td class="p-4 text-right">
-                <span class="px-2 py-1 bg-primary/20 text-primary border border-primary/40 text-[10px] font-bold tracking-widest">VERIFIED</span>
+                <span
+                  class="border border-primary/40 bg-primary/20 px-2 py-1 text-[10px] font-bold tracking-widest text-primary"
+                >
+                  VERIFIED
+                </span>
               </td>
             </tr>
-            <tr class="bg-white/5 transition-colors">
-              <td class="p-4 text-on-surface-variant">2023-10-27 <span class="text-white">14:28:45Z</span></td>
-              <td class="p-4 text-white font-bold">API_KEY_EXT <span class="text-on-surface-variant opacity-50 text-[10px]">[ID:441A]</span></td>
-              <td class="p-4 text-on-surface-variant uppercase">Bulk Data Extraction</td>
+            <tr class="bg-white/5 transition-colors hover:bg-white/10">
+              <td class="p-4 text-on-surface-variant">
+                2023-10-27
+                <span class="text-white">14:28:45Z</span>
+              </td>
+              <td class="p-4 font-bold text-white">
+                API_KEY_EXT
+                <span class="text-[10px] text-on-surface-variant opacity-50">
+                  [ID:441A]
+                </span>
+              </td>
+              <td class="p-4 uppercase text-on-surface-variant">
+                Bulk Data Extraction
+              </td>
               <td class="p-4 text-right">
-                <span class="px-2 py-1 bg-env-alert/20 text-env-alert border border-env-alert/40 text-[10px] font-bold tracking-widest">BLOCKED</span>
+                <span
+                  class="border border-env-alert/40 bg-env-alert/20 px-2 py-1 text-[10px] font-bold tracking-widest text-env-alert"
+                >
+                  BLOCKED
+                </span>
               </td>
             </tr>
           </tbody>
         </table>
       </div>
     </section>
-
-    <!-- Action Button -->
-    <button class="w-full py-4 bg-primary text-black font-label-caps text-[12px] font-bold tracking-[0.2em] shadow-[0_0_20px_rgba(0,245,212,0.2)]">
+    <!-- Export -->
+    <button
+      type="button"
+      class="w-full bg-primary py-4 font-label-caps text-[12px] font-bold tracking-[0.2em] text-black shadow-[0_0_20px_rgba(0,245,212,0.2)] transition-opacity hover:opacity-90 active:scale-[0.99]"
+    >
       EXPORT COMPLIANCE REPORT
     </button>
   </main>
-
 </body>
 </html>
