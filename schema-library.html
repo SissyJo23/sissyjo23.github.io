@@ -1,500 +1,1170 @@
 <!DOCTYPE html>
-<html class="dark" lang="en">
+<html lang="en" class="dark">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Envictica - Schema Definition Library</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&amp;family=JetBrains+Mono:wght@500;700&amp;display=swap" rel="stylesheet"/>
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    "colors": {
-                        "on-tertiary-container": "#2c3a4e",
-                        "tertiary": "#b9c7e0",
-                        "on-tertiary": "#233144",
-                        "on-secondary-fixed": "#131b2e",
-                        "tertiary-fixed-dim": "#b9c7e0",
-                        "on-tertiary-fixed-variant": "#3a485c",
-                        "tertiary-container": "#95a4bb",
-                        "on-secondary": "#283044",
-                        "outline": "#86948a",
-                        "inverse-on-surface": "#2d3133",
-                        "secondary-fixed-dim": "#bec6e0",
-                        "on-surface-variant": "#bbcabf",
-                        "primary-fixed": "#6ffbbe",
-                        "on-tertiary-fixed": "#0d1c2f",
-                        "tertiary-fixed": "#d5e3fd",
-                        "background": "#101415",
-                        "inverse-primary": "#006c49",
-                        "surface-variant": "#323537",
-                        "primary": "#4edea3",
-                        "on-primary-fixed": "#002113",
-                        "on-primary-fixed-variant": "#005236",
-                        "on-background": "#e0e3e5",
-                        "primary-fixed-dim": "#4edea3",
-                        "secondary-fixed": "#dae2fd",
-                        "surface-dim": "#101415",
-                        "surface-container-high": "#272a2c",
-                        "secondary": "#bec6e0",
-                        "error-container": "#93000a",
-                        "on-error-container": "#ffdad6",
-                        "surface": "#101415",
-                        "on-secondary-fixed-variant": "#3f465c",
-                        "primary-container": "#10b981",
-                        "on-primary-container": "#00422b",
-                        "on-surface": "#e0e3e5",
-                        "surface-tint": "#4edea3",
-                        "surface-container-highest": "#323537",
-                        "surface-container-lowest": "#0b0f10",
-                        "on-primary": "#003824",
-                        "error": "#ffb4ab",
-                        "on-error": "#690005",
-                        "on-secondary-container": "#adb4ce",
-                        "surface-bright": "#363a3b",
-                        "secondary-container": "#3f465c",
-                        "surface-container": "#1d2022",
-                        "outline-variant": "#3c4a42",
-                        "surface-container-low": "#191c1e",
-                        "inverse-surface": "#e0e3e5"
-                    },
-                    "borderRadius": {
-                        "DEFAULT": "0.125rem",
-                        "lg": "0.25rem",
-                        "xl": "0.5rem",
-                        "full": "0.75rem"
-                    },
-                    "spacing": {
-                        "density-compact": "4px",
-                        "density-regular": "8px",
-                        "gutter": "12px",
-                        "margin": "24px",
-                        "unit": "4px"
-                    },
-                    "fontFamily": {
-                        "display-lg": ["Hanken Grotesk"],
-                        "label-caps": ["JetBrains Mono"],
-                        "title-sm": ["Hanken Grotesk"],
-                        "body-md": ["Hanken Grotesk"],
-                        "data-mono": ["JetBrains Mono"],
-                        "headline-md": ["Hanken Grotesk"],
-                        "body-sm": ["Hanken Grotesk"]
-                    },
-                    "fontSize": {
-                        "display-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
-                        "label-caps": ["11px", { "lineHeight": "16px", "fontWeight": "700" }],
-                        "title-sm": ["18px", { "lineHeight": "24px", "fontWeight": "600" }],
-                        "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
-                        "data-mono": ["13px", { "lineHeight": "18px", "letterSpacing": "-0.01em", "fontWeight": "500" }],
-                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
-                        "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }]
-                    }
-                }
-            }
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Envictica - Schema Definition Library</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+    rel="stylesheet"
+  >
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+    rel="stylesheet"
+  >
+  <script>
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            background: "#101415",
+            surface: "#101415",
+            "surface-container-lowest": "#0b0f10",
+            "surface-container-low": "#191c1e",
+            "surface-container": "#1d2022",
+            "surface-container-high": "#272a2c",
+            "surface-container-highest": "#323537",
+            "surface-variant": "#323537",
+            "surface-bright": "#363a3b",
+            primary: "#4edea3",
+            "primary-fixed": "#6ffbbe",
+            "primary-fixed-dim": "#4edea3",
+            "primary-container": "#10b981",
+            "on-primary": "#003824",
+            "on-primary-container": "#00422b",
+            "on-primary-fixed": "#002113",
+            "on-primary-fixed-variant": "#005236",
+            "inverse-primary": "#006c49",
+            secondary: "#bec6e0",
+            "secondary-container": "#3f465c",
+            "secondary-fixed": "#dae2fd",
+            "secondary-fixed-dim": "#bec6e0",
+            "on-secondary": "#283044",
+            "on-secondary-fixed": "#131b2e",
+            "on-secondary-fixed-variant": "#3f465c",
+            "on-secondary-container": "#adb4ce",
+            tertiary: "#b9c7e0",
+            "tertiary-container": "#95a4bb",
+            "tertiary-fixed": "#d5e3fd",
+            "tertiary-fixed-dim": "#b9c7e0",
+            "on-tertiary": "#233144",
+            "on-tertiary-container": "#2c3a4e",
+            "on-tertiary-fixed": "#0d1c2f",
+            "on-tertiary-fixed-variant": "#3a485c",
+            error: "#ffb4ab",
+            "error-container": "#93000a",
+            "on-error": "#690005",
+            "on-error-container": "#ffdad6",
+            "on-surface": "#e0e3e5",
+            "on-surface-variant": "#bbcabf",
+            "on-background": "#e0e3e5",
+            outline: "#86948a",
+            "outline-variant": "#3c4a42",
+            "inverse-surface": "#e0e3e5",
+            "inverse-on-surface": "#2d3133",
+            "surface-dim": "#101415",
+            "surface-tint": "#4edea3"
+          },
+          borderRadius: {
+            DEFAULT: "0.125rem",
+            lg: "0.25rem",
+            xl: "0.5rem",
+            full: "0.75rem"
+          },
+          spacing: {
+            "density-compact": "4px",
+            "density-regular": "8px",
+            gutter: "12px",
+            margin: "24px",
+            unit: "4px"
+          },
+          fontFamily: {
+            "display-lg": ["Hanken Grotesk"],
+            "headline-md": ["Hanken Grotesk"],
+            "title-sm": ["Hanken Grotesk"],
+            "body-md": ["Hanken Grotesk"],
+            "body-sm": ["Hanken Grotesk"],
+            "label-caps": ["JetBrains Mono"],
+            "data-mono": ["JetBrains Mono"]
+          },
+          fontSize: {
+            "display-lg": [
+              "32px",
+              {
+                lineHeight: "40px",
+                letterSpacing: "-0.02em",
+                fontWeight: "700"
+              }
+            ],
+            "headline-md": [
+              "24px",
+              {
+                lineHeight: "32px",
+                fontWeight: "600"
+              }
+            ],
+            "title-sm": [
+              "18px",
+              {
+                lineHeight: "24px",
+                fontWeight: "600"
+              }
+            ],
+            "body-md": [
+              "14px",
+              {
+                lineHeight: "20px",
+                fontWeight: "400"
+              }
+            ],
+            "body-sm": [
+              "12px",
+              {
+                lineHeight: "16px",
+                fontWeight: "400"
+              }
+            ],
+            "label-caps": [
+              "11px",
+              {
+                lineHeight: "16px",
+                fontWeight: "700"
+              }
+            ],
+            "data-mono": [
+              "13px",
+              {
+                lineHeight: "18px",
+                letterSpacing: "-0.01em",
+                fontWeight: "500"
+              }
+            ]
+          }
         }
-    </script>
-<style>
-        body { font-family: 'Hanken Grotesk', sans-serif; }
-        ::-webkit-scrollbar { width: 8px; height: 8px; }
-        ::-webkit-scrollbar-track { background: #101415; }
-        ::-webkit-scrollbar-thumb { background: #323537; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #3c4a42; }
-</style>
+      }
+    };
+  </script>
+  <style>
+    body {
+      font-family: "Hanken Grotesk", sans-serif;
+    }
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #101415;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #323537;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3c4a42;
+    }
+  </style>
 </head>
-<body class="bg-background text-on-background h-screen w-screen overflow-hidden flex flex-col md:flex-row selection:bg-primary/30 selection:text-primary">
-
-<!-- SideNavBar -->
-<nav class="w-full md:w-64 bg-surface border-r border-outline-variant flex flex-col shrink-0 py-density-regular h-auto md:h-screen">
-<!-- Header -->
-<div class="px-margin mb-margin flex items-center gap-gutter">
-<div class="w-10 h-10 rounded-DEFAULT bg-surface-container-highest flex items-center justify-center border border-outline-variant overflow-hidden shrink-0">
-<span class="material-symbols-outlined text-primary text-title-sm" style="font-variation-settings: 'FILL' 1;">account_circle</span>
-</div>
-<div class="overflow-hidden">
-<div class="font-headline-md text-headline-md text-primary truncate">Core Engine</div>
-<div class="font-label-caps text-label-caps text-on-surface-variant truncate">V2.4.0-Stable</div>
-</div>
-</div>
-<!-- Main Navigation -->
-<div class="flex-1 overflow-y-auto px-density-regular space-y-density-compact">
-<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="infrastructure.html">
-<span class="material-symbols-outlined">dns</span>
-<span>Infrastructure</span>
-</a>
-<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="governance.html">
-<span class="material-symbols-outlined">gavel</span>
-<span>Governance</span>
-</a>
-<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="pipelines.html">
-<span class="material-symbols-outlined">account_tree</span>
-<span>Pipelines</span>
-</a>
-<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="data-validation.html">
-<span class="material-symbols-outlined">fact_check</span>
-<span>Data Validation</span>
-</a>
-<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="data-debt-repair.html">
-<span class="material-symbols-outlined">build_circle</span>
-<span>Data Debt Repair</span>
-</a>
-<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="audit-logs.html">
-<span class="material-symbols-outlined">history_edu</span>
-<span>Audit Logs</span>
-</a>
-<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="risk-matrix.html">
-<span class="material-symbols-outlined">grid_view</span>
-<span>Risk Matrix</span>
-</a>
-<!-- Active Tab -->
-<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps border-r-2 border-primary text-primary bg-primary-container/10 transition-all duration-150 ease-in-out rounded-l-DEFAULT rounded-r-none" href="schema-library.html">
-<span class="material-symbols-outlined">schema</span>
-<span>Schema Library</span>
-</a>
-</div>
-<!-- Footer Navigation -->
-<div class="mt-auto px-density-regular pt-margin border-t border-outline-variant space-y-density-compact">
-<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="docs.html">
-<span class="material-symbols-outlined">description</span>
-<span>Docs</span>
-</a>
-<a class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps text-on-surface-variant bg-transparent hover:bg-surface-variant hover:text-on-surface transition-all duration-150 ease-in-out rounded-DEFAULT" href="support.html">
-<span class="material-symbols-outlined">help</span>
-<span>Support</span>
-</a>
-</div>
-</nav>
-
-<!-- Main Application Area -->
-<main class="flex-1 flex flex-col h-screen min-w-0 bg-background relative overflow-y-auto">
-<!-- TopNavBar -->
-<header class="bg-surface-container flex justify-between items-center px-margin h-16 w-full shrink-0 border-b border-outline-variant">
-<div class="flex items-center gap-margin">
-<div class="font-headline-md text-headline-md text-primary uppercase tracking-wider">ENVICTICA</div>
-<!-- Search Bar -->
-<div class="relative hidden lg:block w-96">
-<span class="material-symbols-outlined absolute left-gutter top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]">search</span>
-<input class="w-full bg-surface border border-outline-variant rounded-DEFAULT pl-10 pr-4 py-1.5 font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all" placeholder="Query schemas, jurisdictions, tags..." type="text"/>
-</div>
-</div>
-<div class="flex items-center gap-density-regular">
-<button aria-label="monitor_heart" onclick="triggerAction('System Health Monitoring Standard Active')" class="p-2 rounded-DEFAULT text-primary hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80">
-<span class="material-symbols-outlined">monitor_heart</span>
-</button>
-<button aria-label="settings" onclick="triggerAction('Opening Engine Settings')" class="p-2 rounded-DEFAULT text-primary hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80">
-<span class="material-symbols-outlined">settings</span>
-</button>
-<button aria-label="notifications" onclick="triggerAction('No new security warnings')" class="p-2 rounded-DEFAULT text-primary hover:bg-surface-container-highest transition-colors cursor-pointer active:opacity-80 relative">
-<span class="material-symbols-outlined">notifications</span>
-<span class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border border-surface-container"></span>
-</button>
-<div class="ml-gutter w-8 h-8 rounded-DEFAULT bg-surface-variant border border-outline-variant overflow-hidden cursor-pointer hover:border-primary transition-colors">
-<img alt="Operator Profile" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjA3vskKN9Qiq2n-N4F12V4Yl30hjgsetPpCDqpjmbt81vx0FqXhyq1wtmXhLUYUNP33mksT_F7vLhgEsGkLxFUpX8eLLjrbnGyL01hRIZdjD6fAMCpfFtFTKRBstH_p0j_6lJZbDL9cOvIFegVPYP9_mpQYC2EtivibM03ki5KUOOUvH9eQZxo4DG8rM4dYVferqztkG5aS6Z53ctJXBScd1YZY9rj1S5YNu4fyCuWO8VeM7pXSI8Fg"/>
-</div>
-</div>
-</header>
-
-<!-- Module Bar -->
-<div class="bg-primary text-on-primary-container py-density-compact px-margin flex items-center justify-center shrink-0 border-b border-primary-fixed-dim">
-<span class="font-label-caps text-label-caps tracking-[0.1em] font-bold">OFFICIAL ENVICTICA MODULE: 09 OF 17</span>
-</div>
-
-<!-- Scrollable Workspace Container -->
-<div class="flex-1 p-margin flex flex-col xl:flex-row gap-margin items-start">
-<!-- Main Content Area -->
-<div class="flex-1 w-full min-w-0 flex flex-col gap-margin">
-<!-- Page Header & Actions -->
-<div class="flex flex-col md:flex-row md:items-end justify-between gap-gutter">
-<div>
-<!-- Breadcrumbs -->
-<div class="flex items-center gap-density-compact font-data-mono text-data-mono text-on-surface-variant mb-density-regular opacity-70">
-<a href="index.html" class="hover:text-primary transition-colors">ROOT</a>
-<span class="material-symbols-outlined text-[16px]">chevron_right</span>
-<span class="hover:text-primary cursor-pointer transition-colors">MODULES</span>
-<span class="material-symbols-outlined text-[16px]">chevron_right</span>
-<span class="text-on-surface">SCHEMA_LIB</span>
-</div>
-<h1 class="font-display-lg text-display-lg text-on-surface">Schema Definition Library</h1>
-<p class="font-body-md text-body-md text-on-surface-variant mt-density-compact">Manage legal DNA templates and structural adherence protocols.</p>
-</div>
-<div class="flex items-center gap-density-regular shrink-0">
-<button onclick="exportFingerprints()" class="h-10 px-gutter flex items-center gap-density-regular bg-transparent border border-outline text-on-surface font-title-sm text-title-sm rounded-DEFAULT hover:bg-surface-variant transition-colors cursor-pointer">
-<span class="material-symbols-outlined text-[18px]">fingerprint</span>
-                            Export Fingerprints
+<body
+  class="bg-background text-on-background min-h-screen w-screen overflow-x-hidden flex flex-col md:flex-row selection:bg-primary/30 selection:text-primary"
+>
+  <!-- =========================================================
+       SIDEBAR
+       ========================================================= -->
+  <nav
+    class="w-full md:w-64 bg-surface border-r border-outline-variant flex flex-col shrink-0 py-density-regular md:h-screen"
+    aria-label="Primary navigation"
+  >
+    <!-- Engine Header -->
+    <div class="px-margin mb-margin flex items-center gap-gutter">
+      <div
+        class="w-10 h-10 rounded-DEFAULT bg-surface-container-highest flex items-center justify-center border border-outline-variant shrink-0"
+      >
+        <span
+          class="material-symbols-outlined text-primary text-title-sm"
+          aria-hidden="true"
+          style="font-variation-settings: 'FILL' 1;"
+        >
+          account_circle
+        </span>
+      </div>
+      <div class="overflow-hidden">
+        <div class="font-headline-md text-headline-md text-primary truncate">
+          Core Engine
+        </div>
+        <div class="font-label-caps text-label-caps text-on-surface-variant truncate">
+          V2.4.0-Stable
+        </div>
+      </div>
+    </div>
+    <!-- Main Navigation -->
+    <div class="flex-1 overflow-y-auto px-density-regular space-y-density-compact">
+      <a
+        href="infrastructure.html"
+        class="nav-item"
+      >
+        <span class="material-symbols-outlined" aria-hidden="true">dns</span>
+        <span>Infrastructure</span>
+      </a>
+      <a
+        href="governance.html"
+        class="nav-item"
+      >
+        <span class="material-symbols-outlined" aria-hidden="true">gavel</span>
+        <span>Governance</span>
+      </a>
+      <a
+        href="pipelines.html"
+        class="nav-item"
+      >
+        <span class="material-symbols-outlined" aria-hidden="true">account_tree</span>
+        <span>Pipelines</span>
+      </a>
+      <a
+        href="data-validation.html"
+        class="nav-item"
+      >
+        <span class="material-symbols-outlined" aria-hidden="true">fact_check</span>
+        <span>Data Validation</span>
+      </a>
+      <a
+        href="data-debt-repair.html"
+        class="nav-item"
+      >
+        <span class="material-symbols-outlined" aria-hidden="true">build_circle</span>
+        <span>Data Debt Repair</span>
+      </a>
+      <a
+        href="audit-logs.html"
+        class="nav-item"
+      >
+        <span class="material-symbols-outlined" aria-hidden="true">history_edu</span>
+        <span>Audit Logs</span>
+      </a>
+      <a
+        href="risk-matrix.html"
+        class="nav-item"
+      >
+        <span class="material-symbols-outlined" aria-hidden="true">grid_view</span>
+        <span>Risk Matrix</span>
+      </a>
+      <!-- Active Module -->
+      <a
+        href="schema-library.html"
+        aria-current="page"
+        class="flex items-center gap-gutter px-gutter py-density-regular font-label-caps text-label-caps border-r-2 border-primary text-primary bg-primary-container/10 rounded-l-DEFAULT rounded-r-none"
+      >
+        <span class="material-symbols-outlined" aria-hidden="true">schema</span>
+        <span>Schema Library</span>
+      </a>
+    </div>
+    <!-- Footer Navigation -->
+    <div class="mt-auto px-density-regular pt-margin border-t border-outline-variant space-y-density-compact">
+      <a
+        href="docs.html"
+        class="nav-item"
+      >
+        <span class="material-symbols-outlined" aria-hidden="true">description</span>
+        <span>Docs</span>
+      </a>
+      <a
+        href="support.html"
+        class="nav-item"
+      >
+        <span class="material-symbols-outlined" aria-hidden="true">help</span>
+        <span>Support</span>
+      </a>
+    </div>
+  </nav>
+  <!-- =========================================================
+       MAIN APPLICATION
+       ========================================================= -->
+  <main class="flex-1 flex flex-col min-w-0 bg-background relative">
+    <!-- Top Navigation -->
+    <header
+      class="bg-surface-container flex justify-between items-center px-margin h-16 w-full shrink-0 border-b border-outline-variant"
+    >
+      <div class="flex items-center gap-margin">
+        <div class="font-headline-md text-headline-md text-primary uppercase tracking-wider">
+          ENVICTICA
+        </div>
+        <!-- Search -->
+        <div class="relative hidden lg:block w-96">
+          <span
+            class="material-symbols-outlined absolute left-gutter top-1/2 -translate-y-1/2 text-on-surface-variant text-[18px]"
+            aria-hidden="true"
+          >
+            search
+          </span>
+          <input
+            id="schemaSearch"
+            type="search"
+            aria-label="Search schemas"
+            placeholder="Query schemas, jurisdictions, tags..."
+            class="w-full bg-surface border border-outline-variant rounded-DEFAULT pl-10 pr-4 py-1.5 font-body-sm text-body-sm text-on-surface placeholder:text-on-surface-variant focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary"
+          >
+        </div>
+      </div>
+      <div class="flex items-center gap-density-regular">
+        <button
+          type="button"
+          aria-label="System health"
+          onclick="triggerAction('System Health Monitoring Standard Active')"
+          class="icon-button"
+        >
+          <span class="material-symbols-outlined" aria-hidden="true">
+            monitor_heart
+          </span>
+        </button>
+        <button
+          type="button"
+          aria-label="Settings"
+          onclick="triggerAction('Opening Engine Settings')"
+          class="icon-button"
+        >
+          <span class="material-symbols-outlined" aria-hidden="true">
+            settings
+          </span>
+        </button>
+        <button
+          type="button"
+          aria-label="Notifications"
+          onclick="triggerAction('No new security warnings')"
+          class="icon-button relative"
+        >
+          <span class="material-symbols-outlined" aria-hidden="true">
+            notifications
+          </span>
+          <span
+            class="absolute top-2 right-2 w-2 h-2 bg-error rounded-full border border-surface-container"
+            aria-label="Notification indicator"
+          ></span>
+        </button>
+        <button
+          type="button"
+          aria-label="Operator profile"
+          class="ml-gutter w-8 h-8 rounded-DEFAULT bg-surface-variant border border-outline-variant overflow-hidden hover:border-primary transition-colors"
+        >
+          <img
+            alt="Operator Profile"
+            class="w-full h-full object-cover"
+            src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjA3vskKN9Qiq2n-N4F12V4Yl30hjgsetPpCDqpjmbt81vx0FqXhyq1wtmXhLUYUNP33mksT_F7vLhgEsGkLxFUpX8eLLjrbnGyL01hRIZdjD6fAMCpfFtFTKRBstH_p0j_6lJZbDL9cOvIFegVPYP9_mpQYC2EtivibM03ki5KUOOUvH9eQZxo4DG8rM4dYVferqztkG5aS6Z53ctJXBScd1YZY9rj1S5YNu4fyCuWO8VeM7pXSI8Fg"
+          >
+        </button>
+      </div>
+    </header>
+    <!-- Module Identifier -->
+    <div
+      class="bg-primary text-on-primary-container py-density-compact px-margin flex items-center justify-center shrink-0 border-b border-primary-fixed-dim"
+    >
+      <span class="font-label-caps text-label-caps tracking-[0.1em]">
+        OFFICIAL ENVICTICA MODULE: 09 OF 17
+      </span>
+    </div>
+    <!-- Workspace -->
+    <div class="flex-1 overflow-y-auto p-margin">
+      <div class="flex flex-col xl:flex-row gap-margin items-start">
+        <!-- =====================================================
+             MAIN CONTENT
+             ===================================================== -->
+        <section class="flex-1 w-full min-w-0 flex flex-col gap-margin">
+          <!-- Page Header -->
+          <div class="flex flex-col md:flex-row md:items-end justify-between gap-gutter">
+            <div>
+              <div class="flex items-center gap-density-compact font-data-mono text-data-mono text-on-surface-variant mb-density-regular opacity-70">
+                <a
+                  href="index.html"
+                  class="hover:text-primary transition-colors"
+                >
+                  ROOT
+                </a>
+                <span class="material-symbols-outlined text-[16px]" aria-hidden="true">
+                  chevron_right
+                </span>
+                <span>MODULES</span>
+                <span class="material-symbols-outlined text-[16px]" aria-hidden="true">
+                  chevron_right
+                </span>
+                <span class="text-on-surface">
+                  SCHEMA_LIB
+                </span>
+              </div>
+              <h1 class="font-display-lg text-display-lg text-on-surface">
+                Schema Definition Library
+              </h1>
+              <p class="font-body-md text-body-md text-on-surface-variant mt-density-compact">
+                Manage legal DNA templates and structural adherence protocols.
+              </p>
+            </div>
+            <!-- Header Actions -->
+            <div class="flex items-center gap-density-regular shrink-0">
+              <button
+                type="button"
+                onclick="exportFingerprints()"
+                class="action-button-secondary"
+              >
+                <span class="material-symbols-outlined text-[18px]" aria-hidden="true">
+                  fingerprint
+                </span>
+                Export Fingerprints
+              </button>
+              <button
+                type="button"
+                onclick="createSchema()"
+                class="action-button-primary"
+              >
+                <span class="material-symbols-outlined text-[18px]" aria-hidden="true">
+                  add_box
+                </span>
+                Create New Schema
+              </button>
+            </div>
+          </div>
+          <!-- ===================================================
+               TELEMETRY
+               =================================================== -->
+          <section
+            aria-label="Schema telemetry"
+            class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-density-regular"
+          >
+            <div class="telemetry-card hover:border-primary">
+              <span class="material-symbols-outlined telemetry-icon text-primary" aria-hidden="true">
+                verified
+              </span>
+              <span class="telemetry-label">
+                Adherence Rate
+              </span>
+              <div class="flex items-baseline gap-density-compact mt-auto">
+                <span class="font-data-mono text-display-lg text-primary">
+                  100
+                </span>
+                <span class="font-data-mono text-title-sm text-primary">
+                  %
+                </span>
+              </div>
+            </div>
+            <div class="telemetry-card hover:border-outline">
+              <span class="telemetry-label">
+                Active DNA Templates
+              </span>
+              <div class="flex items-baseline gap-density-compact mt-auto">
+                <span class="font-data-mono text-display-lg text-on-surface">
+                  42
+                </span>
+              </div>
+            </div>
+            <div class="telemetry-card hover:border-outline">
+              <span class="telemetry-label">
+                Last Template Update
+              </span>
+              <div class="flex items-baseline gap-density-compact mt-auto">
+                <span class="font-data-mono text-display-lg text-on-surface">
+                  2.4
+                </span>
+                <span class="font-data-mono text-title-sm text-on-surface-variant">
+                  m ago
+                </span>
+              </div>
+            </div>
+            <div class="telemetry-card hover:border-error">
+              <span class="telemetry-label">
+                Data Debt Mitigated
+              </span>
+              <div class="flex items-baseline gap-density-compact mt-auto">
+                <span class="font-data-mono text-title-sm text-error">
+                  $
+                </span>
+                <span class="font-data-mono text-display-lg text-on-surface">
+                  4.2
+                </span>
+                <span class="font-data-mono text-title-sm text-on-surface-variant">
+                  M
+                </span>
+              </div>
+            </div>
+          </section>
+          <!-- ===================================================
+               GLOBAL SCHEMA CATEGORIES
+               =================================================== -->
+          <section class="flex flex-col gap-density-regular">
+            <h2 class="font-title-sm text-title-sm text-on-surface flex items-center gap-density-regular">
+              <span
+                class="material-symbols-outlined text-[20px] text-primary"
+                aria-hidden="true"
+              >
+                category
+              </span>
+              Global Schema Categories
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-density-regular">
+              <button
+                type="button"
+                onclick="triggerAction('Filtering category: Master Agreements')"
+                class="category-card"
+              >
+                <div class="category-code">
+                  MA-1
+                </div>
+                <div class="text-left">
+                  <h3 class="font-title-sm text-title-sm text-on-surface">
+                    Master Agreements
+                  </h3>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Core transactional scaffolds.
+                  </p>
+                </div>
+              </button>
+              <button
+                type="button"
+                onclick="triggerAction('Filtering category: Jurisdictional Dockets')"
+                class="category-card"
+              >
+                <div class="category-code">
+                  JD-4
+                </div>
+                <div class="text-left">
+                  <h3 class="font-title-sm text-title-sm text-on-surface">
+                    Jurisdictional Dockets
+                  </h3>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Regional compliance overrides.
+                  </p>
+                </div>
+              </button>
+              <button
+                type="button"
+                onclick="triggerAction('Filtering category: Internal Knowledge')"
+                class="category-card"
+              >
+                <div class="category-code">
+                  IK-7
+                </div>
+                <div class="text-left">
+                  <h3 class="font-title-sm text-title-sm text-on-surface">
+                    Internal Knowledge
+                  </h3>
+                  <p class="font-body-sm text-body-sm text-on-surface-variant">
+                    Proprietary structural rules.
+                  </p>
+                </div>
+              </button>
+            </div>
+          </section>
+          <!-- ===================================================
+               TEMPLATE MANAGEMENT
+               =================================================== -->
+          <section class="flex flex-col gap-density-regular pb-12">
+            <h2 class="font-title-sm text-title-sm text-on-surface flex items-center gap-density-regular">
+              <span
+                class="material-symbols-outlined text-[20px] text-primary"
+                aria-hidden="true"
+              >
+                table_rows
+              </span>
+              Template Management Register
+            </h2>
+            <div
+              class="bg-surface border border-outline-variant rounded-DEFAULT overflow-hidden shadow-[0_4px_24px_rgba(0,0,0,0.5)]"
+            >
+              <!-- Table Controls -->
+              <div
+                class="px-gutter py-density-regular bg-surface-container border-b border-outline-variant flex justify-between items-center"
+              >
+                <div class="flex gap-density-regular">
+                  <button
+                    type="button"
+                    onclick="triggerAction('Filter dialog triggered')"
+                    class="table-control"
+                  >
+                    <span class="material-symbols-outlined text-[16px]" aria-hidden="true">
+                      filter_list
+                    </span>
+                    FILTER
+                  </button>
+                  <button
+                    type="button"
+                    onclick="triggerAction('Sort order updated')"
+                    class="table-control"
+                  >
+                    <span class="material-symbols-outlined text-[16px]" aria-hidden="true">
+                      sort
+                    </span>
+                    SORT
+                  </button>
+                </div>
+                <span class="font-data-mono text-body-sm text-on-surface-variant">
+                  Showing 1-12 of 42
+                </span>
+              </div>
+              <!-- Table -->
+              <div class="overflow-x-auto bg-background">
+                <table class="w-full text-left border-collapse">
+                  <caption class="sr-only">
+                    Envictica schema template management register
+                  </caption>
+                  <thead class="bg-surface-container">
+                    <tr>
+                      <th class="table-header">Schema ID</th>
+                      <th class="table-header">Version (Hashed)</th>
+                      <th class="table-header">Jurisdiction</th>
+                      <th class="table-header">Compliance Status</th>
+                      <th class="table-header text-right">
+                        Adherence Metric
+                      </th>
+                      <th class="table-header w-10">
+                        <span class="sr-only">Actions</span>
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody class="font-data-mono text-data-mono divide-y divide-surface-container-highest">
+                    <!-- MA-1.094 -->
+                    <tr class="schema-row">
+                      <td class="table-cell text-on-surface">
+                        MA-1.094
+                      </td>
+                      <td
+                        class="table-cell text-on-surface-variant truncate max-w-[120px]"
+                        title="0x7f...3a9b"
+                      >
+                        0x7f...3a9b
+                      </td>
+                      <td class="table-cell text-on-surface">
+                        Global/Core
+                      </td>
+                      <td class="table-cell">
+                        <span class="status-cleared">
+                          <span class="status-dot bg-primary"></span>
+                          CLEARED
+                        </span>
+                      </td>
+                      <td class="table-cell text-right text-on-surface">
+                        100.00%
+                      </td>
+                      <td class="table-cell text-right">
+                        <button
+                          type="button"
+                          aria-label="Options for MA-1.094"
+                          onclick="triggerAction('Options for MA-1.094')"
+                          class="row-action"
+                        >
+                          <span class="material-symbols-outlined text-[20px]" aria-hidden="true">
+                            more_vert
+                          </span>
                         </button>
-<button onclick="createSchema()" class="h-10 px-gutter flex items-center gap-density-regular bg-primary text-on-primary font-title-sm text-title-sm rounded-DEFAULT hover:bg-primary-fixed transition-colors font-bold shadow-[0_0_15px_rgba(78,222,163,0.15)] cursor-pointer">
-<span class="material-symbols-outlined text-[18px]">add_box</span>
-                            Create New Schema
+                      </td>
+                    </tr>
+                    <!-- JD-4.EU-B -->
+                    <tr class="schema-row bg-surface-container-low">
+                      <td class="table-cell text-on-surface">
+                        JD-4.EU-B
+                      </td>
+                      <td
+                        class="table-cell text-on-surface-variant truncate max-w-[120px]"
+                        title="0x2a...8f1c"
+                      >
+                        0x2a...8f1c
+                      </td>
+                      <td class="table-cell text-on-surface">
+                        EMEA/DE
+                      </td>
+                      <td class="table-cell">
+                        <span class="status-caution">
+                          <span class="status-dot bg-error"></span>
+                          CAUTION
+                        </span>
+                      </td>
+                      <td class="table-cell text-right text-error">
+                        94.20%
+                      </td>
+                      <td class="table-cell text-right">
+                        <button
+                          type="button"
+                          aria-label="Options for JD-4.EU-B"
+                          onclick="triggerAction('Options for JD-4.EU-B')"
+                          class="row-action"
+                        >
+                          <span class="material-symbols-outlined text-[20px]" aria-hidden="true">
+                            more_vert
+                          </span>
                         </button>
-</div>
-</div>
-
-<!-- Telemetry Panel -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-density-regular">
-<div class="bg-surface-container border border-outline-variant p-gutter rounded-DEFAULT flex flex-col justify-between relative overflow-hidden group hover:border-primary transition-colors">
-<div class="absolute top-0 right-0 p-density-regular opacity-20 group-hover:opacity-100 transition-opacity">
-<span class="material-symbols-outlined text-primary text-[32px]">verified</span>
-</div>
-<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider z-10">Adherence Rate</span>
-<div class="flex items-baseline gap-density-compact mt-auto z-10">
-<span class="font-data-mono text-display-lg text-primary">100</span>
-<span class="font-data-mono text-title-sm text-primary">%</span>
-</div>
-</div>
-<div class="bg-surface-container border border-outline-variant p-gutter rounded-DEFAULT flex flex-col justify-between relative overflow-hidden group hover:border-outline transition-colors">
-<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider z-10">Active DNA Templates</span>
-<div class="flex items-baseline gap-density-compact mt-auto z-10">
-<span class="font-data-mono text-display-lg text-on-surface">42</span>
-</div>
-</div>
-<div class="bg-surface-container border border-outline-variant p-gutter rounded-DEFAULT flex flex-col justify-between relative overflow-hidden group hover:border-outline transition-colors">
-<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider z-10">Last Template Update</span>
-<div class="flex items-baseline gap-density-compact mt-auto z-10">
-<span class="font-data-mono text-display-lg text-on-surface">2.4</span>
-<span class="font-data-mono text-title-sm text-on-surface-variant">m ago</span>
-</div>
-</div>
-<div class="bg-surface-container border border-outline-variant p-gutter rounded-DEFAULT flex flex-col justify-between relative overflow-hidden group hover:border-error transition-colors">
-<div class="absolute inset-0 bg-error/5 opacity-0 group-hover:opacity-100 transition-opacity"></div>
-<span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-wider z-10">Data Debt Mitigated</span>
-<div class="flex items-baseline gap-density-compact mt-auto z-10">
-<span class="font-data-mono text-title-sm text-error">$</span>
-<span class="font-data-mono text-display-lg text-on-surface">4.2</span>
-<span class="font-data-mono text-title-sm text-on-surface-variant">M</span>
-</div>
-</div>
-</div>
-
-<!-- Global Schema Categories -->
-<div class="flex flex-col gap-density-regular">
-<h2 class="font-title-sm text-title-sm text-on-surface flex items-center gap-density-regular">
-<span class="material-symbols-outlined text-[20px] text-primary">category</span>
-                        Global Schema Categories
-                    </h2>
-<div class="grid grid-cols-1 md:grid-cols-3 gap-density-regular">
-<div onclick="triggerAction('Filtering category: Master Agreements')" class="bg-surface-container-low border border-outline-variant p-gutter rounded-DEFAULT cursor-pointer hover:bg-surface-container hover:ring-1 hover:ring-inset hover:ring-primary transition-all flex items-center gap-gutter">
-<div class="w-12 h-12 rounded-DEFAULT bg-surface border border-outline-variant flex items-center justify-center shrink-0">
-<span class="font-data-mono text-title-sm text-on-surface">MA-1</span>
-</div>
-<div>
-<h3 class="font-title-sm text-title-sm text-on-surface">Master Agreements</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Core transactional scaffolds.</p>
-</div>
-</div>
-<div onclick="triggerAction('Filtering category: Jurisdictional Dockets')" class="bg-surface-container-low border border-outline-variant p-gutter rounded-DEFAULT cursor-pointer hover:bg-surface-container hover:ring-1 hover:ring-inset hover:ring-primary transition-all flex items-center gap-gutter">
-<div class="w-12 h-12 rounded-DEFAULT bg-surface border border-outline-variant flex items-center justify-center shrink-0">
-<span class="font-data-mono text-title-sm text-on-surface">JD-4</span>
-</div>
-<div>
-<h3 class="font-title-sm text-title-sm text-on-surface">Jurisdictional Dockets</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Regional compliance overrides.</p>
-</div>
-</div>
-<div onclick="triggerAction('Filtering category: Internal Knowledge')" class="bg-surface-container-low border border-outline-variant p-gutter rounded-DEFAULT cursor-pointer hover:bg-surface-container hover:ring-1 hover:ring-inset hover:ring-primary transition-all flex items-center gap-gutter">
-<div class="w-12 h-12 rounded-DEFAULT bg-surface border border-outline-variant flex items-center justify-center shrink-0">
-<span class="font-data-mono text-title-sm text-on-surface">IK-7</span>
-</div>
-<div>
-<h3 class="font-title-sm text-title-sm text-on-surface">Internal Knowledge</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant">Proprietary structural rules.</p>
-</div>
-</div>
-</div>
-</div>
-
-<!-- Template Management Table -->
-<div class="flex flex-col gap-density-regular flex-1 pb-12">
-<h2 class="font-title-sm text-title-sm text-on-surface flex items-center gap-density-regular">
-<span class="material-symbols-outlined text-[20px] text-primary">table_rows</span>
-                        Template Management Register
-                    </h2>
-<div class="bg-surface border border-outline-variant rounded-DEFAULT overflow-hidden flex flex-col flex-1 shadow-[0_4px_24px_rgba(0,0,0,0.5)]">
-<!-- Table Utilities -->
-<div class="px-gutter py-density-regular bg-surface-container border-b border-outline-variant flex justify-between items-center">
-<div class="flex gap-density-regular">
-<button onclick="triggerAction('Filter dialog triggered')" class="px-density-regular py-1 text-on-surface font-label-caps text-label-caps hover:text-primary transition-colors flex items-center gap-1 cursor-pointer">
-<span class="material-symbols-outlined text-[16px]">filter_list</span> FILTER
-                                </button>
-<button onclick="triggerAction('Sort order updated')" class="px-density-regular py-1 text-on-surface font-label-caps text-label-caps hover:text-primary transition-colors flex items-center gap-1 cursor-pointer">
-<span class="material-symbols-outlined text-[16px]">sort</span> SORT
-                                </button>
-</div>
-<span class="font-data-mono text-body-sm text-on-surface-variant">Showing 1-12 of 42</span>
-</div>
-<!-- Table Scroll Area -->
-<div class="overflow-x-auto bg-background">
-<table class="w-full text-left border-collapse">
-<thead class="bg-surface-container sticky top-0 z-10">
-<tr>
-<th class="py-density-regular px-gutter font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant whitespace-nowrap">Schema ID</th>
-<th class="py-density-regular px-gutter font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant whitespace-nowrap">Version (Hashed)</th>
-<th class="py-density-regular px-gutter font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant whitespace-nowrap">Jurisdiction</th>
-<th class="py-density-regular px-gutter font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant whitespace-nowrap">Compliance Status</th>
-<th class="py-density-regular px-gutter font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant text-right whitespace-nowrap">Adherence Metric</th>
-<th class="py-density-regular px-gutter font-label-caps text-label-caps text-on-surface-variant border-b border-outline-variant w-10"></th>
-</tr>
-</thead>
-<tbody class="font-data-mono text-data-mono divide-y divide-surface-container-highest">
-<!-- Row 1 -->
-<tr class="hover:bg-surface-variant/50 transition-colors cursor-default group">
-<td class="py-density-regular px-gutter text-on-surface">MA-1.094</td>
-<td class="py-density-regular px-gutter text-on-surface-variant truncate max-w-[120px]" title="0x7f...3a9b">0x7f...3a9b</td>
-<td class="py-density-regular px-gutter text-on-surface">Global/Core</td>
-<td class="py-density-regular px-gutter">
-<div class="inline-flex items-center gap-density-compact px-2 py-0.5 rounded-DEFAULT bg-primary-container/20 border border-primary/30">
-<div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
-<span class="font-label-caps text-[10px] text-primary">CLEARED</span>
-</div>
-</td>
-<td class="py-density-regular px-gutter text-right text-on-surface">100.00%</td>
-<td class="py-density-regular px-gutter text-right">
-<button onclick="triggerAction('Options for MA-1.094')" class="text-on-surface-variant opacity-0 group-hover:opacity-100 hover:text-primary transition-all cursor-pointer"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
-</td>
-</tr>
-<!-- Row 2 -->
-<tr class="hover:bg-surface-variant/50 transition-colors cursor-default group bg-surface-container-low">
-<td class="py-density-regular px-gutter text-on-surface">JD-4.EU-B</td>
-<td class="py-density-regular px-gutter text-on-surface-variant truncate max-w-[120px]" title="0x2a...8f1c">0x2a...8f1c</td>
-<td class="py-density-regular px-gutter text-on-surface">EMEA/DE</td>
-<td class="py-density-regular px-gutter">
-<div class="inline-flex items-center gap-density-compact px-2 py-0.5 rounded-DEFAULT bg-error-container/20 border border-error/30">
-<div class="w-1.5 h-1.5 rounded-full bg-error"></div>
-<span class="font-label-caps text-[10px] text-error">CAUTION</span>
-</div>
-</td>
-<td class="py-density-regular px-gutter text-right text-error">94.20%</td>
-<td class="py-density-regular px-gutter text-right">
-<button onclick="triggerAction('Options for JD-4.EU-B')" class="text-on-surface-variant opacity-0 group-hover:opacity-100 hover:text-primary transition-all cursor-pointer"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
-</td>
-</tr>
-<!-- Row 3 -->
-<tr class="hover:bg-surface-variant/50 transition-colors cursor-default group">
-<td class="py-density-regular px-gutter text-on-surface">IK-7.SEC-A</td>
-<td class="py-density-regular px-gutter text-on-surface-variant truncate max-w-[120px]" title="0x9e...1b44">0x9e...1b44</td>
-<td class="py-density-regular px-gutter text-on-surface">Internal/Sec</td>
-<td class="py-density-regular px-gutter">
-<div class="inline-flex items-center gap-density-compact px-2 py-0.5 rounded-DEFAULT bg-primary-container/20 border border-primary/30">
-<div class="w-1.5 h-1.5 rounded-full bg-primary"></div>
-<span class="font-label-caps text-[10px] text-primary">CLEARED</span>
-</div>
-</td>
-<td class="py-density-regular px-gutter text-right text-on-surface">99.98%</td>
-<td class="py-density-regular px-gutter text-right">
-<button onclick="triggerAction('Options for IK-7.SEC-A')" class="text-on-surface-variant opacity-0 group-hover:opacity-100 hover:text-primary transition-all cursor-pointer"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
-</td>
-</tr>
-<!-- Row 4 -->
-<tr class="hover:bg-surface-variant/50 transition-colors cursor-default group bg-surface-container-low">
-<td class="py-density-regular px-gutter text-on-surface">MA-1.095-DRAFT</td>
-<td class="py-density-regular px-gutter text-on-surface-variant truncate max-w-[120px]" title="Pending_Hash">Pending...</td>
-<td class="py-density-regular px-gutter text-on-surface">Global/Core</td>
-<td class="py-density-regular px-gutter">
-<div class="inline-flex items-center gap-density-compact px-2 py-0.5 rounded-DEFAULT bg-surface-variant border border-outline">
-<div class="w-1.5 h-1.5 rounded-full bg-outline"></div>
-<span class="font-label-caps text-[10px] text-on-surface">DRAFTING</span>
-</div>
-</td>
-<td class="py-density-regular px-gutter text-right text-on-surface-variant">--</td>
-<td class="py-density-regular px-gutter text-right">
-<button onclick="triggerAction('Options for MA-1.095-DRAFT')" class="text-on-surface-variant opacity-0 group-hover:opacity-100 hover:text-primary transition-all cursor-pointer"><span class="material-symbols-outlined text-[20px]">more_vert</span></button>
-</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</div>
-</div>
-
-<!-- Schema Hardening Panel (Right Sidebar) -->
-<aside class="w-full xl:w-80 flex flex-col gap-margin shrink-0 pb-12">
-<!-- Verification Status Box -->
-<div class="bg-surface-container border border-outline-variant rounded-DEFAULT p-gutter relative overflow-hidden">
-<div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(circle at top right, rgba(78,222,163,0.05), transparent 70%);"></div>
-<h3 class="font-title-sm text-title-sm text-on-surface flex items-center gap-density-regular mb-gutter">
-<span class="material-symbols-outlined text-primary text-[20px]">shield_locked</span>
-                        Schema Hardening
-                    </h3>
-<div class="space-y-gutter">
-<!-- Multi-Sig Section -->
-<div>
-<div class="flex justify-between items-end mb-density-compact">
-<span class="font-label-caps text-label-caps text-on-surface-variant">Multi-Sig Template Approval</span>
-<span class="font-data-mono text-body-sm text-primary">2/3 SIGS</span>
-</div>
-<div class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden">
-<div class="h-full bg-primary w-2/3"></div>
-</div>
-<div class="flex gap-density-compact mt-density-regular">
-<div class="w-6 h-6 rounded-full bg-surface-variant border border-primary flex items-center justify-center text-[10px] text-primary" title="Legal Officer: Approved">LO</div>
-<div class="w-6 h-6 rounded-full bg-surface-variant border border-primary flex items-center justify-center text-[10px] text-primary" title="Tech Lead: Approved">TL</div>
-<div class="w-6 h-6 rounded-full bg-surface-container-highest border border-outline-variant flex items-center justify-center text-[10px] text-on-surface-variant border-dashed" title="Compliance Officer: Pending">CO</div>
-</div>
-</div>
-<hr class="border-outline-variant"/>
-<!-- Lineage Mapping Section -->
-<div>
-<span class="font-label-caps text-label-caps text-on-surface-variant block mb-density-regular">Lineage Mapping Verification</span>
-<div class="bg-background rounded-DEFAULT p-density-regular border border-outline-variant relative h-32 flex flex-col justify-center items-center gap-2 overflow-hidden">
-<div class="absolute inset-0 opacity-10 pointer-events-none" style="background-image: radial-gradient(#86948a 1px, transparent 1px); background-size: 8px 8px;"></div>
-<div class="flex items-center gap-4 z-10 w-full px-4">
-<div class="flex-1 flex flex-col items-center gap-1">
-<div class="w-8 h-8 rounded-DEFAULT bg-surface border-2 border-primary flex items-center justify-center shadow-[0_0_10px_rgba(78,222,163,0.3)]">
-<span class="material-symbols-outlined text-[16px] text-primary">source</span>
-</div>
-<span class="font-data-mono text-[10px] text-on-surface">v2.3</span>
-</div>
-<div class="h-0.5 bg-primary flex-1 relative">
-<div class="absolute right-0 -top-1 w-0 h-0 border-t-[3px] border-t-transparent border-l-[6px] border-l-primary border-b-[3px] border-b-transparent"></div>
-</div>
-<div class="flex-1 flex flex-col items-center gap-1">
-<div class="w-10 h-10 rounded-DEFAULT bg-surface border border-outline-variant ring-1 ring-inset ring-primary flex items-center justify-center relative">
-<span class="material-symbols-outlined text-[20px] text-on-surface">transform</span>
-<span class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-primary rounded-full animate-pulse"></span>
-</div>
-<span class="font-data-mono text-[10px] text-primary font-bold">ACTIVE</span>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-
-<!-- Action Block -->
-<div class="bg-surface-container border border-outline-variant rounded-DEFAULT p-gutter">
-<h3 class="font-title-sm text-title-sm text-on-surface mb-density-regular">Deployment Protocol</h3>
-<p class="font-body-sm text-body-sm text-on-surface-variant mb-gutter">Authorize the rollout of validated schemas to edge nodes across all specified jurisdictions.</p>
-<button onclick="authorizeRollout()" class="w-full h-10 flex items-center justify-center gap-density-regular bg-surface-variant border border-primary text-primary font-title-sm text-title-sm rounded-DEFAULT hover:bg-primary hover:text-on-primary transition-all font-bold group cursor-pointer">
-<span class="material-symbols-outlined text-[18px] group-hover:animate-bounce">rocket_launch</span>
-                        Authorize Rollout
-                    </button>
-</div>
-</aside>
-</div>
-</main>
-
-<!-- Interactive Action Handlers (JavaScript) -->
-<script>
-  function exportFingerprints() {
-    alert("Exporting Envictica Schema Fingerprints...\n[SHA256 Multi-Sig Checksum Verified]");
-  }
-
-  function createSchema() {
-    alert("Opening Schema Definition Builder...");
-  }
-
-  function authorizeRollout() {
-    confirm("Are you sure you want to authorize rollout across all edge nodes?");
-  }
-
-  function triggerAction(msg) {
-    console.log("Action Triggered:", msg);
-    alert(msg);
-  }
-</script>
+                      </td>
+                    </tr>
+                    <!-- IK-7.SEC-A -->
+                    <tr class="schema-row">
+                      <td class="table-cell text-on-surface">
+                        IK-7.SEC-A
+                      </td>
+                      <td
+                        class="table-cell text-on-surface-variant truncate max-w-[120px]"
+                        title="0x9e...1b44"
+                      >
+                        0x9e...1b44
+                      </td>
+                      <td class="table-cell text-on-surface">
+                        Internal/Sec
+                      </td>
+                      <td class="table-cell">
+                        <span class="status-cleared">
+                          <span class="status-dot bg-primary"></span>
+                          CLEARED
+                        </span>
+                      </td>
+                      <td class="table-cell text-right text-on-surface">
+                        99.98%
+                      </td>
+                      <td class="table-cell text-right">
+                        <button
+                          type="button"
+                          aria-label="Options for IK-7.SEC-A"
+                          onclick="triggerAction('Options for IK-7.SEC-A')"
+                          class="row-action"
+                        >
+                          <span class="material-symbols-outlined text-[20px]" aria-hidden="true">
+                            more_vert
+                          </span>
+                        </button>
+                      </td>
+                    </tr>
+                    <!-- MA-1.095-DRAFT -->
+                    <tr class="schema-row bg-surface-container-low">
+                      <td class="table-cell text-on-surface">
+                        MA-1.095-DRAFT
+                      </td>
+                      <td
+                        class="table-cell text-on-surface-variant truncate max-w-[120px]"
+                        title="Pending_Hash"
+                      >
+                        Pending...
+                      </td>
+                      <td class="table-cell text-on-surface">
+                        Global/Core
+                      </td>
+                      <td class="table-cell">
+                        <span class="status-drafting">
+                          <span class="status-dot bg-outline"></span>
+                          DRAFTING
+                        </span>
+                      </td>
+                      <td class="table-cell text-right text-on-surface-variant">
+                        --
+                      </td>
+                      <td class="table-cell text-right">
+                        <button
+                          type="button"
+                          aria-label="Options for MA-1.095-DRAFT"
+                          onclick="triggerAction('Options for MA-1.095-DRAFT')"
+                          class="row-action"
+                        >
+                          <span class="material-symbols-outlined text-[20px]" aria-hidden="true">
+                            more_vert
+                          </span>
+                        </button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+        </section>
+        <!-- =====================================================
+             RIGHT SIDEBAR
+             ===================================================== -->
+        <aside class="w-full xl:w-80 flex flex-col gap-margin shrink-0 pb-12">
+          <!-- Schema Hardening -->
+          <section
+            class="bg-surface-container border border-outline-variant rounded-DEFAULT p-gutter relative overflow-hidden"
+          >
+            <div
+              class="absolute inset-0 pointer-events-none"
+              style="background: radial-gradient(circle at top right, rgba(78,222,163,0.05), transparent 70%);"
+            ></div>
+            <h2 class="font-title-sm text-title-sm text-on-surface flex items-center gap-density-regular mb-gutter">
+              <span
+                class="material-symbols-outlined text-primary text-[20px]"
+                aria-hidden="true"
+              >
+                shield_locked
+              </span>
+              Schema Hardening
+            </h2>
+            <!-- Multi-Signature Approval -->
+            <div>
+              <div class="flex justify-between items-end mb-density-compact">
+                <span class="font-label-caps text-label-caps text-on-surface-variant">
+                  Multi-Sig Template Approval
+                </span>
+                <span class="font-data-mono text-body-sm text-primary">
+                  2/3 SIGS
+                </span>
+              </div>
+              <div
+                class="w-full h-1.5 bg-surface-container-highest rounded-full overflow-hidden"
+                role="progressbar"
+                aria-label="Multi-signature approval"
+                aria-valuenow="2"
+                aria-valuemin="0"
+                aria-valuemax="3"
+              >
+                <div class="h-full bg-primary w-2/3"></div>
+              </div>
+              <div class="flex gap-density-compact mt-density-regular">
+                <div
+                  class="sig-badge"
+                  title="Legal Officer: Approved"
+                  aria-label="Legal Officer approved"
+                >
+                  LO
+                </div>
+                <div
+                  class="sig-badge"
+                  title="Tech Lead: Approved"
+                  aria-label="Tech Lead approved"
+                >
+                  TL
+                </div>
+                <div
+                  class="sig-badge pending"
+                  title="Compliance Officer: Pending"
+                  aria-label="Compliance Officer pending"
+                >
+                  CO
+                </div>
+              </div>
+            </div>
+            <hr class="border-outline-variant my-gutter">
+            <!-- Lineage Mapping -->
+            <div>
+              <span class="font-label-caps text-label-caps text-on-surface-variant block mb-density-regular">
+                Lineage Mapping Verification
+              </span>
+              <div
+                class="bg-background rounded-DEFAULT p-density-regular border border-outline-variant relative h-32 flex flex-col justify-center items-center overflow-hidden"
+              >
+                <div
+                  class="absolute inset-0 opacity-10 pointer-events-none"
+                  style="background-image: radial-gradient(#86948a 1px, transparent 1px); background-size: 8px 8px;"
+                ></div>
+                <div class="flex items-center gap-4 z-10 w-full px-4">
+                  <div class="flex-1 flex flex-col items-center gap-1">
+                    <div class="w-8 h-8 rounded-DEFAULT bg-surface border-2 border-primary flex items-center justify-center">
+                      <span
+                        class="material-symbols-outlined text-[16px] text-primary"
+                        aria-hidden="true"
+                      >
+                        source
+                      </span>
+                    </div>
+                    <span class="font-data-mono text-[10px] text-on-surface">
+                      v2.3
+                    </span>
+                  </div>
+                  <div class="h-0.5 bg-primary flex-1 relative">
+                    <div
+                      class="absolute right-0 -top-1 w-0 h-0 border-t-[3px] border-t-transparent border-l-[6px] border-l-primary border-b-[3px] border-b-transparent"
+                    ></div>
+                  </div>
+                  <div class="flex-1 flex flex-col items-center gap-1">
+                    <div class="w-10 h-10 rounded-DEFAULT bg-surface border border-outline-variant ring-1 ring-inset ring-primary flex items-center justify-center relative">
+                      <span
+                        class="material-symbols-outlined text-[20px] text-on-surface"
+                        aria-hidden="true"
+                      >
+                        transform
+                      </span>
+                      <span
+                        class="absolute -top-1 -right-1 w-2.5 h-2.5 bg-primary rounded-full animate-pulse"
+                        aria-hidden="true"
+                      ></span>
+                    </div>
+                    <span class="font-data-mono text-[10px] text-primary font-bold">
+                      ACTIVE
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Deployment Protocol -->
+          <section
+            class="bg-surface-container border border-outline-variant rounded-DEFAULT p-gutter"
+          >
+            <h2 class="font-title-sm text-title-sm text-on-surface mb-density-regular">
+              Deployment Protocol
+            </h2>
+            <p class="font-body-sm text-body-sm text-on-surface-variant mb-gutter">
+              Authorize the rollout of validated schemas to edge nodes across all specified jurisdictions.
+            </p>
+            <button
+              type="button"
+              onclick="authorizeRollout()"
+              class="w-full h-10 flex items-center justify-center gap-density-regular bg-surface-variant border border-primary text-primary font-title-sm text-title-sm rounded-DEFAULT hover:bg-primary hover:text-on-primary transition-all font-bold group"
+            >
+              <span
+                class="material-symbols-outlined text-[18px] group-hover:animate-bounce"
+                aria-hidden="true"
+              >
+                rocket_launch
+              </span>
+              Authorize Rollout
+            </button>
+          </section>
+        </aside>
+      </div>
+    </div>
+  </main>
+  <!-- =========================================================
+       COMPONENT STYLES
+       ========================================================= -->
+  <style>
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 8px 12px;
+      color: #bbcabf;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      line-height: 16px;
+      font-weight: 700;
+      border-radius: 2px;
+      transition: all 150ms ease-in-out;
+    }
+    .nav-item:hover {
+      background: #323537;
+      color: #e0e3e5;
+    }
+    .icon-button {
+      padding: 8px;
+      color: #4edea3;
+      border-radius: 2px;
+      transition: background-color 150ms ease-in-out;
+    }
+    .icon-button:hover {
+      background: #323537;
+    }
+    .action-button-primary,
+    .action-button-secondary {
+      height: 40px;
+      padding: 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 2px;
+      font-family: "Hanken Grotesk", sans-serif;
+      font-size: 18px;
+      line-height: 24px;
+      font-weight: 600;
+      transition: all 150ms ease-in-out;
+    }
+    .action-button-primary {
+      background: #4edea3;
+      color: #003824;
+      font-weight: 700;
+      box-shadow: 0 0 15px rgba(78, 222, 163, 0.15);
+    }
+    .action-button-primary:hover {
+      background: #6ffbbe;
+    }
+    .action-button-secondary {
+      background: transparent;
+      border: 1px solid #86948a;
+      color: #e0e3e5;
+    }
+    .action-button-secondary:hover {
+      background: #323537;
+    }
+    .telemetry-card {
+      min-height: 116px;
+      padding: 12px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: #1d2022;
+      border: 1px solid #3c4a42;
+      border-radius: 2px;
+      transition: border-color 150ms ease-in-out;
+    }
+    .telemetry-icon {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      opacity: 0.2;
+    }
+    .telemetry-label {
+      position: relative;
+      z-index: 1;
+      color: #bbcabf;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      line-height: 16px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .category-card {
+      width: 100%;
+      padding: 12px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: #191c1e;
+      border: 1px solid #3c4a42;
+      border-radius: 2px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 150ms ease-in-out;
+    }
+    .category-card:hover {
+      background: #1d2022;
+      box-shadow: inset 0 0 0 1px #4edea3;
+    }
+    .category-code {
+      width: 48px;
+      height: 48px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #101415;
+      border: 1px solid #3c4a42;
+      border-radius: 2px;
+      color: #e0e3e5;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 18px;
+      line-height: 24px;
+      font-weight: 600;
+    }
+    .table-header {
+      padding: 8px 12px;
+      color: #bbcabf;
+      border-bottom: 1px solid #3c4a42;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      line-height: 16px;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .table-cell {
+      padding: 8px 12px;
+      white-space: nowrap;
+    }
+    .schema-row {
+      transition: background-color 150ms ease-in-out;
+    }
+    .schema-row:hover {
+      background: rgba(50, 53, 55, 0.5);
+    }
+    .table-control {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 8px;
+      color: #e0e3e5;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      line-height: 16px;
+      font-weight: 700;
+      transition: color 150ms ease-in-out;
+    }
+    .table-control:hover {
+      color: #4edea3;
+    }
+    .row-action {
+      color: #bbcabf;
+      opacity: 0;
+      transition: all 150ms ease-in-out;
+    }
+    .schema-row:hover .row-action,
+    .row-action:focus-visible {
+      opacity: 1;
+    }
+    .row-action:hover {
+      color: #4edea3;
+    }
+    .status-cleared,
+    .status-caution,
+    .status-drafting {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 8px;
+      border-radius: 2px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+      line-height: 16px;
+      font-weight: 700;
+    }
+    .status-cleared {
+      color: #4edea3;
+      background: rgba(16, 185, 129, 0.2);
+      border: 1px solid rgba(78, 222, 163, 0.3);
+    }
+    .status-caution {
+      color: #ffb4ab;
+      background: rgba(147, 0, 10, 0.2);
+      border: 1px solid rgba(255, 180, 171, 0.3);
+    }
+    .status-drafting {
+      color: #e0e3e5;
+      background: #323537;
+      border: 1px solid #86948a;
+    }
+    .status-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      display: inline-block;
+    }
+    .sig-badge {
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      background: #323537;
+      border: 1px solid #4edea3;
+      color: #4edea3;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10px;
+    }
+    .sig-badge.pending {
+      background: #323537;
+      border: 1px dashed #3c4a42;
+      color: #bbcabf;
+    }
+  </style>
+  <!-- =========================================================
+       INTERACTION HANDLERS
+       ========================================================= -->
+  <script>
+    function exportFingerprints() {
+      alert(
+        "Exporting Envictica Schema Fingerprints...\n\n" +
+        "[SHA256 Multi-Sig Checksum Verified]"
+      );
+    }
+    function createSchema() {
+      alert("Opening Schema Definition Builder...");
+    }
+    function authorizeRollout() {
+      const approved = confirm(
+        "Are you sure you want to authorize rollout across all edge nodes?"
+      );
+      if (approved) {
+        alert("Schema rollout authorization confirmed.");
+      }
+    }
+    function triggerAction(message) {
+      console.log("Action Triggered:", message);
+      alert(message);
+    }
+  </script>
 </body>
 </html>
