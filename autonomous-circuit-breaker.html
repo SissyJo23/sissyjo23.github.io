@@ -3,16 +3,18 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Autonomous Circuit Breaker - Envictica</title>
+    <title>Envictica | Autonomous Intercept Gate</title>
+
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+
     <script id="tailwind-config">
       tailwind.config = {
         darkMode: "class",
         theme: {
           extend: {
             colors: {
-              primary: "#00F5D4", // Electric Teal
-              "env-alert": "#FF4D6D", // Burnt Crimson
+              primary: "#00F5D4",
+              "env-alert": "#FF4D6D",
               surface: "#0b0f10",
               "surface-container": "#121318",
               "surface-bright": "#37393e",
@@ -30,34 +32,46 @@
         },
       };
     </script>
+
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono:wght@500;700&family=Sora:wght@300;600;800&display=swap"
       rel="stylesheet"
     />
+
     <link
       href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
       rel="stylesheet"
     />
+
     <style>
       body {
         background-color: #050608;
         color: #e3e1e9;
       }
+
       .material-symbols-outlined {
-        font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 24;
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 400,
+          "GRAD" 0,
+          "opsz" 24;
       }
+
       .pulse-dot {
         animation: pulse 2s infinite;
       }
+
       @keyframes pulse {
         0% {
           transform: scale(0.95);
           box-shadow: 0 0 0 0 rgba(0, 245, 212, 0.7);
         }
+
         70% {
           transform: scale(1);
           box-shadow: 0 0 0 6px rgba(0, 245, 212, 0);
         }
+
         100% {
           transform: scale(0.95);
           box-shadow: 0 0 0 0 rgba(0, 245, 212, 0);
@@ -65,94 +79,119 @@
       }
     </style>
   </head>
+
   <body
-    class="flex flex-col md:flex-row min-h-screen font-body-md text-on-surface antialiased"
+    class="flex min-h-screen flex-col font-body-md text-on-surface antialiased md:flex-row"
   >
     <!-- Sidebar -->
     <nav
-      class="w-full md:w-64 bg-surface-container border-r border-outline-variant flex flex-col p-6 gap-8"
+      class="flex w-full flex-col gap-8 border-r border-outline-variant bg-surface-container p-6 md:w-64"
     >
       <div class="flex flex-col gap-2">
-        <h1 class="text-3xl font-black text-white italic tracking-tighter">
+        <a
+          href="index.html"
+          class="text-3xl font-black italic tracking-tighter text-white transition-colors hover:text-primary"
+        >
           ENVICTICA
-        </h1>
+        </a>
+
         <p
-          class="font-label-caps text-[10px] text-primary tracking-[0.3em] uppercase"
+          class="font-label-caps text-[10px] uppercase tracking-[0.3em] text-primary"
         >
           Fiduciary Infrastructure
         </p>
       </div>
+
+      <!-- Operator Status -->
       <div class="flex flex-col gap-4">
         <div
-          class="flex items-center gap-3 p-3 bg-surface-bright/20 border border-white/5 rounded-lg"
+          class="flex items-center gap-3 rounded-lg border border-white/5 bg-surface-bright/20 p-3"
         >
           <div
-            class="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center"
+            class="flex h-10 w-10 items-center justify-center rounded-full bg-primary/20"
           >
             <span class="material-symbols-outlined text-primary">person</span>
           </div>
+
           <div class="flex flex-col">
-            <span class="text-[12px] font-bold text-white">Operator Alpha</span>
-            <span class="text-[10px] text-on-surface-variant"
-              >L4 Clearance</span
-            >
+            <span class="text-[12px] font-bold text-white">
+              Operator Alpha
+            </span>
+            <span class="text-[10px] text-on-surface-variant">
+              L4 Clearance
+            </span>
           </div>
         </div>
       </div>
+
+      <!-- Navigation -->
       <div class="flex flex-col gap-1">
         <a
-          href="#"
-          class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-bright/30 transition-colors"
+          href="command-center.html"
+          class="flex items-center gap-3 rounded-lg px-3 py-2 text-on-surface-variant transition-colors hover:bg-surface-bright/30 hover:text-white"
         >
           <span class="material-symbols-outlined text-lg">terminal</span>
           Command
         </a>
+
         <a
-          href="#"
-          class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-bright/30 transition-colors"
+          href="governance.html"
+          class="flex items-center gap-3 rounded-lg px-3 py-2 text-on-surface-variant transition-colors hover:bg-surface-bright/30 hover:text-white"
         >
           <span class="material-symbols-outlined text-lg">gavel</span>
           Governance
         </a>
+
         <a
-          href="#"
-          class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-bright/30 transition-colors"
+          href="pipelines.html"
+          class="flex items-center gap-3 rounded-lg px-3 py-2 text-on-surface-variant transition-colors hover:bg-surface-bright/30 hover:text-white"
         >
           <span class="material-symbols-outlined text-lg">account_tree</span>
           Pipelines
         </a>
+
         <a
-          href="#"
-          class="flex items-center gap-3 px-3 py-2 rounded-lg text-on-surface-variant hover:bg-surface-bright/30 transition-colors"
+          href="risk.html"
+          class="flex items-center gap-3 rounded-lg px-3 py-2 text-on-surface-variant transition-colors hover:bg-surface-bright/30 hover:text-white"
         >
-          <span class="material-symbols-outlined text-lg">warning</span> Risk
+          <span class="material-symbols-outlined text-lg">warning</span>
+          Risk
         </a>
+
         <a
-          href="#"
-          class="flex items-center gap-3 px-3 py-2 mt-4 rounded-lg bg-primary/10 text-primary border border-primary/20 font-bold"
+          href="autonomous-circuit-breaker.html"
+          class="mt-4 flex items-center gap-3 rounded-lg border border-primary/20 bg-primary/10 px-3 py-2 font-bold text-primary"
+          aria-current="page"
         >
-          <span class="material-symbols-outlined text-lg">bolt</span> Kill
-          Switch
+          <span class="material-symbols-outlined text-lg">bolt</span>
+          Intercept Gate
         </a>
       </div>
+
+      <!-- System Status -->
       <div
-        class="mt-auto flex flex-col gap-4 pt-6 border-t border-outline-variant"
+        class="mt-auto flex flex-col gap-4 border-t border-outline-variant pt-6"
       >
         <div class="flex items-center gap-2">
-          <div class="w-2 h-2 rounded-full bg-primary pulse-dot"></div>
-          <span class="font-label-caps text-[10px] uppercase text-white"
-            >System Status: Nominal</span
+          <div class="h-2 w-2 rounded-full bg-primary pulse-dot"></div>
+
+          <span
+            class="font-label-caps text-[10px] uppercase text-white"
           >
+            System Status: Nominal
+          </span>
         </div>
+
         <a
-          href="#"
+          href="documentation.html"
           class="flex items-center gap-2 text-[12px] text-on-surface-variant hover:text-white"
         >
           <span class="material-symbols-outlined text-sm">description</span>
           Documentation
         </a>
+
         <a
-          href="#"
+          href="support.html"
           class="flex items-center gap-2 text-[12px] text-on-surface-variant hover:text-white"
         >
           <span class="material-symbols-outlined text-sm">help_outline</span>
@@ -162,203 +201,341 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="flex-1 flex flex-col p-8 gap-8 overflow-y-auto">
+    <main class="flex flex-1 flex-col gap-8 overflow-y-auto p-6 md:p-8">
+      <!-- Header -->
       <header
-        class="flex justify-between items-end pb-4 border-b border-white/10"
+        class="flex flex-col gap-4 border-b border-white/10 pb-4 md:flex-row md:items-end md:justify-between"
       >
-        <h2
-          class="text-4xl font-headline-md font-black text-white italic uppercase tracking-tight"
-        >
-          Procurement Cascade
-        </h2>
-        <div
-          class="px-4 py-2 bg-primary/10 border border-primary/30 rounded flex items-center gap-3"
-        >
-          <span
-            class="font-label-caps text-[11px] text-primary tracking-widest font-bold"
-            >CIRCUIT BREAKER: ACTIVE</span
+        <div>
+          <p
+            class="mb-2 font-label-caps text-[10px] uppercase tracking-widest text-on-surface-variant"
           >
+            Envictica / Infrastructure / Intercept Gate
+          </p>
+
+          <h1
+            class="font-headline-md text-4xl font-black uppercase italic tracking-tight text-white"
+          >
+            Procurement Cascade
+          </h1>
+        </div>
+
+        <div
+          class="flex items-center gap-3 rounded border border-primary/30 bg-primary/10 px-4 py-2"
+        >
+          <div class="h-2 w-2 rounded-full bg-primary pulse-dot"></div>
+
+          <span
+            class="font-label-caps text-[11px] font-bold tracking-widest text-primary"
+          >
+            INTERCEPT GATE: ACTIVE
+          </span>
         </div>
       </header>
 
-      <!-- Metric Grid -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Metrics -->
+      <section
+        aria-label="Infrastructure metrics"
+        class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
+      >
         <div
-          class="bg-surface-container border border-outline-variant p-5 flex flex-col gap-4"
+          class="flex flex-col gap-4 border border-outline-variant bg-surface-container p-5"
         >
           <span
-            class="font-label-caps text-[11px] text-on-surface-variant uppercase tracking-wider"
-            >Entropy Threshold</span
+            class="font-label-caps text-[11px] uppercase tracking-wider text-on-surface-variant"
           >
+            Entropy Threshold
+          </span>
+
           <div class="flex items-baseline gap-2">
-            <span class="font-data-numeral text-4xl text-primary">0.14</span>
-            <span class="text-[12px] text-on-surface-variant">/ 0.15 MAX</span>
+            <span class="font-data-numeral text-4xl text-primary">
+              0.14
+            </span>
+
+            <span class="text-[12px] text-on-surface-variant">
+              / 0.15 MAX
+            </span>
           </div>
         </div>
-        <div
-          class="bg-surface-container border border-primary p-5 flex flex-col gap-4 shadow-[0_0_15px_rgba(0,245,212,0.1)]"
-        >
-          <span
-            class="font-label-caps text-[11px] text-on-surface-variant uppercase tracking-wider"
-            >Air-Gap Status</span
-          >
-          <span class="font-data-numeral text-4xl text-primary">ACTIVE</span>
-        </div>
-        <div
-          class="bg-surface-container border border-outline-variant p-5 flex flex-col gap-4"
-        >
-          <span
-            class="font-label-caps text-[11px] text-on-surface-variant uppercase tracking-wider"
-            >Liability Avoided</span
-          >
-          <span class="font-data-numeral text-4xl text-primary">$4.2M</span>
-        </div>
-        <div
-          class="bg-surface-container border border-outline-variant p-5 flex flex-col gap-4"
-        >
-          <span
-            class="font-label-caps text-[11px] text-on-surface-variant uppercase tracking-wider"
-            >Clauses Blocked</span
-          >
-          <span class="font-data-numeral text-4xl text-primary">1,400</span>
-        </div>
-      </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 flex-1">
-        <!-- Central Visual -->
         <div
-          class="lg:col-span-8 bg-surface-container border border-outline-variant flex flex-col relative overflow-hidden"
+          class="flex flex-col gap-4 border border-primary bg-surface-container p-5 shadow-[0_0_15px_rgba(0,245,212,0.1)]"
+        >
+          <span
+            class="font-label-caps text-[11px] uppercase tracking-wider text-on-surface-variant"
+          >
+            Air-Gap Status
+          </span>
+
+          <span class="font-data-numeral text-4xl text-primary">
+            ACTIVE
+          </span>
+        </div>
+
+        <div
+          class="flex flex-col gap-4 border border-outline-variant bg-surface-container p-5"
+        >
+          <span
+            class="font-label-caps text-[11px] uppercase tracking-wider text-on-surface-variant"
+          >
+            Liability Avoided
+          </span>
+
+          <span class="font-data-numeral text-4xl text-primary">
+            $4.2M
+          </span>
+        </div>
+
+        <div
+          class="flex flex-col gap-4 border border-outline-variant bg-surface-container p-5"
+        >
+          <span
+            class="font-label-caps text-[11px] uppercase tracking-wider text-on-surface-variant"
+          >
+            Clauses Blocked
+          </span>
+
+          <span class="font-data-numeral text-4xl text-primary">
+            1,400
+          </span>
+        </div>
+      </section>
+
+      <!-- Main Workspace -->
+      <section class="grid flex-1 grid-cols-1 gap-8 lg:grid-cols-12">
+        <!-- Central Visualization -->
+        <div
+          class="relative flex flex-col overflow-hidden border border-outline-variant bg-surface-container lg:col-span-8"
         >
           <div
-            class="p-4 border-b border-outline-variant bg-white/5 flex justify-between items-center"
+            class="flex items-center justify-between border-b border-outline-variant bg-white/5 p-4"
           >
-            <h3
-              class="font-label-caps text-[12px] text-white tracking-widest uppercase"
-            >
-              Neural 'Mind's Eye' Filter Protocol
-            </h3>
             <div class="flex items-center gap-2">
-              <span
-                class="px-2 py-1 bg-primary text-black font-label-caps text-[10px] font-bold"
-                >LIVE FEED</span
+              <span class="material-symbols-outlined text-primary">
+                hub
+              </span>
+
+              <h2
+                class="font-label-caps text-[12px] uppercase tracking-widest text-white"
               >
+                Neural Filter Protocol
+              </h2>
             </div>
+
+            <span
+              class="bg-primary px-2 py-1 font-label-caps text-[10px] font-bold text-black"
+            >
+              LIVE FEED
+            </span>
           </div>
-          <div class="flex-1 flex items-center justify-center p-8 bg-black/60">
-            <img
-              src="A high-fidelity, cinematic, frameless desktop UI asset. The absolute center of the image is the 'Mind's Eye' neural graphic: a complex, glowing circular interface with concentric rings of Electric Teal (#00F5D4) data points and circuit lines. The background is a Deep Slate dark matrix with subtle, technical bokeh. Above the graphic, the word 'ENVICTICA' is written in a sophisticated, minimalist sans-serif font. Below the graphic, the phrase 'UN-LID THE MIND'S EYE' is written in tracked-out, small caps. No browser chrome, no frames, no module numbers. Professional, high-stakes enterprise aesthetic."
-              alt="Mind's Eye Neural Graphic"
-              class="max-w-full h-auto object-contain opacity-90 hover:opacity-100 transition-opacity duration-700"
-            />
-            <!-- Data Telemetry Overlays -->
-            <div class="absolute bottom-4 left-6 flex flex-col gap-1">
-              <span class="font-label-caps text-[10px] text-on-surface-variant"
-                >INGESTION RATE</span
+
+          <div
+            class="relative flex min-h-[420px] flex-1 items-center justify-center overflow-hidden bg-black/60 p-8"
+          >
+            <!-- Neural Interface -->
+            <div
+              class="relative flex h-72 w-72 items-center justify-center rounded-full border border-primary/30 shadow-[0_0_60px_rgba(0,245,212,0.08)]"
+            >
+              <div
+                class="absolute inset-6 rounded-full border border-primary/20"
+              ></div>
+
+              <div
+                class="absolute inset-12 rounded-full border border-primary/20"
+              ></div>
+
+              <div
+                class="absolute inset-20 rounded-full border border-primary/30"
+              ></div>
+
+              <div class="absolute h-3 w-3 rounded-full bg-primary shadow-[0_0_20px_#00F5D4] pulse-dot"></div>
+
+              <span
+                class="absolute -top-8 font-label-caps text-[10px] tracking-[0.4em] text-primary"
               >
-              <div class="w-48 h-1.5 bg-white/10 rounded-full overflow-hidden">
+                ENVICTICA
+              </span>
+
+              <span
+                class="absolute -bottom-8 whitespace-nowrap font-label-caps text-[9px] uppercase tracking-[0.3em] text-on-surface-variant"
+              >
+                Mind's Eye Filter
+              </span>
+            </div>
+
+            <!-- Telemetry Overlay -->
+            <div class="absolute bottom-4 left-6 flex flex-col gap-1">
+              <span
+                class="font-label-caps text-[10px] text-on-surface-variant"
+              >
+                INGESTION RATE
+              </span>
+
+              <div
+                class="h-1.5 w-48 overflow-hidden rounded-full bg-white/10"
+              >
                 <div
-                  class="w-3/4 h-full bg-primary shadow-[0_0_10px_#00F5D4]"
+                  class="h-full w-3/4 bg-primary shadow-[0_0_10px_#00F5D4]"
                 ></div>
               </div>
             </div>
+
             <div class="absolute bottom-4 right-6 text-right">
               <span
-                class="font-label-caps text-[10px] text-primary tracking-widest"
-                >INTERCEPTION GATE ACTIVE</span
+                class="font-label-caps text-[10px] tracking-widest text-primary"
               >
+                INTERCEPTION GATE ACTIVE
+              </span>
             </div>
           </div>
         </div>
 
         <!-- Side Controls -->
-        <div class="lg:col-span-4 flex flex-col gap-8">
+        <div class="flex flex-col gap-8 lg:col-span-4">
           <!-- Clause Analysis -->
-          <div
-            class="bg-surface-container border border-outline-variant flex flex-col flex-1"
+          <section
+            class="flex flex-1 flex-col border border-outline-variant bg-surface-container"
           >
             <div
-              class="p-4 border-b border-outline-variant bg-white/5 flex items-center gap-2"
+              class="flex items-center gap-2 border-b border-outline-variant bg-white/5 p-4"
             >
-              <span class="material-symbols-outlined text-sm text-on-surface-variant"
-                >description</span
+              <span
+                class="material-symbols-outlined text-sm text-on-surface-variant"
               >
-              <h3
-                class="font-label-caps text-[11px] text-white tracking-widest uppercase"
+                description
+              </span>
+
+              <h2
+                class="font-label-caps text-[11px] uppercase tracking-widest text-white"
               >
                 Clause Analysis
-              </h3>
+              </h2>
             </div>
+
             <div
-              class="p-4 font-label-caps text-[12px] text-on-surface-variant leading-relaxed overflow-y-auto"
+              class="overflow-y-auto p-4 font-label-caps text-[12px] leading-relaxed text-on-surface-variant"
             >
-              <p class="mb-4 text-primary">// Scanning incoming stream...</p>
-              <p class="mb-2 italic text-white/50">
-                "The vendor agrees to indemnify and hold harmless..." [MATCH FAILURE]
+              <p class="mb-4 text-primary">
+                // Scanning incoming stream...
               </p>
+
+              <p class="mb-2 italic text-white/50">
+                "The vendor agrees to indemnify and hold harmless..."
+                <span class="text-env-alert">[MATCH FAILURE]</span>
+              </p>
+
               <p class="mb-4 text-env-alert">
-                &gt;&gt; ENTROPY SPIKE: 0.84 - AUTO-BLOCK INITIATED
+                &gt;&gt; ENTROPY SPIKE: 0.84 — AUTO-BLOCK INITIATED
               </p>
+
               <p class="mb-2 italic text-white/50">
-                "Effective date shall be determined by non-standard..." [STRUCTURAL DEBT]
+                "Effective date shall be determined by non-standard..."
+                <span class="text-env-alert">[STRUCTURAL DEBT]</span>
               </p>
+
               <p class="text-on-surface-variant">
                 &gt; Divergence recorded in Ledger block 0x7A2B
               </p>
             </div>
-          </div>
+          </section>
 
           <!-- Manual Override -->
-          <div
-            class="bg-env-alert/5 border border-env-alert/30 p-6 flex flex-col gap-6"
+          <section
+            class="flex flex-col gap-6 border border-env-alert/30 bg-env-alert/5 p-6"
           >
             <div class="flex items-center justify-between">
-              <h3
-                class="text-2xl font-headline-md font-bold text-white uppercase italic tracking-tight"
+              <h2
+                class="font-headline-md text-2xl font-bold uppercase italic tracking-tight text-white"
               >
                 Manual Override
-              </h3>
-              <span class="material-symbols-outlined text-white/50 text-3xl"
-                >fingerprint</span
+              </h2>
+
+              <span
+                class="material-symbols-outlined text-3xl text-white/50"
               >
+                fingerprint
+              </span>
             </div>
+
             <p
-              class="text-[11px] font-label-caps text-on-surface-variant uppercase tracking-widest"
+              class="font-label-caps text-[11px] uppercase tracking-widest text-on-surface-variant"
             >
-              Biometric Multi-Sig Required
+              Multi-Signature Authorization Required
             </p>
+
             <div class="flex flex-col gap-3">
+              <label class="sr-only" for="operator-code">
+                Operator Authorization Code
+              </label>
+
               <input
+                id="operator-code"
                 type="password"
+                autocomplete="off"
                 placeholder="Operator Authorization Code"
-                class="bg-black/40 border border-white/10 rounded p-3 text-sm focus:border-primary outline-none transition-colors"
+                class="rounded border border-white/10 bg-black/40 p-3 text-sm outline-none transition-colors focus:border-primary"
               />
+
+              <label class="sr-only" for="secondary-token">
+                Secondary Authorization Token
+              </label>
+
               <input
+                id="secondary-token"
                 type="text"
-                placeholder="Secondary Auth Token"
-                class="bg-black/40 border border-white/10 rounded p-3 text-sm focus:border-primary outline-none transition-colors"
+                autocomplete="off"
+                placeholder="Secondary Authorization Token"
+                class="rounded border border-white/10 bg-black/40 p-3 text-sm outline-none transition-colors focus:border-primary"
               />
             </div>
+
             <button
-              class="w-full py-4 border border-env-alert text-env-alert font-label-caps text-[12px] font-bold tracking-[0.2em] hover:bg-env-alert hover:text-white transition-all"
+              type="button"
+              class="w-full border border-env-alert py-4 font-label-caps text-[12px] font-bold tracking-[0.2em] text-env-alert transition-all hover:bg-env-alert hover:text-white"
             >
               INITIATE BYPASS PROTOCOL
             </button>
-          </div>
+          </section>
         </div>
-      </div>
+      </section>
 
+      <!-- Footer -->
       <footer
-        class="mt-auto pt-6 border-t border-white/5 flex justify-between items-center opacity-40"
+        class="mt-auto flex flex-col gap-2 border-t border-white/5 pt-6 opacity-40 md:flex-row md:items-center md:justify-between"
       >
         <div
-          class="font-label-caps text-[10px] text-on-surface-variant tracking-[0.3em] uppercase"
+          class="font-label-caps text-[10px] uppercase tracking-[0.3em] text-on-surface-variant"
         >
-          SYSTEM COMPONENT: AUTONOMOUS INTERCEPT GATE
+          System Component: Autonomous Intercept Gate
         </div>
-        <div class="font-data-numeral text-[10px] text-on-surface-variant">
-          v2.4.9 // ENVICTICA INFRASTRUCTURE
+
+        <div
+          class="font-data-numeral text-[10px] text-on-surface-variant"
+        >
+          v2.4.9 // Envictica Infrastructure
         </div>
       </footer>
     </main>
+
+    <style>
+      @media (max-width: 768px) {
+        html,
+        body {
+          overflow-x: hidden;
+        }
+
+        main {
+          padding-bottom: 90px;
+        }
+
+        table,
+        .table-container {
+          max-width: 100%;
+          overflow-x: auto;
+        }
+      }
+    </style>
+
+    <script src="envictica-ui.js"></script>
   </body>
 </html>
