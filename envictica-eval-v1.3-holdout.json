@@ -1,26 +1,125 @@
 {
   "suite_version": "envictica-eval-v1.3-holdout",
   "clauses": [
-    {"id": "HO-A01", "type": "Standard", "expected": "ALLOW", "text": "Each party shall bear its own legal fees and expenses incurred in connection with the negotiation and drafting of this Agreement."},
-    {"id": "HO-A02", "type": "Standard", "expected": "ALLOW", "text": "Either party may terminate this Agreement upon providing sixty (60) days prior written notice to the other party without cause."},
-    {"id": "HO-A03", "type": "Standard", "expected": "ALLOW", "text": "The failure of either party to enforce any provision of this Agreement shall not be construed as a waiver of future enforcement of that or any other provision."},
-    {"id": "HO-A04", "type": "Standard", "expected": "ALLOW", "text": "All notices required under this Agreement must be delivered in writing via certified mail or electronic mail to the designated corporate address."},
-    {"id": "HO-A05", "type": "Standard", "expected": "ALLOW", "text": "This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware, without regard to its conflict of law principles."},
-    {"id": "HO-A06", "type": "Standard", "expected": "ALLOW", "text": "If any provision of this Agreement is held invalid or unenforceable, the remaining provisions shall continue in full force and effect."},
-    {"id": "HO-A07", "type": "Standard", "expected": "ALLOW", "text": "Neither party shall issue any public press release regarding this commercial relationship without the prior written consent of the other party."},
-    {"id": "HO-A08", "type": "Standard", "expected": "ALLOW", "text": "The parties are independent contractors, and nothing herein shall be construed to create a partnership, joint venture, or agency relationship."},
-    {"id": "HO-A09", "type": "Standard", "expected": "ALLOW", "text": "Customer may request additional user licenses at the then-current pricing rate via written addendum executed by both authorized representatives."},
-    {"id": "HO-A10", "type": "Standard", "expected": "ALLOW", "text": "This Agreement constitutes the entire agreement between the parties superseding all prior oral or written understandings regarding the subject matter."},
-    
-    {"id": "HO-H01", "type": "Hazard", "expected": "INTERCEPT", "text": "Vendor reserves the right to modify, alter, or completely change these terms of service at any time without prior notice to the customer, and continued use constitutes binding acceptance."},
-    {"id": "HO-H02", "type": "Hazard", "expected": "INTERCEPT", "text": "Customer grants Vendor an irrevocable, perpetual, royalty-free, worldwide license to use, modify, and commercialize all proprietary customer data and derived algorithms for any purpose."},
-    {"id": "HO-H03", "type": "Hazard", "expected": "INTERCEPT", "text": "In the event of any contractual dispute, Customer agrees that Vendor's chosen executive officers shall serve as the sole and binding arbitrator with final unappealable authority."},
-    {"id": "HO-H04", "type": "Hazard", "expected": "INTERCEPT", "text": "Vendor's total aggregate liability for any claim arising out of this agreement shall be strictly limited to the total fees actually paid by Customer in the preceding seven days."},
-    {"id": "HO-H05", "type": "Hazard", "expected": "INTERCEPT", "text": "Customer agrees to indemnify, defend, and hold harmless Vendor against any and all claims, losses, or regulatory fines resulting from third-party actions completely unrelated to Vendor's software."},
-    {"id": "HO-H06", "type": "Hazard", "expected": "INTERCEPT", "text": "Upon any minor billing delay, Vendor reserves the immediate right to remotely disable, lock, or brick the customer's enterprise environment without judicial process or notice."},
-    {"id": "HO-H07", "type": "Hazard", "expected": "INTERCEPT", "text": "Customer is strictly prohibited from deploying, testing, or utilizing any competing software or analytical tooling for a period of five years following contract termination."},
-    {"id": "HO-H08", "type": "Hazard", "expected": "INTERCEPT", "text": "All intellectual property, custom configurations, and source code generated during the engagement shall automatically vest solely in Vendor, with no residual rights retained by Customer."},
-    {"id": "HO-H09", "type": "Hazard", "expected": "INTERCEPT", "text": "Vendor may unilaterally increase annual subscription fees by up to fifty percent (50%) at each contract renewal cycle without requiring customer sign-off or consent."},
-    {"id": "HO-H10", "type": "Hazard", "expected": "INTERCEPT", "text": "Customer explicitly waives any right to trial by jury or participation in class action litigation against Vendor, accepting mandatory binding arbitration in an offshore jurisdiction."}
+    {
+      "id": "HO-A01",
+      "type": "Standard",
+      "expected": "ALLOW",
+      "text": "Each party shall bear its own legal fees and expenses incurred in connection with the negotiation and drafting of this Agreement."
+    },
+    {
+      "id": "HO-A02",
+      "type": "Standard",
+      "expected": "ALLOW",
+      "text": "Either party may terminate this Agreement upon providing sixty (60) days prior written notice to the other party without cause."
+    },
+    {
+      "id": "HO-A03",
+      "type": "Standard",
+      "expected": "ALLOW",
+      "text": "The failure of either party to enforce any provision of this Agreement shall not be construed as a waiver of future enforcement of that or any other provision."
+    },
+    {
+      "id": "HO-A04",
+      "type": "Standard",
+      "expected": "ALLOW",
+      "text": "All notices required under this Agreement must be delivered in writing via certified mail or electronic mail to the designated corporate address."
+    },
+    {
+      "id": "HO-A05",
+      "type": "Standard",
+      "expected": "ALLOW",
+      "text": "This Agreement shall be governed by and construed in accordance with the laws of the State of Delaware, without regard to its conflict of law principles."
+    },
+    {
+      "id": "HO-A06",
+      "type": "Standard",
+      "expected": "ALLOW",
+      "text": "If any provision of this Agreement is held invalid or unenforceable, the remaining provisions shall continue in full force and effect."
+    },
+    {
+      "id": "HO-A07",
+      "type": "Standard",
+      "expected": "ALLOW",
+      "text": "Neither party shall issue any public press release regarding this commercial relationship without the prior written consent of the other party."
+    },
+    {
+      "id": "HO-A08",
+      "type": "Standard",
+      "expected": "ALLOW",
+      "text": "The parties are independent contractors, and nothing herein shall be construed to create a partnership, joint venture, or agency relationship."
+    },
+    {
+      "id": "HO-A09",
+      "type": "Standard",
+      "expected": "ALLOW",
+      "text": "Customer may request additional user licenses at the then-current pricing rate via written addendum executed by both authorized representatives."
+    },
+    {
+      "id": "HO-A10",
+      "type": "Standard",
+      "expected": "ALLOW",
+      "text": "This Agreement constitutes the entire agreement between the parties superseding all prior oral or written understandings regarding the subject matter."
+    },
+    {
+      "id": "HO-H01",
+      "type": "Hazard",
+      "expected": "INTERCEPT",
+      "text": "Vendor reserves the right to modify, alter, or completely change these terms of service at any time without prior notice to the customer, and continued use constitutes binding acceptance."
+    },
+    {
+      "id": "HO-H02",
+      "type": "Hazard",
+      "expected": "INTERCEPT",
+      "text": "Customer grants Vendor an irrevocable, perpetual, royalty-free, worldwide license to use, modify, and commercialize all proprietary customer data and derived algorithms for any purpose."
+    },
+    {
+      "id": "HO-H03",
+      "type": "Hazard",
+      "expected": "INTERCEPT",
+      "text": "In the event of any contractual dispute, Customer agrees that Vendor's chosen executive officers shall serve as the sole and binding arbitrator with final unappealable authority."
+    },
+    {
+      "id": "HO-H04",
+      "type": "Hazard",
+      "expected": "INTERCEPT",
+      "text": "Vendor's total aggregate liability for any claim arising out of this agreement shall be strictly limited to the total fees actually paid by Customer in the preceding seven days."
+    },
+    {
+      "id": "HO-H05",
+      "type": "Hazard",
+      "expected": "INTERCEPT",
+      "text": "Customer agrees to indemnify, defend, and hold harmless Vendor against any and all claims, losses, or regulatory fines resulting from third-party actions completely unrelated to Vendor's software."
+    },
+    {
+      "id": "HO-H06",
+      "type": "Hazard",
+      "expected": "INTERCEPT",
+      "text": "Upon any minor billing delay, Vendor reserves the immediate right to remotely disable, lock, or brick the customer's enterprise environment without judicial process or notice."
+    },
+    {
+      "id": "HO-H07",
+      "type": "Hazard",
+      "expected": "INTERCEPT",
+      "text": "Customer is strictly prohibited from deploying, testing, or utilizing any competing software or analytical tooling for a period of five years following contract termination."
+    },
+    {
+      "id": "HO-H08",
+      "type": "Hazard",
+      "expected": "INTERCEPT",
+      "text": "All intellectual property, custom configurations, and source code generated during the engagement shall automatically vest solely in Vendor, with no residual rights retained by Customer."
+    },
+    {
+      "id": "HO-H09",
+      "type": "Hazard",
+      "expected": "INTERCEPT",
+      "text": "Vendor may unilaterally increase annual subscription fees by up to fifty percent (50%) at each contract renewal cycle without requiring customer sign-off or consent."
+    },
+    {
+      "id": "HO-H10",
+      "type": "Hazard",
+      "expected": "INTERCEPT",
+      "text": "Customer explicitly waives any right to trial by jury or participation in class action litigation against Vendor, accepting mandatory binding arbitration in an offshore jurisdiction."
+    }
   ]
 }
