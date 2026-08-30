@@ -1,295 +1,257 @@
 <!DOCTYPE html>
 <html class="dark" lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Envictica: Strategic ROI Presentation</title>
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap"
-      rel="stylesheet"
-    />
-    <script id="tailwind-config">
-      tailwind.config = {
-        darkMode: "class",
-        theme: {
-          extend: {
-            colors: {
-              primary: "#00F5D4",
-              "env-alert": "#FF4D6D",
-              surface: "#121318",
-              "on-surface": "#e3e1e9",
-              "on-surface-variant": "#8a8b94",
-              outline: "#2a2b32",
-              "surface-container": "#1d1e24",
-            },
-            fontFamily: {
-              "label-caps": ["JetBrains Mono", "monospace"],
-              "data-numeral": ["JetBrains Mono", "monospace"],
-              headline: ["Sora", "sans-serif"],
-            },
+<head>
+  <meta charset="utf-8" />
+  <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+  <title>Envictica | Strategic ROI Report</title>
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght@100..700,0..1&display=swap"
+    rel="stylesheet"
+  />
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#00F5D4",
+            "env-alert": "#FF4D6D",
+            surface: "#121318",
+            "on-surface": "#E3E1E9",
+            "on-surface-variant": "#8A8B94",
+            outline: "#2A2B32",
+            "surface-container": "#1D1E24"
           },
-        },
-      };
-    </script>
-    <style>
-      body {
-        background-color: #0b0c10;
-        color: #e3e1e9;
-      }
-      .roi-glow {
-        box-shadow: 0 0 30px rgba(0, 245, 212, 0.1);
-      }
-      .chart-path {
-        stroke-dasharray: 1000;
-        stroke-dashoffset: 1000;
-        animation: draw 4s forwards ease-out;
-      }
-      @keyframes draw {
-        to {
-          stroke-dashoffset: 0;
+          fontFamily: {
+            "label-caps": ["JetBrains Mono", "monospace"],
+            "data-numeral": ["JetBrains Mono", "monospace"],
+            headline: ["Sora", "sans-serif"]
+          }
         }
       }
-    </style>
-  </head>
-  <body class="font-sans antialiased min-h-screen flex flex-col p-8 gap-8">
-    <div class="max-w-6xl mx-auto w-full flex flex-col gap-8">
-      <!-- Header -->
-      <div
-        class="flex justify-between items-end border-b border-outline pb-6"
-      >
-        <div class="flex flex-col gap-2">
-          <span
-            class="bg-primary text-[#002113] font-label-caps text-[11px] px-3 py-1 rounded-sm tracking-widest uppercase font-bold"
-          >
-            Step 4: Strategic Impact
+    };
+  </script>
+  <style>
+    body {
+      background-color: #0B0C10;
+      color: #E3E1E9;
+    }
+    .roi-glow {
+      box-shadow: 0 0 30px rgba(0, 245, 212, 0.1);
+    }
+    .chart-path {
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: draw 4s forwards ease-out;
+    }
+    @keyframes draw {
+      to {
+        stroke-dashoffset: 0;
+      }
+    }
+    @media (max-width: 768px) {
+      body,
+      html {
+        overflow-x: hidden;
+      }
+      body {
+        padding-bottom: 90px;
+      }
+      .grid,
+      .card-grid,
+      .dashboard-grid {
+        grid-template-columns: 1fr !important;
+      }
+      table,
+      .table-container {
+        max-width: 100%;
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body class="font-sans antialiased min-h-screen flex flex-col p-6 md:p-8">
+  <main class="max-w-6xl mx-auto w-full flex flex-col gap-8">
+    <!-- Header -->
+    <header class="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 border-b border-outline pb-6">
+      <div class="flex flex-col gap-2">
+        <span class="bg-primary text-[#002113] font-label-caps text-[11px] px-3 py-1 rounded-sm tracking-widest uppercase font-bold w-fit">
+          Strategic Impact
+        </span>
+        <h1 class="font-headline text-3xl md:text-4xl font-black text-white tracking-tight uppercase">
+          Fiduciary ROI Report
+        </h1>
+      </div>
+      <div class="flex flex-col items-start md:items-end text-left md:text-right">
+        <span class="font-label-caps text-[10px] text-on-surface-variant tracking-widest uppercase font-bold">
+          Audit Period
+        </span>
+        <span class="font-data-numeral text-lg text-white font-bold">
+          Q3-2026_LIVE
+        </span>
+      </div>
+    </header>
+    <!-- Core Metrics -->
+    <section class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <article class="bg-surface border border-outline p-8 rounded-sm flex flex-col gap-2">
+        <span class="font-label-caps text-[11px] text-on-surface-variant uppercase tracking-widest">
+          Data Debt Mitigated
+        </span>
+        <div class="flex items-baseline gap-2">
+          <span class="font-data-numeral text-4xl text-white font-light">
+            $4.2M
           </span>
-          <h1
-            class="font-headline text-4xl font-black text-white tracking-tight uppercase"
-          >
-            Fiduciary ROI Report
-          </h1>
+          <span class="text-primary text-xs font-bold font-data-numeral">
+            +18% YoY
+          </span>
         </div>
-        <div class="flex flex-col items-end text-right">
-          <span
-            class="font-label-caps text-[10px] text-on-surface-variant tracking-widest uppercase font-bold"
-            >Audit Period</span
-          >
-          <span class="font-data-numeral text-lg text-white font-bold"
-            >Q3-2026_LIVE</span
-          >
+        <p class="text-[10px] text-on-surface-variant mt-2 leading-relaxed uppercase">
+          Liability avoided through automated schema enforcement and drift-based intervention.
+        </p>
+      </article>
+      <article class="bg-surface border border-outline p-8 rounded-sm flex flex-col gap-2">
+        <span class="font-label-caps text-[11px] text-on-surface-variant uppercase tracking-widest">
+          Realized ROI
+        </span>
+        <div class="flex items-baseline gap-2">
+          <span class="font-data-numeral text-4xl text-white font-light">
+            340%
+          </span>
         </div>
+        <p class="text-[10px] text-on-surface-variant mt-2 leading-relaxed uppercase">
+          Infrastructure return relative to the cost of manual data reconciliation.
+        </p>
+      </article>
+      <article class="bg-surface border border-outline p-8 rounded-sm flex flex-col gap-2">
+        <span class="font-label-caps text-[11px] text-on-surface-variant uppercase tracking-widest">
+          Vendor Independence
+        </span>
+        <div class="flex items-baseline gap-2">
+          <span class="font-data-numeral text-4xl text-white font-light">
+            45%
+          </span>
+        </div>
+        <p class="text-[10px] text-on-surface-variant mt-2 leading-relaxed uppercase">
+          Reduction in token-spend waste through intelligent Model Abstraction Layer routing.
+        </p>
+      </article>
+    </section>
+    <!-- Strategic Outcome -->
+    <section class="bg-surface border border-primary/20 p-8 md:p-12 rounded-sm roi-glow relative overflow-hidden">
+      <div class="absolute top-0 right-0 p-8 opacity-10 pointer-events-none">
+        <span class="material-symbols-outlined text-[160px] text-primary">
+          analytics
+        </span>
       </div>
-
-      <!-- Metric Grid -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div
-          class="bg-surface border border-outline p-8 rounded-sm flex flex-col gap-2"
-        >
-          <span
-            class="font-label-caps text-[11px] text-on-surface-variant uppercase tracking-widest"
-            >Data Debt Mitigated</span
-          >
-          <div class="flex items-baseline gap-2">
-            <span class="font-data-numeral text-4xl text-white font-light"
-              >$4.2M</span
-            >
-            <span class="text-primary text-xs font-bold font-data-numeral"
-              >+18% YoY</span
-            >
-          </div>
-          <p
-            class="text-[10px] text-on-surface-variant mt-2 leading-relaxed italic uppercase"
-          >
-            Total liability avoided through automated schema enforcement and
-            drift-based intervention.
+      <div class="relative z-10 flex flex-col gap-8">
+        <div class="max-w-3xl">
+          <h2 class="font-headline text-2xl md:text-3xl font-black text-white uppercase tracking-tight mb-4">
+            Strategic Infrastructure Outcome
+          </h2>
+          <p class="text-lg md:text-xl text-on-surface-variant leading-relaxed">
+            Envictica has transitioned from
+            <span class="text-white font-bold">experimental AI workflows</span>
+            to
+            <span class="text-primary font-bold">disciplined infrastructure</span>.
+          </p>
+          <p class="text-on-surface-variant mt-4 leading-relaxed">
+            By enforcing data quality and structural integrity before model execution,
+            Envictica reduces operational friction, improves model reliability,
+            and establishes a controlled foundation for enterprise AI deployment.
           </p>
         </div>
-
-        <div
-          class="bg-surface border border-outline p-8 rounded-sm flex flex-col gap-2"
-        >
-          <span
-            class="font-label-caps text-[11px] text-on-surface-variant uppercase tracking-widest"
-            >Realized ROI</span
-          >
-          <div class="flex items-baseline gap-2">
-            <span class="font-data-numeral text-4xl text-white font-light"
-              >340%</span
-            >
-          </div>
-          <p
-            class="text-[10px] text-on-surface-variant mt-2 leading-relaxed italic uppercase"
-          >
-            Calculated multiplier of infrastructure spend vs. cost of manual
-            data reconciliation.
-          </p>
-        </div>
-
-        <div
-          class="bg-surface border border-outline p-8 rounded-sm flex flex-col gap-2"
-        >
-          <span
-            class="font-label-caps text-[11px] text-on-surface-variant uppercase tracking-widest"
-            >Vendor Independence</span
-          >
-          <div class="flex items-baseline gap-2">
-            <span class="font-data-numeral text-4xl text-white font-light"
-              >45%</span
-            >
-          </div>
-          <p
-            class="text-[10px] text-on-surface-variant mt-2 leading-relaxed italic uppercase"
-          >
-            Reduction in token-spend waste through the Model Abstraction
-            Layer's smart routing.
-          </p>
-        </div>
-      </div>
-
-      <!-- Outcome Section -->
-      <div
-        class="bg-surface border border-primary/20 p-12 rounded-sm roi-glow relative overflow-hidden"
-      >
-        <div class="absolute top-0 right-0 p-8 opacity-10">
-          <span class="material-symbols-outlined text-[160px] text-primary"
-            >analytics</span
-          >
-        </div>
-        <div class="relative z-10 flex flex-col gap-8">
-          <div class="max-w-2xl">
-            <h2
-              class="font-headline text-3xl font-black text-white uppercase tracking-tight mb-4"
-            >
-              The "Adults in the Room" Outcome
-            </h2>
-            <p class="text-xl text-on-surface-variant leading-relaxed">
-              We have transitioned from
-              <span class="text-white font-bold">experimental chat</span> to
-              <span class="text-primary font-bold">disciplined infrastructure</span>.
-            </p>
-            <p class="text-on-surface-variant mt-4 leading-relaxed">
-              By repairing the data plumbing before the AI ever sees it, we've
-              eliminated the synthetic inertia that causes 93% of enterprise AI
-              pilots to fail.
-            </p>
-          </div>
-
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-4">
-            <div class="flex flex-col gap-4">
-              <span
-                class="font-label-caps text-[11px] text-on-surface-variant uppercase tracking-widest border-b border-outline pb-2"
-                >Liability Reduction Forecast</span
+        <!-- Analysis Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mt-4">
+          <!-- Liability Forecast -->
+          <div class="flex flex-col gap-4">
+            <span class="font-label-caps text-[11px] text-on-surface-variant uppercase tracking-widest border-b border-outline pb-2">
+              Liability Reduction Forecast
+            </span>
+            <div class="h-48 w-full mt-4">
+              <svg
+                class="w-full h-full"
+                viewBox="0 0 400 100"
+                preserveAspectRatio="none"
+                role="img"
+                aria-label="Projected liability reduction trend"
               >
-              <div class="h-48 w-full mt-4">
-                <svg class="w-full h-full" viewBox="0 0 400 100">
-                  <!-- Grid -->
-                  <line
-                    x1="0"
-                    y1="0"
-                    x2="400"
-                    y2="0"
-                    stroke="white"
-                    opacity="0.05"
-                  />
-                  <line
-                    x1="0"
-                    y1="50"
-                    x2="400"
-                    y2="50"
-                    stroke="white"
-                    opacity="0.05"
-                  />
-                  <line
-                    x1="0"
-                    y1="100"
-                    x2="400"
-                    y2="100"
-                    stroke="white"
-                    opacity="0.05"
-                  />
-                  <!-- Chart -->
-                  <path
-                    d="M 0 80 L 100 70 L 200 40 L 300 20 L 400 5"
-                    fill="none"
-                    stroke="#00F5D4"
-                    stroke-width="2"
-                    class="chart-path"
-                  />
-                  <circle cx="400" cy="5" r="3" fill="#00F5D4" />
-                </svg>
-                <div
-                  class="flex justify-between font-data-numeral text-[10px] text-on-surface-variant mt-2 uppercase"
-                >
-                  <span>Q1</span>
-                  <span>Q2</span>
-                  <span>Q3</span>
-                  <span>Q4 (Live)</span>
-                  <span class="text-primary font-bold">Q1-Projected</span>
-                </div>
+                <line
+                  x1="0"
+                  y1="0"
+                  x2="400"
+                  y2="0"
+                  stroke="white"
+                  opacity="0.05"
+                />
+                <line
+                  x1="0"
+                  y1="50"
+                  x2="400"
+                  y2="50"
+                  stroke="white"
+                  opacity="0.05"
+                />
+                <line
+                  x1="0"
+                  y1="100"
+                  x2="400"
+                  y2="100"
+                  stroke="white"
+                  opacity="0.05"
+                />
+                <path
+                  d="M 0 80 L 100 70 L 200 40 L 300 20 L 400 5"
+                  fill="none"
+                  stroke="#00F5D4"
+                  stroke-width="2"
+                  class="chart-path"
+                />
+                <circle
+                  cx="400"
+                  cy="5"
+                  r="3"
+                  fill="#00F5D4"
+                />
+              </svg>
+              <div class="flex justify-between font-data-numeral text-[10px] text-on-surface-variant mt-2 uppercase">
+                <span>Q1</span>
+                <span>Q2</span>
+                <span>Q3</span>
+                <span>Q4 Live</span>
+                <span class="text-primary font-bold">Q1 Projected</span>
               </div>
             </div>
-
-            <div
-              class="bg-black/40 border border-white/5 p-8 flex flex-col justify-between"
-            >
-              <div>
-                <span
-                  class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest"
-                  >Next Phase Authorization</span
-                >
-                <div class="flex justify-between items-end mt-4">
-                  <span class="text-white text-lg font-bold uppercase tracking-tight"
-                    >Global Rollout</span
-                  >
-                  <span
-                    class="text-primary font-label-caps text-[12px] font-bold tracking-widest"
-                    >APPROVED</span
-                  >
-                </div>
-                <div
-                  class="w-full bg-white/5 h-1.5 rounded-full mt-2 overflow-hidden"
-                >
-                  <div class="bg-primary h-full w-full"></div>
-                </div>
+          </div>
+          <!-- Authorization -->
+          <div class="bg-black/40 border border-white/5 p-8 flex flex-col justify-between">
+            <div>
+              <span class="font-label-caps text-[10px] text-on-surface-variant uppercase tracking-widest">
+                Next Phase Authorization
+              </span>
+              <div class="flex flex-col sm:flex-row justify-between sm:items-end gap-2 mt-4">
+                <span class="text-white text-lg font-bold uppercase tracking-tight">
+                  Global Rollout
+                </span>
+                <span class="text-primary font-label-caps text-[12px] font-bold tracking-widest">
+                  APPROVED
+                </span>
               </div>
-              <button
-                class="w-full bg-primary text-[#002113] font-label-caps text-[13px] py-4 rounded-sm font-bold tracking-widest hover:opacity-90 active:scale-95 transition-all uppercase mt-8"
-              >
-                Initialize Phase 3 Expansion
-              </button>
+              <div class="w-full bg-white/5 h-1.5 rounded-full mt-2 overflow-hidden">
+                <div class="bg-primary h-full w-full"></div>
+              </div>
             </div>
+            <button
+              type="button"
+              class="w-full bg-primary text-[#002113] font-label-caps text-[13px] py-4 rounded-sm font-bold tracking-widest hover:opacity-90 active:scale-95 transition-all uppercase mt-8"
+            >
+              Initialize Phase 3 Expansion
+            </button>
           </div>
         </div>
       </div>
-    </div>
-  
-<style>
-/* Global Responsive Breakpoints & Mobile Fixes */
-@media (max-width: 768px) {
-  /* Force grid structures to stack in a single column */
-  .grid, .card-grid, .dashboard-grid, [class*="grid"] {
-    grid-template-columns: 1fr !important;
-  }
-  
-  /* Tables & data displays wrap cleanly with scroll support */
-  table, .table-container, [class*="table"] {
-    max-width: 100% !important;
-    overflow-x: auto !important;
-  }
-  
-  /* Prevent horizontal document overflow */
-  body, html {
-    overflow-x: hidden !important;
-  }
-
-  /* Bottom padding to prevent floating bars/dock from overlapping buttons */
-  body, main, .container, .page-wrapper {
-    padding-bottom: 90px !important;
-  }
-}
-</style>
-
-<script src="envictica-ui.js"></script>
+    </section>
+  </main>
+  <script src="envictica-ui.js"></script>
 </body>
 </html>
