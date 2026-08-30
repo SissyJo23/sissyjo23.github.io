@@ -2,14 +2,14 @@
 <html class="dark" lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>Envictica: Drift Anomaly Detected</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Envictica | Drift Anomaly Detected</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;800&family=JetBrains+Mono:wght@400;700&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
       rel="stylesheet"
     />
-    <script id="tailwind-config">
+    <script>
       tailwind.config = {
         darkMode: "class",
         theme: {
@@ -18,22 +18,24 @@
               primary: "#00F5D4",
               "env-alert": "#FF4D6D",
               surface: "#121318",
-              "on-surface": "#e3e1e9",
-              "on-surface-variant": "#8a8b94",
-              outline: "#2a2b32",
+              "on-surface": "#E3E1E9",
+              "on-surface-variant": "#8A8B94",
+              outline: "#2A2B32"
             },
             fontFamily: {
-              "label-caps": ["JetBrains Mono", "monospace"],
-              "data-numeral": ["JetBrains Mono", "monospace"],
               headline: ["Sora", "sans-serif"],
-            },
-          },
-        },
+              mono: ["JetBrains Mono", "monospace"]
+            }
+          }
+        }
       };
     </script>
     <style>
+      :root {
+        background: #0d0e13;
+      }
       body {
-        background-color: #0d0e13;
+        background: #0d0e13;
         color: #e3e1e9;
       }
       .hud-border {
@@ -42,79 +44,99 @@
       .drift-line {
         stroke-dasharray: 1000;
         stroke-dashoffset: 1000;
-        animation: draw 3s forwards ease-in-out;
+        animation: draw 3s ease-in-out forwards;
       }
       @keyframes draw {
         to {
           stroke-dashoffset: 0;
         }
       }
+      @media (max-width: 640px) {
+        body {
+          padding: 1rem;
+        }
+      }
     </style>
   </head>
-  <body class="font-sans antialiased min-h-screen flex flex-col p-6 gap-8">
-    <div class="flex flex-col items-center text-center gap-4 mt-8">
-      <span class="material-symbols-outlined text-env-alert text-6xl"
-        >warning</span
-      >
+  <body
+    class="min-h-screen flex flex-col gap-8 p-6 antialiased font-mono"
+  >
+    <!-- Header -->
+    <header class="flex flex-col items-center text-center gap-4 mt-8">
       <span
-        class="bg-env-alert/10 text-env-alert font-label-caps text-[11px] px-4 py-1.5 rounded-full border border-env-alert/30 tracking-[0.2em] uppercase"
+        class="material-symbols-outlined text-env-alert text-6xl"
+        aria-hidden="true"
       >
-        Step 1: Detection
+        warning
       </span>
       <h1
-        class="font-headline text-3xl font-black text-white tracking-tight uppercase mt-2"
+        class="font-headline text-3xl font-black text-white tracking-tight uppercase"
       >
         Drift Anomaly Detected
       </h1>
       <p
-        class="font-label-caps text-on-surface-variant text-[11px] tracking-widest uppercase opacity-60"
+        class="text-on-surface-variant text-[11px] tracking-widest uppercase opacity-70"
       >
         Envictica Core Systems
       </p>
-    </div>
-
-    <div class="bg-surface/40 hud-border p-6 rounded-lg flex flex-col gap-2">
-      <div class="flex justify-between items-start">
-        <div class="flex flex-col">
-          <span
-            class="font-label-caps text-[10px] text-on-surface-variant tracking-wider uppercase"
-            >Fiduciary Impact</span
-          >
-          <span
-            class="font-label-caps text-[12px] text-env-alert font-bold mt-1"
-            >84% Divergence Detected in Procurement.Ops Node</span
-          >
-        </div>
-      </div>
-      <h2 class="text-white text-xl font-medium mt-4">Potential Logic Fail</h2>
-      <div class="w-full bg-white/5 h-2 rounded-full mt-2 overflow-hidden">
+    </header>
+    <!-- Anomaly Summary -->
+    <section
+      class="bg-surface/40 hud-border rounded-lg p-6 flex flex-col gap-2"
+      aria-labelledby="anomaly-heading"
+    >
+      <span
+        class="text-[10px] text-on-surface-variant tracking-wider uppercase"
+      >
+        Fiduciary Impact
+      </span>
+      <h2
+        id="anomaly-heading"
+        class="text-[13px] text-env-alert font-bold uppercase tracking-wide"
+      >
+        84% Divergence Detected in Procurement.Ops Node
+      </h2>
+      <p class="text-white text-xl font-medium mt-3">
+        Potential Logic Failure
+      </p>
+      <div
+        class="w-full bg-white/5 h-2 rounded-full mt-2 overflow-hidden"
+        role="progressbar"
+        aria-label="Detected divergence"
+        aria-valuenow="84"
+        aria-valuemin="0"
+        aria-valuemax="100"
+      >
         <div
           class="bg-env-alert h-full w-[84%] shadow-[0_0_10px_#FF4D6D]"
         ></div>
       </div>
-    </div>
-
-    <div
-      class="bg-surface/40 border border-outline p-6 rounded-lg flex flex-col gap-4"
+    </section>
+    <!-- Drift Visualization -->
+    <section
+      class="bg-surface/40 border border-outline rounded-lg p-6 flex flex-col gap-4"
+      aria-labelledby="drift-heading"
     >
       <div class="flex justify-between items-center">
-        <span
-          class="font-label-caps text-[10px] text-on-surface-variant tracking-wider uppercase font-bold"
-          >Drift vs Baseline</span
+        <h2
+          id="drift-heading"
+          class="text-[10px] text-on-surface-variant tracking-wider uppercase font-bold"
         >
-        <span class="font-data-numeral text-[11px] text-primary"
-          >T-Minus 5:00</span
-        >
+          Drift vs Baseline
+        </h2>
+        <span class="text-[11px] text-primary">
+          Response Window: 05:00
+        </span>
       </div>
       <div class="relative w-full h-32 mt-2">
-        <svg class="w-full h-full" viewBox="0 0 400 100">
-          <path
-            d="M 0 60 Q 100 55 200 65 T 350 15"
-            fill="none"
-            stroke="#FF4D6D"
-            stroke-width="2"
-            class="drift-line"
-          />
+        <svg
+          class="w-full h-full"
+          viewBox="0 0 400 100"
+          preserveAspectRatio="none"
+          role="img"
+          aria-label="Drift increasing above baseline"
+        >
+          <!-- Baseline -->
           <line
             x1="0"
             y1="60"
@@ -125,6 +147,15 @@
             stroke-dasharray="4 4"
             opacity="0.2"
           />
+          <!-- Drift -->
+          <path
+            d="M0 60 Q100 55 200 65 T350 15"
+            fill="none"
+            stroke="#FF4D6D"
+            stroke-width="2"
+            class="drift-line"
+          />
+          <!-- Anomaly Point -->
           <circle
             cx="350"
             cy="15"
@@ -134,69 +165,52 @@
           />
         </svg>
       </div>
-    </div>
-
-    <div
-      class="bg-surface/40 border border-outline p-6 rounded-lg grid grid-cols-2 gap-4"
+    </section>
+    <!-- Response Status -->
+    <section
+      class="bg-surface/40 border border-outline rounded-lg p-6 grid grid-cols-2 gap-4"
     >
       <div class="flex flex-col gap-1">
         <span
-          class="font-label-caps text-[9px] text-on-surface-variant uppercase tracking-widest"
-          >Operator ID</span
+          class="text-[9px] text-on-surface-variant uppercase tracking-widest"
         >
-        <span class="font-data-numeral text-sm text-white">ENV-OP-4892</span>
+          Operator ID
+        </span>
+        <span class="text-sm text-white">
+          ENV-OP-4892
+        </span>
       </div>
       <div class="flex flex-col gap-1 items-end">
         <span
-          class="font-label-caps text-[9px] text-on-surface-variant uppercase tracking-widest"
-          >Response Window</span
+          class="text-[9px] text-on-surface-variant uppercase tracking-widest"
         >
-        <span class="font-data-numeral text-sm text-env-alert font-bold"
-          >04:57</span
-        >
+          Response Window
+        </span>
+        <span class="text-sm text-env-alert font-bold">
+          04:57
+        </span>
       </div>
-    </div>
-
-    <div class="mt-auto flex flex-col gap-3 pb-8">
+    </section>
+    <!-- Actions -->
+    <section class="mt-auto flex flex-col gap-3 pb-8">
       <button
-        class="w-full bg-env-alert text-white font-label-caps text-[13px] py-4 rounded font-bold tracking-widest flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,77,109,0.3)] active:scale-95 transition-all"
+        type="button"
+        class="w-full bg-env-alert text-white text-[13px] py-4 rounded font-bold tracking-widest flex items-center justify-center gap-2 shadow-[0_0_20px_rgba(255,77,109,0.3)] active:scale-95 transition-all"
       >
-        <span class="material-symbols-outlined text-lg">emergency</span> INITIATE
-        RE-CALIBRATION
+        <span
+          class="material-symbols-outlined text-lg"
+          aria-hidden="true"
+        >
+          emergency
+        </span>
+        Initiate Re-Calibration
       </button>
       <button
-        class="w-full border border-outline bg-transparent text-on-surface font-label-caps text-[13px] py-4 rounded tracking-widest hover:bg-white/5 active:scale-95 transition-all"
+        type="button"
+        class="w-full border border-outline bg-transparent text-on-surface text-[13px] py-4 rounded tracking-widest hover:bg-white/5 active:scale-95 transition-all"
       >
-        REVIEW DIVERGENT CLAUSES
+        Review Divergent Clauses
       </button>
-    </div>
-  
-<style>
-/* Global Responsive Breakpoints & Mobile Fixes */
-@media (max-width: 768px) {
-  /* Force grid structures to stack in a single column */
-  .grid, .card-grid, .dashboard-grid, [class*="grid"] {
-    grid-template-columns: 1fr !important;
-  }
-  
-  /* Tables & data displays wrap cleanly with scroll support */
-  table, .table-container, [class*="table"] {
-    max-width: 100% !important;
-    overflow-x: auto !important;
-  }
-  
-  /* Prevent horizontal document overflow */
-  body, html {
-    overflow-x: hidden !important;
-  }
-
-  /* Bottom padding to prevent floating bars/dock from overlapping buttons */
-  body, main, .container, .page-wrapper {
-    padding-bottom: 90px !important;
-  }
-}
-</style>
-
-<script src="envictica-ui.js"></script>
-</body>
+    </section>
+  </body>
 </html>
